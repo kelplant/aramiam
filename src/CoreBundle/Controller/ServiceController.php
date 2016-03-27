@@ -58,7 +58,7 @@ class ServiceController extends Controller
      * @param $insert
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form,$message,$insert)
+    private function generateRender($form, $message, $insert)
     {
         return $this->render('CoreBundle:Service:body.html.twig', array(
             'serviceForm' => $form,
@@ -73,9 +73,9 @@ class ServiceController extends Controller
      * @param $action
      * @return \Symfony\Component\Form\Form
      */
-    private function generateForm($object,$service,$action)
+    private function generateForm($object, $service, $action)
     {
-        return $this->createForm($object,$service, array(
+        return $this->createForm($object, $service, array(
             'action' => $action,
             'method' => 'POST',
         ));
@@ -86,10 +86,10 @@ class ServiceController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request,0,22);
-        if($routeName == '/admin/services/delete')
+        $routeName = substr($this->request, 0, 22);
+        if ($routeName == '/admin/services/delete')
         {
-            $serviceToTemove = (int)substr($this->request,23);
+            $serviceToTemove = (int)substr($this->request, 23);
             $remove = $this->get('core.service_manager')->removeService($serviceToTemove);
             $this->message = $this->generateMessage($remove);
             $this->insert = $remove;
@@ -105,7 +105,7 @@ class ServiceController extends Controller
     {
         $service = new Service();
 
-        $form = $this->generateForm(new ServiceType('Envoyer', 'Envoyer et Nouveau'),$service,$this->generateUrl('add_service'));
+        $form = $this->generateForm(new ServiceType('Envoyer', 'Envoyer et Nouveau'), $service, $this->generateUrl('add_service'));
 
         if (isset($this->serviceLoad['Envoyer']) OR isset($this->serviceLoad['EnvoyerNouveau'])) {
             $this->insert = $this->get('core.service_manager')->setService($this->serviceLoad);
@@ -116,7 +116,7 @@ class ServiceController extends Controller
             return $this->getFullList();
         }
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 
     /**
@@ -126,7 +126,7 @@ class ServiceController extends Controller
     public function editAction($serviceEdit)
     {
         if (isset($this->serviceLoad['Envoyer']) OR isset($this->serviceLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.service_manager')->editService($serviceEdit,$this->serviceLoad);
+            $edit = $this->get('core.service_manager')->editService($serviceEdit, $this->serviceLoad);
             $this->generateMessage($edit);
             $this->insert = $edit;
         }
@@ -134,8 +134,8 @@ class ServiceController extends Controller
             return $this->getFullList();
         }
         $service = $this->get("core.service_manager")->getRepository()->findOneById($serviceEdit);
-        $form = $this->generateForm(new ServiceType('Mettre & Jour', 'MàJ et Rester'),$service,$this->generateUrl('edit_service', array('serviceEdit' => $serviceEdit)));
+        $form = $this->generateForm(new ServiceType('Mettre & Jour', 'MàJ et Rester'), $service, $this->generateUrl('edit_service', array('serviceEdit' => $serviceEdit)));
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 }

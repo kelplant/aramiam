@@ -58,7 +58,7 @@ class FonctionController extends Controller
      * @param $insert
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form,$message,$insert)
+    private function generateRender($form, $message, $insert)
     {
         return $this->render('CoreBundle:Fonction:body.html.twig', array(
             'fonctionForm' => $form,
@@ -73,9 +73,9 @@ class FonctionController extends Controller
      * @param $action
      * @return \Symfony\Component\Form\Form
      */
-    private function generateForm($object,$fonction,$action)
+    private function generateForm($object, $fonction, $action)
     {
-        return $this->createForm($object,$fonction, array(
+        return $this->createForm($object, $fonction, array(
             'action' => $action,
             'method' => 'POST',
         ));
@@ -86,11 +86,11 @@ class FonctionController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request,0,23);
+        $routeName = substr($this->request, 0, 23);
 
-        if($routeName == '/admin/fonctions/delete')
+        if ($routeName == '/admin/fonctions/delete')
         {
-            $fonctionToTemove = (int)substr($this->request,24);
+            $fonctionToTemove = (int)substr($this->request, 24);
             $remove = $this->get('core.fonction_manager')->removeFonction($fonctionToTemove);
             $this->message = $this->generateMessage($remove);
             $this->insert = $remove;
@@ -106,7 +106,7 @@ class FonctionController extends Controller
     {
         $fonction = new Fonction();
 
-        $form = $this->generateForm(new FonctionType('Envoyer', 'Envoyer et Nouveau'),$fonction,$this->generateUrl('add_fonction'));
+        $form = $this->generateForm(new FonctionType('Envoyer', 'Envoyer et Nouveau'), $fonction, $this->generateUrl('add_fonction'));
 
         if (isset($this->fonctionLoad['Envoyer']) OR isset($this->fonctionLoad['EnvoyerNouveau'])) {
             $this->insert = $this->get('core.fonction_manager')->setFonction($this->fonctionLoad);
@@ -117,7 +117,7 @@ class FonctionController extends Controller
             return $this->getFullList();
         }
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 
     /**
@@ -127,7 +127,7 @@ class FonctionController extends Controller
     public function editAction($fonctionEdit)
     {
         if (isset($this->fonctionLoad['Envoyer']) OR isset($this->fonctionLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.fonction_manager')->editFonction($fonctionEdit,$this->fonctionLoad);
+            $edit = $this->get('core.fonction_manager')->editFonction($fonctionEdit, $this->fonctionLoad);
             $this->generateMessage($edit);
             $this->insert = $edit;
         }
@@ -135,8 +135,8 @@ class FonctionController extends Controller
             return $this->getFullList();
         }
         $fonction = $this->get("core.fonction_manager")->getRepository()->findOneById($fonctionEdit);
-        $form = $this->generateForm(new FonctionType('Mettre & Jour', 'MàJ et Rester'),$fonction,$this->generateUrl('edit_fonction', array('fonctionEdit' => $fonctionEdit)));
+        $form = $this->generateForm(new FonctionType('Mettre & Jour', 'MàJ et Rester'), $fonction, $this->generateUrl('edit_fonction', array('fonctionEdit' => $fonctionEdit)));
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 }

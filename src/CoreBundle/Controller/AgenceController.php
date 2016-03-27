@@ -58,7 +58,7 @@ class AgenceController extends Controller
      * @param $insert
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form,$message,$insert)
+    private function generateRender($form, $message, $insert)
     {
         return $this->render('CoreBundle:Agence:body.html.twig', array(
             'agenceForm' => $form,
@@ -73,9 +73,9 @@ class AgenceController extends Controller
      * @param $action
      * @return \Symfony\Component\Form\Form
      */
-    private function generateForm($object,$agence,$action)
+    private function generateForm($object, $agence, $action)
     {
-        return $this->createForm($object,$agence, array(
+        return $this->createForm($object, $agence, array(
             'action' => $action,
             'method' => 'POST',
         ));
@@ -86,10 +86,10 @@ class AgenceController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request,0,21);
-        if($routeName == '/admin/agences/delete')
+        $routeName = substr($this->request, 0, 21);
+        if ($routeName == '/admin/agences/delete')
         {
-            $agenceToTemove = (int)substr($this->request,22);
+            $agenceToTemove = (int)substr($this->request, 22);
             $remove = $this->get('core.agence_manager')->removeAgence($agenceToTemove);
             $this->message = $this->generateMessage($remove);
             $this->insert = $remove;
@@ -105,7 +105,7 @@ class AgenceController extends Controller
     {
         $agence = new Agence();
 
-        $form = $this->generateForm(new AgenceType('Envoyer', 'Envoyer et Nouveau'),$agence,$this->generateUrl('add_agence'));
+        $form = $this->generateForm(new AgenceType('Envoyer', 'Envoyer et Nouveau'), $agence, $this->generateUrl('add_agence'));
 
         if (isset($this->agenceLoad['Envoyer']) OR isset($this->agenceLoad['EnvoyerNouveau'])) {
             $this->insert = $this->get('core.agence_manager')->setAgence($this->agenceLoad);
@@ -116,7 +116,7 @@ class AgenceController extends Controller
             return $this->getFullList();
         }
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 
     /**
@@ -126,7 +126,7 @@ class AgenceController extends Controller
     public function editAction($agenceEdit)
     {
         if (isset($this->agenceLoad['Envoyer']) OR isset($this->agenceLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.agence_manager')->editAgence($agenceEdit,$this->agenceLoad);
+            $edit = $this->get('core.agence_manager')->editAgence($agenceEdit, $this->agenceLoad);
             $this->generateMessage($edit);
             $this->insert = $edit;
         }
@@ -134,8 +134,8 @@ class AgenceController extends Controller
             return $this->getFullList();
         }
         $agence = $this->get("core.agence_manager")->getRepository()->findOneById($agenceEdit);
-        $form = $this->generateForm(new AgenceType('Mettre & Jour', 'MàJ et Rester'),$agence,$this->generateUrl('edit_agence', array('agenceEdit' => $agenceEdit)));
+        $form = $this->generateForm(new AgenceType('Mettre & Jour', 'MàJ et Rester'), $agence, $this->generateUrl('edit_agence', array('agenceEdit' => $agenceEdit)));
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 }

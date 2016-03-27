@@ -98,7 +98,7 @@ class AgenceType extends AbstractType
                     'class' => 'btn btn-success',
                 ),
             ))
-            ->add('EnvoyerNouveau',SubmitType::class, array(
+            ->add('EnvoyerNouveau', SubmitType::class, array(
                 'label' => $this->typeBtnEN,
                 'attr' => array(
                     'class' => 'btn btn-info',

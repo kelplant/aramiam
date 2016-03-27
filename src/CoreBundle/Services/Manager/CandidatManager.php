@@ -49,10 +49,10 @@ class CandidatManager extends BaseManager
         $candidatInsert->setFonction($candidatLoad['fonction']);
         $candidatInsert->setResponsable($candidatLoad['responsable']);
         $candidatInsert->setIsArchived($candidatLoad['isArchives']);
-        try{
+        try {
             $this->saveCandidat($candidatInsert);
             return $message = 6669;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -64,13 +64,13 @@ class CandidatManager extends BaseManager
     public function removeCandidat($candidat)
     {
         $candidats = $this->getRepository()->findById($candidat);
-        try{
+        try {
             foreach ($candidats as $candidat) {
                 $this->em->remove($candidat);
                 $this->em->flush();
             }
             return $message = 6668;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -80,7 +80,7 @@ class CandidatManager extends BaseManager
      * @param $candidatLoad
      * @return bool|string
      */
-    public function editCandidat($candidatEdit,$candidatLoad)
+    public function editCandidat($candidatEdit, $candidatLoad)
     {
         try
         {
@@ -96,7 +96,7 @@ class CandidatManager extends BaseManager
             $candidatEdit->setIsArchived($candidatLoad['isArchives']);
             $this->em->flush();
             return $message = "6667";
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }

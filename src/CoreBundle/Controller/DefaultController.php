@@ -3,23 +3,22 @@
 namespace CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Aramis\OdigoServiceBundle\Entity\Core\OdigoServiceResponse as OdigoServiceResponse;
 
 class DefaultController extends Controller
 {
     /**
-     * @param $companyPhone
-     * @param $companyInternalPhone
-     * @param $companyPrenom
-     * @param $companyEmail
-     * @param $companyNom
-     * @param $companyPassword
-     * @param $companyAgence
-     * @param $companyService
-     * @param $companyExtension
+     * @param string $companyPhone
+     * @param string $companyInternalPhone
+     * @param string $companyPrenom
+     * @param string $companyEmail
+     * @param string $companyNom
+     * @param string $companyPassword
+     * @param string $companyAgence
+     * @param string $companyService
+     * @param string $companyExtension
      * @return array
      */
-    private function createWithTemplateArrayForRequestFromCompany($companyPhone,$companyInternalPhone,$companyPrenom,$companyEmail,$companyNom,$companyPassword,$companyAgence,$companyService,$companyExtension)
+    private function createWithTemplateArrayForRequestFromCompany($companyPhone, $companyInternalPhone, $companyPrenom, $companyEmail, $companyNom, $companyPassword, $companyAgence, $companyService, $companyExtension)
     {
         return $userBeanWithTemplateInfos = array(
             'active' => "1",
@@ -29,7 +28,7 @@ class DefaultController extends Controller
             'firstName' => $companyPrenom,
             'language' => "1",
             'listAgentGroup' => NULL,
-            'listTemplate' => $companyAgence . "_" . $companyService,
+            'listTemplate' => $companyAgence."_".$companyService,
             'mail' => $companyEmail,
             'name' => $companyNom,
             'overloadGroup' => "true",
@@ -37,7 +36,7 @@ class DefaultController extends Controller
             'password' => $companyPassword,
             'phoneLoginNumber' => $companyPhone,
             'phoneLoginPassword' => NULL,
-            'templateId' => $companyAgence . "_" . $companyService,
+            'templateId' => $companyAgence."_".$companyService,
             'timeZone' => "fr",
             'userId' => $companyExtension,
             'skillId' => NULL,
@@ -46,20 +45,20 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $companyInternalPhone
-     * @param $companyPrenom
-     * @param $companyEmail
-     * @param $companyNom
-     * @param $companyPassword
-     * @param $companyAgence
-     * @param $companyExtension
+     * @param string $companyInternalPhone
+     * @param string $companyPrenom
+     * @param string $companyEmail
+     * @param string $companyNom
+     * @param string $companyPassword
+     * @param string $companyAgence
+     * @param string $companyExtension
      * @return array
      */
-    private function createArrayForRequestFromCompany($companyInternalPhone,$companyPrenom,$companyEmail,$companyNom,$companyPassword,$companyAgence,$companyExtension)
+    private function createArrayForRequestFromCompany($companyInternalPhone, $companyPrenom, $companyEmail, $companyNom, $companyPassword, $companyAgence, $companyExtension)
     {
         return $userBeanInfos = array(
             'activeState' => "1",
-            'agentGroups' => "ga_" . strtoupper($companyAgence),
+            'agentGroups' => "ga_".strtoupper($companyAgence),
             'breaks' => NULL,
             'calendarId' => "GENERAL",
             'ddiNumber' => $companyInternalPhone,
@@ -91,7 +90,7 @@ class DefaultController extends Controller
     {
         $loadCreateAgentErrorsCodes = $this->getParameter('odigo_wsdl_error_createagent_codes');
 
-        $userBeanInfos = $this->createArrayForRequestFromCompany("0622244545","XavTestWs","xavtestws@mail.fr","arrtestws","passwordtest","Aix","xavarrws");
+        $userBeanInfos = $this->createArrayForRequestFromCompany("0622244545", "XavTestWs", "xavtestws@mail.fr", "arrtestws", "passwordtest", "Aix", "xavarrws");
 
         $create = $this->get('odigo.service.client')->create(
             $this->getParameter('odigo'),
@@ -104,7 +103,7 @@ class DefaultController extends Controller
 
         $loadCreateUserWithTemplateErrorsCodes = $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes');
 
-        $userBeanWithTemplateInfos = $this->createWithTemplateArrayForRequestFromCompany("0405440404","0622544545","fdstTestWs","fdstestws@mail.fr","fdsttestws","passwordtest","Aix","CC","fdst");
+        $userBeanWithTemplateInfos = $this->createWithTemplateArrayForRequestFromCompany("0405440404", "0622544545", "fdstTestWs", "fdstestws@mail.fr", "fdsttestws", "passwordtest", "Aix", "CC", "fdst");
 
         $createWithTemplate = $this->get('odigo.service.client')->createwithtemplate(
             $this->getParameter('odigo'),

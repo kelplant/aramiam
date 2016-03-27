@@ -46,10 +46,10 @@ class FonctionManager extends BaseManager
         $fonctionInsert->setNameInOdigo($fonctionLoad['nameInOdigo']);
         $fonctionInsert->setNameInSalesforce($fonctionLoad['nameInSalesforce']);
         $fonctionInsert->setNameInZendesk($fonctionLoad['nameInZendesk']);
-        try{
+        try {
             $this->saveFonction($fonctionInsert);
             return $message = 6669;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -61,13 +61,13 @@ class FonctionManager extends BaseManager
     public function removeFonction($fonction)
     {
         $fonctions = $this->getRepository()->findById($fonction);
-        try{
+        try {
             foreach ($fonctions as $fonction) {
                 $this->em->remove($fonction);
                 $this->em->flush();
             }
             return $message = 6668;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -77,7 +77,7 @@ class FonctionManager extends BaseManager
      * @param $fonctionLoad
      * @return bool|string
      */
-    public function editFonction($fonctionEdit,$fonctionLoad)
+    public function editFonction($fonctionEdit, $fonctionLoad)
     {
         try
         {
@@ -90,7 +90,7 @@ class FonctionManager extends BaseManager
             $fonctionEdit->setNameInZendesk($fonctionLoad['nameInZendesk']);
             $this->em->flush();
             return $message = "6667";
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }

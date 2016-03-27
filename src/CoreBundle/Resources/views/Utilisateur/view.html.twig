@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+{% block title %} Liste des agences {% endblock %}
+{% block mainform %}
+    <br><br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="home-gauche list-group-item disabled admin_cat_title" data-href="#">Liste des Agences</div>
+            <table class="table table-striped" id="bootstrap-todo">
+                <thead>
+                <tr>
+                    <th class="admin_cat_table_title">Agence</th>
+                    <th class="admin_cat_table_title">Nom dans Company</th>
+                    <th class="admin_cat_table_title">Nom dans Odigo</th>
+                    <th class="admin_cat_table_title">Nom dans Salesforce</th>
+                    <th class="admin_cat_table_title">Nom dans Zendesk</th>
+                    <th class="admin_cat_table_title">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for agence in all %}
+                    <tr class="testtest" id="generalBtr" data-href="">
+                        <td class="admin_cat_table_cell">{{ agence.name }}</td>
+                        <td class="admin_cat_table_cell">{{ agence.nameInCompany }}</td>
+                        <td class="admin_cat_table_cell">{{ agence.nameInOdigo }}</td>
+                        <td class="admin_cat_table_cell">{{ agence.nameInSalesforce }}</td>
+                        <td class="admin_cat_table_cell">{{ agence.nameInZendesk }}</td>
+                        <td class="admin_cat_table_cell_action"><i class="fa fa-pencil-square-o"></i> <i class="fa fa-times"></i></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footform %}
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

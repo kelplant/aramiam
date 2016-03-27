@@ -1,0 +1,16 @@
+# Routing for Agences
+liste_des_agences:
+    path:     /admin/agences
+    defaults: { _controller: CoreBundle:Agence:index }
+
+add_agence:
+    path:     /admin/agences/add
+    defaults: { _controller: CoreBundle:Agence:add }
+
+remove_agence:
+    path:     /admin/agences/delete/{agenceDelete}
+    defaults: { _controller: CoreBundle:Agence:index }
+
+edit_agence:
+    path:     /admin/agences/edit/{agenceEdit}
+    defaults: { _controller: CoreBundle:Agence:edit }

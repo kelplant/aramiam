@@ -1,0 +1,48 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+    # You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    odigo:
+        url:           ~
+        login:         ~
+        password:      ~
+    odigo_wsdl_error_createagent_codes:
+        0:             L'utlisateur a été crée
+        105:           L'utilisateur existe déjà
+    odigo_wsdl_error_creatuserwithtemplate_codes:
+        0:             L'utlisateur a été crée
+        3:             L'utilisateur existe déjà
+    odigo_wsdl_error_export_codes:
+        0:             L'export s'est correctement exécuté
+    odigo_wsdl_error_delete_codes:
+        0:             L'utlisateur a été supprimé
+    agence_insert_exceptions:
+        6669:          'Agence correctement ajoutée'
+        6668:          "Agence correctement supprimée"
+        1:             "L'agence existe déjà, le nom doit être unique"
+        6667:          "Agence correctement Mise à jour"
+    service_insert_exceptions:
+        6669:          'Service correctement ajouté'
+        1:             "Le service existe déjà, le nom doit être unique"
+        6668:          "Service correctement supprimé"
+        6667:          "Service correctement Mis à jour"
+    fonction_insert_exceptions:
+        6669:          'Fonction correctement ajoutée'
+        1:             "La fonction existe déjà, le nom doit être unique"
+        6668:          "Fonction correctement supprimée"
+        6667:          "Fonction correctement Mise à jour"
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt

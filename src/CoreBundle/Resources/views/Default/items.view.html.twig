@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+    {% block mainform %}
+        <br><br><br><br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="home-gauche list-group-item disabled admin_cat_title" data-href="#">{% block title %}{% endblock %}<a href="{{ route }}"><button type="button" class="btn btn-success pull-right">Nouveau</button></a></div>
+                    {% if message is defined %}
+                        {% if message is not null %}
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class=" col-sm-8 corp-message-3">
+                                    {% if code_message == 6669 %}
+                                        <div class="form-group alert-success corp-message-1">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                    {% if code_message == 1 %}
+                                        <div class="form-group alert-danger corp-message-1">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <table class="table table-striped" id="bootstrap-todo">
+                        <thead>
+                            <tr>
+                                {% block corps_table_title %}
+
+                                {% endblock %}
+                                <th class="admin_cat_table_title">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                                {% block corps_table_cells %}
+
+                                {% endblock %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block footform %}
+
+    {% endblock %}
+    {% block javascripts %}
+
+    {% endblock %}

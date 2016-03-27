@@ -1,0 +1,23 @@
+{% extends '@Core/Default/items.view.html.twig' %}
+    {% block title %} Liste des Fonctions {% endblock %}
+    {% block corps_table_title %}
+        <th class="admin_cat_table_title">Fonction</th>
+        <th class="admin_cat_table_title">Nom raccourci</th>
+        <th class="admin_cat_table_title">Nom dans Company</th>
+        <th class="admin_cat_table_title">Nom dans Odigo</th>
+        <th class="admin_cat_table_title">Nom dans Salesforce</th>
+        <th class="admin_cat_table_title">Nom dans Zendesk</th>
+    {% endblock %}
+    {% block corps_table_cells %}
+        {% for fonction in all %}
+            <tr id="generalBtr" data-href="">
+                <td class="admin_cat_table_cell">{{ fonction.name }}</td>
+                <td class="admin_cat_table_cell">{{ fonction.shortName }}</td>
+                <td class="admin_cat_table_cell">{{ fonction.nameInCompany }}</td>
+                <td class="admin_cat_table_cell">{{ fonction.nameInOdigo }}</td>
+                <td class="admin_cat_table_cell">{{ fonction.nameInSalesforce }}</td>
+                <td class="admin_cat_table_cell">{{ fonction.nameInZendesk }}</td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path('edit_fonction', { 'fonctionEdit': fonction.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette Fonction ?'));" href="{{ path('remove_fonction', { 'fonctionDelete': fonction.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+            </tr>
+        {% endfor %}
+    {% endblock %}

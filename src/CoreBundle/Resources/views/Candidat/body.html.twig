@@ -1,0 +1,99 @@
+{% extends '::base.html.twig' %}
+{% block title %} Liste des candidats {% endblock %}
+{% block mainform %}
+<div class="container main_container">
+    {{ form_start(candidatForm, {'attr':{'class': 'form-horizontal'}}) }}
+    {{ form_errors(candidatForm) }}
+    {% if message is defined %}
+        {% if message is not null %}
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class=" col-sm-8 corp-message-3">
+                        {% if code_message == 6669 %}
+                            <div class="form-group alert-success corp-message-1">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if code_message == 1 %}
+                            <div class="form-group alert-danger corp-message-1">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="form-group">
+        {{ form_label(candidatForm.civilite) }}
+        {{ form_errors(candidatForm.civilite) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.civilite) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.name) }}
+        {{ form_errors(candidatForm.name) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.name) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.surname) }}
+        {{ form_errors(candidatForm.surname) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.surname) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.startDate) }}
+        {{ form_errors(candidatForm.startDate) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.startDate) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.agence) }}
+        {{ form_errors(candidatForm.agence) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.agence) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.service) }}
+        {{ form_errors(candidatForm.service) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.service) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.fonction) }}
+        {{ form_errors(candidatForm.fonction) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.fonction) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(candidatForm.responsable) }}
+        {{ form_errors(candidatForm.responsable) }}
+        <div class="col-sm-8">
+            {{ form_widget(candidatForm.responsable) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footform %}
+    <div class="form-group">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-1 align_right">
+            {{ form_row(candidatForm.Envoyer) }}
+        </div>
+        <div class="col-sm-1 align_left">
+            {{ form_row(candidatForm.EnvoyerNouveau) }}
+        </div>
+    </div>
+    {{ form_row(candidatForm.id) }}
+    {{ form_end(candidatForm) }}
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

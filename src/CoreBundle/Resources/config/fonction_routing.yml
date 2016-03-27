@@ -1,0 +1,17 @@
+# Routing for Services
+# Routing for Fonctions
+liste_des_fonctions:
+    path:     /admin/fonctions
+    defaults: { _controller: CoreBundle:Fonction:index }
+
+add_fonction:
+    path:     /admin/fonctions/add
+    defaults: { _controller: CoreBundle:Fonction:add }
+
+remove_fonction:
+    path:     /admin/fonctions/delete/{fonctionDelete}
+    defaults: { _controller: CoreBundle:Fonction:index }
+
+edit_fonction:
+    path:     /admin/fonctions/edit/{fonctionEdit}
+    defaults: { _controller: CoreBundle:Fonction:edit }

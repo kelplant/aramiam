@@ -1,0 +1,54 @@
+<nav class="navbar navbar-fixed-top navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand">Aramis Identity Access Management</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Candidats <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('add_candidat') }}">Ajouter un Candidat</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('liste_des_candidats') }}">Accès aux Candidats</a></li>
+                        <li><a href="http://127.0.0.1/aramis-odigo/web/app_dev.php">Accès aux Archives</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('liste_des_utilisateurs') }}">Utilisateurs Actifs</a></li>
+                        <li><a href="http://127.0.0.1/aramis-odigo/web/app_dev.php">Atilisateurs Inactifs</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Divers <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('liste_des_agences') }}">Liste des Agences</a></li>
+                        <li><a href="{{ path('liste_des_services') }}">Liste des Services</a></li>
+                        <li><a href="{{ path('liste_des_fonctions') }}">Liste des Fonctions</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {#{% endif %}#}
+            <ul class="nav navbar-nav navbar-right">
+                <li>{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a href="#">Déconnexion</a>
+                {% else %}
+                    <a href="#">Connexion</a>
+                {% endif %}</li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+

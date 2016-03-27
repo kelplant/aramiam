@@ -1,0 +1,23 @@
+parameters:
+    core.agence_manager.class: CoreBundle\Services\Manager\AgenceManager
+    core.service_manager.class: CoreBundle\Services\Manager\ServiceManager
+    core.utilisateur_manager.class: CoreBundle\Services\Manager\UtilisateurManager
+    core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
+    core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
+
+services:
+    core.agence_manager:
+        class: %core.agence_manager.class%
+        arguments: ['@doctrine.orm.entity_manager']
+    core.service_manager:
+        class: %core.service_manager.class%
+        arguments: ['@doctrine.orm.entity_manager']
+    core.utilisateur_manager:
+        class: %core.utilisateur_manager.class%
+        arguments: ['@doctrine.orm.entity_manager']
+    core.fonction_manager:
+        class: %core.fonction_manager.class%
+        arguments: ['@doctrine.orm.entity_manager']
+    core.candidat_manager:
+        class: %core.candidat_manager.class%
+        arguments: ['@doctrine.orm.entity_manager']

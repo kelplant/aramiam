@@ -1,0 +1,78 @@
+{% extends '::base.html.twig' %}
+{% block title %} Liste des agences {% endblock %}
+{% block mainform %}
+<div class="container main_container">
+    {{ form_start(agenceForm, {'attr':{'class': 'form-horizontal'}}) }}
+    {{ form_errors(agenceForm) }}
+    {% if message is defined %}
+        {% if message is not null %}
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class=" col-sm-8 corp-message-3">
+                        {% if code_message == 6669 %}
+                            <div class="form-group alert-success corp-message-1">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if code_message == 1 %}
+                            <div class="form-group alert-danger corp-message-1">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="form-group">
+        {{ form_label(agenceForm.name) }}
+        {{ form_errors(agenceForm.name) }}
+        <div class="col-sm-8">
+            {{ form_widget(agenceForm.name) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(agenceForm.nameInCompany) }}
+        {{ form_errors(agenceForm.nameInCompany) }}
+        <div class="col-sm-8">
+            {{ form_widget(agenceForm.nameInCompany) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(agenceForm.nameInOdigo) }}
+        {{ form_errors(agenceForm.nameInOdigo) }}
+        <div class="col-sm-8">
+            {{ form_widget(agenceForm.nameInOdigo) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(agenceForm.nameInSalesforce) }}
+        {{ form_errors(agenceForm.nameInSalesforce) }}
+        <div class="col-sm-8">
+            {{ form_widget(agenceForm.nameInSalesforce) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(agenceForm.nameInZendesk) }}
+        {{ form_errors(agenceForm.nameInZendesk) }}
+        <div class="col-sm-8">
+            {{ form_widget(agenceForm.nameInZendesk) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footform %}
+    <div class="form-group">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-1 align_right">
+            {{ form_row(agenceForm.Envoyer) }}
+        </div>
+        <div class="col-sm-1 align_left">
+            {{ form_row(agenceForm.EnvoyerNouveau) }}
+        </div>
+    </div>
+    {{ form_row(agenceForm.id) }}
+    {{ form_end(agenceForm) }}
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

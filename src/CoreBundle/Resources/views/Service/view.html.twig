@@ -1,0 +1,23 @@
+{% extends '@Core/Default/items.view.html.twig' %}
+    {% block title %} Liste des Services {% endblock %}
+    {% block corps_table_title %}
+        <th class="admin_cat_table_title">Service</th>
+        <th class="admin_cat_table_title">Nom raccourci</th>
+        <th class="admin_cat_table_title">Nom dans Company</th>
+        <th class="admin_cat_table_title">Nom dans Odigo</th>
+        <th class="admin_cat_table_title">Nom dans Salesforce</th>
+        <th class="admin_cat_table_title">Nom dans Zendesk</th>
+    {% endblock %}
+    {% block corps_table_cells %}
+        {% for service in all %}
+            <tr id="generalBtr" data-href="">
+                <td class="admin_cat_table_cell">{{ service.name }}</td>
+                <td class="admin_cat_table_cell">{{ service.shortName }}</td>
+                <td class="admin_cat_table_cell">{{ service.nameInCompany }}</td>
+                <td class="admin_cat_table_cell">{{ service.nameInOdigo }}</td>
+                <td class="admin_cat_table_cell">{{ service.nameInSalesforce }}</td>
+                <td class="admin_cat_table_cell">{{ service.nameInZendesk }}</td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path('edit_service', { 'serviceEdit': service.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce Service?'));" href="{{ path('remove_service', { 'serviceDelete': service.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+            </tr>
+        {% endfor %}
+    {% endblock %}

@@ -1,0 +1,16 @@
+# Routing for Services
+liste_des_candidats:
+    path:     /admin/candidats
+    defaults: { _controller: CoreBundle:Candidat:index }
+
+add_candidat:
+    path:     /admin/candidats/add
+    defaults: { _controller: CoreBundle:Candidat:add }
+
+remove_candidat:
+    path:     /admin/candidats/delete/{serviceDelete}
+    defaults: { _controller: CoreBundle:Candidat:index }
+
+edit_candidat:
+    path:     /admin/candidats/edit/{serviceEdit}
+    defaults: { _controller: CoreBundle:Candidat:edit }

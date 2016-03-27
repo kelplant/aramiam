@@ -46,10 +46,10 @@ class ServiceManager extends BaseManager
         $serviceInsert->setNameInOdigo($serviceLoad['nameInOdigo']);
         $serviceInsert->setNameInSalesforce($serviceLoad['nameInSalesforce']);
         $serviceInsert->setNameInZendesk($serviceLoad['nameInZendesk']);
-        try{
+        try {
             $this->saveService($serviceInsert);
             return $message = 6669;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -61,13 +61,13 @@ class ServiceManager extends BaseManager
     public function removeService($service)
     {
         $services = $this->getRepository()->findById($service);
-        try{
+        try {
             foreach ($services as $service) {
                 $this->em->remove($service);
                 $this->em->flush();
             }
             return $message = 6668;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -77,7 +77,7 @@ class ServiceManager extends BaseManager
      * @param $serviceLoad
      * @return bool|string
      */
-    public function editService($serviceEdit,$serviceLoad)
+    public function editService($serviceEdit, $serviceLoad)
     {
         try
         {
@@ -90,7 +90,7 @@ class ServiceManager extends BaseManager
             $serviceEdit->setNameInZendesk($serviceLoad['nameInZendesk']);
             $this->em->flush();
             return $message = "6667";
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }

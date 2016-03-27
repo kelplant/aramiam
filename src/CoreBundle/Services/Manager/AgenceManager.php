@@ -45,10 +45,10 @@ class AgenceManager extends BaseManager
         $agenceInsert->setNameInOdigo($agenceLoad['nameInOdigo']);
         $agenceInsert->setNameInSalesforce($agenceLoad['nameInSalesforce']);
         $agenceInsert->setNameInZendesk($agenceLoad['nameInZendesk']);
-        try{
+        try {
             $this->saveAgence($agenceInsert);
             return $message = 6669;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -60,13 +60,13 @@ class AgenceManager extends BaseManager
     public function removeAgence($agence)
     {
         $agences = $this->getRepository()->findById($agence);
-        try{
+        try {
             foreach ($agences as $agence) {
                 $this->em->remove($agence);
                 $this->em->flush();
             }
             return $message = 6668;
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
@@ -76,7 +76,7 @@ class AgenceManager extends BaseManager
      * @param $agenceLoad
      * @return bool|string
      */
-    public function editAgence($agenceEdit,$agenceLoad)
+    public function editAgence($agenceEdit, $agenceLoad)
     {
         try
         {
@@ -88,7 +88,7 @@ class AgenceManager extends BaseManager
             $agenceEdit->setNameInZendesk($agenceLoad['nameInZendesk']);
             $this->em->flush();
             return $message = "6667";
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }

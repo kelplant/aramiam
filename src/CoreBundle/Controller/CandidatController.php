@@ -58,7 +58,7 @@ class CandidatController extends Controller
      * @param $insert
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form,$message,$insert)
+    private function generateRender($form, $message, $insert)
     {
         return $this->render('CoreBundle:Candidat:body.html.twig', array(
             'candidatForm' => $form,
@@ -73,9 +73,9 @@ class CandidatController extends Controller
      * @param $action
      * @return \Symfony\Component\Form\Form
      */
-    private function generateForm($object,$candidat,$action)
+    private function generateForm($object, $candidat, $action)
     {
-        return $this->createForm($object,$candidat, array(
+        return $this->createForm($object, $candidat, array(
             'action' => $action,
             'method' => 'POST',
         ));
@@ -86,11 +86,11 @@ class CandidatController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request,0,23);
+        $routeName = substr($this->request, 0, 23);
 
-        if($routeName == '/admin/candidats/delete')
+        if ($routeName == '/admin/candidats/delete')
         {
-            $candidatToTemove = (int)substr($this->request,24);
+            $candidatToTemove = (int)substr($this->request, 24);
             $remove = $this->get('core.candidat_manager')->removeCandidat($candidatToTemove);
             $this->message = $this->generateMessage($remove);
             $this->insert = $remove;
@@ -106,7 +106,7 @@ class CandidatController extends Controller
     {
         $candidat = new Candidat();
 
-        $form = $this->generateForm(new CandidatType('Envoyer', 'Envoyer et Nouveau'),$candidat,$this->generateUrl('add_candidat'));
+        $form = $this->generateForm(new CandidatType('Envoyer', 'Envoyer et Nouveau'), $candidat, $this->generateUrl('add_candidat'));
 
         if (isset($this->candidatLoad['Envoyer']) OR isset($this->candidatLoad['EnvoyerNouveau'])) {
             $this->insert = $this->get('core.candidat_manager')->setCandidat($this->candidatLoad);
@@ -117,7 +117,7 @@ class CandidatController extends Controller
             return $this->getFullList();
         }
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 
     /**
@@ -127,7 +127,7 @@ class CandidatController extends Controller
     public function editAction($candidatEdit)
     {
         if (isset($this->candidatLoad['Envoyer']) OR isset($this->candidatLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.candidat_manager')->editCandidat($candidatEdit,$this->candidatLoad);
+            $edit = $this->get('core.candidat_manager')->editCandidat($candidatEdit, $this->candidatLoad);
             $this->generateMessage($edit);
             $this->insert = $edit;
         }
@@ -135,8 +135,8 @@ class CandidatController extends Controller
             return $this->getFullList();
         }
         $candidat = $this->get("core.candidat_manager")->getRepository()->findOneById($candidatEdit);
-        $form = $this->generateForm(new CandidatType('Mettre & Jour', 'MàJ et Rester'),$candidat,$this->generateUrl('edit_candidat', array('candidatEdit' => $candidatEdit)));
+        $form = $this->generateForm(new CandidatType('Mettre & Jour', 'MàJ et Rester'), $candidat, $this->generateUrl('edit_candidat', array('candidatEdit' => $candidatEdit)));
 
-        return $this->generateRender($form->createView(),$this->message,(int)$this->insert);
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
     }
 }

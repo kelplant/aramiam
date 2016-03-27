@@ -1,10 +1,10 @@
 <?php
 /**
-     * Created by PhpStorm.
-     * User: Xavier
-     * Date: 24/03/2016
-     * Time: 18:26
-     */
+ * Created by PhpStorm.
+ * User: Xavier
+ * Date: 24/03/2016
+ * Time: 18:26
+ */
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

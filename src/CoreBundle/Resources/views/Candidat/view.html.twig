@@ -8,14 +8,14 @@
         <th class="admin_cat_table_title">Fonction</th>
     {% endblock %}
     {% block corps_table_cells %}
-        {% for candidat in all %}
+        {% for item in all %}
             <tr id="generalBtr" data-href="">
-                <td class="admin_cat_table_cell">{{ candidat.name }} {{ candidat.surname }}</td>
-                <td class="admin_cat_table_cell">{{ candidat.startDate }}</td>
-                <td class="admin_cat_table_cell">{{ candidat.agence }}</td>
-                <td class="admin_cat_table_cell">{{ candidat.service }}</td>
-                <td class="admin_cat_table_cell">{{ candidat.fonction }}</td>
-                <td class="admin_cat_table_cell_action"><a href="{{ path('edit_candidat', { 'candidatEdit': candidat.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette Fonction ?'));" href="{{ path('remove_candidat', { 'candidatDelete': candidat.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+                <td class="admin_cat_table_cell">{{ item.name }} {{ item.surname }}</td>
+                <td class="admin_cat_table_cell">{{ item.startDate.date }}</td>
+                <td class="admin_cat_table_cell">{{ item.agence }}</td>
+                <td class="admin_cat_table_cell">{{ item.service }}</td>
+                <td class="admin_cat_table_cell">{{ item.fonction }}</td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path( edit_path , { 'itemEdit': item.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer {{ alert_text }} ?'));" href="{{ path( remove_path , { 'itemDelete': item.id }) }}"></i> <i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     {% endblock %}

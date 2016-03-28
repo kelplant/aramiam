@@ -10,7 +10,7 @@ namespace CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="fonction")
+ * @ORM\Table(name="core_fonction")
  * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\FonctionRepository")
  */
 class Fonction
@@ -58,6 +58,18 @@ class Fonction
     {
         return $this->id;
     }
+
+    /**
+     * @param mixed $id
+     * @return Fonction
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed

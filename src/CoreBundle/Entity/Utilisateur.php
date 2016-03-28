@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Utilisateur
  * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\UtilisateurRepository")
- * @ORM\Table(name="utilisateur")
+ * @ORM\Table(name="core_utilisateur")
  */
 class Utilisateur
 {
@@ -105,6 +105,18 @@ class Utilisateur
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isCreateInGmail;
+
+    /**
+     * @var string
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $isCreateInSalesforce;
+
+    /**
+     * @var string
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $isCreateInRobusto;
 
     /**
      * @var string

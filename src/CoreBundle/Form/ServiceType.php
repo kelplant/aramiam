@@ -5,6 +5,7 @@ namespace CoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,14 +24,22 @@ class ServiceType extends AbstractType
     private $typeBtnEN;
 
     /**
-     * AgenceType constructor.
-     * @param string $submitName
-     * @param string $typeBtnEN
+     * ServiceType constructor.
      */
-    public function __construct($submitName, $typeBtnEN)
+    public function __construct()
     {
-        $this->submitName = $submitName;
-        $this->typeBtnEN = $typeBtnEN;
+        $path = substr(Request::createFromGlobals()->getPathInfo(),16,4);
+
+        if ($path == 'add')
+        {
+            $this->submitName = 'Envoyer';
+            $this->typeBtnEN = 'Envoyer et Nouveau';
+        }
+        if ($path == 'edit')
+        {
+            $this->submitName = 'Mettre & Jour';
+            $this->typeBtnEN = 'MàJ et Rester';
+        }
     }
 
     /**

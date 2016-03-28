@@ -3,14 +3,18 @@ liste_des_candidats:
     path:     /admin/candidats
     defaults: { _controller: CoreBundle:Candidat:index }
 
+liste_des_candidats_archives:
+    path:     /admin/candidats/archied
+    defaults: { _controller: CoreBundle:Candidat:index }
+
 add_candidat:
     path:     /admin/candidats/add
     defaults: { _controller: CoreBundle:Candidat:add }
 
 remove_candidat:
-    path:     /admin/candidats/delete/{serviceDelete}
-    defaults: { _controller: CoreBundle:Candidat:index }
+    path:     /admin/candidats/delete/{itemDelete}
+    defaults: { _controller: CoreBundle:Candidat:delete }
 
 edit_candidat:
-    path:     /admin/candidats/edit/{serviceEdit}
+    path:     /admin/candidats/edit/{itemEdit}
     defaults: { _controller: CoreBundle:Candidat:edit }

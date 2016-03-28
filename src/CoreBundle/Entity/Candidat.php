@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Candidat
  * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\CandidatRepository")
- * @ORM\Table(name="candidat")
+ * @ORM\Table(name="core_candidat")
  */
 class Candidat
 {
@@ -44,22 +44,25 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date")
      */
     protected $startDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Agence")
+     * @var string
+     * @ORM\Column(type="string"))
      */
     protected $agence;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Service")
+     * @var string
+     * @ORM\Column(type="string"))
      */
     protected $service;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Fonction")
+     * @var string
+     * @ORM\Column(type="string"))
      */
     protected $fonction;
 
@@ -81,6 +84,16 @@ class Candidat
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Candidat
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**

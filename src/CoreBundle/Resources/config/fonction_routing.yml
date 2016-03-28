@@ -9,9 +9,9 @@ add_fonction:
     defaults: { _controller: CoreBundle:Fonction:add }
 
 remove_fonction:
-    path:     /admin/fonctions/delete/{fonctionDelete}
-    defaults: { _controller: CoreBundle:Fonction:index }
+    path:     /admin/fonctions/delete/{itemDelete}
+    defaults: { _controller: CoreBundle:Fonction:delete }
 
 edit_fonction:
-    path:     /admin/fonctions/edit/{fonctionEdit}
+    path:     /admin/fonctions/edit/{itemEdit}
     defaults: { _controller: CoreBundle:Fonction:edit }

@@ -8,14 +8,14 @@
         <th class="admin_cat_table_title">Nom dans Zendesk</th>
     {% endblock %}
     {% block corps_table_cells %}
-        {% for agence in all %}
+        {% for item in all %}
             <tr id="generalBtr" data-href="">
-                <td class="admin_cat_table_cell">{{ agence.name }}</td>
-                <td class="admin_cat_table_cell">{{ agence.nameInCompany }}</td>
-                <td class="admin_cat_table_cell">{{ agence.nameInOdigo }}</td>
-                <td class="admin_cat_table_cell">{{ agence.nameInSalesforce }}</td>
-                <td class="admin_cat_table_cell">{{ agence.nameInZendesk }}</td>
-                <td class="admin_cat_table_cell_action"><a href="{{ path('edit_agence', { 'agenceEdit': agence.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette Agence?'));" href="{{ path('remove_agence', { 'agenceDelete': agence.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+                <td class="admin_cat_table_cell">{{ item.name }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInCompany }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInOdigo }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInSalesforce }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInZendesk }}</td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path( edit_path , { 'itemEdit': item.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer {{ alert_text }} ?'));" href="{{ path( remove_path , { 'itemDelete': item.id }) }}"></i> <i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     {% endblock %}

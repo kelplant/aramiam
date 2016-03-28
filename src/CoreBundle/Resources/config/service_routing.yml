@@ -8,9 +8,9 @@ add_service:
     defaults: { _controller: CoreBundle:Service:add }
 
 remove_service:
-    path:     /admin/services/delete/{serviceDelete}
-    defaults: { _controller: CoreBundle:Service:index }
+    path:     /admin/services/delete/{itemDelete}
+    defaults: { _controller: CoreBundle:Service:delete }
 
 edit_service:
-    path:     /admin/services/edit/{serviceEdit}
+    path:     /admin/services/edit/{itemEdit}
     defaults: { _controller: CoreBundle:Service:edit }

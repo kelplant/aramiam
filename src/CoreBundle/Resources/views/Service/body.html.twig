@@ -2,8 +2,8 @@
 {% block title %} Liste des services {% endblock %}
 {% block mainform %}
 <div class="container main_container">
-    {{ form_start(serviceForm, {'attr':{'class': 'form-horizontal'}}) }}
-    {{ form_errors(serviceForm) }}
+    {{ form_start(itemForm, {'attr':{'class': 'form-horizontal'}}) }}
+    {{ form_errors(itemForm) }}
     {% if message is defined %}
         {% if message is not null %}
             <div class="form-group">
@@ -24,45 +24,45 @@
         {% endif %}
     {% endif %}
     <div class="form-group">
-        {{ form_label(serviceForm.name) }}
-        {{ form_errors(serviceForm.name) }}
+        {{ form_label(itemForm.name) }}
+        {{ form_errors(itemForm.name) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.name) }}
+            {{ form_widget(itemForm.name) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(serviceForm.shortName) }}
-        {{ form_errors(serviceForm.shortName) }}
+        {{ form_label(itemForm.shortName) }}
+        {{ form_errors(itemForm.shortName) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.shortName) }}
+            {{ form_widget(itemForm.shortName) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(serviceForm.nameInCompany) }}
-        {{ form_errors(serviceForm.nameInCompany) }}
+        {{ form_label(itemForm.nameInCompany) }}
+        {{ form_errors(itemForm.nameInCompany) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.nameInCompany) }}
+            {{ form_widget(itemForm.nameInCompany) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(serviceForm.nameInOdigo) }}
-        {{ form_errors(serviceForm.nameInOdigo) }}
+        {{ form_label(itemForm.nameInOdigo) }}
+        {{ form_errors(itemForm.nameInOdigo) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.nameInOdigo) }}
+            {{ form_widget(itemForm.nameInOdigo) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(serviceForm.nameInSalesforce) }}
-        {{ form_errors(serviceForm.nameInSalesforce) }}
+        {{ form_label(itemForm.nameInSalesforce) }}
+        {{ form_errors(itemForm.nameInSalesforce) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.nameInSalesforce) }}
+            {{ form_widget(itemForm.nameInSalesforce) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(serviceForm.nameInZendesk) }}
-        {{ form_errors(serviceForm.nameInZendesk) }}
+        {{ form_label(itemForm.nameInZendesk) }}
+        {{ form_errors(itemForm.nameInZendesk) }}
         <div class="col-sm-8">
-            {{ form_widget(serviceForm.nameInZendesk) }}
+            {{ form_widget(itemForm.nameInZendesk) }}
         </div>
     </div>
 </div>
@@ -71,14 +71,14 @@
     <div class="form-group">
         <div class="col-sm-4"></div>
         <div class="col-sm-1 align_right">
-            {{ form_row(serviceForm.Envoyer) }}
+            {{ form_row(itemForm.Envoyer) }}
         </div>
         <div class="col-sm-1 align_left">
-            {{ form_row(serviceForm.EnvoyerNouveau) }}
+            {{ form_row(itemForm.EnvoyerNouveau) }}
         </div>
     </div>
-    {{ form_row(serviceForm.id) }}
-    {{ form_end(serviceForm) }}
+    {{ form_row(itemForm.id) }}
+    {{ form_end(itemForm) }}
 {% endblock %}
 {% block javascripts %}
 

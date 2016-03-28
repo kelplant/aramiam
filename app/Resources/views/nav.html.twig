@@ -21,14 +21,14 @@
                         <li><a href="{{ path('add_candidat') }}">Ajouter un Candidat</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path('liste_des_candidats') }}">Accès aux Candidats</a></li>
-                        <li><a href="http://127.0.0.1/aramis-odigo/web/app_dev.php">Accès aux Archives</a></li>
+                        <li><a href="{{ path('liste_des_candidats_archives') }}">Accès aux Archives</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('liste_des_utilisateurs') }}">Utilisateurs Actifs</a></li>
-                        <li><a href="http://127.0.0.1/aramis-odigo/web/app_dev.php">Atilisateurs Inactifs</a></li>
+                        <li><a href="#">Atilisateurs Inactifs</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

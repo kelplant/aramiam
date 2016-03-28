@@ -13,9 +13,13 @@ class AgenceController extends Controller
 
     private $insert;
 
-    private $request;
+    private $entity;
 
-    private $agenceLoad;
+    private $newEntity;
+
+    private $formType;
+
+    private $alertText;
 
     /**
      * AgenceController constructor.
@@ -24,31 +28,46 @@ class AgenceController extends Controller
     {
         $this->message = "";
         $this->insert = "";
-        $this->request = Request::createFromGlobals()->getPathInfo();
-        $this->agenceLoad = Request::createFromGlobals()->request->get('agence');
+        $this->entity = "Agence";
+        $this->newEntity = Agence::class;
+        $this->formType = AgenceType::class;
+        $this->alertText = 'cette agence';
     }
 
     /**
      * @param $item
+     * @param $entity
      * @return mixed
      */
-    private function generateMessage($item)
+    private function generateMessage($item,$entity)
     {
-        $this->message = $this->getParameter('agence_insert_exceptions');
+        $this->message = $this->getParameter(strtolower($entity).'_insert_exceptions');
         return $this->message = $this->message[$item];
     }
 
     /**
+     * @return \Symfony\Component\Form\Form
+     */
+    private function generateAddForm()
+    {
+        return $this->createForm($this->formType, new $this->newEntity);
+    }
+
+    /**
+     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getFullList()
+    private function getFullList($entity)
     {
-        $allAgences = $this->get('core.agence_manager')->getRepository()->findAll();
-        return $this->render('CoreBundle:Agence:view.html.twig', array(
-            'all' => $allAgences,
-            'route' => $this->generateUrl('add_agence'),
+        $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findAll();
+        return $this->render('CoreBundle:'.$entity.':view.html.twig', array(
+            'all' => $allItems,
+            'route' => $this->generateUrl('add_'.strtolower($entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
+            'edit_path'=> 'edit_'.strtolower($entity),
+            'remove_path' => 'remove_'.strtolower($entity),
+            'alert_text' => $this->alertText,
         ));
     }
 
@@ -56,29 +75,81 @@ class AgenceController extends Controller
      * @param $form
      * @param $message
      * @param $insert
+     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form, $message, $insert)
+    private function generateRender($form, $message, $insert, $entity)
     {
-        return $this->render('CoreBundle:Agence:body.html.twig', array(
-            'agenceForm' => $form,
+        return $this->render('CoreBundle:'.$entity.':body.html.twig', array(
+            'itemForm' => $form,
             'message' => $message,
             'code_message' => $insert,
         ));
     }
 
     /**
-     * @param $object
-     * @param $agence
-     * @param $action
-     * @return \Symfony\Component\Form\Form
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateForm($object, $agence, $action)
+    public function generateIndexAction()
     {
-        return $this->createForm($object, $agence, array(
-            'action' => $action,
-            'method' => 'POST',
-        ));
+        return $this->getFullList($this->entity);
+    }
+
+    public function generateDeleteAction($request,$entity)
+    {
+        $itemToTemove = (int)$request->get('itemDelete');
+        $remove = $this->get('core.'.strtolower($entity).'_manager')->remove($itemToTemove);
+        $this->message = $this->generateMessage($remove,$this->entity);
+        $this->insert = $remove;
+        return $this->getFullList($this->entity);
+    }
+
+    /**
+     * @param $request
+     * @param $entity
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateAddAction($request,$entity)
+    {
+        $form = $this->generateAddForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid()) {
+                $this->insert = $this->get('core.'.strtolower($entity).'_manager')->add($request->get(strtolower($entity)));
+                $this->message = $this->generateMessage($this->insert,$this->entity);
+                if ($this->insert != 1) $form = $this->generateAddForm();
+            }
+            if (isset($request->get(strtolower($entity))['Envoyer'])) {
+                return $this->getFullList($this->entity);
+            }
+        }
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert,$this->entity);
+    }
+
+    /**
+     * @param $request
+     * @param $entity
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateEditAction($request,$entity)
+    {
+        $itemToEdit = (int)$request->get('itemEdit');
+        $item = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findOneById($itemToEdit);
+        $form = $this->createForm($this->formType, $item);
+        $form->handleRequest($request);
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid()) {
+                $edit = $this->get('core.'.strtolower($entity).'_manager')->edit($itemToEdit,$request->get(strtolower($entity)));
+                $this->generateMessage($edit,$this->entity);
+                $this->insert = $edit;
+            }
+            if (isset($request->get(strtolower($entity))['Envoyer'])) {
+                return $this->getFullList($this->entity);
+            }
+        }
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert,$this->entity);
     }
 
     /**
@@ -86,56 +157,33 @@ class AgenceController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request, 0, 21);
-        if ($routeName == '/admin/agences/delete')
-        {
-            $agenceToTemove = (int)substr($this->request, 22);
-            $remove = $this->get('core.agence_manager')->removeAgence($agenceToTemove);
-            $this->message = $this->generateMessage($remove);
-            $this->insert = $remove;
-        }
-
-        return $this->getFullList();
+        return $this->generateIndexAction();
     }
 
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function deleteAction(Request $request)
     {
-        $agence = new Agence();
-
-        $form = $this->generateForm(new AgenceType('Envoyer', 'Envoyer et Nouveau'), $agence, $this->generateUrl('add_agence'));
-
-        if (isset($this->agenceLoad['Envoyer']) OR isset($this->agenceLoad['EnvoyerNouveau'])) {
-            $this->insert = $this->get('core.agence_manager')->setAgence($this->agenceLoad);
-            $this->message = $this->generateMessage($this->insert);
-        }
-
-        if (isset($this->agenceLoad['Envoyer'])) {
-            return $this->getFullList();
-        }
-
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
+        return $this->generateDeleteAction($request,$this->entity);
     }
 
     /**
-     * @param $agenceEdit
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($agenceEdit)
+    public function addAction(Request $request)
     {
-        if (isset($this->agenceLoad['Envoyer']) OR isset($this->agenceLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.agence_manager')->editAgence($agenceEdit, $this->agenceLoad);
-            $this->generateMessage($edit);
-            $this->insert = $edit;
-        }
-        if (isset($this->agenceLoad['Envoyer'])) {
-            return $this->getFullList();
-        }
-        $agence = $this->get("core.agence_manager")->getRepository()->findOneById($agenceEdit);
-        $form = $this->generateForm(new AgenceType('Mettre & Jour', 'MàJ et Rester'), $agence, $this->generateUrl('edit_agence', array('agenceEdit' => $agenceEdit)));
+        return $this->generateAddAction($request,$this->entity);
+    }
 
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request)
+    {
+        return $this->generateEditAction($request,$this->entity);
     }
 }

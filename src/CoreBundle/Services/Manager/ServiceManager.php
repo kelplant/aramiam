@@ -15,6 +15,10 @@ class ServiceManager extends BaseManager
      */
     protected $em;
 
+    protected $entity;
+
+    protected $entityName;
+
     /**
      * AgencesManager constructor.
      * @param EntityManager $em
@@ -22,32 +26,63 @@ class ServiceManager extends BaseManager
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
+        $this->entity = Service::class;
+        $this->entityName = 'Service';
     }
 
     /**
-     * @param $serviceId
+     * @param Service $service
+     */
+    public function save(Service $service)
+    {
+        $this->persistAndFlush($service);
+    }
+
+    /**
+     * @param $itemToSet
+     * @param $itemLoad
+     * @return mixed
+     */
+    public function globalSetItem($itemToSet,$itemLoad)
+    {
+        $itemToSet->setName($itemLoad['name']);
+        $itemToSet->setShortName($itemLoad['shortName']);
+        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
+        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
+        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
+        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
+
+        return $itemToSet;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository('CoreBundle:'.$this->entityName);
+    }
+
+    /**
+     * @param $itemId
      * @return null|object
      */
-    public function loadService($serviceId) {
+    public function load($itemId) {
         return $this->getRepository()
-            ->findOneBy(array('id' => $serviceId));
+            ->findOneBy(array('id' => $itemId));
     }
 
     /**
-     * @param $serviceLoad
+     * @param $itemLoad
      * @return bool|int
      */
-    public function setService($serviceLoad)
+    public function add($itemLoad)
     {
-        $serviceInsert = new Service();
-        $serviceInsert->setName($serviceLoad['name']);
-        $serviceInsert->setShortName($serviceLoad['shortName']);
-        $serviceInsert->setNameInCompany($serviceLoad['nameInCompany']);
-        $serviceInsert->setNameInOdigo($serviceLoad['nameInOdigo']);
-        $serviceInsert->setNameInSalesforce($serviceLoad['nameInSalesforce']);
-        $serviceInsert->setNameInZendesk($serviceLoad['nameInZendesk']);
+        $itemToSet = new $this->entity;
+        $itemToSet = $this->globalSetItem($itemToSet,$itemLoad);
+
         try {
-            $this->saveService($serviceInsert);
+            $this->save($itemToSet);
             return $message = 6669;
         } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
@@ -55,15 +90,15 @@ class ServiceManager extends BaseManager
     }
 
     /**
-     * @param $service
+     * @param $itemId
      * @return bool|int
      */
-    public function removeService($service)
+    public function remove($itemId)
     {
-        $services = $this->getRepository()->findById($service);
+        $items = $this->getRepository()->findById($itemId);
         try {
-            foreach ($services as $service) {
-                $this->em->remove($service);
+            foreach ($items as $item) {
+                $this->em->remove($item);
                 $this->em->flush();
             }
             return $message = 6668;
@@ -73,21 +108,16 @@ class ServiceManager extends BaseManager
     }
 
     /**
-     * @param $serviceEdit
-     * @param $serviceLoad
+     * @param $itemId
+     * @param $itemLoad
      * @return bool|string
      */
-    public function editService($serviceEdit, $serviceLoad)
+    public function edit($itemId, $itemLoad)
     {
         try
         {
-            $serviceEdit = $this->getRepository()->findOneById($serviceEdit);
-            $serviceEdit->setName($serviceLoad['name']);
-            $serviceEdit->setShortName($serviceLoad['shortName']);
-            $serviceEdit->setNameInCompany($serviceLoad['nameInCompany']);
-            $serviceEdit->setNameInOdigo($serviceLoad['nameInOdigo']);
-            $serviceEdit->setNameInSalesforce($serviceLoad['nameInSalesforce']);
-            $serviceEdit->setNameInZendesk($serviceLoad['nameInZendesk']);
+            $itemToSet = $this->getRepository()->findOneById($itemId);
+            $this->globalSetItem($itemToSet,$itemLoad);
             $this->em->flush();
             return $message = "6667";
         } catch (\Exception $e) {
@@ -96,18 +126,15 @@ class ServiceManager extends BaseManager
     }
 
     /**
-     * @param Service $service
+     * @return array
      */
-    public function saveService(Service $service)
+    public function createList()
     {
-        $this->persistAndFlush($service);
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->em->getRepository('CoreBundle:Service');
+        $datas = $this->getRepository()->findAll();
+        $finalDatas = [];
+        foreach ($datas as $data) {
+            $finalDatas[$data->getName()] = $data->getId();
+        }
+        return $finalDatas;
     }
 }

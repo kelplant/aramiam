@@ -5,12 +5,15 @@ namespace CoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
+use CoreBundle\Services\Manager\FonctionManager as FonctionManager;
 
 class CandidatType extends AbstractType
 {
@@ -24,15 +27,24 @@ class CandidatType extends AbstractType
      */
     private $typeBtnEN;
 
+
     /**
-     * AgenceType constructor.
-     * @param string $submitName
-     * @param string $typeBtnEN
+     * CandidatType constructor.
      */
-    public function __construct($submitName, $typeBtnEN)
+    public function __construct()
     {
-        $this->submitName = $submitName;
-        $this->typeBtnEN = $typeBtnEN;
+        $path = substr(Request::createFromGlobals()->getPathInfo(),17,4);
+
+        if ($path == 'add')
+        {
+            $this->submitName = 'Envoyer';
+            $this->typeBtnEN = 'Envoyer et Nouveau';
+        }
+        if ($path == 'edit')
+        {
+            $this->submitName = 'Mettre & Jour';
+            $this->typeBtnEN = 'MàJ et Rester';
+        }
     }
 
     /**
@@ -52,7 +64,6 @@ class CandidatType extends AbstractType
                     'Mlle' =>'Mademoiselle',
                 ),
                 'label' => 'Civilité',
-                'read_only' => false,
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',
@@ -79,13 +90,13 @@ class CandidatType extends AbstractType
                     'class' => 'form-control',
                 ),
             ))
-            ->add('startDate', DateType::class, array(
+            ->add('startDate', TextType::class, array(
                 'label' => 'Date de démarrage',
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control date',
                 ),
             ))
             ->add('responsable', TextType::class, array(
@@ -98,8 +109,8 @@ class CandidatType extends AbstractType
                 ),
             ))
             ->add('agence', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeAgences"],
                 'label' => 'Agence',
-                'read_only' => false,
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',
@@ -110,8 +121,8 @@ class CandidatType extends AbstractType
                 )
             ))
             ->add('service', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeServices"],
                 'label' => 'Service',
-                'read_only' => false,
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',
@@ -122,8 +133,8 @@ class CandidatType extends AbstractType
                 )
             ))
             ->add('fonction', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeFonctions"],
                 'label' => 'Fonction',
-                'read_only' => false,
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',

@@ -9,15 +9,15 @@
         <th class="admin_cat_table_title">Nom dans Zendesk</th>
     {% endblock %}
     {% block corps_table_cells %}
-        {% for service in all %}
+        {% for item in all %}
             <tr id="generalBtr" data-href="">
-                <td class="admin_cat_table_cell">{{ service.name }}</td>
-                <td class="admin_cat_table_cell">{{ service.shortName }}</td>
-                <td class="admin_cat_table_cell">{{ service.nameInCompany }}</td>
-                <td class="admin_cat_table_cell">{{ service.nameInOdigo }}</td>
-                <td class="admin_cat_table_cell">{{ service.nameInSalesforce }}</td>
-                <td class="admin_cat_table_cell">{{ service.nameInZendesk }}</td>
-                <td class="admin_cat_table_cell_action"><a href="{{ path('edit_service', { 'serviceEdit': service.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce Service?'));" href="{{ path('remove_service', { 'serviceDelete': service.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+                <td class="admin_cat_table_cell">{{ item.name }}</td>
+                <td class="admin_cat_table_cell">{{ item.shortName }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInCompany }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInOdigo }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInSalesforce }}</td>
+                <td class="admin_cat_table_cell">{{ item.nameInZendesk }}</td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path( edit_path , { 'itemEdit': item.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer {{ alert_text }} ?'));" href="{{ path( remove_path , { 'itemDelete': item.id }) }}"></i> <i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     {% endblock %}

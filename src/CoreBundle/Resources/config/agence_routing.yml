@@ -8,9 +8,9 @@ add_agence:
     defaults: { _controller: CoreBundle:Agence:add }
 
 remove_agence:
-    path:     /admin/agences/delete/{agenceDelete}
-    defaults: { _controller: CoreBundle:Agence:index }
+    path:     /admin/agences/delete/{itemDelete}
+    defaults: { _controller: CoreBundle:Agence:delete }
 
 edit_agence:
-    path:     /admin/agences/edit/{agenceEdit}
+    path:     /admin/agences/edit/{itemEdit}
     defaults: { _controller: CoreBundle:Agence:edit }

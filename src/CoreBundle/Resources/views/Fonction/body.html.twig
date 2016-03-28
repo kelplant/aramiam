@@ -2,8 +2,8 @@
 {% block title %} Liste des fonctions {% endblock %}
 {% block mainform %}
 <div class="container main_container">
-    {{ form_start(fonctionForm, {'attr':{'class': 'form-horizontal'}}) }}
-    {{ form_errors(fonctionForm) }}
+    {{ form_start(itemForm, {'attr':{'class': 'form-horizontal'}}) }}
+    {{ form_errors(itemForm) }}
     {% if message is defined %}
         {% if message is not null %}
             <div class="form-group">
@@ -24,45 +24,45 @@
         {% endif %}
     {% endif %}
     <div class="form-group">
-        {{ form_label(fonctionForm.name) }}
-        {{ form_errors(fonctionForm.name) }}
+        {{ form_label(itemForm.name) }}
+        {{ form_errors(itemForm.name) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.name) }}
+            {{ form_widget(itemForm.name) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(fonctionForm.shortName) }}
-        {{ form_errors(fonctionForm.shortName) }}
+        {{ form_label(itemForm.shortName) }}
+        {{ form_errors(itemForm.shortName) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.shortName) }}
+            {{ form_widget(itemForm.shortName) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(fonctionForm.nameInCompany) }}
-        {{ form_errors(fonctionForm.nameInCompany) }}
+        {{ form_label(itemForm.nameInCompany) }}
+        {{ form_errors(itemForm.nameInCompany) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.nameInCompany) }}
+            {{ form_widget(itemForm.nameInCompany) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(fonctionForm.nameInOdigo) }}
-        {{ form_errors(fonctionForm.nameInOdigo) }}
+        {{ form_label(itemForm.nameInOdigo) }}
+        {{ form_errors(itemForm.nameInOdigo) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.nameInOdigo) }}
+            {{ form_widget(itemForm.nameInOdigo) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(fonctionForm.nameInSalesforce) }}
-        {{ form_errors(fonctionForm.nameInSalesforce) }}
+        {{ form_label(itemForm.nameInSalesforce) }}
+        {{ form_errors(itemForm.nameInSalesforce) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.nameInSalesforce) }}
+            {{ form_widget(itemForm.nameInSalesforce) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(fonctionForm.nameInZendesk) }}
-        {{ form_errors(fonctionForm.nameInZendesk) }}
+        {{ form_label(itemForm.nameInZendesk) }}
+        {{ form_errors(itemForm.nameInZendesk) }}
         <div class="col-sm-8">
-            {{ form_widget(fonctionForm.nameInZendesk) }}
+            {{ form_widget(itemForm.nameInZendesk) }}
         </div>
     </div>
 </div>
@@ -71,14 +71,14 @@
     <div class="form-group">
         <div class="col-sm-4"></div>
         <div class="col-sm-1 align_right">
-            {{ form_row(fonctionForm.Envoyer) }}
+            {{ form_row(itemForm.Envoyer) }}
         </div>
         <div class="col-sm-1 align_left">
-            {{ form_row(fonctionForm.EnvoyerNouveau) }}
+            {{ form_row(itemForm.EnvoyerNouveau) }}
         </div>
     </div>
-    {{ form_row(fonctionForm.id) }}
-    {{ form_end(fonctionForm) }}
+    {{ form_row(itemForm.id) }}
+    {{ form_end(itemForm) }}
 {% endblock %}
 {% block javascripts %}
 

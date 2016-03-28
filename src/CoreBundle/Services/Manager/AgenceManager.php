@@ -15,6 +15,10 @@ class AgenceManager extends BaseManager
      */
     protected $em;
 
+    protected $entity;
+
+    protected $entityName;
+
     /**
      * AgencesManager constructor.
      * @param EntityManager $em
@@ -22,31 +26,62 @@ class AgenceManager extends BaseManager
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
+        $this->entity = Agence::class;
+        $this->entityName = 'Agence';
     }
 
     /**
-     * @param $agenceId
+     * @param Agence $agence
+     */
+    public function save(Agence $agence)
+    {
+        $this->persistAndFlush($agence);
+    }
+
+    /**
+     * @param $itemToSet
+     * @param $itemLoad
+     * @return mixed
+     */
+    public function globalSetItem($itemToSet,$itemLoad)
+    {
+        $itemToSet->setName($itemLoad['name']);
+        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
+        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
+        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
+        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
+
+        return $itemToSet;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository('CoreBundle:'.$this->entityName);
+    }
+
+    /**
+     * @param $itemId
      * @return null|object
      */
-    public function loadAgence($agenceId) {
+    public function load($itemId) {
         return $this->getRepository()
-            ->findOneBy(array('id' => $agenceId));
+            ->findOneBy(array('id' => $itemId));
     }
 
     /**
-     * @param $agenceLoad
+     * @param $itemLoad
      * @return bool|int
      */
-    public function setAgence($agenceLoad)
+    public function add($itemLoad)
     {
-        $agenceInsert = new Agence();
-        $agenceInsert->setName($agenceLoad['name']);
-        $agenceInsert->setNameInCompany($agenceLoad['nameInCompany']);
-        $agenceInsert->setNameInOdigo($agenceLoad['nameInOdigo']);
-        $agenceInsert->setNameInSalesforce($agenceLoad['nameInSalesforce']);
-        $agenceInsert->setNameInZendesk($agenceLoad['nameInZendesk']);
+        $itemToSet = new $this->entity;
+        $itemToSet = $this->globalSetItem($itemToSet,$itemLoad);
+
         try {
-            $this->saveAgence($agenceInsert);
+            $this->save($itemToSet);
             return $message = 6669;
         } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
@@ -54,15 +89,15 @@ class AgenceManager extends BaseManager
     }
 
     /**
-     * @param $agence
+     * @param $itemId
      * @return bool|int
      */
-    public function removeAgence($agence)
+    public function remove($itemId)
     {
-        $agences = $this->getRepository()->findById($agence);
+        $items = $this->getRepository()->findById($itemId);
         try {
-            foreach ($agences as $agence) {
-                $this->em->remove($agence);
+            foreach ($items as $item) {
+                $this->em->remove($item);
                 $this->em->flush();
             }
             return $message = 6668;
@@ -72,39 +107,33 @@ class AgenceManager extends BaseManager
     }
 
     /**
-     * @param $agenceEdit
-     * @param $agenceLoad
+     * @param $itemId
+     * @param $itemLoad
      * @return bool|string
      */
-    public function editAgence($agenceEdit, $agenceLoad)
+    public function edit($itemId, $itemLoad)
     {
         try
         {
-            $agenceEdit = $this->getRepository()->findOneById($agenceEdit);
-            $agenceEdit->setName($agenceLoad['name']);
-            $agenceEdit->setNameInCompany($agenceLoad['nameInCompany']);
-            $agenceEdit->setNameInOdigo($agenceLoad['nameInOdigo']);
-            $agenceEdit->setNameInSalesforce($agenceLoad['nameInSalesforce']);
-            $agenceEdit->setNameInZendesk($agenceLoad['nameInZendesk']);
+            $itemToSet = $this->getRepository()->findOneById($itemId);
+            $this->globalSetItem($itemToSet,$itemLoad);
             $this->em->flush();
             return $message = "6667";
         } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
         }
     }
-    /**
-     * @param Agence $agence
-     */
-    public function saveAgence(Agence $agence)
-    {
-        $this->persistAndFlush($agence);
-    }
 
     /**
-     * @return \Doctrine\ORM\EntityRepository
+     * @return array
      */
-    public function getRepository()
+    public function createList()
     {
-        return $this->em->getRepository('CoreBundle:Agence');
+        $datas = $this->getRepository()->findAll();
+        $finalDatas = [];
+        foreach ($datas as $data) {
+            $finalDatas[$data->getName()] = $data->getId();
+        }
+        return $finalDatas;
     }
 }

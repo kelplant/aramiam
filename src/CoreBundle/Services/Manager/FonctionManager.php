@@ -15,6 +15,10 @@ class FonctionManager extends BaseManager
      */
     protected $em;
 
+    protected $entity;
+
+    protected $entityName;
+
     /**
      * AgencesManager constructor.
      * @param EntityManager $em
@@ -22,32 +26,63 @@ class FonctionManager extends BaseManager
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
+        $this->entity = Fonction::class;
+        $this->entityName = 'Fonction';
     }
 
     /**
-     * @param $fonctionId
+     * @param Fonction $fonction
+     */
+    public function save(Fonction $fonction)
+    {
+        $this->persistAndFlush($fonction);
+    }
+
+    /**
+     * @param $itemToSet
+     * @param $itemLoad
+     * @return mixed
+     */
+    public function globalSetItem($itemToSet,$itemLoad)
+    {
+        $itemToSet->setName($itemLoad['name']);
+        $itemToSet->setShortName($itemLoad['shortName']);
+        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
+        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
+        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
+        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
+
+        return $itemToSet;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository('CoreBundle:'.$this->entityName);
+    }
+
+    /**
+     * @param $itemId
      * @return null|object
      */
-    public function loadFonction($fonctionId) {
+    public function load($itemId) {
         return $this->getRepository()
-            ->findOneBy(array('id' => $fonctionId));
+            ->findOneBy(array('id' => $itemId));
     }
 
     /**
-     * @param $fonctionLoad
+     * @param $itemLoad
      * @return bool|int
      */
-    public function setFonction($fonctionLoad)
+    public function add($itemLoad)
     {
-        $fonctionInsert = new Fonction();
-        $fonctionInsert->setName($fonctionLoad['name']);
-        $fonctionInsert->setShortName($fonctionLoad['shortName']);
-        $fonctionInsert->setNameInCompany($fonctionLoad['nameInCompany']);
-        $fonctionInsert->setNameInOdigo($fonctionLoad['nameInOdigo']);
-        $fonctionInsert->setNameInSalesforce($fonctionLoad['nameInSalesforce']);
-        $fonctionInsert->setNameInZendesk($fonctionLoad['nameInZendesk']);
+        $itemToSet = new $this->entity;
+        $itemToSet = $this->globalSetItem($itemToSet,$itemLoad);
+
         try {
-            $this->saveFonction($fonctionInsert);
+            $this->save($itemToSet);
             return $message = 6669;
         } catch (\Exception $e) {
             return $message = error_log($e->getMessage());
@@ -55,15 +90,15 @@ class FonctionManager extends BaseManager
     }
 
     /**
-     * @param $fonction
+     * @param $itemId
      * @return bool|int
      */
-    public function removeFonction($fonction)
+    public function remove($itemId)
     {
-        $fonctions = $this->getRepository()->findById($fonction);
+        $items = $this->getRepository()->findById($itemId);
         try {
-            foreach ($fonctions as $fonction) {
-                $this->em->remove($fonction);
+            foreach ($items as $item) {
+                $this->em->remove($item);
                 $this->em->flush();
             }
             return $message = 6668;
@@ -73,21 +108,16 @@ class FonctionManager extends BaseManager
     }
 
     /**
-     * @param $fonctionEdit
-     * @param $fonctionLoad
+     * @param $itemId
+     * @param $itemLoad
      * @return bool|string
      */
-    public function editFonction($fonctionEdit, $fonctionLoad)
+    public function edit($itemId, $itemLoad)
     {
         try
         {
-            $fonctionEdit = $this->getRepository()->findOneById($fonctionEdit);
-            $fonctionEdit->setName($fonctionLoad['name']);
-            $fonctionEdit->setShortName($fonctionLoad['shortName']);
-            $fonctionEdit->setNameInCompany($fonctionLoad['nameInCompany']);
-            $fonctionEdit->setNameInOdigo($fonctionLoad['nameInOdigo']);
-            $fonctionEdit->setNameInSalesforce($fonctionLoad['nameInSalesforce']);
-            $fonctionEdit->setNameInZendesk($fonctionLoad['nameInZendesk']);
+            $itemToSet = $this->getRepository()->findOneById($itemId);
+            $this->globalSetItem($itemToSet,$itemLoad);
             $this->em->flush();
             return $message = "6667";
         } catch (\Exception $e) {
@@ -96,18 +126,15 @@ class FonctionManager extends BaseManager
     }
 
     /**
-     * @param Fonction $fonction
+     * @return array
      */
-    public function saveFonction(Fonction $fonction)
+    public function createList()
     {
-        $this->persistAndFlush($fonction);
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->em->getRepository('CoreBundle:Fonction');
+        $datas = $this->getRepository()->findAll();
+        $finalDatas = [];
+        foreach ($datas as $data) {
+            $finalDatas[$data->getName()] = $data->getId();
+        }
+        return $finalDatas;
     }
 }

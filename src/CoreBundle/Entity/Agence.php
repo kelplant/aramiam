@@ -10,7 +10,7 @@ namespace CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="agence")
+ * @ORM\Table(name="core_agence")
  * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\AgenceRepository")
  */
 class Agence
@@ -52,6 +52,16 @@ class Agence
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return Agence
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**

@@ -13,9 +13,15 @@ class CandidatController extends Controller
 
     private $insert;
 
-    private $request;
+    private $entity;
 
-    private $candidatLoad;
+    private $newEntity;
+
+    private $formType;
+
+    private $alertText;
+
+    private $isArchived;
 
     /**
      * CandidatController constructor.
@@ -24,31 +30,69 @@ class CandidatController extends Controller
     {
         $this->message = "";
         $this->insert = "";
-        $this->request = Request::createFromGlobals()->getPathInfo();
-        $this->candidatLoad = Request::createFromGlobals()->request->get('candidat');
+        $this->entity = "Candidat";
+        $this->newEntity = Candidat::class;
+        $this->formType = CandidatType::class;
+        $this->alertText = 'ce candidat';
+        $path = Request::createFromGlobals()->getPathInfo();
+        if ($path == '/admin/candidats')
+        {
+            $this->isArchived = '0';
+        }
+        if ($path == '/admin/candidats/archied')
+        {
+            $this->isArchived = '1';
+        }
     }
 
     /**
      * @param $item
+     * @param $entity
      * @return mixed
      */
-    private function generateMessage($item)
+    private function generateMessage($item,$entity)
     {
-        $this->message = $this->getParameter('candidat_insert_exceptions');
+        $this->message = $this->getParameter(strtolower($entity).'_insert_exceptions');
         return $this->message = $this->message[$item];
     }
 
     /**
+     * @return array
+     */
+    private function generateListeChoices()
+    {
+        $listeChoices = [];
+        $listeChoices['listeFonctions'] = $this->get("core.fonction_manager")->createList();
+        $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
+        $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
+
+        return $listeChoices;
+    }
+
+    /**
+     * @return \Symfony\Component\Form\Form
+     */
+    private function generateAddForm()
+    {
+        return $this->createForm($this->formType, new $this->newEntity, array('allow_extra_fields' => $this->generateListeChoices()));
+    }
+
+    /**
+     * @param $entity
+     * @param $isArchived
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getFullList()
+    private function getFullList($entity,$isArchived)
     {
-        $allCandidats = $this->get('core.candidat_manager')->getRepository()->findAll();
-        return $this->render('CoreBundle:Candidat:view.html.twig', array(
-            'all' => $allCandidats,
-            'route' => $this->generateUrl('add_candidat'),
+        $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findByIsArchived($isArchived);
+        return $this->render('CoreBundle:'.$entity.':view.html.twig', array(
+            'all' => $allItems,
+            'route' => $this->generateUrl('add_'.strtolower($entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
+            'edit_path'=> 'edit_'.strtolower($entity),
+            'remove_path' => 'remove_'.strtolower($entity),
+            'alert_text' => $this->alertText,
         ));
     }
 
@@ -56,29 +100,81 @@ class CandidatController extends Controller
      * @param $form
      * @param $message
      * @param $insert
+     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateRender($form, $message, $insert)
+    private function generateRender($form, $message, $insert, $entity)
     {
-        return $this->render('CoreBundle:Candidat:body.html.twig', array(
-            'candidatForm' => $form,
+        return $this->render('CoreBundle:'.$entity.':body.html.twig', array(
+            'itemForm' => $form,
             'message' => $message,
             'code_message' => $insert,
         ));
     }
 
     /**
-     * @param $object
-     * @param $candidat
-     * @param $action
-     * @return \Symfony\Component\Form\Form
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function generateForm($object, $candidat, $action)
+    public function generateIndexAction()
     {
-        return $this->createForm($object, $candidat, array(
-            'action' => $action,
-            'method' => 'POST',
-        ));
+        return $this->getFullList($this->entity,$this->isArchived);
+    }
+
+    public function generateDeleteAction($request,$entity)
+    {
+        $itemToTemove = (int)$request->get('itemDelete');
+        $remove = $this->get('core.'.strtolower($entity).'_manager')->remove($itemToTemove);
+        $this->message = $this->generateMessage($remove,$this->entity);
+        $this->insert = $remove;
+        return $this->getFullList($this->entity,$this->isArchived);
+    }
+
+    /**
+     * @param $request
+     * @param $entity
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateAddAction($request,$entity)
+    {
+        $form = $this->generateAddForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid()) {
+                $this->insert = $this->get('core.'.strtolower($entity).'_manager')->add($request->get(strtolower($entity)));
+                $this->message = $this->generateMessage($this->insert,$this->entity);
+                if ($this->insert != 1) $form = $this->generateAddForm();
+            }
+            if (isset($request->get(strtolower($entity))['Envoyer'])) {
+                return $this->getFullList($this->entity,$this->isArchived);
+            }
+        }
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert,$this->entity);
+    }
+
+    /**
+     * @param $request
+     * @param $entity
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateEditAction($request,$entity)
+    {
+        $itemToEdit = (int)$request->get('itemEdit');
+        $item = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findOneById($itemToEdit);
+        $form = $this->createForm($this->formType, $item);
+        $form->handleRequest($request);
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid()) {
+                $edit = $this->get('core.'.strtolower($entity).'_manager')->edit($itemToEdit,$request->get(strtolower($entity)));
+                $this->generateMessage($edit,$this->entity);
+                $this->insert = $edit;
+            }
+            if (isset($request->get(strtolower($entity))['Envoyer'])) {
+                return $this->getFullList($this->entity,$this->isArchived);
+            }
+        }
+        return $this->generateRender($form->createView(), $this->message, (int)$this->insert,$this->entity);
     }
 
     /**
@@ -86,57 +182,33 @@ class CandidatController extends Controller
      */
     public function indexAction()
     {
-        $routeName = substr($this->request, 0, 23);
-
-        if ($routeName == '/admin/candidats/delete')
-        {
-            $candidatToTemove = (int)substr($this->request, 24);
-            $remove = $this->get('core.candidat_manager')->removeCandidat($candidatToTemove);
-            $this->message = $this->generateMessage($remove);
-            $this->insert = $remove;
-        }
-
-        return $this->getFullList();
+        return $this->generateIndexAction();
     }
 
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function deleteAction(Request $request)
     {
-        $candidat = new Candidat();
-
-        $form = $this->generateForm(new CandidatType('Envoyer', 'Envoyer et Nouveau'), $candidat, $this->generateUrl('add_candidat'));
-
-        if (isset($this->candidatLoad['Envoyer']) OR isset($this->candidatLoad['EnvoyerNouveau'])) {
-            $this->insert = $this->get('core.candidat_manager')->setCandidat($this->candidatLoad);
-            $this->message = $this->generateMessage($this->insert);
-        }
-
-        if (isset($this->candidatLoad['Envoyer'])) {
-            return $this->getFullList();
-        }
-
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
+        return $this->generateDeleteAction($request,$this->entity);
     }
 
     /**
-     * @param $candidatEdit
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($candidatEdit)
+    public function addAction(Request $request)
     {
-        if (isset($this->candidatLoad['Envoyer']) OR isset($this->candidatLoad['EnvoyerNouveau'])) {
-            $edit = $this->get('core.candidat_manager')->editCandidat($candidatEdit, $this->candidatLoad);
-            $this->generateMessage($edit);
-            $this->insert = $edit;
-        }
-        if (isset($this->candidatLoad['Envoyer'])) {
-            return $this->getFullList();
-        }
-        $candidat = $this->get("core.candidat_manager")->getRepository()->findOneById($candidatEdit);
-        $form = $this->generateForm(new CandidatType('Mettre & Jour', 'MàJ et Rester'), $candidat, $this->generateUrl('edit_candidat', array('candidatEdit' => $candidatEdit)));
+        return $this->generateAddAction($request,$this->entity);
+    }
 
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert);
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request)
+    {
+        return $this->generateEditAction($request,$this->entity);
     }
 }

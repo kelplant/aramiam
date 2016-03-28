@@ -43,6 +43,11 @@ parameters:
         1:             "La fonction existe déjà, le nom doit être unique"
         6668:          "Fonction correctement supprimée"
         6667:          "Fonction correctement Mise à jour"
+   candidat_insert_exceptions:
+        6669:          'Candidat correctement ajoutée'
+        1:             'Le candidat existe déjà, le nom doit être unique'
+        6668:          'Candidat correctement supprimée'
+        6667:          'Candidat correctement Mise à jour'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

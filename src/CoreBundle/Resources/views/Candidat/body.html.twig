@@ -1,99 +1,107 @@
 {% extends '::base.html.twig' %}
-{% block title %} Liste des candidats {% endblock %}
-{% block mainform %}
-<div class="container main_container">
-    {{ form_start(candidatForm, {'attr':{'class': 'form-horizontal'}}) }}
-    {{ form_errors(candidatForm) }}
-    {% if message is defined %}
-        {% if message is not null %}
-            <div class="form-group">
-                <div class="col-sm-2"></div>
-                <div class=" col-sm-8 corp-message-3">
-                        {% if code_message == 6669 %}
-                            <div class="form-group alert-success corp-message-1">
-                                {{ message }}
-                            </div>
-                        {% endif %}
-                        {% if code_message == 1 %}
-                            <div class="form-group alert-danger corp-message-1">
-                                {{ message }}
-                            </div>
-                        {% endif %}
+    {% block title %} Liste des candidats {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('css/jquery-ui.min.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+    {% block mainform %}
+    <div class="container main_container">
+        {{ form_start(itemForm, {'attr':{'class': 'form-horizontal'}}) }}
+        {{ form_errors(itemForm) }}
+        {% if message is defined %}
+            {% if message is not null %}
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class=" col-sm-8 corp-message-3">
+                            {% if code_message == 6669 %}
+                                <div class="form-group alert-success corp-message-1">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                            {% if code_message == 1 %}
+                                <div class="form-group alert-danger corp-message-1">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <div class="form-group">
-        {{ form_label(candidatForm.civilite) }}
-        {{ form_errors(candidatForm.civilite) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.civilite) }}
+        <div class="form-group">
+            {{ form_label(itemForm.civilite) }}
+            {{ form_errors(itemForm.civilite) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.civilite) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.name) }}
+            {{ form_errors(itemForm.name) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.name) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.surname) }}
+            {{ form_errors(itemForm.surname) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.surname) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.startDate) }}
+            {{ form_errors(itemForm.startDate) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.startDate) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.agence) }}
+            {{ form_errors(itemForm.agence) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.agence) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.service) }}
+            {{ form_errors(itemForm.service) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.service) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.fonction) }}
+            {{ form_errors(itemForm.fonction) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.fonction) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.responsable) }}
+            {{ form_errors(itemForm.responsable) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.responsable) }}
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.name) }}
-        {{ form_errors(candidatForm.name) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.name) }}
+    {% endblock %}
+    {% block footform %}
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-1 align_right">
+                {{ form_row(itemForm.Envoyer) }}
+            </div>
+            <div class="col-sm-1 align_left">
+                {{ form_row(itemForm.EnvoyerNouveau) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.surname) }}
-        {{ form_errors(candidatForm.surname) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.surname) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.startDate) }}
-        {{ form_errors(candidatForm.startDate) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.startDate) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.agence) }}
-        {{ form_errors(candidatForm.agence) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.agence) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.service) }}
-        {{ form_errors(candidatForm.service) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.service) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.fonction) }}
-        {{ form_errors(candidatForm.fonction) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.fonction) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(candidatForm.responsable) }}
-        {{ form_errors(candidatForm.responsable) }}
-        <div class="col-sm-8">
-            {{ form_widget(candidatForm.responsable) }}
-        </div>
-    </div>
-</div>
-{% endblock %}
-{% block footform %}
-    <div class="form-group">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-1 align_right">
-            {{ form_row(candidatForm.Envoyer) }}
-        </div>
-        <div class="col-sm-1 align_left">
-            {{ form_row(candidatForm.EnvoyerNouveau) }}
-        </div>
-    </div>
-    {{ form_row(candidatForm.id) }}
-    {{ form_end(candidatForm) }}
-{% endblock %}
-{% block javascripts %}
-
-{% endblock %}
+        {{ form_row(itemForm.id) }}
+        {{ form_end(itemForm) }}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-1.12.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
+        <script>
+            $("form input.date").datepicker();
+        </script>
+    {% endblock %}

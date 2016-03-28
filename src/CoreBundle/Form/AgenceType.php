@@ -32,7 +32,7 @@ class AgenceType extends AbstractType
      */
     public function __construct()
     {
-        $path = substr(Request::createFromGlobals()->getPathInfo(),15,4);
+        $path = substr(Request::createFromGlobals()->getPathInfo(), 15, 4);
 
         if ($path == 'add')
         {

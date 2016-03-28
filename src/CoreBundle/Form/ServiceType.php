@@ -28,7 +28,7 @@ class ServiceType extends AbstractType
      */
     public function __construct()
     {
-        $path = substr(Request::createFromGlobals()->getPathInfo(),16,4);
+        $path = substr(Request::createFromGlobals()->getPathInfo(), 16, 4);
 
         if ($path == 'add')
         {

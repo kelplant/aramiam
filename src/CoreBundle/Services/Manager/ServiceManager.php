@@ -41,9 +41,9 @@ class ServiceManager extends BaseManager
     /**
      * @param $itemToSet
      * @param $itemLoad
-     * @return mixed
+     * @return Service
      */
-    public function globalSetItem($itemToSet,$itemLoad)
+    public function globalSetItem($itemToSet, $itemLoad)
     {
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setShortName($itemLoad['shortName']);
@@ -79,7 +79,7 @@ class ServiceManager extends BaseManager
     public function add($itemLoad)
     {
         $itemToSet = new $this->entity;
-        $itemToSet = $this->globalSetItem($itemToSet,$itemLoad);
+        $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
 
         try {
             $this->save($itemToSet);
@@ -117,7 +117,7 @@ class ServiceManager extends BaseManager
         try
         {
             $itemToSet = $this->getRepository()->findOneById($itemId);
-            $this->globalSetItem($itemToSet,$itemLoad);
+            $this->globalSetItem($itemToSet, $itemLoad);
             $this->em->flush();
             return $message = "6667";
         } catch (\Exception $e) {

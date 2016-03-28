@@ -42,9 +42,9 @@ class CandidatManager extends BaseManager
     /**
      * @param $itemToSet
      * @param $itemLoad
-     * @return mixed
+     * @return Candidat
      */
-    public function globalSetItem($itemToSet,$itemLoad)
+    public function globalSetItem($itemToSet, $itemLoad)
     {
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
@@ -82,7 +82,7 @@ class CandidatManager extends BaseManager
     public function add($itemLoad)
     {
         $itemToSet = new $this->entity;
-        $itemToSet = $this->globalSetItem($itemToSet,$itemLoad);
+        $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
 
         try {
             $this->save($itemToSet);
@@ -118,7 +118,7 @@ class CandidatManager extends BaseManager
         try
         {
             $itemToSet = $this->getRepository()->findOneById($itemId);
-            $this->globalSetItem($itemToSet,$itemLoad);
+            $this->globalSetItem($itemToSet, $itemLoad);
             $this->em->flush();
             return $message = "6667";
         } catch (\Exception $e) {

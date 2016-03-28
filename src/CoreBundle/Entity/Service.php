@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="core_service")
- * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\ServiceRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\ServiceRepository")
  */
 class Service
 {

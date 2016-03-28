@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="core_agence")
- * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\AgenceRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\AgenceRepository")
  */
 class Agence
 {

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Candidat
- * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\CandidatRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\CandidatRepository")
  * @ORM\Table(name="core_candidat")
  */
 class Candidat

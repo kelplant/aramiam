@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Utilisateur
- * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\UtilisateurRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\UtilisateurRepository")
  * @ORM\Table(name="core_utilisateur")
  */
 class Utilisateur
@@ -51,33 +51,9 @@ class Utilisateur
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $odigoPhoneNumber;
-
-    /**
-     * @var string
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $redirectPhoneNumber;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $odigoExtension;
-
-    /**
-     * @var string
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $startDate;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $robustoProfil;
 
     /**
      * @ORM\ManyToOne(targetEntity="Agence")

@@ -5,11 +5,11 @@
      * Date: 26/03/2016
      * Time: 12:43
      */
-namespace CoreBundle\Entity\Repository;
+namespace CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class FonctionRepository extends EntityRepository
+class AgenceRepository extends EntityRepository
 {
     public function findAll()
     {

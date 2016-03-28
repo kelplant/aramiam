@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="core_fonction")
- * @ORM\Entity(repositoryClass="CoreBundle\Entity\Repository\FonctionRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\FonctionRepository")
  */
 class Fonction
 {

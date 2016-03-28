@@ -115,6 +115,16 @@ class Utilisateur
     }
 
     /**
+     * @param int $id
+     * @return Utilisateur
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getName()
@@ -189,60 +199,6 @@ class Utilisateur
     /**
      * @return string
      */
-    public function getOdigoPhoneNumber()
-    {
-        return $this->odigoPhoneNumber;
-    }
-
-    /**
-     * @param string $odigoPhoneNumber
-     * @return Utilisateur
-     */
-    public function setOdigoPhoneNumber($odigoPhoneNumber)
-    {
-        $this->odigoPhoneNumber = $odigoPhoneNumber;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRedirectPhoneNumber()
-    {
-        return $this->redirectPhoneNumber;
-    }
-
-    /**
-     * @param string $redirectPhoneNumber
-     * @return Utilisateur
-     */
-    public function setRedirectPhoneNumber($redirectPhoneNumber)
-    {
-        $this->redirectPhoneNumber = $redirectPhoneNumber;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOdigoExtension()
-    {
-        return $this->odigoExtension;
-    }
-
-    /**
-     * @param string $odigoExtension
-     * @return Utilisateur
-     */
-    public function setOdigoExtension($odigoExtension)
-    {
-        $this->odigoExtension = $odigoExtension;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getStartDate()
     {
         return $this->startDate;
@@ -277,7 +233,25 @@ class Utilisateur
     }
 
     /**
-     * @return string
+     * @return mixed
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @param mixed $service
+     * @return Utilisateur
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    /**
+     * @return mixed
      */
     public function getFonction()
     {
@@ -285,7 +259,7 @@ class Utilisateur
     }
 
     /**
-     * @param string $fonction
+     * @param mixed $fonction
      * @return Utilisateur
      */
     public function setFonction($fonction)
@@ -295,7 +269,7 @@ class Utilisateur
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIsCreateInOdigo()
     {
@@ -303,7 +277,7 @@ class Utilisateur
     }
 
     /**
-     * @param mixed $isCreateInOdigo
+     * @param string $isCreateInOdigo
      * @return Utilisateur
      */
     public function setIsCreateInOdigo($isCreateInOdigo)
@@ -313,7 +287,7 @@ class Utilisateur
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIsCreateInGmail()
     {
@@ -321,12 +295,48 @@ class Utilisateur
     }
 
     /**
-     * @param mixed $isCreateInGmail
+     * @param string $isCreateInGmail
      * @return Utilisateur
      */
     public function setIsCreateInGmail($isCreateInGmail)
     {
         $this->isCreateInGmail = $isCreateInGmail;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsCreateInSalesforce()
+    {
+        return $this->isCreateInSalesforce;
+    }
+
+    /**
+     * @param string $isCreateInSalesforce
+     * @return Utilisateur
+     */
+    public function setIsCreateInSalesforce($isCreateInSalesforce)
+    {
+        $this->isCreateInSalesforce = $isCreateInSalesforce;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsCreateInRobusto()
+    {
+        return $this->isCreateInRobusto;
+    }
+
+    /**
+     * @param string $isCreateInRobusto
+     * @return Utilisateur
+     */
+    public function setIsCreateInRobusto($isCreateInRobusto)
+    {
+        $this->isCreateInRobusto = $isCreateInRobusto;
         return $this;
     }
 
@@ -365,6 +375,4 @@ class Utilisateur
         $this->isDelete = $isDelete;
         return $this;
     }
-
-
 }

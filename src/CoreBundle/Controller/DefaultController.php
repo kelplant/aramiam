@@ -88,32 +88,32 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $loadCreateAgentErrorsCodes = $this->getParameter('odigo_wsdl_error_createagent_codes');
-
-        $userBeanInfos = $this->createArrayForRequestFromCompany("0622244545", "XavTestWs", "xavtestws@mail.fr", "arrtestws", "passwordtest", "Aix", "xavarrws");
-
-        $create = $this->get('odigo.service.client')->create(
-            $this->getParameter('odigo'),
-            $userBeanInfos
-        );
-        echo "<br><br>";
-        echo $loadCreateAgentErrorsCodes[$create];
-        echo "<br><br>";
-
-
-        $loadCreateUserWithTemplateErrorsCodes = $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes');
-
-        $userBeanWithTemplateInfos = $this->createWithTemplateArrayForRequestFromCompany("0405440404", "0622544545", "fdstTestWs", "fdstestws@mail.fr", "fdsttestws", "passwordtest", "Aix", "CC", "fdst");
-
-        $createWithTemplate = $this->get('odigo.service.client')->createwithtemplate(
-            $this->getParameter('odigo'),
-            $userBeanWithTemplateInfos
-        );
-        echo "<br><br>";
-        echo $loadCreateUserWithTemplateErrorsCodes[$createWithTemplate];
-        echo "<br><br>";
-
-        echo "<br><br>";
+//        $loadCreateAgentErrorsCodes = $this->getParameter('odigo_wsdl_error_createagent_codes');
+//
+//        $userBeanInfos = $this->createArrayForRequestFromCompany("0622244545", "XavTestWs", "xavtestws@mail.fr", "arrtestws", "passwordtest", "Aix", "xavarrws");
+//
+//        $create = $this->get('odigo.service.client')->create(
+//            $this->getParameter('odigo'),
+//            $userBeanInfos
+//        );
+//        echo "<br><br>";
+//        echo $loadCreateAgentErrorsCodes[$create];
+//        echo "<br><br>";
+//
+//
+//        $loadCreateUserWithTemplateErrorsCodes = $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes');
+//
+//        $userBeanWithTemplateInfos = $this->createWithTemplateArrayForRequestFromCompany("0405440404", "0622544545", "fdstTestWs", "fdstestws@mail.fr", "fdsttestws", "passwordtest", "Aix", "CC", "fdst");
+//
+//        $createWithTemplate = $this->get('odigo.service.client')->createwithtemplate(
+//            $this->getParameter('odigo'),
+//            $userBeanWithTemplateInfos
+//        );
+//        echo "<br><br>";
+//        echo $loadCreateUserWithTemplateErrorsCodes[$createWithTemplate];
+//        echo "<br><br>";
+//
+//        echo "<br><br>";
 
         return $this->render('CoreBundle:Default:index.html.twig');
     }

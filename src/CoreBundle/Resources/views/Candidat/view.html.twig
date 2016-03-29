@@ -15,7 +15,7 @@
                 <td class="admin_cat_table_cell">{{ item.agence }}</td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
-                <td class="admin_cat_table_cell_action"><a href="{{ path( edit_path , { 'itemEdit': item.id }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer {{ alert_text }} ?'));" href="{{ path( remove_path , { 'itemDelete': item.id }) }}"></i> <i class="fa fa-times"></i></a></td>
+                <td class="admin_cat_table_cell_action"><a href="{{ path( edit_path , { 'itemEdit': item.id  }) }}"><i class="fa fa-pencil-square-o"></i></a> <a onclick="return(confirm('Etes-vous sûr de vouloir supprimer {{ alert_text }} ?'));" href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"></i> <i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     {% endblock %}

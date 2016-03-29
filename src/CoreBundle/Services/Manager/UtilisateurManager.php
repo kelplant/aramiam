@@ -1,29 +1,14 @@
 <?php
 namespace CoreBundle\Services\Manager;
 
-use Doctrine\ORM\EntityManager;
 use CoreBundle\Entity\Utilisateur;
 
 /**
  * Class AgenceManager
  * @package CoreBundle\Manager
  */
-class UtilisateurManager extends BaseManager
+class UtilisateurManager extends AbstractManager
 {
-    /**
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
-     * AgencesManager constructor.
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     /**
      * @param $utilisateurId
      * @return null|object
@@ -39,13 +24,5 @@ class UtilisateurManager extends BaseManager
     public function saveAgence(Utilisateur $utilisateur)
     {
         $this->persistAndFlush($utilisateur);
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->em->getRepository('CoreBundle:Utilisateur');
     }
 }

@@ -4,7 +4,7 @@ liste_des_candidats:
     defaults: { _controller: CoreBundle:Candidat:index }
 
 liste_des_candidats_archives:
-    path:     /admin/candidats/archied
+    path:     /admin/candidats/archived
     defaults: { _controller: CoreBundle:Candidat:index }
 
 add_candidat:

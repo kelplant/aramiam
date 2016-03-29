@@ -95,9 +95,9 @@ abstract class AbstractManager
 
         try {
             $this->save($itemToSet);
-            return $message = 6669;
+            return 6669;
         } catch (\Exception $e) {
-            return $message = error_log($e->getMessage());
+            return error_log($e->getMessage());
         }
     }
 
@@ -113,9 +113,9 @@ abstract class AbstractManager
                 $this->em->remove($item);
                 $this->em->flush();
             }
-            return $message = 6668;
+            return 6668;
         } catch (\Exception $e) {
-            return $message = error_log($e->getMessage());
+            return error_log($e->getMessage());
         }
     }
 
@@ -129,7 +129,7 @@ abstract class AbstractManager
         try {
             $itemToSet->setIsArchived('1');
             $this->em->flush();
-            return $message = 6668;
+            return 6668;
         } catch (\Exception $e) {
             return error_log($e->getMessage());
         }
@@ -146,9 +146,9 @@ abstract class AbstractManager
             $itemToSet = $this->getRepository()->findOneById($itemId);
             $this->globalSetItem($itemToSet, $itemLoad);
             $this->em->flush();
-            return $message = "6667";
+            return 6667;
         } catch (\Exception $e) {
-            return $message = error_log($e->getMessage());
+            return error_log($e->getMessage());
         }
     }
 

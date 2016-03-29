@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ProsodieOdigo
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ApplicationRepository")
- * @ORM\Table(name="app_odigo")
+ * @ORM\Table(name="core_app_odigo")
  */
 class ProsodieOdigo
 {

@@ -1,6 +1,6 @@
 core_homepage:
     path:     /
-    defaults: { _controller: CoreBundle:Default:index }
+    defaults: { _controller: AppBundle:Default:index }
 
 agence:
     resource: "@CoreBundle/Resources/config/agence_routing.yml"

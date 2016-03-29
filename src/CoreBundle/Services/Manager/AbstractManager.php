@@ -83,7 +83,7 @@ abstract class AbstractManager
         return $this->getRepository()
             ->findOneBy(array('id' => $itemId));
     }
-    
+
     /**
      * @param $itemAddLoad
      * @return bool|int

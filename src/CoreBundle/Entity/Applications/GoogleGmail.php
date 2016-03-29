@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class GoogleGmail
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ApplicationRepository")
- * @ORM\Table(name="app_gmail")
+ * @ORM\Table(name="core_app_gmail")
  */
 class GoogleGmail
 {

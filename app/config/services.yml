@@ -7,3 +7,19 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    get_set_method_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    id_store:
+        class: AppBundle\Store\IdStore
+        arguments:
+            - "@=service('doctrine').getManager()"
+            - "@lightsaml.system.time_provider"
+
+    user_creator:
+        class: AppBundle\Security\User\UserCreator
+        arguments:
+            - "@=service('doctrine').getManager()"
+            - "@lightsaml_sp.username_mapper.simple"

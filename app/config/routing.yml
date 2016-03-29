@@ -5,3 +5,12 @@ core:
 #app:
 #    resource: "@AppBundle/Controller/"
 #    type:     annotation
+
+lightsaml_sp:
+    resource: "@LightSamlSpBundle/Resources/config/routing.yml"
+    prefix: saml
+logout:
+    path: /logout
+login_check:
+    path: /saml/login_check
+    defaults: { _controller: GeneralBundle:Default:index }

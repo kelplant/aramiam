@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Salesforce
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ApplicationRepository")
- * @ORM\Table(name="app_salesforce")
+ * @ORM\Table(name="core_app_salesforce")
  */
 class Salesforce
 {

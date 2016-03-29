@@ -85,13 +85,13 @@ abstract class AbstractManager
     }
 
     /**
-     * @param $itemLoad
+     * @param $itemAddLoad
      * @return bool|int
      */
-    public function add($itemLoad)
+    public function add($itemAddLoad)
     {
         $itemToSet = new $this->entity;
-        $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
+        $itemToSet = $this->globalSetItem($itemToSet, $itemAddLoad);
 
         try {
             $this->save($itemToSet);
@@ -134,17 +134,18 @@ abstract class AbstractManager
             return error_log($e->getMessage());
         }
     }
+
     /**
      * @param $itemId
-     * @param $itemLoad
-     * @return bool|string
+     * @param $itemEditLoad
+     * @return bool|int
      */
-    public function edit($itemId, $itemLoad)
+    public function edit($itemId, $itemEditLoad)
     {
         try
         {
             $itemToSet = $this->getRepository()->findOneById($itemId);
-            $this->globalSetItem($itemToSet, $itemLoad);
+            $this->globalSetItem($itemToSet, $itemEditLoad);
             $this->em->flush();
             return 6667;
         } catch (\Exception $e) {

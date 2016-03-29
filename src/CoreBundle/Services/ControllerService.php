@@ -75,8 +75,7 @@ class ControllerService extends Controller
         if ($this->entity == 'Candidat')
         {
             return $this->createForm($this->formType, new $this->newEntity, array('allow_extra_fields' => $this->generateListeChoices()));
-        }
-        else
+        } else
         {
             return $this->createForm($this->formType, new $this->newEntity);
         }
@@ -91,9 +90,9 @@ class ControllerService extends Controller
         if ($this->entity == 'Candidat')
         {
             $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findByIsArchived($isArchived);
-        }
-        else {
-            $allItems = $this->get('core.'.strtolower($entity). '_manager')->getRepository()->findAll();
+        } else
+        {
+            $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findAll();
         }
         return $this->render('CoreBundle:'.$entity.':view.html.twig', array(
             'all' => $allItems,
@@ -131,8 +130,8 @@ class ControllerService extends Controller
         if ($this->entity == 'Candidat')
         {
             return $this->getFullList($this->entity, $this->isArchived);
-        }
-        else {
+        } else
+        {
             return $this->getFullList($this->entity, NULL);
         }
     }
@@ -148,8 +147,8 @@ class ControllerService extends Controller
         if ($this->entity == 'Candidat')
         {
             $remove = $this->get('core.'.strtolower($entity).'_manager')->removeCandidat($itemToTemove);
-        }
-        else {
+        } else
+        {
             $remove = $this->get('core.'.strtolower($entity).'_manager')->remove($itemToTemove);
         }
         $this->message = $this->generateMessage($remove, $this->entity);
@@ -158,8 +157,8 @@ class ControllerService extends Controller
         if ($this->entity == 'Candidat')
         {
             return $this->getFullList($this->entity, $this->isArchived);
-        }
-        else {
+        } else
+        {
             return $this->getFullList($this->entity, NULL);
         }
     }
@@ -178,7 +177,10 @@ class ControllerService extends Controller
             if ($form->isValid()) {
                 $this->insert = $this->get('core.'.strtolower($entity).'_manager')->add($request->get(strtolower($entity)));
                 $this->message = $this->generateMessage($this->insert, $this->entity);
-                if ($this->insert != 1) $form = $this->generateAddForm();
+                if ($this->insert != 1)
+                {
+                    $form = $this->generateAddForm();
+                }
             }
             if (isset($request->get(strtolower($entity))['Envoyer'])) {
                 if ($this->entity == 'Candidat')
@@ -215,8 +217,8 @@ class ControllerService extends Controller
                 if ($this->entity == 'Candidat')
                 {
                     return $this->getFullList($this->entity, $this->isArchived);
-                }
-                else {
+                } else
+                {
                     return $this->getFullList($this->entity, NULL);
                 }
             }

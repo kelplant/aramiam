@@ -9,7 +9,7 @@ class CurlWrap
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_MAXREDIRS, 10 );
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_URL, ZDURL.$url);
         curl_setopt($ch, CURLOPT_USERPWD, ZDUSER."/token:".ZDAPIKEY);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");

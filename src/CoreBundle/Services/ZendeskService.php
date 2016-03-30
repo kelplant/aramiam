@@ -42,7 +42,7 @@ class ZendeskService extends Controller
      * @param $requester_email
      * @return mixed
      */
-    public function createTicket($nom,$prenom,$entite,$due_at,$agenceZendesk,$serviceZendesk,$fonctionZendesk,$statusPoste,$requester_email)
+    public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
         $message_array = array(
             'nom'=>$nom,
@@ -71,7 +71,7 @@ class ZendeskService extends Controller
             'sendMatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_sendMatId'),
         );
 
-        $json = $this->get('curl.create_ticket')->createJasonTicket($message_array,$due_at,$requester_email,$agenceZendesk,$serviceZendesk,$parametersTicket);
+        $json = $this->get('curl.create_ticket')->createJasonTicket($message_array, $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $parametersTicket);
 
         return $this->get('curl.curl_wrap')->curlWrapExec("/tickets.json", $json);
     }

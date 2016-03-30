@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class CandidatController extends Controller
 {
-    private $isArchived ;
+    private $isArchived;
 
     private $itemToTemove;
 
@@ -32,7 +32,7 @@ class CandidatController extends Controller
      */
     private function initData()
     {
-        $this->isArchived = Request::createFromGlobals()->query->get('isArchived',0);
+        $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
 
         $this->get('core.controller_service')->setMessage('');
         $this->get('core.controller_service')->setInsert('');
@@ -90,7 +90,7 @@ class CandidatController extends Controller
     {
         $this->initData();
         $item = $this->get('core.candidat_manager')->getRepository()->findOneById($request->get('itemEdit'));
-        $this->get('core.controller_service')->setFormItem($item->setStartDate(date('d/m/Y',$item->getStartDate()->getTimestamp())));
+        $this->get('core.controller_service')->setFormItem($item->setStartDate(date('d/m/Y', $item->getStartDate()->getTimestamp())));
         return $this->get('core.controller_service')->generateEditAction($request);
     }
 }

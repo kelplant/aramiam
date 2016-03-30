@@ -47,10 +47,10 @@ class UserCreator implements UserCreatorInterface
         if ($role == "GRP-Aramiam-SUPER_ADMIN")
         {
             $role = ['ROLE_SUPER_ADMIN'];
-        }elseif ($role == "GRP-Aramiam-ADMIN")
+        } elseif ($role == "GRP-Aramiam-ADMIN")
         {
             $role = ['ROLE_ADMIN'];
-        }else
+        } else
         {
             $role = ['ROLE_USER'];
         }

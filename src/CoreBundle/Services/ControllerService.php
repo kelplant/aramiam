@@ -63,7 +63,7 @@ class ControllerService extends Controller
      */
     private function getFullList($isArchived)
     {
-        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findBy($this->criteria,$this->orderBy);
+        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findBy($this->criteria, $this->orderBy);
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
@@ -105,7 +105,7 @@ class ControllerService extends Controller
      * @param $requester_email
      * @return mixed
      */
-    public function createTicket($nom,$prenom,$entite,$due_at,$agenceZendesk,$serviceZendesk,$fonctionZendesk,$statusPoste,$requester_email)
+    public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
         $message_array = array(
             'nom'=>$nom,
@@ -133,7 +133,7 @@ class ControllerService extends Controller
             'lowCatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_lowCatId'),
             'sendMatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_sendMatId'),
         );
-        $json = $this->get('curl.create_ticket')->createJasonTicket($message_array,$due_at,$requester_email,$agenceZendesk,$serviceZendesk,$parametersTicket);
+        $json = $this->get('curl.create_ticket')->createJasonTicket($message_array, $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $parametersTicket);
 
         return $this->get('curl.curl_wrap')->curlWrapExec("/tickets.json", $json);
     }

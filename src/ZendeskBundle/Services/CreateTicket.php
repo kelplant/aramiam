@@ -28,7 +28,6 @@ class CreateTicket
     public function createJasonTicket($message_array,$due_at,$requester_email,$agence_zendesk,$service_zendesk,$parametersTicket){
 
         $subject = "Un nouveau candidat a été ajouté"; # Titre du mail
-        $agence = "";
         $service ="";
         $status ="";
         $agence = $agence_zendesk;

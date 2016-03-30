@@ -14,6 +14,8 @@ abstract class AbstractManager
 
     protected $entityName;
 
+    protected $repository;
+
     /**
      * BaseManager constructor.
      * @param EntityManager $em
@@ -22,6 +24,8 @@ abstract class AbstractManager
     {
         $this->em = $em;
     }
+
+    //abstract public function findByCriteria(array $criteria);
 
     /**
      * @param $entity
@@ -46,6 +50,16 @@ abstract class AbstractManager
     public function setEntity($entity)
     {
         $this->entity = $entity;
+        return $this;
+    }
+
+    /**
+     * @param $repository
+     * @return AbstractManager
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
         return $this;
     }
 

@@ -29,43 +29,24 @@ class ControllerService extends Controller
 
     private $isArchived;
 
-    /**
-     * CandidatController constructor.
-     */
-    public function __construct()
-    {
-        $path = Request::createFromGlobals()->getPathInfo();
-        if ($path == '/admin/candidats')
-        {
-            $this->isArchived = '0';
-        }
-        if ($path == '/admin/candidats/archived')
-        {
-            $this->isArchived = '1';
-        }
-    }
+    private $criteria;
+
+    private $orderBy;
+
+    private $createFormArguments;
+
+    private $remove;
+
+    private $formItem;
+
     /**
      * @param $item
-     * @param string $entity
      * @return mixed
      */
-    private function generateMessage($item, $entity)
+    private function generateMessage($item)
     {
-        $this->message = $this->getParameter(strtolower($entity).'_insert_exceptions');
+        $this->message = $this->getParameter(strtolower($this->entity).'_insert_exceptions');
         return $this->message = $this->message[$item];
-    }
-
-    /**
-     * @return array
-     */
-    private function generateListeChoices()
-    {
-        $listeChoices = [];
-        $listeChoices['listeFonctions'] = $this->get("core.fonction_manager")->createList();
-        $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
-        $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
-
-        return $listeChoices;
     }
 
     /**
@@ -73,35 +54,24 @@ class ControllerService extends Controller
      */
     private function generateAddForm()
     {
-        if ($this->entity == 'Candidat')
-        {
-            return $this->createForm($this->formType, new $this->newEntity, array('allow_extra_fields' => $this->generateListeChoices()));
-        } else
-        {
-            return $this->createForm($this->formType, new $this->newEntity);
-        }
+        return $this->createForm($this->formType, new $this->newEntity, $this->createFormArguments);
     }
 
     /**
-     * @param string $entity
+     * @param $isArchived
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getFullList($entity, $isArchived)
+    private function getFullList($isArchived)
     {
-        if ($this->entity == 'Candidat')
-        {
-            $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findByIsArchived($isArchived);
-        } else
-        {
-            $allItems = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findAll();
-        }
-        return $this->render('CoreBundle:'.$entity.':view.html.twig', array(
+        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findBy($this->criteria,$this->orderBy);
+
+        return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
-            'route' => $this->generateUrl('add_'.strtolower($entity)),
+            'route' => $this->generateUrl('add_'.strtolower($this->entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
-            'edit_path'=> 'edit_'.strtolower($entity),
-            'remove_path' => 'remove_'.strtolower($entity),
+            'edit_path'=> 'edit_'.strtolower($this->entity),
+            'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
         ));
@@ -163,7 +133,6 @@ class ControllerService extends Controller
             'lowCatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_lowCatId'),
             'sendMatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_sendMatId'),
         );
-
         $json = $this->get('curl.create_ticket')->createJasonTicket($message_array,$due_at,$requester_email,$agenceZendesk,$serviceZendesk,$parametersTicket);
 
         return $this->get('curl.curl_wrap')->curlWrapExec("/tickets.json", $json);
@@ -174,55 +143,32 @@ class ControllerService extends Controller
      */
     public function generateIndexAction()
     {
-        if ($this->entity == 'Candidat')
-        {
-            return $this->getFullList($this->entity, $this->isArchived);
-        } else
-        {
-            return $this->getFullList($this->entity, NULL);
-        }
+        return $this->getFullList($this->isArchived);
     }
 
     /**
-     * @param $request
-     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateDeleteAction($request, $entity)
+    public function generateDeleteAction()
     {
-        $itemToTemove = (int)$request->get('itemDelete');
-        if ($this->entity == 'Candidat')
-        {
-            $remove = $this->get('core.'.strtolower($entity).'_manager')->removeCandidat($itemToTemove);
-        } else
-        {
-            $remove = $this->get('core.'.strtolower($entity).'_manager')->remove($itemToTemove);
-        }
-        $this->message = $this->generateMessage($remove, $this->entity);
-        $this->insert = $remove;
+        $this->message = $this->generateMessage($this->remove);
+        $this->insert = $this->remove;
 
-        if ($this->entity == 'Candidat')
-        {
-            return $this->getFullList($this->entity, $this->isArchived);
-        } else
-        {
-            return $this->getFullList($this->entity, NULL);
-        }
+        return $this->getFullList($this->isArchived);
     }
 
     /**
      * @param $request
-     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateAddAction($request, $entity)
+    public function generateAddAction($request)
     {
         $form = $this->generateAddForm();
         $form->handleRequest($request);
         if ($form->isSubmitted())
         {
             if ($form->isValid()) {
-                $this->insert = $this->get('core.'.strtolower($entity).'_manager')->add($request->get(strtolower($entity)));
+                $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->get(strtolower($this->entity)));
 //                private function initDataZendesk()
 //                {
 //                    $this->get('core.zendesk_service')->setNom('');
@@ -236,20 +182,15 @@ class ControllerService extends Controller
 //                }
 //
 //                $this->get('core.zendesk_service')->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
-                $this->message = $this->generateMessage($this->insert, $this->entity);
+                $this->message = $this->generateMessage($this->insert);
                 if ($this->insert != 1)
                 {
                     $form = $this->generateAddForm();
                 }
             }
-            if (isset($request->get(strtolower($entity))['Envoyer'])) {
-                if ($this->entity == 'Candidat')
-                {
-                    return $this->getFullList($this->entity, $this->isArchived);
-                }
-                else {
-                    return $this->getFullList($this->entity, NULL);
-                }
+            if (isset($request->get(strtolower($this->entity))['Envoyer'])) {
+
+                return $this->getFullList($this->isArchived);
             }
         }
         return $this->generateRender($form->createView(), $this->message, (int)$this->insert, $this->entity);
@@ -257,30 +198,23 @@ class ControllerService extends Controller
 
     /**
      * @param $request
-     * @param $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateEditAction($request, $entity)
+    public function generateEditAction($request)
     {
-        $itemToEdit = (int)$request->get('itemEdit');
-        $item = $this->get('core.'.strtolower($entity).'_manager')->getRepository()->findOneById($itemToEdit);
-        $form = $this->createForm($this->formType, $item);
+        $itemToEdit = $request->get('itemEdit');
+        $form = $this->createForm($this->formType, $this->formItem, $this->createFormArguments);
         $form->handleRequest($request);
         if ($form->isSubmitted())
         {
             if ($form->isValid()) {
-                $edit = $this->get('core.'.strtolower($entity).'_manager')->edit($itemToEdit, $request->get(strtolower($entity)));
-                $this->generateMessage($edit, $this->entity);
+                $edit = $this->get('core.'.strtolower($this->entity).'_manager')->edit($itemToEdit, $request->get(strtolower($this->entity)));
+                $this->message = $this->generateMessage($edit);
                 $this->insert = $edit;
             }
-            if (isset($request->get(strtolower($entity))['Envoyer'])) {
-                if ($this->entity == 'Candidat')
-                {
-                    return $this->getFullList($this->entity, $this->isArchived);
-                } else
-                {
-                    return $this->getFullList($this->entity, NULL);
-                }
+            if (isset($request->get(strtolower($this->entity))['Envoyer'])) {
+
+                return $this->getFullList($this->isArchived);
             }
         }
         return $this->generateRender($form->createView(), $this->message, (int)$this->insert, $this->entity);
@@ -409,6 +343,96 @@ class ControllerService extends Controller
     public function setIsArchived($isArchived)
     {
         $this->isArchived = $isArchived;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+
+    /**
+     * @param mixed $criteria
+     * @return ControllerService
+     */
+    public function setCriteria($criteria)
+    {
+        $this->criteria = $criteria;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderBy()
+    {
+        return $this->orderBy;
+    }
+
+    /**
+     * @param mixed $orderBy
+     * @return ControllerService
+     */
+    public function setOrderBy($orderBy)
+    {
+        $this->orderBy = $orderBy;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateFormArguments()
+    {
+        return $this->createFormArguments;
+    }
+
+    /**
+     * @param mixed $createFormArguments
+     * @return ControllerService
+     */
+    public function setCreateFormArguments($createFormArguments)
+    {
+        $this->createFormArguments = $createFormArguments;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRemove()
+    {
+        return $this->remove;
+    }
+
+    /**
+     * @param mixed $remove
+     * @return ControllerService
+     */
+    public function setRemove($remove)
+    {
+        $this->remove = $remove;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormItem()
+    {
+        return $this->formItem;
+    }
+
+    /**
+     * @param mixed $formItem
+     * @return ControllerService
+     */
+    public function setFormItem($formItem)
+    {
+        $this->formItem = $formItem;
         return $this;
     }
 }

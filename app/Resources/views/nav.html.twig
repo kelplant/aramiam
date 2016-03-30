@@ -21,8 +21,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('add_candidat') }}">Ajouter un Candidat</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{ path('liste_des_candidats') }}">Accès aux Candidats</a></li>
-                        <li><a href="{{ path('liste_des_candidats_archives') }}">Accès aux Archives</a></li>
+                        <li><a href="{{ path( 'liste_des_candidats' , { 'isArchived' : '0'}) }}">Accès aux Candidats</a></li>
+                        <li><a href="{{ path( 'liste_des_candidats_archives' , { 'isArchived' : '1'}) }}">Accès aux Archives</a></li>
                     </ul>
                 </li>
                 {% endif %}

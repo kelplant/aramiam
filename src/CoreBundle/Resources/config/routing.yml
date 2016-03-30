@@ -2,24 +2,7 @@ core_homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
 
-agence:
-    resource: "@CoreBundle/Resources/config/agence_routing.yml"
-
-service:
-    resource: "@CoreBundle/Resources/config/service_routing.yml"
-
-fonction:
-    resource: "@CoreBundle/Resources/config/fonction_routing.yml"
-
-candidat:
-    resource: "@CoreBundle/Resources/config/candidat_routing.yml"
-
 # Routing for Utilisateurs
 liste_des_utilisateurs:
     path:     /admin/utilisateurs
     defaults: { _controller: CoreBundle:Utilisateur:index }
-
-inset_initial:
-    path:     /insertintial
-    defaults: { _controller: ZendeskBundle:InsertInitial:index }
-

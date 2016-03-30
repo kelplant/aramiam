@@ -7,10 +7,14 @@
  */
 namespace CoreBundle\Repository;
 
+use CoreBundle\Entity\Candidat;
 use Doctrine\ORM\EntityRepository;
 
 class CandidatRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
     public function findAll()
     {
         return $this->findBy(array(), array('startDate' => 'DESC'));

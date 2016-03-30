@@ -17,6 +17,8 @@ parameters:
     core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
 
+#    core.candidat_repository.class: CoreBundle\Repository\CandidatRepository
+
     core.controller_service.class: CoreBundle\Services\ControllerService
     core.zendesk_service.class: CoreBundle\Services\ZendeskService
 
@@ -25,6 +27,10 @@ services:
         class: %core.agence_manager.class%
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
+
+#    core.candidat_repository:
+#        class: %core.candidat_repository.class%
+#        arguments: ['@doctrine.orm.entity_manager', %core.entityname.candidat.class% ]
 
     core.agence_manager:
         class: %core.agence_manager.class%
@@ -56,9 +62,11 @@ services:
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
+#        - [setRepository, ["@core.candidat_repository"]]
 
     core.controller_service:
         class: %core.controller_service.class%
+        arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
 

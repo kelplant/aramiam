@@ -6,9 +6,12 @@ use CoreBundle\Form\AgenceType;
 use CoreBundle\Entity\Agence;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class AgenceController extends Controller
 {
+    private $itemToTemove;
+
     /**
      *
      */
@@ -20,9 +23,14 @@ class AgenceController extends Controller
         $this->get('core.controller_service')->setNewEntity(Agence::class);
         $this->get('core.controller_service')->setFormType(AgenceType::class);
         $this->get('core.controller_service')->setAlertText('cette agence');
+        $this->get('core.controller_service')->setIsArchived(NULL);
+        $this->get('core.controller_service')->setCriteria(array());
+        $this->get('core.controller_service')->setOrderBy(array('name' => 'ASC'));
+        $this->get('core.controller_service')->setCreateFormArguments(array());
     }
 
     /**
+     * @Route(path="/admin/agences", name="liste_des_agences")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -33,31 +41,38 @@ class AgenceController extends Controller
 
     /**
      * @param Request $request
+     * @Route(path="/admin/agences/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateDeleteAction($request, $this->get('core.controller_service')->getEntity());
+        $this->itemToTemove = $request->get('itemDelete');
+        $this->get('core.controller_service')->setRemove($this->get('core.agence_manager')->remove($this->itemToTemove));
+        return $this->get('core.controller_service')->generateDeleteAction();
     }
 
     /**
      * @param Request $request
+     * @Route(path="/admin/agences/add", name="add_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function addAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateAddAction($request, $this->get('core.controller_service')->getEntity());
+        return $this->get('core.controller_service')->generateAddAction($request);
     }
 
     /**
      * @param Request $request
+     * @Route(path="/admin/agences/edit/{itemEdit}", defaults={"itemEdit" = 0} , name="edit_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateEditAction($request, $this->get('core.controller_service')->getEntity());
+        $item = $this->get('core.agence_manager')->getRepository()->findOneById($request->get('itemEdit'));
+        $this->get('core.controller_service')->setFormItem($item);
+        return $this->get('core.controller_service')->generateEditAction($request);
     }
 }

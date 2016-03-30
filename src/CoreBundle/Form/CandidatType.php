@@ -109,7 +109,7 @@ class CandidatType extends AbstractType
                 ),
             ))
             ->add('matriculeRH', TextType::class, array(
-                'label' => 'Matricule RH',
+                'label' => 'Matricule RH du candidat',
                 'label_attr' => array(
                     'class' => 'col-sm-2 control-label',
                 ),

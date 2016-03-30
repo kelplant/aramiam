@@ -26,19 +26,19 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     protected $name;
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="string", length=100))
      */
     protected $surname;
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="string", length=20))
      */
     protected $civilite;
 
@@ -50,27 +50,33 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="integer"), length=10))
      */
     protected $agence;
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="integer", length=10))
      */
     protected $service;
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="integer", length=10))
      */
     protected $fonction;
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="string", length=10))
      */
     protected $responsable;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=20))
+     */
+    protected $matriculeRH;
 
     /**
      * @var string
@@ -255,6 +261,24 @@ class Candidat
     public function setCivilite($civilite)
     {
         $this->civilite = $civilite;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMatriculeRH()
+    {
+        return $this->matriculeRH;
+    }
+
+    /**
+     * @param string $matriculeRH
+     * @return Candidat
+     */
+    public function setMatriculeRH($matriculeRH)
+    {
+        $this->matriculeRH = $matriculeRH;
         return $this;
     }
 

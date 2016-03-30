@@ -108,6 +108,15 @@ class CandidatType extends AbstractType
                     'class' => 'form-control',
                 ),
             ))
+            ->add('matriculeRH', TextType::class, array(
+                'label' => 'Matricule RH',
+                'label_attr' => array(
+                    'class' => 'col-sm-2 control-label',
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
+            ))
             ->add('agence', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeAgences"],
                 'label' => 'Agence',

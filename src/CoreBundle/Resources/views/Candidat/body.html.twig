@@ -56,6 +56,20 @@
             </div>
         </div>
         <div class="form-group">
+            {{ form_label(itemForm.responsable) }}
+            {{ form_errors(itemForm.responsable) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.responsable) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(itemForm.matriculeRH) }}
+            {{ form_errors(itemForm.matriculeRH) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.matriculeRH) }}
+            </div>
+        </div>
+        <div class="form-group">
             {{ form_label(itemForm.agence) }}
             {{ form_errors(itemForm.agence) }}
             <div class="col-sm-8">
@@ -74,13 +88,6 @@
             {{ form_errors(itemForm.fonction) }}
             <div class="col-sm-8">
                 {{ form_widget(itemForm.fonction) }}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(itemForm.responsable) }}
-            {{ form_errors(itemForm.responsable) }}
-            <div class="col-sm-8">
-                {{ form_widget(itemForm.responsable) }}
             </div>
         </div>
     </div>

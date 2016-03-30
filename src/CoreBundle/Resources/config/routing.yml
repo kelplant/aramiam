@@ -19,3 +19,7 @@ liste_des_utilisateurs:
     path:     /admin/utilisateurs
     defaults: { _controller: CoreBundle:Utilisateur:index }
 
+inset_initial:
+    path:     /insertintial
+    defaults: { _controller: ZendeskBundle:InsertInitial:index }
+

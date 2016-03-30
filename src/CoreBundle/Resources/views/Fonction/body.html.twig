@@ -30,41 +30,43 @@
             {{ form_widget(itemForm.name) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(itemForm.shortName) }}
-        {{ form_errors(itemForm.shortName) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.shortName) }}
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <div class="form-group">
+            {{ form_label(itemForm.shortName) }}
+            {{ form_errors(itemForm.shortName) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.shortName) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInCompany) }}
-        {{ form_errors(itemForm.nameInCompany) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInCompany) }}
+        <div class="form-group">
+            {{ form_label(itemForm.nameInCompany) }}
+            {{ form_errors(itemForm.nameInCompany) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.nameInCompany) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInOdigo) }}
-        {{ form_errors(itemForm.nameInOdigo) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInOdigo) }}
+        <div class="form-group">
+            {{ form_label(itemForm.nameInOdigo) }}
+            {{ form_errors(itemForm.nameInOdigo) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.nameInOdigo) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInSalesforce) }}
-        {{ form_errors(itemForm.nameInSalesforce) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInSalesforce) }}
+        <div class="form-group">
+            {{ form_label(itemForm.nameInSalesforce) }}
+            {{ form_errors(itemForm.nameInSalesforce) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.nameInSalesforce) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInZendesk) }}
-        {{ form_errors(itemForm.nameInZendesk) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInZendesk) }}
+        <div class="form-group">
+            {{ form_label(itemForm.nameInZendesk) }}
+            {{ form_errors(itemForm.nameInZendesk) }}
+            <div class="col-sm-8">
+                {{ form_widget(itemForm.nameInZendesk) }}
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 {% endblock %}
 {% block footform %}

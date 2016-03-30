@@ -42,7 +42,7 @@ class UserCreator implements UserCreatorInterface
         $displayName = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[3]->getAllAttributeValues()[0];
         if (isset($response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]))
         {
-            $role = isset($response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0]);
+            $role = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0];
         }
         if ($role == "GRP-Aramiam-SUPER_ADMIN")
         {

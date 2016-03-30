@@ -23,6 +23,7 @@ class CandidatManager extends AbstractManager
         $itemToSet->setStartDate(new \DateTime($itemLoad['startDate']));
         $itemToSet->setAgence($itemLoad['agence']);
         $itemToSet->setService($itemLoad['service']);
+        $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
         $itemToSet->setFonction($itemLoad['fonction']);
         $itemToSet->setResponsable($itemLoad['responsable']);
         $itemToSet->setIsArchived('0');

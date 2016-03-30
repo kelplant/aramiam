@@ -18,6 +18,7 @@ parameters:
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
 
     core.controller_service.class: CoreBundle\Services\ControllerService
+    core.zendesk_service.class: CoreBundle\Services\ZendeskService
 
 services:
     core.abstract_manager:
@@ -58,5 +59,10 @@ services:
 
     core.controller_service:
         class: %core.controller_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.zendesk_service:
+        class: %core.zendesk_service.class%
         calls:
         - [ setContainer , [ "@service_container" ]]

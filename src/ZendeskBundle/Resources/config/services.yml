@@ -1,7 +1,7 @@
 parameters:
     zendesk.curl.create_ticket.class: ZendeskBundle\Services\CreateTicket
     zendesk.curl.curl_wrap.class: ZendeskBundle\Services\CurlWrap
-    zendesk.company.parameters_calls.class: ZendeskBundle\Services\ParametersCalls
+    zendesk.company.parameters_calls.class: ZendeskBundle\Services\Manager\ParametersManager
 
 services:
     curl.create_ticket:

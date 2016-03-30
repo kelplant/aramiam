@@ -1,12 +1,12 @@
 <?php
-// ZendeskBundle/Services/ParametersCalls.php
+// ZendeskBundle/Services/ParametersManager.php
 
-namespace ZendeskBundle\Services;
+namespace ZendeskBundle\Services\Manager;
 
 use ZendeskBundle\Entity\Parameters;
 use Doctrine\ORM\EntityManager;
 
-class ParametersCalls
+class ParametersManager
 {
     public function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;

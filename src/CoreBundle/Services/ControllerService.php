@@ -29,26 +29,6 @@ class ControllerService extends Controller
 
     private $isArchived;
 
-    # Under here for Zendesk Ticket API
-    private $nom;
-
-    private $prenom;
-
-    private $entite;
-
-    private $due_at;
-
-    private $agenceZendesk;
-
-    private $serviceZendesk;
-
-    private $fonctionZendesk;
-
-    private $statusPoste;
-
-    private $requester_email;
-
-
     /**
      * CandidatController constructor.
      */
@@ -243,7 +223,19 @@ class ControllerService extends Controller
         {
             if ($form->isValid()) {
                 $this->insert = $this->get('core.'.strtolower($entity).'_manager')->add($request->get(strtolower($entity)));
-                //$this->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
+//                private function initDataZendesk()
+//                {
+//                    $this->get('core.zendesk_service')->setNom('');
+//                    $this->get('core.zendesk_service')->setPrenom('');
+//                    $this->get('core.zendesk_service')->setEntite('Fonction');
+//                    $this->get('core.zendesk_service')->setAgenceZendesk(Fonction::class);
+//                    $this->get('core.zendesk_service')->setServiceZendesk('cette fonction');
+//                    $this->get('core.zendesk_service')->setFonctionZendesk(FonctionType::class);
+//                    $this->get('core.zendesk_service')->setStatusPoste('cette fonction');
+//                    $this->get('core.zendesk_service')->setRequesterEmail('cette fonction');
+//                }
+//
+//                $this->get('core.zendesk_service')->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
                 $this->message = $this->generateMessage($this->insert, $this->entity);
                 if ($this->insert != 1)
                 {
@@ -417,168 +409,6 @@ class ControllerService extends Controller
     public function setIsArchived($isArchived)
     {
         $this->isArchived = $isArchived;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     * @return ControllerService
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * @param mixed $prenom
-     * @return ControllerService
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntite()
-    {
-        return $this->entite;
-    }
-
-    /**
-     * @param mixed $entite
-     * @return ControllerService
-     */
-    public function setEntite($entite)
-    {
-        $this->entite = $entite;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDueAt()
-    {
-        return $this->due_at;
-    }
-
-    /**
-     * @param mixed $due_at
-     * @return ControllerService
-     */
-    public function setDueAt($due_at)
-    {
-        $this->due_at = $due_at;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAgenceZendesk()
-    {
-        return $this->agenceZendesk;
-    }
-
-    /**
-     * @param mixed $agenceZendesk
-     * @return ControllerService
-     */
-    public function setAgenceZendesk($agenceZendesk)
-    {
-        $this->agenceZendesk = $agenceZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getServiceZendesk()
-    {
-        return $this->serviceZendesk;
-    }
-
-    /**
-     * @param mixed $serviceZendesk
-     * @return ControllerService
-     */
-    public function setServiceZendesk($serviceZendesk)
-    {
-        $this->serviceZendesk = $serviceZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFonctionZendesk()
-    {
-        return $this->fonctionZendesk;
-    }
-
-    /**
-     * @param mixed $fonctionZendesk
-     * @return ControllerService
-     */
-    public function setFonctionZendesk($fonctionZendesk)
-    {
-        $this->fonctionZendesk = $fonctionZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRequesterEmail()
-    {
-        return $this->requester_email;
-    }
-
-    /**
-     * @param mixed $requester_email
-     * @return ControllerService
-     */
-    public function setRequesterEmail($requester_email)
-    {
-        $this->requester_email = $requester_email;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatusPoste()
-    {
-        return $this->statusPoste;
-    }
-
-    /**
-     * @param mixed $statusPoste
-     * @return ControllerService
-     */
-    public function setStatusPoste($statusPoste)
-    {
-        $this->statusPoste = $statusPoste;
         return $this;
     }
 }

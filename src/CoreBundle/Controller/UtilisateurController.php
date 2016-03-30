@@ -3,7 +3,6 @@
 namespace CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use CoreBundle\Form\UtilisateurType;
 
 class UtilisateurController extends Controller
 {
@@ -12,9 +11,6 @@ class UtilisateurController extends Controller
      */
     public function indexAction()
     {
-        $all_utilisateurs = $this->get('core.utilisateur_manager')->getRepository()->findAll();
-        return $this->render('CoreBundle:Utilisateur:view.html.twig', array(
-            'all' => $all_utilisateurs,
-        ));
+
     }
 }

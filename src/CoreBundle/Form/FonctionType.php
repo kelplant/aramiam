@@ -126,7 +126,7 @@ class FonctionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Fonction'
+            'data_class' => 'CoreBundle\Entity\Admin\Fonction'
         ));
     }
 }

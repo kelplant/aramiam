@@ -127,7 +127,7 @@ class ServiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Service'
+            'data_class' => 'CoreBundle\Entity\Admin\Service'
         ));
     }
 }

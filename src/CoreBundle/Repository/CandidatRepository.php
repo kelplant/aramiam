@@ -7,7 +7,6 @@
  */
 namespace CoreBundle\Repository;
 
-use CoreBundle\Entity\Candidat;
 use Doctrine\ORM\EntityRepository;
 
 class CandidatRepository extends EntityRepository

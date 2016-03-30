@@ -1,11 +1,7 @@
 parameters:
-    zendesk.create_ticket.class: ZendeskBundle\Services\CreateTicket
     zendesk.zendesk_service.class: ZendeskBundle\Services\ZendeskService
 
 services:
-    zendesk.create_ticket:
-        class: %zendesk.create_ticket.class%
-
     zendesk.zendesk_service:
         class: %zendesk.zendesk_service.class%
         calls:

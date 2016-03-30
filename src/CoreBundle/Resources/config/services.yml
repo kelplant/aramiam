@@ -1,14 +1,14 @@
 parameters:
-    core.entity.agence.class: CoreBundle\Entity\Agence
-    core.entityname.agence.class: 'CoreBundle:Agence'
-    core.entity.utilisateur.class: CoreBundle\Entity\Utilisateur
-    core.entityname.utilisateur.class: 'CoreBundle:Utilisateur'
-    core.entity.fonction.class: CoreBundle\Entity\Fonction
-    core.entityname.fonction.class: 'CoreBundle:Fonction'
-    core.entity.service.class: CoreBundle\Entity\Service
-    core.entityname.service.class: 'CoreBundle:Service'
-    core.entity.candidat.class: CoreBundle\Entity\Candidat
-    core.entityname.candidat.class: 'CoreBundle:Candidat'
+    core.entity.agence.class: CoreBundle\Entity\Admin\Agence
+    core.entityname.agence.class: 'CoreBundle\Entity\Admin\Agence'
+    core.entity.utilisateur.class: CoreBundle\Entity\Admin\Utilisateur
+    core.entityname.utilisateur.class: 'CoreBundle\Entity\Admin\Utilisateur'
+    core.entity.fonction.class: CoreBundle\Entity\Admin\Fonction
+    core.entityname.fonction.class: 'CoreBundle\Entity\Admin\Fonction'
+    core.entity.service.class: CoreBundle\Entity\Admin\Service
+    core.entityname.service.class: 'CoreBundle\Entity\Admin\Service'
+    core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
+    core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
 
     core.abstract_manager.class: CoreBundle\Services\Manager\AbstractManager
     core.agence_manager.class: CoreBundle\Services\Manager\AgenceManager
@@ -21,7 +21,7 @@ parameters:
     core.controller_service.class: CoreBundle\Services\ControllerService
 
     core.curl_wrap.class: ZendeskBundle\Services\CurlWrap
-    core.parameters_calls.class: ZendeskBundle\Services\Manager\ParametersManager
+    core.parameters_calls.class: CoreBundle\Services\Manager\ParametersManager
 
 services:
     core.abstract_manager:
@@ -71,4 +71,4 @@ services:
 
     core.parameters_calls:
         class: %core.parameters_calls.class%
-        arguments:    ["@doctrine"]
+        arguments:    ["@doctrine" , "CoreBundle:Parameters"]

@@ -3,7 +3,7 @@
 namespace CoreBundle\Controller;
 
 use CoreBundle\Form\ServiceType;
-use CoreBundle\Entity\Service;
+use CoreBundle\Entity\Admin\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

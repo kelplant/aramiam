@@ -8,8 +8,6 @@
 
 namespace CoreBundle\Services;
 
-
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ControllerService extends Controller
@@ -38,6 +36,12 @@ class ControllerService extends Controller
     private $remove;
 
     private $formItem;
+
+    private function initDataZendesk()
+    {
+
+
+    }
 
     /**
      * @param $item
@@ -94,51 +98,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @param $nom
-     * @param $prenom
-     * @param $entite
-     * @param $due_at
-     * @param $agenceZendesk
-     * @param $serviceZendesk
-     * @param $fonctionZendesk
-     * @param $statusPoste
-     * @param $requester_email
-     * @return mixed
-     */
-    public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
-    {
-        $message_array = array(
-            'nom'=>$nom,
-            'prenom'=>$prenom,
-            'entite'=>$entite,
-            'due_at' =>$due_at,
-            'agence' =>$agenceZendesk,
-            'service' =>$serviceZendesk,
-            'fonction' =>$fonctionZendesk,
-            'status_poste' =>$statusPoste,
-        );
-
-        define("ZDAPIKEY", $this->getParameter('zendesk_api_key')); # Alimenter parameter.yml
-        define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
-        define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
-
-        $parametersTicket = array(
-            'organizationIdId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_organizationIdId'),
-            'ticketFormIdId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_ticketFormIdId'),
-            'planifDateId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_planifDateId'),
-            'agenceId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_agenceId'),
-            'servicesId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_servicesId'),
-            'typeId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_typeId'),
-            'mainCatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_mainCatId'),
-            'lowCatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_lowCatId'),
-            'sendMatId'=>$this->get('company.parameters_calls')->getParam('zendesk_field_sendMatId'),
-        );
-        $json = $this->get('curl.create_ticket')->createJasonTicket($message_array, $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $parametersTicket);
-
-        return $this->get('curl.curl_wrap')->curlWrapExec("/tickets.json", $json);
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function generateIndexAction()
@@ -169,19 +128,9 @@ class ControllerService extends Controller
         {
             if ($form->isValid()) {
                 $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->get(strtolower($this->entity)));
-//                private function initDataZendesk()
-//                {
-//                    $this->get('core.zendesk_service')->setNom('');
-//                    $this->get('core.zendesk_service')->setPrenom('');
-//                    $this->get('core.zendesk_service')->setEntite('Fonction');
-//                    $this->get('core.zendesk_service')->setAgenceZendesk(Fonction::class);
-//                    $this->get('core.zendesk_service')->setServiceZendesk('cette fonction');
-//                    $this->get('core.zendesk_service')->setFonctionZendesk(FonctionType::class);
-//                    $this->get('core.zendesk_service')->setStatusPoste('cette fonction');
-//                    $this->get('core.zendesk_service')->setRequesterEmail('cette fonction');
-//                }
-//
-//                $this->get('core.zendesk_service')->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
+
+                $this->initDataZendesk();
+                $this->get('zendesk.zendesk_service')->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
                 $this->message = $this->generateMessage($this->insert);
                 if ($this->insert != 1)
                 {

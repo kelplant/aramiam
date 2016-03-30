@@ -42,7 +42,7 @@ class UtilisateurType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Utilisateur'
+            'data_class' => 'CoreBundle\Entity\Admin\Utilisateur'
         ));
     }
 }

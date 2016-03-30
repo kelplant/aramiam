@@ -3,7 +3,7 @@
 namespace CoreBundle\Controller;
 
 use CoreBundle\Form\CandidatType;
-use CoreBundle\Entity\Candidat;
+use CoreBundle\Entity\Admin\Candidat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

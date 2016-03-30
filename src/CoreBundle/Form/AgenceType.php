@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
+use CoreBundle\Entity\Admin\Agence;
+
 /**
  * Class AgenceType
  * @package CoreBundle\Form
@@ -122,7 +124,7 @@ class AgenceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Agence'
+            'data_class' => 'CoreBundle\Entity\Admin\Agence'
         ));
     }
 }

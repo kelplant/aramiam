@@ -2,8 +2,8 @@
 
 namespace CoreBundle\Controller;
 
+use CoreBundle\Entity\Admin\Agence;
 use CoreBundle\Form\AgenceType;
-use CoreBundle\Entity\Agence;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,7 +21,7 @@ class AgenceController extends Controller
         $this->get('core.controller_service')->setInsert('');
         $this->get('core.controller_service')->setEntity('Agence');
         $this->get('core.controller_service')->setNewEntity(Agence::class);
-        $this->get('core.controller_service')->setFormType(AgenceType::class);
+        $this->get('core.controller_service')->setFormType(Agencetype::class);
         $this->get('core.controller_service')->setAlertText('cette agence');
         $this->get('core.controller_service')->setIsArchived(NULL);
         $this->get('core.controller_service')->setCriteria(array());

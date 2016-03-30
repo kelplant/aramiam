@@ -5,9 +5,9 @@ namespace ZendeskBundle\Services;
 
 class CreateTicket
 {
-    private function generateBody($message_array){
+    private function generateBody($message_array) {
 
-        $body ="-------- Nouveau Candidat --------
+        $body = "-------- Nouveau Candidat --------
                 Prénom : ".$message_array['nom']."
                 Nom : ".$message_array['prenom']."
                 Entité : ".$message_array['entite']."
@@ -40,10 +40,10 @@ class CreateTicket
         }
         $today = date("Y-m-d");
         if ($today != $due_at) { # Vérification de la date si différente d'aujourd'hui ticket en pause
-            $status='hold';
+            $status = 'hold';
         }
-        if ($today == $due_at)  { # Vérification de la date celle d'aujourd'hui ticket ouvert
-            $status='open';
+        if ($today == $due_at) { # Vérification de la date celle d'aujourd'hui ticket ouvert
+            $status = 'open';
         }
         $body = $this->generateBody($message_array); # On génère le body du Ticket avec les élements (accepte un tableau)
         $payload = array('ticket' => array(

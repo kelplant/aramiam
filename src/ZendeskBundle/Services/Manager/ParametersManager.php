@@ -31,7 +31,7 @@ class ParametersManager
             $this->em->persist($param);
             $this->em->flush();
 
-            return ;
+            return;
         }
     }
 }

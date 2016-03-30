@@ -12,24 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ZendeskService extends Controller
 {
-    private $nom;
-
-    private $prenom;
-
-    private $entite;
-
-    private $due_at;
-
-    private $agenceZendesk;
-
-    private $serviceZendesk;
-
-    private $fonctionZendesk;
-
-    private $statusPoste;
-
-    private $requester_email;
-
+    /**
+     * @param $message_array
+     * @return string
+     */
     private function generateBody($message_array) {
 
         $body = "-------- Nouveau Candidat --------
@@ -50,6 +36,15 @@ class ZendeskService extends Controller
         return $body;
     }
 
+    /**
+     * @param $message_array
+     * @param $due_at
+     * @param $requester_email
+     * @param $agence_zendesk
+     * @param $service_zendesk
+     * @param $parametersTicket
+     * @return string
+     */
     private function createJasonTicket($message_array,$due_at,$requester_email,$agence_zendesk,$service_zendesk,$parametersTicket){
 
         $subject = "Un nouveau candidat a été ajouté"; # Titre du mail
@@ -146,167 +141,4 @@ class ZendeskService extends Controller
 
         return $this->get('core.curl_wrap')->curlWrapExec("/tickets.json", $json);
     }
-
-    /**
-     * @return mixed
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     * @return ZendeskService
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * @param mixed $prenom
-     * @return ZendeskService
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntite()
-    {
-        return $this->entite;
-    }
-
-    /**
-     * @param mixed $entite
-     * @return ZendeskService
-     */
-    public function setEntite($entite)
-    {
-        $this->entite = $entite;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDueAt()
-    {
-        return $this->due_at;
-    }
-
-    /**
-     * @param mixed $due_at
-     * @return ZendeskService
-     */
-    public function setDueAt($due_at)
-    {
-        $this->due_at = $due_at;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAgenceZendesk()
-    {
-        return $this->agenceZendesk;
-    }
-
-    /**
-     * @param mixed $agenceZendesk
-     * @return ZendeskService
-     */
-    public function setAgenceZendesk($agenceZendesk)
-    {
-        $this->agenceZendesk = $agenceZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getServiceZendesk()
-    {
-        return $this->serviceZendesk;
-    }
-
-    /**
-     * @param mixed $serviceZendesk
-     * @return ZendeskService
-     */
-    public function setServiceZendesk($serviceZendesk)
-    {
-        $this->serviceZendesk = $serviceZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFonctionZendesk()
-    {
-        return $this->fonctionZendesk;
-    }
-
-    /**
-     * @param mixed $fonctionZendesk
-     * @return ZendeskService
-     */
-    public function setFonctionZendesk($fonctionZendesk)
-    {
-        $this->fonctionZendesk = $fonctionZendesk;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatusPoste()
-    {
-        return $this->statusPoste;
-    }
-
-    /**
-     * @param mixed $statusPoste
-     * @return ZendeskService
-     */
-    public function setStatusPoste($statusPoste)
-    {
-        $this->statusPoste = $statusPoste;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRequesterEmail()
-    {
-        return $this->requester_email;
-    }
-
-    /**
-     * @param mixed $requester_email
-     * @return ZendeskService
-     */
-    public function setRequesterEmail($requester_email)
-    {
-        $this->requester_email = $requester_email;
-        return $this;
-    }
-
 }

@@ -37,12 +37,6 @@ class ControllerService extends Controller
 
     private $formItem;
 
-    private function initDataZendesk()
-    {
-
-
-    }
-
     /**
      * @param $item
      * @return mixed
@@ -129,8 +123,18 @@ class ControllerService extends Controller
             if ($form->isValid()) {
                 $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->get(strtolower($this->entity)));
 
-                $this->initDataZendesk();
-                $this->get('zendesk.zendesk_service')->createTicket($request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],'Lyon','service','Conseiller Commercial','Création','xavier.arroues@aramisauto.com');
+                $this->get('zendesk.zendesk_service')->createTicket(
+                    $request->get('candidat')['name'],
+                    $request->get('candidat')['surname'],
+                    'AramisAuto',
+                    $request->get('candidat')['startDate'],
+                    'Lyon',
+                    'service',
+                    'Conseiller Commercial',
+                    'Création',
+                    'xavier.arroues@aramisauto.com'
+                );
+
                 $this->message = $this->generateMessage($this->insert);
                 if ($this->insert != 1)
                 {

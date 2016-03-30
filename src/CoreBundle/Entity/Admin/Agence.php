@@ -5,31 +5,26 @@
  * Date: 26/03/2016
  * Time: 02:24
  */
-namespace CoreBundle\Entity;
+namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_fonction")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\FonctionRepository")
+ * @ORM\Table(name="core_agence")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\AgenceRepository")
  */
-class Fonction
+class Agence
 {
-    /** @ORM\Id()
+    /** @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /** @var string
-     * @ORM\Column(name="fonction_name", type="string", length=50, nullable=false, unique=true)
+     * @ORM\Column(name="agence_name", type="string", length=100, nullable=false, unique=true)
      */
     protected $name;
-
-    /** @var string
-     * @ORM\Column(type="string")
-     */
-    protected $shortName;
 
     /** @var string
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -61,15 +56,13 @@ class Fonction
 
     /**
      * @param mixed $id
-     * @return Fonction
+     * @return Agence
      */
     public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
-
-
 
     /**
      * @return mixed
@@ -81,29 +74,11 @@ class Fonction
 
     /**
      * @param mixed $name
-     * @return Fonction
+     * @return Agence
      */
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShortName()
-    {
-        return $this->shortName;
-    }
-
-    /**
-     * @param string $shortName
-     * @return Fonction
-     */
-    public function setShortName($shortName)
-    {
-        $this->shortName = $shortName;
         return $this;
     }
 
@@ -117,7 +92,7 @@ class Fonction
 
     /**
      * @param string $nameInCompany
-     * @return Fonction
+     * @return Agence
      */
     public function setNameInCompany($nameInCompany)
     {
@@ -135,7 +110,7 @@ class Fonction
 
     /**
      * @param string $nameInOdigo
-     * @return Fonction
+     * @return Agence
      */
     public function setNameInOdigo($nameInOdigo)
     {
@@ -153,7 +128,7 @@ class Fonction
 
     /**
      * @param string $nameInSalesforce
-     * @return Fonction
+     * @return Agence
      */
     public function setNameInSalesforce($nameInSalesforce)
     {
@@ -171,11 +146,13 @@ class Fonction
 
     /**
      * @param string $nameInZendesk
-     * @return Fonction
+     * @return Agence
      */
     public function setNameInZendesk($nameInZendesk)
     {
         $this->nameInZendesk = $nameInZendesk;
         return $this;
     }
+
+
 }

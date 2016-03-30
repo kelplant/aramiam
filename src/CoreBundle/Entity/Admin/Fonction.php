@@ -1,33 +1,33 @@
 <?php
 /**
-     * Created by PhpStorm.
-     * User: Xavier
-     * Date: 26/03/2016
-     * Time: 02:24
-     */
-namespace CoreBundle\Entity;
+ * Created by PhpStorm.
+ * User: Xavier
+ * Date: 26/03/2016
+ * Time: 02:24
+ */
+namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_service")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\ServiceRepository")
+ * @ORM\Table(name="core_fonction")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\FonctionRepository")
  */
-class Service
+class Fonction
 {
-    /** @ORM\Id
+    /** @ORM\Id()
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /** @var string
-     * @ORM\Column(name="service_name", type="string", length=100, nullable=false, unique=true)
+     * @ORM\Column(name="fonction_name", type="string", length=50, nullable=false, unique=true)
      */
     protected $name;
 
     /** @var string
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string")
      */
     protected $shortName;
 
@@ -61,7 +61,7 @@ class Service
 
     /**
      * @param mixed $id
-     * @return Service
+     * @return Fonction
      */
     public function setId($id)
     {
@@ -69,8 +69,10 @@ class Service
         return $this;
     }
 
+
+
     /**
-     * @return string
+     * @return mixed
      */
     public function getName()
     {
@@ -78,8 +80,8 @@ class Service
     }
 
     /**
-     * @param string $name
-     * @return Agence
+     * @param mixed $name
+     * @return Fonction
      */
     public function setName($name)
     {
@@ -97,7 +99,7 @@ class Service
 
     /**
      * @param string $shortName
-     * @return Agence
+     * @return Fonction
      */
     public function setShortName($shortName)
     {
@@ -115,7 +117,7 @@ class Service
 
     /**
      * @param string $nameInCompany
-     * @return Service
+     * @return Fonction
      */
     public function setNameInCompany($nameInCompany)
     {
@@ -133,7 +135,7 @@ class Service
 
     /**
      * @param string $nameInOdigo
-     * @return Service
+     * @return Fonction
      */
     public function setNameInOdigo($nameInOdigo)
     {
@@ -151,7 +153,7 @@ class Service
 
     /**
      * @param string $nameInSalesforce
-     * @return Service
+     * @return Fonction
      */
     public function setNameInSalesforce($nameInSalesforce)
     {
@@ -169,7 +171,7 @@ class Service
 
     /**
      * @param string $nameInZendesk
-     * @return Service
+     * @return Fonction
      */
     public function setNameInZendesk($nameInZendesk)
     {

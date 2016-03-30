@@ -17,20 +17,17 @@ parameters:
     core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
 
-#    core.candidat_repository.class: CoreBundle\Repository\CandidatRepository
 
     core.controller_service.class: CoreBundle\Services\ControllerService
-    core.zendesk_service.class: CoreBundle\Services\ZendeskService
+
+    core.curl_wrap.class: ZendeskBundle\Services\CurlWrap
+    core.parameters_calls.class: ZendeskBundle\Services\Manager\ParametersManager
 
 services:
     core.abstract_manager:
         class: %core.agence_manager.class%
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
-
-#    core.candidat_repository:
-#        class: %core.candidat_repository.class%
-#        arguments: ['@doctrine.orm.entity_manager', %core.entityname.candidat.class% ]
 
     core.agence_manager:
         class: %core.agence_manager.class%
@@ -62,7 +59,6 @@ services:
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
-#        - [setRepository, ["@core.candidat_repository"]]
 
     core.controller_service:
         class: %core.controller_service.class%
@@ -70,7 +66,9 @@ services:
         calls:
         - [ setContainer , [ "@service_container" ]]
 
-    core.zendesk_service:
-        class: %core.zendesk_service.class%
-        calls:
-        - [ setContainer , [ "@service_container" ]]
+    core.curl_wrap:
+        class: %core.curl_wrap.class%
+
+    core.parameters_calls:
+        class: %core.parameters_calls.class%
+        arguments:    ["@doctrine"]

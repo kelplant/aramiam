@@ -1,15 +1,12 @@
 parameters:
-    zendesk.curl.create_ticket.class: ZendeskBundle\Services\CreateTicket
-    zendesk.curl.curl_wrap.class: ZendeskBundle\Services\CurlWrap
-    zendesk.company.parameters_calls.class: ZendeskBundle\Services\Manager\ParametersManager
+    zendesk.create_ticket.class: ZendeskBundle\Services\CreateTicket
+    zendesk.zendesk_service.class: ZendeskBundle\Services\ZendeskService
 
 services:
-    curl.create_ticket:
-        class: %zendesk.curl.create_ticket.class%
+    zendesk.create_ticket:
+        class: %zendesk.create_ticket.class%
 
-    curl.curl_wrap:
-        class: %zendesk.curl.curl_wrap.class%
-
-    company.parameters_calls:
-        class: %zendesk.company.parameters_calls.class%
-        arguments:    ["@doctrine.orm.entity_manager"]
+    zendesk.zendesk_service:
+        class: %zendesk.zendesk_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]

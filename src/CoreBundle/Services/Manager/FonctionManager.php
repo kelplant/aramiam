@@ -1,7 +1,7 @@
 <?php
 namespace CoreBundle\Services\Manager;
 
-use CoreBundle\Entity\Fonction;
+use CoreBundle\Entity\Admin\Fonction;
 
 /**
  * Class FonctionManager

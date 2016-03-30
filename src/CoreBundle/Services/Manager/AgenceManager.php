@@ -1,7 +1,7 @@
 <?php
 namespace CoreBundle\Services\Manager;
 
-use CoreBundle\Entity\Agence;
+use CoreBundle\Entity\Admin\Agence;
 
 /**
  * Class AgenceManager

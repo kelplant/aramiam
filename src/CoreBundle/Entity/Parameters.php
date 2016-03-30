@@ -1,12 +1,12 @@
 <?php
 // ZendeskBundle/Entity/Parameters.php
-namespace ZendeskBundle\Entity;
+namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity ()
- * @ORM\Table(name="api_zendesk_params")
+ * @ORM\Table(name="core_parameters")
  */
 class Parameters
 {
@@ -28,6 +28,12 @@ class Parameters
      * @ORM\Column(type="string")
      */
     protected $paramValue;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    protected $application;
 
     /**
      * @return int
@@ -68,4 +74,23 @@ class Parameters
     {
         $this->paramValue = $paramValue;
     }
+
+    /**
+     * @return string
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * @param string $application
+     * @return Parameters
+     */
+    public function setApplication($application)
+    {
+        $this->application = $application;
+        return $this;
+    }
+
 }

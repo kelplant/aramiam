@@ -1,7 +1,7 @@
 <?php
 namespace CoreBundle\Services\Manager;
 
-use CoreBundle\Entity\Service;
+use CoreBundle\Entity\Admin\Service;
 
 /**
  * Class ServiceManager

@@ -9,6 +9,7 @@
 namespace CoreBundle\Services;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ControllerService extends Controller
 {
@@ -62,6 +63,7 @@ class ControllerService extends Controller
     private function getFullList($isArchived)
     {
         $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findBy($this->criteria, $this->orderBy);
+        $form = $this->generateAddForm();
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
@@ -72,6 +74,7 @@ class ControllerService extends Controller
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
+            'formInfos' => $form->createView(),
         ));
     }
 
@@ -120,33 +123,22 @@ class ControllerService extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted())
         {
-            if ($form->isValid()) {
-                $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->get(strtolower($this->entity)));
+            $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($form->getData());
+//            $this->get('zendesk.zendesk_service')->createTicket(
+//                $request->get('candidat')['name'],
+//                $request->get('candidat')['surname'],
+//                'AramisAuto',
+//                $request->get('candidat')['startDate'],
+//                'Lyon',
+//                'service',
+//                'Conseiller Commercial',
+//                'Création',
+//                'xavier.arroues@aramisauto.com'
+//            );
 
-                $this->get('zendesk.zendesk_service')->createTicket(
-                    $request->get('candidat')['name'],
-                    $request->get('candidat')['surname'],
-                    'AramisAuto',
-                    $request->get('candidat')['startDate'],
-                    'Lyon',
-                    'service',
-                    'Conseiller Commercial',
-                    'Création',
-                    'xavier.arroues@aramisauto.com'
-                );
-
-                $this->message = $this->generateMessage($this->insert);
-                if ($this->insert != 1)
-                {
-                    $form = $this->generateAddForm();
-                }
-            }
-            if (isset($request->get(strtolower($this->entity))['Envoyer'])) {
-
-                return $this->getFullList($this->isArchived);
-            }
+            $this->message = $this->generateMessage($this->insert);
         }
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert, $this->entity);
+        return $this->getFullList($this->isArchived);
     }
 
     /**

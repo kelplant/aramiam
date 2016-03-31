@@ -25,8 +25,6 @@ abstract class AbstractManager
         $this->em = $em;
     }
 
-    //abstract public function findByCriteria(array $criteria);
-
     /**
      * @param $entity
      */
@@ -96,23 +94,6 @@ abstract class AbstractManager
     public function load($itemId) {
         return $this->getRepository()
             ->findOneBy(array('id' => $itemId));
-    }
-
-    /**
-     * @param $itemAddLoad
-     * @return bool|int
-     */
-    public function add($itemAddLoad)
-    {
-        $itemToSet = new $this->entity;
-        $itemToSet = $this->globalSetItem($itemToSet, $itemAddLoad);
-
-        try {
-            $this->save($itemToSet);
-            return 6669;
-        } catch (\Exception $e) {
-            return error_log($e->getMessage());
-        }
     }
 
     /**

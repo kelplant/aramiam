@@ -29,4 +29,31 @@ class CandidatManager extends AbstractManager
         $itemToSet->setIsArchived('0');
         return $itemToSet;
     }
+
+    /**
+     * @param $itemLoad
+     * @return bool|int
+     */
+    public function add($itemLoad)
+    {
+
+        $itemToSet = new $this->entity;
+        $itemToSet->setName($itemLoad->getName());
+        $itemToSet->setSurname($itemLoad->getSurname());
+        $itemToSet->setCivilite($itemLoad->getCivilite());
+        $itemToSet->setStartDate(new \DateTime($itemLoad->getStartDate()));
+        $itemToSet->setAgence($itemLoad->getAgence());
+        $itemToSet->setService($itemLoad->getService());
+        $itemToSet->setMatriculeRH($itemLoad->getMatriculeRH());
+        $itemToSet->setFonction($itemLoad->getFonction());
+        $itemToSet->setResponsable($itemLoad->getResponsable());
+        $itemToSet->setIsArchived('0');
+
+        try {
+            $this->save($itemToSet);
+            return 6669;
+        } catch (\Exception $e) {
+            return error_log($e->getMessage());
+        }
+    }
 }

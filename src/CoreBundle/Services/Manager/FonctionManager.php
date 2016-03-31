@@ -25,4 +25,27 @@ class FonctionManager extends AbstractManager
 
         return $itemToSet;
     }
+
+    /**
+     * @param $itemLoad
+     * @return bool|int
+     */
+    public function add($itemLoad)
+    {
+
+        $itemToSet = new $this->entity;
+        $itemToSet->setName($itemLoad->getName());
+        $itemToSet->setShortName($itemLoad->getShortName());
+        $itemToSet->setNameInCompany($itemLoad->getNameInCompany());
+        $itemToSet->setNameInOdigo($itemLoad->getNameInOdigo());
+        $itemToSet->setNameInSalesforce($itemLoad->getNameInSalesforce());
+        $itemToSet->setNameInZendesk($itemLoad->getNameInZendesk());
+
+        try {
+            $this->save($itemToSet);
+            return 6669;
+        } catch (\Exception $e) {
+            return error_log($e->getMessage());
+        }
+    }
 }

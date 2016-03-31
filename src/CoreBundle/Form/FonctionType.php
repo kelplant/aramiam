@@ -18,11 +18,6 @@ class FonctionType extends AbstractType
     private $submitName;
 
     /**
-     * @var string
-     */
-    private $typeBtnEN;
-
-    /**
      * FonctionType constructor.
      */
     public function __construct()
@@ -32,12 +27,10 @@ class FonctionType extends AbstractType
         if ($path == 'add')
         {
             $this->submitName = 'Envoyer';
-            $this->typeBtnEN = 'Envoyer et Nouveau';
         }
         if ($path == 'edit')
         {
             $this->submitName = 'Mettre & Jour';
-            $this->typeBtnEN = 'MàJ et Rester';
         }
     }
 
@@ -109,12 +102,6 @@ class FonctionType extends AbstractType
                 'label' => $this->submitName,
                 'attr' => array(
                     'class' => 'btn btn-success',
-                ),
-            ))
-            ->add('EnvoyerNouveau', SubmitType::class, array(
-                'label' => $this->typeBtnEN,
-                'attr' => array(
-                    'class' => 'btn btn-info',
                 ),
             ))
         ;

@@ -5,7 +5,7 @@ namespace CoreBundle\Controller;
 use CoreBundle\Form\CandidatType;
 use CoreBundle\Entity\Admin\Candidat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class CandidatController extends Controller
@@ -13,6 +13,8 @@ class CandidatController extends Controller
     private $isArchived;
 
     private $itemToTemove;
+
+    private $reqcase;
 
     /**
      * @return array
@@ -37,7 +39,7 @@ class CandidatController extends Controller
         $this->get('core.controller_service')->setMessage('');
         $this->get('core.controller_service')->setInsert('');
         $this->get('core.controller_service')->setEntity('Candidat');
-        $this->get('core.controller_service')->setNewEntity(Candidat::class);
+        $this->get('core.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Candidat');
         $this->get('core.controller_service')->setFormType(CandidatType::class);
         $this->get('core.controller_service')->setAlertText('ce candidat');
         $this->get('core.controller_service')->setIsArchived($this->isArchived);

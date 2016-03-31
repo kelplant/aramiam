@@ -23,12 +23,6 @@ class CandidatType extends AbstractType
     private $submitName;
 
     /**
-     * @var string
-     */
-    private $typeBtnEN;
-
-
-    /**
      * CandidatType constructor.
      */
     public function __construct()
@@ -38,12 +32,10 @@ class CandidatType extends AbstractType
         if ($path == 'add')
         {
             $this->submitName = 'Envoyer';
-            $this->typeBtnEN = 'Envoyer et Nouveau';
         }
         if ($path == 'edit')
         {
             $this->submitName = 'Mettre & Jour';
-            $this->typeBtnEN = 'MàJ et Rester';
         }
     }
 
@@ -126,7 +118,6 @@ class CandidatType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control',
-                    'onChange'=> 'submit()',
                 )
             ))
             ->add('service', ChoiceType::class, array(
@@ -138,7 +129,6 @@ class CandidatType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control',
-                    'onChange'=> 'submit()',
                 )
             ))
             ->add('fonction', ChoiceType::class, array(
@@ -150,19 +140,12 @@ class CandidatType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control',
-                    'onChange'=> 'submit()',
                 )
             ))
             ->add('Envoyer', SubmitType::class, array(
                 'label' => $this->submitName,
                 'attr' => array(
                     'class' => 'btn btn-success',
-                ),
-            ))
-            ->add('EnvoyerNouveau', SubmitType::class, array(
-                'label' => $this->typeBtnEN,
-                'attr' => array(
-                    'class' => 'btn btn-info',
                 ),
             ))
         ;

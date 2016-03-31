@@ -19,11 +19,6 @@ class ServiceType extends AbstractType
     private $submitName;
 
     /**
-     * @var string
-     */
-    private $typeBtnEN;
-
-    /**
      * ServiceType constructor.
      */
     public function __construct()
@@ -33,12 +28,10 @@ class ServiceType extends AbstractType
         if ($path == 'add')
         {
             $this->submitName = 'Envoyer';
-            $this->typeBtnEN = 'Envoyer et Nouveau';
         }
         if ($path == 'edit')
         {
             $this->submitName = 'Mettre & Jour';
-            $this->typeBtnEN = 'MàJ et Rester';
         }
     }
 
@@ -110,12 +103,6 @@ class ServiceType extends AbstractType
                 'label' => $this->submitName,
                 'attr' => array(
                     'class' => 'btn btn-success',
-                ),
-            ))
-            ->add('EnvoyerNouveau', SubmitType::class, array(
-                'label' => $this->typeBtnEN,
-                'attr' => array(
-                    'class' => 'btn btn-info',
                 ),
             ))
         ;

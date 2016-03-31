@@ -5,10 +5,13 @@
     {% endblock %}
     {% block mainform %}
         <br><br><br><br><br>
+        {% block modal_form %}
+        {% endblock %}
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="home-gauche list-group-item disabled admin_cat_title" data-href="#">{% block title %}{% endblock %}<a href="{{ route }}"><button type="button" class="btn btn-success pull-right">Nouveau</button></a></div>
+
+                    <div class="home-gauche list-group-item disabled admin_cat_title" data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" id="addForm">Nouveau</button></div>
                     {% if message is defined %}
                         {% if message is not null %}
                             <div class="form-group">
@@ -54,6 +57,8 @@
 {% block javascripts %}
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+
+    {#Fonction de generation des tables Jquery#}
     <script>
         $(document).ready(function(){
             $('.table-striped').DataTable({
@@ -74,6 +79,60 @@
                 }
             });
         });
-    </script>
+        </script>
 
+    {#Fonction de generation du calendrier#}
+        <script>
+             $("form input.date").datepicker();
+        </script>
+
+    {#Fonction de chargement Ajax Form#}
+        <script>
+            function postForm( $form, callback ){
+                var values = {};
+                $.each( $form.serializeArray(), function(i, field) {
+                    values[field.name] = field.value;
+                });
+                $.ajax({
+                    type        : $form.attr( 'method' ),
+                    url         : $form.attr( 'action' ),
+                    data        : values,
+                    success     : function(data) {
+                        callback( data );
+                    }
+                });
+
+            }
+        </script>
+    {#Appel à la fonction de chargement Ajax Form#}
+        <script>
+            $(document).ready(function(){
+                var forms = [
+                    '[ name="{{ formInfos.vars.full_name }}"]'
+                ];
+                $( forms.join(',') ).submit( function( e ){
+                    e.preventDefault();
+                    postForm( $(this), function( response ){
+                    });
+                    return false;
+                });
+            });
+        </script>
+    {#Fonction de confirmation personalisée bootstrap#}
+    <script>
+        $(function() {
+            $('a[data-confirm]').click(function(ev) {
+                var href = $(this).attr('href');
+
+                if (!$('#dataConfirmModal').length) {
+                    $('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button><a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                }
+                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                $('#dataConfirmOK').attr('href', href);
+                $('#dataConfirmModal').modal({show:true});
+
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

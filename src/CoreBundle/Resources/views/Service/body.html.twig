@@ -1,85 +1,53 @@
-{% extends '::base.html.twig' %}
-{% block title %} Liste des services {% endblock %}
-{% block mainform %}
-<div class="container main_container">
-    {{ form_start(itemForm, {'attr':{'class': 'form-horizontal'}}) }}
-    {{ form_errors(itemForm) }}
-    {% if message is defined %}
-        {% if message is not null %}
-            <div class="form-group">
-                <div class="col-sm-2"></div>
-                <div class=" col-sm-8 corp-message-3">
-                        {% if code_message == 6669 %}
-                            <div class="form-group alert-success corp-message-1">
-                                {{ message }}
-                            </div>
-                        {% endif %}
-                        {% if code_message == 1 %}
-                            <div class="form-group alert-danger corp-message-1">
-                                {{ message }}
-                            </div>
-                        {% endif %}
-                </div>
+<div class="main_container">
+    <form action="{{ path('add_service') }}" method="post" class="form-horizontal">
+    {{ form_errors(formInfos) }}
+    <div class="form-group">
+        {{ form_label(formInfos.name) }}
+        {{ form_errors(formInfos.name) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.name) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(formInfos.shortName) }}
+        {{ form_errors(formInfos.shortName) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.shortName) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(formInfos.nameInCompany) }}
+        {{ form_errors(formInfos.nameInCompany) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.nameInCompany) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(formInfos.nameInOdigo) }}
+        {{ form_errors(formInfos.nameInOdigo) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.nameInOdigo) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(formInfos.nameInSalesforce) }}
+        {{ form_errors(formInfos.nameInSalesforce) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.nameInSalesforce) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(formInfos.nameInZendesk) }}
+        {{ form_errors(formInfos.nameInZendesk) }}
+        <div class="col-sm-8">
+            {{ form_widget(formInfos.nameInZendesk) }}
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-sm-6 align_right">
+                {{ form_row(formInfos.Envoyer) }}
             </div>
-        {% endif %}
-    {% endif %}
-    <div class="form-group">
-        {{ form_label(itemForm.name) }}
-        {{ form_errors(itemForm.name) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.name) }}
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.shortName) }}
-        {{ form_errors(itemForm.shortName) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.shortName) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInCompany) }}
-        {{ form_errors(itemForm.nameInCompany) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInCompany) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInOdigo) }}
-        {{ form_errors(itemForm.nameInOdigo) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInOdigo) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInSalesforce) }}
-        {{ form_errors(itemForm.nameInSalesforce) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInSalesforce) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(itemForm.nameInZendesk) }}
-        {{ form_errors(itemForm.nameInZendesk) }}
-        <div class="col-sm-8">
-            {{ form_widget(itemForm.nameInZendesk) }}
-        </div>
-    </div>
+        {{ form_row(formInfos.id) }}
+    </form>
 </div>
-{% endblock %}
-{% block footform %}
-    <div class="form-group">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-1 align_right">
-            {{ form_row(itemForm.Envoyer) }}
-        </div>
-        <div class="col-sm-1 align_left">
-            {{ form_row(itemForm.EnvoyerNouveau) }}
-        </div>
-    </div>
-    {{ form_row(itemForm.id) }}
-    {{ form_end(itemForm) }}
-{% endblock %}
-{% block javascripts %}
-
-{% endblock %}

@@ -1,11 +1,12 @@
 .admin_cat_title {
     font-size: large;
     font-weight: 700;
-    padding-bottom: 18px;
+    padding-bottom: 2%;
 }
 .admin_cat_table_title {
     font-size: medium;
     text-align: center;
+    color: rgba(53, 123, 184, 0.93);
 }
 .admin_cat_table_cell {
     font-size: medium;
@@ -16,7 +17,7 @@
     text-align: center;
 }
 .main_container {
-    margin-top: 80px;
+    margin-top: 1%;
 }
 .align_right {
     text-align: right;
@@ -37,4 +38,9 @@
     margin-top: 20px;
     margin-left: 15px;
     text-align: center;
+}
+.small
+{
+    width: 20%;
+    height: 20%;
 }

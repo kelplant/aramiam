@@ -36,7 +36,7 @@ class UserCreator implements UserCreatorInterface
     public function createUser(Response $response)
     {
         $role = "";
-        $username= $this->usernameMapper->getUsername($response);
+        $username = $this->usernameMapper->getUsername($response);
         $email = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[1]->getAllAttributeValues()[0];
         $dn = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[2]->getAllAttributeValues()[0];
         $displayName = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[3]->getAllAttributeValues()[0];

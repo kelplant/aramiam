@@ -46,7 +46,7 @@ class ParametersManager
      * @param $name
      * @param $value
      */
-    public function setParamForName($name, $value,$application)
+    public function setParamForName($name, $value, $application)
     {
         $repository = $this->em->getRepository('ZendeskBundle:Parameters');
         $testInsert = $repository->findOneByParamName($name);

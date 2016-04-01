@@ -24,9 +24,8 @@ class FonctionController extends Controller
         $this->get('core.controller_service')->setFormType(FonctionType::class);
         $this->get('core.controller_service')->setAlertText('cette fonction');
         $this->get('core.controller_service')->setIsArchived(NULL);
-        $this->get('core.controller_service')->setCriteria(array());
-        $this->get('core.controller_service')->setOrderBy(array('name' => 'ASC'));
         $this->get('core.controller_service')->setCreateFormArguments(array());
+        $this->get('core.controller_service')->setAllItems($this->get('core.fonction_manager')->getRepository()->findBy(array(), array('name' => 'ASC')));
     }
 
     /**

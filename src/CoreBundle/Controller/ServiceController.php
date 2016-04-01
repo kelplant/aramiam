@@ -24,9 +24,8 @@ class ServiceController extends Controller
         $this->get('core.controller_service')->setFormType(ServiceType::class);
         $this->get('core.controller_service')->setAlertText('ce service');
         $this->get('core.controller_service')->setIsArchived(NULL);
-        $this->get('core.controller_service')->setCriteria(array());
-        $this->get('core.controller_service')->setOrderBy(array('name' => 'ASC'));
         $this->get('core.controller_service')->setCreateFormArguments(array());
+        $this->get('core.controller_service')->setAllItems($this->get('core.service_manager')->getRepository()->findBy(array(), array('name' => 'ASC')));
     }
 
     /**

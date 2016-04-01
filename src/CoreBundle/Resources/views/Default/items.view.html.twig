@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="home-gauche list-group-item disabled admin_cat_title" data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" id="addForm">Nouveau</button></div>
+                    <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right font_exo_2" data-toggle="modal" data-target="#modalAdd" id="addForm"><i class="fa fa-plus"></i> Nouveau</button></div>
                     {% if message is defined %}
                         {% if message is not null %}
                             <div class="form-group">
@@ -57,7 +57,17 @@
 {% block javascripts %}
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-
+    <script>
+        function test($name){
+                    $.ajax({
+                        url:"{{ path ('edit_candidat') }}?editItem=".$name,
+                        type:"POST",
+                        success: function (response){
+                            $('#testDiv').html(response);
+                        }
+                    });
+        }
+    </script>
     {#Fonction de generation des tables Jquery#}
     <script>
         $(document).ready(function(){
@@ -108,7 +118,7 @@
         <script>
             $(document).ready(function(){
                 var forms = [
-                    '[ name="{{ formInfos.vars.full_name }}"]'
+                    '[ name="{{ formAdd.vars.full_name }}"]'
                 ];
                 $( forms.join(',') ).submit( function( e ){
                     e.preventDefault();
@@ -135,4 +145,5 @@
             });
         });
     </script>
+
 {% endblock %}

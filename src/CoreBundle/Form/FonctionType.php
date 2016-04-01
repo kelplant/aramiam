@@ -47,7 +47,7 @@ class FonctionType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom de la fonction',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
@@ -56,43 +56,43 @@ class FonctionType extends AbstractType
             ->add('shortName', TextType::class, array(
                 'label' => 'Nom raccourci',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('nameInCompany', TextType::class, array(
-                'label' => 'Nom dans Company',
+                'label' => 'Dans Company',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('nameInOdigo', TextType::class, array(
-                'label' => 'Nom dans Odigo',
+                'label' => 'Dans Odigo',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('nameInSalesforce', TextType::class, array(
-                'label' => 'Nom dans Salesforce',
+                'label' => 'Dans Salesforce',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('nameInZendesk', TextType::class, array(
-                'label' => 'Nom dans Zendesk',
+                'label' => 'Dans Zendesk',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',

@@ -28,7 +28,7 @@ class ParametersManager
     {
         $param = $this->em->getRepository('ZendeskBundle:Parameters')->findOneByParamName($name);
 
-        return $value = $param->getParamValue();
+        return $param->getParamValue();
     }
 
     /**
@@ -49,13 +49,16 @@ class ParametersManager
     public function setParamForName($name, $value, $application)
     {
         $repository = $this->em->getRepository('ZendeskBundle:Parameters');
-        $testInsert = $repository->findOneByParamName($name);
-        $param = new Parameters();
-        $param->setParamName($name);
-        $param->setParamValue($value);
-        $param->setApplication($application);
+        $insert = $repository->findOneByParamName($name);
+        if ($insert == NULL)
+        {
+            $insert = new Parameters();
+        }
+        $insert->setParamName($name);
+        $insert->setParamValue($value);
+        $insert->setApplication($application);
 
-        $this->em->persist($param);
+        $this->em->persist($insert);
         $this->em->flush();
 
         return;

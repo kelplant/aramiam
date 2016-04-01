@@ -28,15 +28,13 @@ class ControllerService extends Controller
 
     private $isArchived;
 
-    private $criteria;
-
-    private $orderBy;
-
     private $createFormArguments;
 
     private $remove;
 
     private $formItem;
+
+    private $allItems;
 
     /**
      * @param $item
@@ -62,11 +60,11 @@ class ControllerService extends Controller
      */
     private function getFullList($isArchived)
     {
-        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findBy($this->criteria, $this->orderBy);
-        $form = $this->generateAddForm();
 
+        $formAdd = $this->generateAddForm();
+        $formEdit = $this->generateAddForm();
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
-            'all' => $allItems,
+            'all' => $this->allItems,
             'route' => $this->generateUrl('add_'.strtolower($this->entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
@@ -74,7 +72,8 @@ class ControllerService extends Controller
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
-            'formInfos' => $form->createView(),
+            'formAdd' => $formAdd->createView(),
+            'formEdit' => $formEdit->createView(),
         ));
     }
 
@@ -147,6 +146,7 @@ class ControllerService extends Controller
      */
     public function generateEditAction($request)
     {
+        echo "<javascript>alert();</javascript>";
         $itemToEdit = $request->get('itemEdit');
         $form = $this->createForm($this->formType, $this->formItem, $this->createFormArguments);
         $form->handleRequest($request);
@@ -294,42 +294,6 @@ class ControllerService extends Controller
     /**
      * @return mixed
      */
-    public function getCriteria()
-    {
-        return $this->criteria;
-    }
-
-    /**
-     * @param mixed $criteria
-     * @return ControllerService
-     */
-    public function setCriteria($criteria)
-    {
-        $this->criteria = $criteria;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrderBy()
-    {
-        return $this->orderBy;
-    }
-
-    /**
-     * @param mixed $orderBy
-     * @return ControllerService
-     */
-    public function setOrderBy($orderBy)
-    {
-        $this->orderBy = $orderBy;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCreateFormArguments()
     {
         return $this->createFormArguments;
@@ -378,6 +342,24 @@ class ControllerService extends Controller
     public function setFormItem($formItem)
     {
         $this->formItem = $formItem;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllItems()
+    {
+        return $this->allItems;
+    }
+
+    /**
+     * @param mixed $allItems
+     * @return ControllerService
+     */
+    public function setAllItems($allItems)
+    {
+        $this->allItems = $allItems;
         return $this;
     }
 }

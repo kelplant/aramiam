@@ -2,15 +2,21 @@
     font-size: large;
     font-weight: 700;
     padding-bottom: 2%;
+    font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_title {
     font-size: medium;
     text-align: center;
     color: rgba(53, 123, 184, 0.93);
+    font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_cell {
     font-size: medium;
     text-align: center;
+    font-family: 'Exo 2', sans-serif;
+}
+.font_exo_2 {
+    font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_cell_action {
     font-size: larger;
@@ -22,8 +28,16 @@
 .align_right {
     text-align: right;
 }
+.align_right_marge {
+    text-align: right;
+    padding-right: 5%;
+}
 .align_left {
     text-align: left;
+}
+.float_right {
+    text-align:right;
+    display: inline;
 }
 .corp-message-1 {
     padding: 10px;
@@ -43,4 +57,7 @@
 {
     width: 20%;
     height: 20%;
+}
+.margin-form{
+
 }

@@ -1,0 +1,54 @@
+<div class="main_container">
+    <form action="{{ path('add_fonction') }}" method="post" class="form-horizontal">
+        {{ form_errors(formAdd) }}
+        <div class="form-group">
+            {{ form_label(formAdd.name) }}
+            {{ form_errors(formAdd.name) }}
+            <div class="col-sm-8">
+                {{ form_widget(formAdd.name) }}
+            </div>
+        </div>
+        {% if is_granted("ROLE_SUPER_ADMIN") %}
+            <div class="form-group">
+                {{ form_label(formAdd.shortName) }}
+                {{ form_errors(formAdd.shortName) }}
+                <div class="col-sm-8">
+                    {{ form_widget(formAdd.shortName) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formAdd.nameInCompany) }}
+                {{ form_errors(formAdd.nameInCompany) }}
+                <div class="col-sm-8">
+                    {{ form_widget(formAdd.nameInCompany) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formAdd.nameInOdigo) }}
+                {{ form_errors(formAdd.nameInOdigo) }}
+                <div class="col-sm-8">
+                    {{ form_widget(formAdd.nameInOdigo) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formAdd.nameInSalesforce) }}
+                {{ form_errors(formAdd.nameInSalesforce) }}
+                <div class="col-sm-8">
+                    {{ form_widget(formAdd.nameInSalesforce) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formAdd.nameInZendesk) }}
+                {{ form_errors(formAdd.nameInZendesk) }}
+                <div class="col-sm-8">
+                    {{ form_widget(formAdd.nameInZendesk) }}
+                </div>
+            </div>
+        {% endif %}
+        {{ form_row(formAdd.id) }}
+</div>
+</div>
+<div class="modal-footer align_right">
+    {{ form_row(formAdd.Envoyer) }}
+</div>
+</form>

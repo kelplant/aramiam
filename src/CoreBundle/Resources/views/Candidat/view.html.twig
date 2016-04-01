@@ -11,16 +11,17 @@
         {% for item in all %}
             <tr id="generalBtr" data-href="">
                 <td class="admin_cat_table_cell">{{ item.name }} {{ item.surname }}</td>
-                <td class="admin_cat_table_cell">{{ item.startDate.date }}</td>
+                <td class="admin_cat_table_cell">{{ item.startDate }}</td>
                 <td class="admin_cat_table_cell">{{ item.agence }}</td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
-                        <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="modal" data-target=".bs-example-modal-lg" id="editForm" name="{{ item.id }}">
+                        <button type="button" class="btn btn-default btn-xs font_exo_2" onclick="test({{ item.id }});" aria-label="Left Align" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                             <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                         </button>
+                    <input type='hidden' value='' id='ref_id_bouton'>
                     <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
-                        <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
+                        <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
                             <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
                         </button>
                     </a>
@@ -30,13 +31,30 @@
     {% endblock %}
 
     {% block modal_form %}
-       <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalId">
-            <div class="modal-dialog modal-lg">
+       <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    {% embed "CoreBundle:Candidat:body.html.twig"  %}
-                    {% endembed %}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajout d'un candidat</h4>
+                    </div>
+                    <div class="modal-body">
+                        {% embed "CoreBundle:Candidat:add.body.html.twig"  %}
+                        {% endembed %}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edition d'un candidat</h4>
+                    </div>
+                    <div class="modal-body">
+                        {% embed "CoreBundle:Candidat:edit.body.html.twig"  %}
+                        {% endembed %}
                 </div>
             </div>
         </div>
     {% endblock %}
-

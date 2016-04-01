@@ -68,6 +68,18 @@ class Candidat
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=30))
+     */
+    protected $statusPoste;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=100))
+     */
+    protected $predecesseur;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", length=10))
      */
     protected $responsable;
@@ -77,6 +89,12 @@ class Candidat
      * @ORM\Column(type="string", length=20))
      */
     protected $matriculeRH;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text"))
+     */
+    protected $commentaire;
 
     /**
      * @var string
@@ -279,6 +297,60 @@ class Candidat
     public function setMatriculeRH($matriculeRH)
     {
         $this->matriculeRH = $matriculeRH;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusPoste()
+    {
+        return $this->statusPoste;
+    }
+
+    /**
+     * @param string $statusPoste
+     * @return Candidat
+     */
+    public function setStatusPoste($statusPoste)
+    {
+        $this->statusPoste = $statusPoste;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPredecesseur()
+    {
+        return $this->predecesseur;
+    }
+
+    /**
+     * @param string $predecesseur
+     * @return Candidat
+     */
+    public function setPredecesseur($predecesseur)
+    {
+        $this->predecesseur = $predecesseur;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * @param string $commentaire
+     * @return Candidat
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
         return $this;
     }
 

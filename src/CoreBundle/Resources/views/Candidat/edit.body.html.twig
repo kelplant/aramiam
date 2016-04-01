@@ -1,0 +1,96 @@
+<div class="main_container">
+    <form action="{{ path( 'add_candidat' ) }}" method="post" class="form-horizontal">
+        <input type="hidden" name="formAction" value="edit">
+        {{ form_errors(formEdit) }}
+        <div class="form-group">
+            {{ form_label(formEdit.civilite) }}
+            {{ form_errors(formEdit.civilite) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.civilite) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.name) }}
+            {{ form_errors(formEdit.name) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.name) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.surname) }}
+            {{ form_errors(formEdit.surname) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.surname) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.startDate) }}
+            {{ form_errors(formEdit.startDate) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.startDate) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.responsable) }}
+            {{ form_errors(formEdit.responsable) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.responsable) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.statusPoste) }}
+            {{ form_errors(formEdit.statusPoste) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.statusPoste) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.predecesseur) }}
+            {{ form_errors(formEdit.predecesseur) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.predecesseur) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.matriculeRH) }}
+            {{ form_errors(formEdit.matriculeRH) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.matriculeRH) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.agence) }}
+            {{ form_errors(formEdit.agence) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.agence) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.service) }}
+            {{ form_errors(formEdit.service) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.service) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.fonction) }}
+            {{ form_errors(formEdit.fonction) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.fonction) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formEdit.commentaire) }}
+            {{ form_errors(formEdit.commentaire) }}
+            <div class="col-sm-8">
+                {{ form_widget(formEdit.commentaire) }}
+            </div>
+        </div>
+        {{ form_row(formEdit.id) }}
+</div>
+</div>
+<div class="modal-footer align_right">
+    {{ form_row(formEdit.Envoyer) }}
+</div>
+</form>
+<input type='button' value='voir' onclick="alert(document.getElementById('ref_id_bouton').value)">

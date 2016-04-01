@@ -3,6 +3,7 @@
 namespace CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,59 +52,59 @@ class CandidatType extends AbstractType
             ))
             ->add('civilite', ChoiceType::class, array(
                 'choices' => array(
-                    'M' => 'Monsieur',
-                    'Mme' => 'Madame',
-                    'Mlle' =>'Mademoiselle',
+                    'Monsieur' => 'Monsieur',
+                    'Madame' => 'Madame',
+                    'Mademoiselle' =>'Mademoiselle',
                 ),
                 'label' => 'Civilité',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 )
             ))
             ->add('name', TextType::class, array(
-                'label' => 'Nom du candidat',
+                'label' => 'Nom',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('surname', TextType::class, array(
-                'label' => 'Prénom du candidat',
+                'label' => 'Prénom',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('startDate', TextType::class, array(
-                'label' => 'Date de démarrage',
+                'label' => 'Date d\'arrivée',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control date',
                 ),
             ))
             ->add('responsable', TextType::class, array(
-                'label' => 'Responsable du candidat',
+                'label' => 'Responsable',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('matriculeRH', TextType::class, array(
-                'label' => 'Matricule RH du candidat',
+                'label' => 'Matricule RH',
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
@@ -114,7 +115,7 @@ class CandidatType extends AbstractType
                 'label' => 'Agence',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
@@ -125,7 +126,7 @@ class CandidatType extends AbstractType
                 'label' => 'Service',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
@@ -136,11 +137,44 @@ class CandidatType extends AbstractType
                 'label' => 'Fonction',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-2 control-label',
+                    'class' => 'col-sm-3 control-label align_right',
                 ),
                 'attr' => array(
                     'class' => 'form-control',
                 )
+            ))
+
+            ->add('statusPoste', ChoiceType::class, array(
+                'choices' => array(
+                    'Remplacement' => 'Remplacement',
+                    'Création' => 'Création',
+                ),
+                'label' => 'Status Poste',
+                'multiple' => false,
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right',
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                )
+            ))
+            ->add('predecesseur', TextType::class, array(
+                'label' => 'Prédécesseur',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right',
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
+            ))
+            ->add('commentaire', TextareaType::class, array(
+                'label' => 'Commentaire',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right',
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
             ))
             ->add('Envoyer', SubmitType::class, array(
                 'label' => $this->submitName,

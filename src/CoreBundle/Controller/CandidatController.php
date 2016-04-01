@@ -43,9 +43,15 @@ class CandidatController extends Controller
         $this->get('core.controller_service')->setFormType(CandidatType::class);
         $this->get('core.controller_service')->setAlertText('ce candidat');
         $this->get('core.controller_service')->setIsArchived($this->isArchived);
-        $this->get('core.controller_service')->setCriteria(array('isArchived' => $this->isArchived));
-        $this->get('core.controller_service')->setOrderBy(array('startDate' => 'DESC'));
         $this->get('core.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->generateListeChoices()));
+        $allItems = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived), array('startDate' => 'DESC'));
+        foreach ($allItems as $item) {
+            $item->setStartDate($item->getStartDate()->format('d-m-Y'));
+            $item->setAgence($this->get('core.agence_manager')->getRepository()->findOneById($item->getAgence())->getName());
+            $item->setFonction($this->get('core.fonction_manager')->getRepository()->findOneById($item->getFonction())->getName());
+            $item->setService($this->get('core.service_manager')->getRepository()->findOneById($item->getService())->getName());
+        }
+        $this->get('core.controller_service')->setAllItems($allItems);
     }
 
     /**

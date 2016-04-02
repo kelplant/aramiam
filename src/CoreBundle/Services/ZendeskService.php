@@ -47,8 +47,8 @@ class ZendeskService extends Controller
     private function generateCustomFieldArray($parametersTicket,$due_at,$agence,$service,$new_station)
     {
         return array(
-//            array(
-//                'id'=>$parametersTicket['planifDateId'], 'value'=>$due_at),
+            array(
+               'id'=>$parametersTicket['planifDateId'], 'value'=>date("Y-m-d",strtotime($due_at))),
             array(
                 'id' => $parametersTicket['agenceId'], 'value' => $agence),
             array(
@@ -118,29 +118,25 @@ class ZendeskService extends Controller
      */
     private function createJasonTicket($message_array,$due_at,$requester_email,$agence,$service_zendesk,$parametersTicket){
 
-        $subject = "Un nouveau candidat a été ajouté"; # Titre du mail
+        $subject = "Un nouveau candidat a été ajouté";
         $service ="";
-        $status ="";
-        $new_station = "false"; # Par défault poste en remplacement pas de matériel à envoyer
-        if ($message_array['status_poste'] == "Création") { # Attention ici à mettre à jour si on envoie pas création et remplacement passe à true matériel à envoyer
+        $new_station = "false";
+        if ($message_array['status_poste'] == "Création") {
             $new_station = "true";
         }
         if ($agence == "siège" && isset($service_zendesk)) {
             $service = $service_zendesk;
         }
-        $today = date("Y-m-d");
-        if ($today != date("Y/m/d",strtotime($due_at))) { # Vérification de la date si différente d'aujourd'hui ticket en pause
+        if (date("Y-m-d") < date("Y-m-d",strtotime($due_at))) {
             $status = 'hold';
-        }
-        if ($today == date("Y/m/d",strtotime($due_at))) { # Vérification de la date celle d'aujourd'hui ticket ouvert
+        } else {
             $status = 'open';
         }
-        $body = $this->generateBody($message_array); # On génère le body du Ticket avec les élements (accepte un tableau)
 
-        return $json = json_encode(array('ticket' => array(
+        return json_encode(array('ticket' => array(
             'subject' => $subject,
             'status' => $status,
-            'comment' => array('body' => $body),
+            'comment' => array('body' => $this->generateBody($message_array)),
             'requester' => array('email' => $requester_email),
             'organization_id' =>  $parametersTicket['organizationIdId'],
             'ticket_form_id' => $parametersTicket['ticketFormIdId'],

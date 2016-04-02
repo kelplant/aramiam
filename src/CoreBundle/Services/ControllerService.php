@@ -117,7 +117,7 @@ class ControllerService extends Controller
      */
     public function executeRequestAction($request)
     {
-        if($request->request->get('formAction') == 'add')
+        if ($request->request->get('formAction') == 'add')
         {
             $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);
@@ -125,7 +125,7 @@ class ControllerService extends Controller
                 $request->get('candidat')['name'],
                 $request->get('candidat')['surname'],
                 'AramisAuto',
-                date("Y/m/d",strtotime($request->get('candidat')['startDate'])),
+                date("Y/m/d", strtotime($request->get('candidat')['startDate'])),
                 $this->get('core.agence_manager')->getRepository()->findOneById($request->get('candidat')['agence'])->getName(),
                 $this->get('core.service_manager')->getRepository()->findOneById($request->get('candidat')['service'])->getName(),
                 $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('candidat')['fonction'])->getName(),
@@ -134,7 +134,7 @@ class ControllerService extends Controller
             );
         }
 
-        if($request->request->get('formAction') == 'edit')
+        if ($request->request->get('formAction') == 'edit')
         {
             $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);

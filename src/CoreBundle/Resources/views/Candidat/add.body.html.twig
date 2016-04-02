@@ -1,5 +1,5 @@
 
-    <form action="{{ path( 'add_candidat' ) }}" method="post" class="form-horizontal">
+    <form action="{{ path( 'form_exec_candidat' ) }}" method="post" class="form-horizontal">
         <input type="hidden" name="formAction" value="add">
         {{ form_errors(formAdd) }}
         <div class="form-group">
@@ -89,7 +89,8 @@
         {{ form_row(formAdd.id) }}
 
 </div>
-<div class="modal-footer align_right">
-    {{ form_row(formAdd.Envoyer) }}
-</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
+        </div>
 </form>

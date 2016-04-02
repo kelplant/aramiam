@@ -19,7 +19,7 @@ class AjaxController extends Controller
      * @Route(path="/ajax/candidat/get/{candidatEdit}",name="ajax_get_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getCandidatInfosIndex($candidatEdit)
+    public function candidatGetInfosIndex($candidatEdit)
     {
         return new JsonResponse($this->get('core.candidat_manager')->createArray($candidatEdit));
     }
@@ -29,7 +29,7 @@ class AjaxController extends Controller
      * @Route(path="/ajax/agence/get/{agenceEdit}",name="ajax_get_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAgenceInfosIndex($agenceEdit)
+    public function agenceGetInfosIndex($agenceEdit)
     {
         return new JsonResponse($this->get('core.agence_manager')->createArray($agenceEdit));
     }
@@ -39,7 +39,7 @@ class AjaxController extends Controller
      * @Route(path="/ajax/fonction/get/{fonctionEdit}",name="ajax_get_fonction")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFonctionInfosIndex($fonctionEdit)
+    public function fonctionGetInfosIndex($fonctionEdit)
     {
         return new JsonResponse($this->get('core.fonction_manager')->createArray($fonctionEdit));
     }
@@ -49,7 +49,7 @@ class AjaxController extends Controller
      * @Route(path="/ajax/service/get/{serviceEdit}",name="ajax_get_service")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getServiceInfosIndex($serviceEdit)
+    public function serviceGetInfosIndex($serviceEdit)
     {
         return new JsonResponse($this->get('core.service_manager')->createArray($serviceEdit));
     }

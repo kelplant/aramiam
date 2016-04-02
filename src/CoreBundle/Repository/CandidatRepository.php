@@ -8,6 +8,7 @@
 namespace CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use DateTime;
 
 class CandidatRepository extends EntityRepository
 {
@@ -16,6 +17,8 @@ class CandidatRepository extends EntityRepository
      */
     public function findAll()
     {
-        return $this->findBy(array(), array('startDate' => 'DESC'));
+        $allItems = $this->findBy(array(), array('startDate' => 'DESC'));
+
+        return $allItems;
     }
 }

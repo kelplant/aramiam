@@ -142,7 +142,7 @@ abstract class AbstractManager
             $itemToSet = $this->getRepository()->findOneById($itemId);
             $this->globalSetItem($itemToSet, $itemEditLoad);
             $this->em->flush();
-            return 6667;
+            return 6667 ;
         } catch (\Exception $e) {
             return error_log($e->getMessage());
         }

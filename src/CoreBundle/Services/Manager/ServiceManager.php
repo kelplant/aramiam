@@ -34,12 +34,12 @@ class ServiceManager extends AbstractManager
     {
 
         $itemToSet = new $this->entity;
-        $itemToSet->setName($itemLoad->getName());
-        $itemToSet->setShortName($itemLoad->getShortName());
-        $itemToSet->setNameInCompany($itemLoad->getNameInCompany());
-        $itemToSet->setNameInOdigo($itemLoad->getNameInOdigo());
-        $itemToSet->setNameInSalesforce($itemLoad->getNameInSalesforce());
-        $itemToSet->setNameInZendesk($itemLoad->getNameInZendesk());
+        $itemToSet->setName($itemLoad['name']);
+        $itemToSet->setShortName($itemLoad['shortName']);
+        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
+        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
+        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
+        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
 
         try {
             $this->save($itemToSet);

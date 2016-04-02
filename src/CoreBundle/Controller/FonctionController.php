@@ -25,7 +25,6 @@ class FonctionController extends Controller
         $this->get('core.controller_service')->setAlertText('cette fonction');
         $this->get('core.controller_service')->setIsArchived(NULL);
         $this->get('core.controller_service')->setCreateFormArguments(array());
-        $this->get('core.controller_service')->setAllItems($this->get('core.fonction_manager')->getRepository()->findBy(array(), array('name' => 'ASC')));
     }
 
     /**
@@ -53,25 +52,12 @@ class FonctionController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/fonctions/add", name="add_fonction")
+     * @Route(path="/admin/fonction/form_exec", name="form_exec_fonction")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Request $request)
+    public function form_execAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateAddAction($request);
-    }
-
-    /**
-     * @param Request $request
-     * @Route(path="/admin/fonctions/edit/{itemEdit}", defaults={"itemEdit" = 0} , name="edit_fonction")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Request $request)
-    {
-        $this->initData();
-        $item = $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('itemEdit'));
-        $this->get('core.controller_service')->setFormItem($item);
-        return $this->get('core.controller_service')->generateEditAction($request);
+        return $this->get('core.controller_service')->executeRequestAction($request);
     }
 }

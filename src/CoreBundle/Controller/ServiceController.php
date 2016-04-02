@@ -25,7 +25,6 @@ class ServiceController extends Controller
         $this->get('core.controller_service')->setAlertText('ce service');
         $this->get('core.controller_service')->setIsArchived(NULL);
         $this->get('core.controller_service')->setCreateFormArguments(array());
-        $this->get('core.controller_service')->setAllItems($this->get('core.service_manager')->getRepository()->findBy(array(), array('name' => 'ASC')));
     }
 
     /**
@@ -53,25 +52,12 @@ class ServiceController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/services/add", name="add_service")
+     * @Route(path="/admin/service/form_exec", name="form_exec_service")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Request $request)
+    public function form_execAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateAddAction($request);
-    }
-
-    /**
-     * @param Request $request
-     * @Route(path="/admin/services/edit/{itemEdit}", defaults={"itemEdit" = 0} , name="edit_service")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Request $request)
-    {
-        $this->initData();
-        $item = $this->get('core.service_manager')->getRepository()->findOneById($request->get('itemEdit'));
-        $this->get('core.controller_service')->setFormItem($item);
-        return $this->get('core.controller_service')->generateEditAction($request);
+        return $this->get('core.controller_service')->executeRequestAction($request);
     }
 }

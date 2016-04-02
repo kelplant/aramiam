@@ -34,8 +34,6 @@ class ControllerService extends Controller
 
     private $formItem;
 
-    private $allItems;
-
     /**
      * @param $item
      * @return mixed
@@ -49,7 +47,7 @@ class ControllerService extends Controller
     /**
      * @return \Symfony\Component\Form\Form
      */
-    private function generateAddForm()
+    private function generateForm()
     {
         return $this->createForm($this->formType, new $this->newEntity, $this->createFormArguments);
     }
@@ -61,11 +59,28 @@ class ControllerService extends Controller
     private function getFullList($isArchived)
     {
 
-        $formAdd = $this->generateAddForm();
-        $formEdit = $this->generateAddForm();
+        $formAdd = $this->generateForm();
+        $formEdit = $this->generateForm();
+        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
+        if ($this->entity == 'Candidat')
+        {
+            $i = 0;
+            foreach ($allItems as $item) {
+                $item->setStartDate($item->getStartDate()->format('d-m-Y'));
+                $item->setAgence($this->get('core.agence_manager')->getRepository()->findOneById($item->getAgence())->getName());
+                $item->setFonction($this->get('core.fonction_manager')->getRepository()->findOneById($item->getFonction())->getName());
+                $item->setService($this->get('core.service_manager')->getRepository()->findOneById($item->getService())->getName());
+                if ($item->getIsArchived() == 1)
+                {
+                    unset($allItems[$i]);
+                }
+                $i++;
+            }
+        }
+
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
-            'all' => $this->allItems,
-            'route' => $this->generateUrl('add_'.strtolower($this->entity)),
+            'all' => $allItems,
+            'route' => $this->generateUrl('form_exec_'.strtolower($this->entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
             'edit_path'=> 'edit_'.strtolower($this->entity),
@@ -74,22 +89,6 @@ class ControllerService extends Controller
             'is_archived' => $isArchived,
             'formAdd' => $formAdd->createView(),
             'formEdit' => $formEdit->createView(),
-        ));
-    }
-
-    /**
-     * @param \Symfony\Component\Form\FormView $form
-     * @param $message
-     * @param integer $insert
-     * @param string $entity
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    private function generateRender($form, $message, $insert, $entity)
-    {
-        return $this->render('CoreBundle:'.$entity.':body.html.twig', array(
-            'itemForm' => $form,
-            'message' => $message,
-            'code_message' => $insert,
         ));
     }
 
@@ -116,14 +115,13 @@ class ControllerService extends Controller
      * @param $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateAddAction($request)
+    public function executeRequestAction($request)
     {
-        $form = $this->generateAddForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if($request->request->get('formAction') == 'add')
         {
-            $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($form->getData());
-//            $this->get('zendesk.zendesk_service')->createTicket(
+            $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
+            $this->message = $this->generateMessage($this->insert);
+            //    $this->get('zendesk.zendesk_service')->createTicket(
 //                $request->get('candidat')['name'],
 //                $request->get('candidat')['surname'],
 //                'AramisAuto',
@@ -134,35 +132,17 @@ class ControllerService extends Controller
 //                'Création',
 //                'xavier.arroues@aramisauto.com'
 //            );
+        }
 
+        if($request->request->get('formAction') == 'edit')
+        {
+            $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);
         }
+
         return $this->getFullList($this->isArchived);
     }
 
-    /**
-     * @param $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function generateEditAction($request)
-    {
-        $itemToEdit = $request->get('itemEdit');
-        $form = $this->createForm($this->formType, $this->formItem, $this->createFormArguments);
-        $form->handleRequest($request);
-        if ($form->isSubmitted())
-        {
-            if ($form->isValid()) {
-                $edit = $this->get('core.'.strtolower($this->entity).'_manager')->edit($itemToEdit, $request->get(strtolower($this->entity)));
-                $this->message = $this->generateMessage($edit);
-                $this->insert = $edit;
-            }
-            if (isset($request->get(strtolower($this->entity))['Envoyer'])) {
-
-                return $this->getFullList($this->isArchived);
-            }
-        }
-        return $this->generateRender($form->createView(), $this->message, (int)$this->insert, $this->entity);
-    }
 
     /**
      * @return mixed
@@ -341,24 +321,6 @@ class ControllerService extends Controller
     public function setFormItem($formItem)
     {
         $this->formItem = $formItem;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAllItems()
-    {
-        return $this->allItems;
-    }
-
-    /**
-     * @param mixed $allItems
-     * @return ControllerService
-     */
-    public function setAllItems($allItems)
-    {
-        $this->allItems = $allItems;
         return $this;
     }
 }

@@ -176,12 +176,6 @@ class CandidatType extends AbstractType
                     'class' => 'form-control',
                 ),
             ))
-            ->add('Envoyer', SubmitType::class, array(
-                'label' => $this->submitName,
-                'attr' => array(
-                    'class' => 'btn btn-success',
-                ),
-            ))
         ;
     }
     

@@ -21,7 +21,6 @@ class AgenceManager extends AbstractManager
         $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
         $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
         $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
-
         return $itemToSet;
     }
 
@@ -31,14 +30,12 @@ class AgenceManager extends AbstractManager
      */
     public function add($itemLoad)
     {
-
         $itemToSet = new $this->entity;
-        $itemToSet->setName($itemLoad->getName());
-        $itemToSet->setNameInCompany($itemLoad->getNameInCompany());
-        $itemToSet->setNameInOdigo($itemLoad->getNameInOdigo());
-        $itemToSet->setNameInSalesforce($itemLoad->getNameInSalesforce());
-        $itemToSet->setNameInZendesk($itemLoad->getNameInZendesk());
-
+        $itemToSet->setName($itemLoad['name']);
+        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
+        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
+        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
+        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
         try {
             $this->save($itemToSet);
             return 6669;

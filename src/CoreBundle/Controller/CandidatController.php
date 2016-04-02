@@ -44,14 +44,6 @@ class CandidatController extends Controller
         $this->get('core.controller_service')->setAlertText('ce candidat');
         $this->get('core.controller_service')->setIsArchived($this->isArchived);
         $this->get('core.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->generateListeChoices()));
-        $allItems = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived), array('startDate' => 'DESC'));
-        foreach ($allItems as $item) {
-            $item->setStartDate($item->getStartDate()->format('d-m-Y'));
-            $item->setAgence($this->get('core.agence_manager')->getRepository()->findOneById($item->getAgence())->getName());
-            $item->setFonction($this->get('core.fonction_manager')->getRepository()->findOneById($item->getFonction())->getName());
-            $item->setService($this->get('core.service_manager')->getRepository()->findOneById($item->getService())->getName());
-        }
-        $this->get('core.controller_service')->setAllItems($allItems);
     }
 
     /**
@@ -80,24 +72,12 @@ class CandidatController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/candidats/add", name="add_candidat")
+     * @Route(path="/admin/candidat/form_exec", name="form_exec_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Request $request)
+    public function form_execAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateAddAction($request);
-    }
-
-    /**
-     * @param Request $request
-     * @Route(path="/admin/candidats/edit/{itemEdit}", defaults={"itemEdit" = 0} , name="edit_candidat")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Request $request)
-    {
-        $this->initData();
-        $item = $this->get('core.candidat_manager')->getRepository()->findOneById($request->attributes->get('itemEdit'));
-        return $this->get('core.controller_service')->generateEditAction($request);
+        return $this->get('core.controller_service')->executeRequestAction($request);
     }
 }

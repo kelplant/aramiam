@@ -18,7 +18,7 @@ class ZendeskService extends Controller
      */
     private function generateBody($message_array) {
 
-        return $body = "-------- Nouveau Candidat --------
+        return  "-------- Nouveau Candidat --------
                 Prénom : ".$message_array['nom']."
                 Nom : ".$message_array['prenom']."
                 Entité : ".$message_array['entite']."

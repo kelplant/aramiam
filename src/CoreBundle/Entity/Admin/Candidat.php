@@ -74,7 +74,7 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=100))
+     * @ORM\Column(type="string", length=100, nullable=true))
      */
     protected $predecesseur;
 
@@ -86,13 +86,13 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=20))
+     * @ORM\Column(type="string", length=20, nullable=true))
      */
     protected $matriculeRH;
 
     /**
      * @var string
-     * @ORM\Column(type="text"))
+     * @ORM\Column(type="text", nullable=true))
      */
     protected $commentaire;
 

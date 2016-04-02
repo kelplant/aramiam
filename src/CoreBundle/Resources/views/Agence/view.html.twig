@@ -17,7 +17,7 @@
                 <td class="admin_cat_table_cell">{{ item.nameInSalesforce }}</td>
                 <td class="admin_cat_table_cell">{{ item.nameInZendesk }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"  onclick="ajaxAgenceEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"  onclick="ajaxEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                     <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}"data-confirm="Etes-vous certain de vouloir supprimer {{ alert_text }} ?">
@@ -61,7 +61,7 @@
 
     {% block javascripts %}
     <script>
-        function ajaxAgenceEdit(editItem) {
+        function ajaxEdit(editItem) {
             urlajax ="/ajax/agence/get/"+editItem;
             $.ajax({url:urlajax,success:function(result){
                 var frm = $("#form-edit");

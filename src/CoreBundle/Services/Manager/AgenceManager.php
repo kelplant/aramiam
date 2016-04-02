@@ -46,4 +46,22 @@ class AgenceManager extends AbstractManager
             return error_log($e->getMessage());
         }
     }
+
+    /**
+     * @param $itemLoad
+     * @return mixed
+     */
+    public function createArray($itemLoad)
+    {
+        $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+        $itemArray = [];
+        $itemArray['id'] = $itemToTransform->getId();
+        $itemArray['name'] = $itemToTransform->getName();
+        $itemArray['nameInCompany'] = $itemToTransform->getNameInCompany();
+        $itemArray['nameInOdigo'] = $itemToTransform->getNameInOdigo();
+        $itemArray['nameInSalesforce'] = $itemToTransform->getNameInSalesforce();
+        $itemArray['nameInZendesk'] = $itemToTransform->getNameInZendesk();
+
+        return $itemArray;
+    }
 }

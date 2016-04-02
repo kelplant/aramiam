@@ -18,7 +18,7 @@ class ZendeskService extends Controller
      */
     private function generateBody($message_array) {
 
-        $body = "-------- Nouveau Candidat --------
+        return $body = "-------- Nouveau Candidat --------
                 Prénom : ".$message_array['nom']."
                 Nom : ".$message_array['prenom']."
                 Entité : ".$message_array['entite']."
@@ -32,8 +32,6 @@ class ZendeskService extends Controller
 
                 Status du poste : ".$message_array['status_poste']
         ;
-
-        return $body;
     }
 
     /**
@@ -77,7 +75,7 @@ class ZendeskService extends Controller
      */
     private function generateMessageArray($nom,$prenom,$entite,$due_at,$agenceZendesk,$serviceZendesk,$fonctionZendesk,$statusPoste)
     {
-        return $message_array = array(
+        return array(
             'nom' => $nom,
             'prenom' => $prenom,
             'entite' => $entite,
@@ -94,7 +92,7 @@ class ZendeskService extends Controller
      */
     private function generateParametersArray()
     {
-        return $parametersTicket = array(
+        return array(
             'organizationIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_organizationIdId'),
             'ticketFormIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_ticketFormIdId'),
             'planifDateId' => $this->get('core.parameters_calls')->getParam('zendesk_field_planifDateId'),

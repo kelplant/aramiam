@@ -122,15 +122,11 @@ class ControllerService extends Controller
             $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);
             $this->get('core.zendesk_service')->createTicket(
-                $request->get('candidat')['name'],
-                $request->get('candidat')['surname'],
-                'AramisAuto',
-                date("Y/m/d",strtotime($request->get('candidat')['startDate'])),
+                $request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',$request->get('candidat')['startDate'],
                 $this->get('core.agence_manager')->getRepository()->findOneById($request->get('candidat')['agence'])->getName(),
                 $this->get('core.service_manager')->getRepository()->findOneById($request->get('candidat')['service'])->getName(),
                 $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('candidat')['fonction'])->getName(),
-                $request->get('candidat')['statusPoste'],
-                'xavier.arroues@aramisauto.com'
+                $request->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
             );
         }
 
@@ -142,7 +138,6 @@ class ControllerService extends Controller
 
         return $this->getFullList($this->isArchived);
     }
-
 
     /**
      * @return mixed

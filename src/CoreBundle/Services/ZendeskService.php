@@ -6,7 +6,7 @@
  * Time: 13:17
  */
 
-namespace ZendeskBundle\Services;
+namespace CoreBundle\Services;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -76,8 +76,6 @@ class ZendeskService extends Controller
             'priority'=> "high",
             'custom_fields'=> array(
                 array(
-                    'id'=>$parametersTicket['planifDateId'], 'value'=>$due_at),
-                array(
                     'id'=>$parametersTicket['agenceId'], 'value'=>$agence),
                 array(
                     'id'=>$parametersTicket['servicesId'], 'value'=>$service),
@@ -93,6 +91,7 @@ class ZendeskService extends Controller
         ));
 
         $json = json_encode($payload);
+
         return $json;
     }
 
@@ -110,32 +109,32 @@ class ZendeskService extends Controller
      */
     public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
-        $message_array = array(
-            'nom'=>$nom,
-            'prenom'=>$prenom,
-            'entite'=>$entite,
-            'due_at' =>$due_at,
-            'agence' =>$agenceZendesk,
-            'service' =>$serviceZendesk,
-            'fonction' =>$fonctionZendesk,
-            'status_poste' =>$statusPoste,
-        );
+        var_dump($message_array = array(
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'entite' => $entite,
+            'due_at' => $due_at,
+            'agence' => $agenceZendesk,
+            'service' => $serviceZendesk,
+            'fonction' => $fonctionZendesk,
+            'status_poste' => $statusPoste,
+        ));
 
         define("ZDAPIKEY", $this->getParameter('zendesk_api_key')); # Alimenter parameter.yml
         define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
         define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
 
-        $parametersTicket = array(
-            'organizationIdId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_organizationIdId'),
-            'ticketFormIdId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_ticketFormIdId'),
-            'planifDateId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_planifDateId'),
-            'agenceId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_agenceId'),
-            'servicesId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_servicesId'),
-            'typeId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_typeId'),
-            'mainCatId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_mainCatId'),
-            'lowCatId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_lowCatId'),
-            'sendMatId'=>$this->get('core.parameters_calls')->getParam('zendesk_field_sendMatId'),
-        );
+        var_dump($parametersTicket = array(
+            'organizationIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_organizationIdId'),
+            'ticketFormIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_ticketFormIdId'),
+            'planifDateId' => $this->get('core.parameters_calls')->getParam('zendesk_field_planifDateId'),
+            'agenceId' => $this->get('core.parameters_calls')->getParam('zendesk_field_agenceId'),
+            'servicesId' => $this->get('core.parameters_calls')->getParam('zendesk_field_servicesId'),
+            'typeId' => $this->get('core.parameters_calls')->getParam('zendesk_field_typeId'),
+            'mainCatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_mainCatId'),
+            'lowCatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_lowCatId'),
+            'sendMatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_sendMatId'),
+        ));
 
         $json = $this->createJasonTicket($message_array, $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $parametersTicket);
 

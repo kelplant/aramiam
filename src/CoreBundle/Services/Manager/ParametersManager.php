@@ -2,33 +2,18 @@
 namespace CoreBundle\Services\Manager;
 
 use CoreBundle\Entity\Parameters;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManager;
 
 class ParametersManager
 {
-    private $managerRegistry;
-
-    private $em;
-
-    /**
-     * ParametersManager constructor.
-     * @param ManagerRegistry $managerRegistry
-     * @param Parameters $parameters
-     */
-    public function __construct(ManagerRegistry $managerRegistry, Parameters $parameters) {
-        $this->managerRegistry = $managerRegistry;
-        $this->em = $this->managerRegistry->getManagerForClass(get_class($parameters));
+    public function __construct(EntityManager $entityManager) {
+        $this->em = $entityManager;
     }
-
-    /**
-     * @param $name
-     * @return string
-     */
     public function getParam($name)
     {
-        $param = $this->em->getRepository('ZendeskBundle:Parameters')->findOneByParamName($name);
+        $param = $this->em->getRepository('CoreBundle:Parameters')->findOneByParamName($name);
 
-        return $param->getParamValue();
+        return $value = $param->getParamValue();
     }
 
     /**
@@ -37,7 +22,7 @@ class ParametersManager
      */
     public function getAllAppParams($app)
     {
-        $param = $this->em->getRepository('ZendeskBundle:Parameters')->findByApplication($app);
+        $param = $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
 
         return $param;
     }
@@ -48,7 +33,7 @@ class ParametersManager
      */
     public function setParamForName($name, $value, $application)
     {
-        $repository = $this->em->getRepository('ZendeskBundle:Parameters');
+        $repository = $this->em->getRepository('CoreBundle:Parameters');
         $insert = $repository->findOneByParamName($name);
         if ($insert == NULL)
         {

@@ -20,8 +20,10 @@ parameters:
 
     core.controller_service.class: CoreBundle\Services\ControllerService
 
-    core.curl_wrap.class: ZendeskBundle\Services\CurlWrap
+    core.curl_wrap.class: CoreBundle\Services\CurlWrap
     core.parameters_calls.class: CoreBundle\Services\Manager\ParametersManager
+
+    core.zendesk_service.class: CoreBundle\Services\ZendeskService
 
 services:
     core.abstract_manager:
@@ -71,4 +73,9 @@ services:
 
     core.parameters_calls:
         class: %core.parameters_calls.class%
-        arguments:    ["@doctrine" , "CoreBundle:Parameters"]
+        arguments: ['@doctrine.orm.entity_manager']
+
+    core.zendesk_service:
+        class: %core.zendesk_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]

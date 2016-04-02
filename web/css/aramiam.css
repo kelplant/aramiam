@@ -2,6 +2,7 @@
     font-size: large;
     font-weight: 700;
     padding-bottom: 2%;
+    color: rgba(53, 123, 184, 0.93);
     font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_title {
@@ -58,6 +59,6 @@
     width: 20%;
     height: 20%;
 }
-.margin-form{
-
+.background_white{
+    background-color: #FFFFFF;
 }

@@ -97,8 +97,8 @@ class CandidatController extends Controller
     public function editAction(Request $request)
     {
         $this->initData();
-        $item = $this->get('core.candidat_manager')->getRepository()->findOneById($request->get('itemEdit'));
-        $this->get('core.controller_service')->setFormItem($item->setStartDate(date('d/m/Y', $item->getStartDate()->getTimestamp())));
+        $item = $this->get('core.candidat_manager')->getRepository()->findOneById($request->attributes->get('itemEdit'));
+        var_dump($item);
         return $this->get('core.controller_service')->generateEditAction($request);
     }
 }

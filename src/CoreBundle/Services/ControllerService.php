@@ -146,7 +146,6 @@ class ControllerService extends Controller
      */
     public function generateEditAction($request)
     {
-        echo "<javascript>alert();</javascript>";
         $itemToEdit = $request->get('itemEdit');
         $form = $this->createForm($this->formType, $this->formItem, $this->createFormArguments);
         $form->handleRequest($request);
@@ -163,6 +162,15 @@ class ControllerService extends Controller
             }
         }
         return $this->generateRender($form->createView(), $this->message, (int)$this->insert, $this->entity);
+    }
+
+    /**
+     * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateAjaxAction($request)
+    {
+
     }
 
     /**

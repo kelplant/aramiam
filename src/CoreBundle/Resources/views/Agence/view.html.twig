@@ -1,5 +1,6 @@
 {% extends '@Core/Default/items.view.html.twig' %}
     {% block title %} Liste des Agences {% endblock %}
+    {% block breadcrumb %} Liste des Agences {% endblock %}
     {% block corps_table_title %}
         <th class="admin_cat_table_title">Agence</th>
         <th class="admin_cat_table_title">Dans Company</th>
@@ -16,7 +17,7 @@
                 <td class="admin_cat_table_cell">{{ item.nameInSalesforce }}</td>
                 <td class="admin_cat_table_cell">{{ item.nameInZendesk }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"  onclick="ajaxAgenceEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                     <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}"data-confirm="Etes-vous certain de vouloir supprimer {{ alert_text }} ?">
@@ -58,3 +59,17 @@
         </div>
     {% endblock %}
 
+    {% block javascripts %}
+    <script>
+        function ajaxAgenceEdit(editItem) {
+            urlajax ="/ajax/agence/get/"+editItem;
+            $.ajax({url:urlajax,success:function(result){
+                var frm = $("#form-edit");
+                var i;
+                for (i in result) {
+                    frm.find('[name="agence[' + i + ']"]').val(result[i]);
+                }
+			}});
+        }
+    </script>
+    {% endblock %}

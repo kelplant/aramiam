@@ -1,5 +1,5 @@
 <div class="main_container">
-    <form action="{{ path( 'add_candidat' ) }}" method="post" class="form-horizontal">
+    <form action="{{ path( 'add_candidat' ) }}" method="post" class="form-horizontal" id="form-edit">
         <input type="hidden" name="formAction" value="edit">
         {{ form_errors(formEdit) }}
         <div class="form-group">
@@ -93,4 +93,3 @@
     {{ form_row(formEdit.Envoyer) }}
 </div>
 </form>
-<input type='button' value='voir' onclick="alert(document.getElementById('ref_id_bouton').value)">

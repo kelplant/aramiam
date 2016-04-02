@@ -4,14 +4,18 @@
         <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" type="text/css" rel="stylesheet">
     {% endblock %}
     {% block mainform %}
-        <br><br><br><br><br>
+        <br><br><br>
         {% block modal_form %}
         {% endblock %}
         <div class="container">
+           <ol class="breadcrumb background_white">
+                <li><a href="#">Home</a></li>
+                <li class="active">{% block breadcrumb %} {% endblock %}</li>
+           </ol>
+
             <div class="row">
                 <div class="col-md-12">
-
-                    <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right font_exo_2" data-toggle="modal" data-target="#modalAdd" id="addForm"><i class="fa fa-plus"></i> Nouveau</button></div>
+                      <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right font_exo_2" data-toggle="modal" data-target="#modalAdd" id="addForm"><i class="fa fa-plus"></i> Nouveau</button></div>
                     {% if message is defined %}
                         {% if message is not null %}
                             <div class="form-group">
@@ -57,17 +61,7 @@
 {% block javascripts %}
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-    <script>
-        function test($name){
-                    $.ajax({
-                        url:"{{ path ('edit_candidat') }}?editItem=".$name,
-                        type:"POST",
-                        success: function (response){
-                            $('#testDiv').html(response);
-                        }
-                    });
-        }
-    </script>
+
     {#Fonction de generation des tables Jquery#}
     <script>
         $(document).ready(function(){
@@ -89,11 +83,6 @@
                 }
             });
         });
-        </script>
-
-    {#Fonction de generation du calendrier#}
-        <script>
-             $("form input.date").datepicker();
         </script>
 
     {#Fonction de chargement Ajax Form#}

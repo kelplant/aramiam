@@ -98,7 +98,6 @@ class CandidatController extends Controller
     {
         $this->initData();
         $item = $this->get('core.candidat_manager')->getRepository()->findOneById($request->attributes->get('itemEdit'));
-        var_dump($item);
         return $this->get('core.controller_service')->generateEditAction($request);
     }
 }

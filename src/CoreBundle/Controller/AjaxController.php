@@ -15,15 +15,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class AjaxController extends Controller
 {
     /**
-     * @param $itemEdit
-     * @Route(
-     *     path="/ajax/candidat/get/{itemEdit}",
-     *     name="ajax_get_candidat")
+     * @param $candidatEdit
+     * @Route(path="/ajax/candidat/get/{itemEdit}",name="ajax_get_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getCandidatInfosIndex($itemEdit)
+    public function getCandidatInfosIndex($candidatEdit)
     {
-        $item = $this->get('core.candidat_manager')->getRepository()->findOneById($itemEdit);
+        $item = $this->get('core.candidat_manager')->getRepository()->findOneById($candidatEdit);
         $itemArray = [];
         $itemArray['id'] = $item->getId();
         $itemArray['name'] = $item->getName();
@@ -44,15 +42,13 @@ class AjaxController extends Controller
     }
 
     /**
-     * @param $itemEdit
-     * @Route(
-     *     path="/ajax/agence/get/{itemEdit}",
-     *     name="ajax_get_agence")
+     * @param $agenceEdit
+     * @Route(path="/ajax/agence/get/{itemEdit}",name="ajax_get_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAgenceInfosIndex($itemEdit)
+    public function getAgenceInfosIndex($agenceEdit)
     {
-        $item = $this->get('core.agence_manager')->getRepository()->findOneById($itemEdit);
+        $item = $this->get('core.agence_manager')->getRepository()->findOneById($agenceEdit);
         $itemArray = [];
         $itemArray['id'] = $item->getId();
         $itemArray['name'] = $item->getName();
@@ -65,15 +61,13 @@ class AjaxController extends Controller
     }
 
     /**
-     * @param $itemEdit
-     * @Route(
-     *     path="/ajax/fonction/get/{itemEdit}",
-     *     name="ajax_get_fonction")
+     * @param $fonctionEdit
+     * @Route(path="/ajax/fonction/get/{itemEdit}",name="ajax_get_fonction")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFonctionInfosIndex($itemEdit)
+    public function getFonctionInfosIndex($fonctionEdit)
     {
-        $item = $this->get('core.fonction_manager')->getRepository()->findOneById($itemEdit);
+        $item = $this->get('core.fonction_manager')->getRepository()->findOneById($fonctionEdit);
 
         $itemArray = [];
         $itemArray['id'] = $item->getId();
@@ -88,15 +82,13 @@ class AjaxController extends Controller
     }
 
     /**
-     * @param $itemEdit
-     * @Route(
-     *     path="/ajax/service/get/{itemEdit}",
-     *     name="ajax_get_service")
+     * @param $serviceEdit
+     * @Route(path="/ajax/service/get/{itemEdit}",name="ajax_get_service")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getServiceInfosIndex($itemEdit)
+    public function getServiceInfosIndex($serviceEdit)
     {
-        $item = $this->get('core.service_manager')->getRepository()->findOneById($itemEdit);
+        $item = $this->get('core.service_manager')->getRepository()->findOneById($serviceEdit);
         $itemArray = [];
         $itemArray['id'] = $item->getId();
         $itemArray['name'] = $item->getName();

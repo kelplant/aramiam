@@ -165,15 +165,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @param $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function generateAjaxAction($request)
-    {
-
-    }
-
-    /**
      * @return mixed
      */
     public function getMessage()

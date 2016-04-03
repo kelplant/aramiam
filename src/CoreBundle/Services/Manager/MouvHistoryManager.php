@@ -2,7 +2,7 @@
 namespace CoreBundle\Services\Manager;
 
 use CoreBundle\Entity\Admin\MouvHistory;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use DateTime;
 
 /**
@@ -11,14 +11,17 @@ use DateTime;
  */
 class MouvHistoryManager
 {
-    private $em;
+    private $managerRegistry;
 
+    private $em;
     /**
-     * ParametersManager constructor.
-     * @param EntityManager $entityManager
+     * MouvHistoryManager constructor.
+     * @param ManagerRegistry $managerRegistry
      */
-    public function __construct(EntityManager $entityManager) {
-        $this->em = $entityManager;
+    public function __construct(ManagerRegistry $managerRegistry) {
+        $this->managerRegistry = $managerRegistry;
+        $item = new MouvHistory();
+        $this->em = $this->managerRegistry->getManagerForClass(get_class($item));
     }
 
     public function add($itemLoad, $adminId, $type)
@@ -32,9 +35,16 @@ class MouvHistoryManager
         $itemToSet->setAdminId($adminId);
         $itemToSet->setDateModif(new Datetime());
         $itemToSet->setType($type);
-        $this->em->persist($itemToSet);
-        $this->em->flush();
+        $this->persistAndFlush($itemToSet);
     }
 
+    /**
+     * @param MouvHistory $mouvHistory
+     */
+    private function persistAndFlush(MouvHistory $mouvHistory)
+    {
+        $this->em->persist($mouvHistory);
+        $this->em->flush();
+    }
 
 }

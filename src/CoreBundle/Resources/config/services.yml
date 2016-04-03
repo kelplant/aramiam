@@ -73,11 +73,11 @@ services:
 
     core.parameters_calls:
         class: %core.parameters_calls.class%
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine']
 
     core.mouv_history_manager:
         class: %core.mouv_history.class%
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine']
 
     core.zendesk_service:
         class: %core.zendesk_service.class%

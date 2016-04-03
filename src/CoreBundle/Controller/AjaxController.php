@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Xavier
- * Date: 02/04/2016
- * Time: 05:57
- */
-
 namespace CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

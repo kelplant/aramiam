@@ -63,10 +63,10 @@ class CandidatType extends AbstractType
             ->add('startDate', TextType::class, array(
                 'label' => 'Date d\'arrivée',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2 datepicker',
                 ),
                 'attr' => array(
-                    'class' => 'form-control date font_exo_2',
+                    'class' => 'form-control date font_exo_2 datepicker',
                 ),
             ))
             ->add('responsable', TextType::class, array(

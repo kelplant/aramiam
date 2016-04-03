@@ -17,22 +17,24 @@
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
-                        <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" onclick="ajaxCandidatEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                        <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCandidatEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                             <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                         </button>
                     <input type='hidden' value='' id='ref_id_bouton'>
                     {% if is_archived == "0" %}
-                        <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Archiver {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
                             <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
                                 <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
                             </button>
                         </a>
                     {% endif %}
                     {% if is_archived == "1" %}
-                        <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
-                        </button>
-                    {% endif %}
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Rétablir {{ alert_text }}" data-confirm="Etes-vous certain de vouloir rétablir {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                     {% endif %}
 
                 </td>
             </tr>

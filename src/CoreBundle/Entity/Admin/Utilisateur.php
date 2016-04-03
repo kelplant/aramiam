@@ -25,7 +25,17 @@ class Utilisateur extends Candidat
 
     protected $viewName;
 
+    /**
+     * @var string
+     * @ORM\Column(type="integer", length=10))
+     */
+    protected $idCandidat;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string"), nullable=true)
+     */
+    protected $email;
     /**
      * @var string
      * @ORM\Column(type="boolean", nullable=true)
@@ -203,6 +213,42 @@ class Utilisateur extends Candidat
     public function setIsDelete($isDelete)
     {
         $this->isDelete = $isDelete;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdCandidat()
+    {
+        return $this->idCandidat;
+    }
+
+    /**
+     * @param string $idCandidat
+     * @return Utilisateur
+     */
+    public function setIdCandidat($idCandidat)
+    {
+        $this->idCandidat = $idCandidat;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Utilisateur
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
         return $this;
     }
 }

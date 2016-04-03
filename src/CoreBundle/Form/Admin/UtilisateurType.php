@@ -1,14 +1,11 @@
 <?php
+
 namespace CoreBundle\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class UtilisateurType
- * @package CoreBundle\Form\Admin
- */
 class UtilisateurType extends AbstractType
 {
     /**
@@ -19,6 +16,8 @@ class UtilisateurType extends AbstractType
     {
         $builder
             ->add('viewName')
+            ->add('idCandidat')
+            ->add('email')
             ->add('isCreateInOdigo')
             ->add('isCreateInGmail')
             ->add('isCreateInSalesforce')

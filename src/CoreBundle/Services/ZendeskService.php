@@ -43,7 +43,7 @@ class ZendeskService extends Controller
     {
         return array(
             array(
-                'id' => $parametersTicket['planifDateId'], 'value' => date("Y-m-d",strtotime($due_at))),
+                'id' => $parametersTicket['planifDateId'], 'value' => date("Y-m-d", strtotime($due_at))),
             array(
                 'id' => $parametersTicket['agenceId'], 'value' => $agence),
             array(
@@ -114,7 +114,7 @@ class ZendeskService extends Controller
     private function createJasonTicket($message_array, $due_at, $requester_email, $agence, $service_zendesk, $parametersTicket)
     {
         $subject = "Un nouveau candidat a été ajouté";
-        $service ="";
+        $service = "";
         $new_station = "false";
         if ($message_array['status_poste'] == "Création") {
             $new_station = "true";
@@ -122,7 +122,7 @@ class ZendeskService extends Controller
         if ($agence == "siège" && isset($service_zendesk)) {
             $service = $service_zendesk;
         }
-        if (date("Y-m-d") < date("Y-m-d",strtotime($due_at))) {
+        if (date("Y-m-d") < date("Y-m-d", strtotime($due_at))) {
             $status = 'hold';
         } else {
             $status = 'open';

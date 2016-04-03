@@ -49,6 +49,24 @@ class MouvHistory
     protected $fonction;
 
     /**
+     * @var string
+     * @ORM\Column(type="integer")
+     */
+    protected $adminId;
+
+    /**
+     * @var string
+     * @ORM\Column(type="datetime")
+     */
+    protected $dateModif;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=2)
+     */
+    protected $type;
+
+    /**
      * @return int
      */
     public function getId()
@@ -153,6 +171,60 @@ class MouvHistory
     public function setFonction($fonction)
     {
         $this->fonction = $fonction;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdminId()
+    {
+        return $this->adminId;
+    }
+
+    /**
+     * @param string $adminId
+     * @return MouvHistory
+     */
+    public function setAdminId($adminId)
+    {
+        $this->adminId = $adminId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateModif()
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * @param string $dateModif
+     * @return MouvHistory
+     */
+    public function setDateModif($dateModif)
+    {
+        $this->dateModif = $dateModif;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return MouvHistory
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 }

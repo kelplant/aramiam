@@ -18,11 +18,11 @@ parameters:
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
 
 
-    core.controller_service.class: CoreBundle\Services\ControllerService
-
     core.curl_wrap.class: CoreBundle\Services\CurlWrap
     core.parameters_calls.class: CoreBundle\Services\Manager\ParametersManager
+    core.mouv_history.class: CoreBundle\Services\Manager\MouvHistoryManager
 
+    core.controller_service.class: CoreBundle\Services\ControllerService
     core.zendesk_service.class: CoreBundle\Services\ZendeskService
 
 services:
@@ -73,6 +73,10 @@ services:
 
     core.parameters_calls:
         class: %core.parameters_calls.class%
+        arguments: ['@doctrine.orm.entity_manager']
+
+    core.mouv_history_manager:
+        class: %core.mouv_history.class%
         arguments: ['@doctrine.orm.entity_manager']
 
     core.zendesk_service:

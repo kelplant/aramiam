@@ -49,7 +49,7 @@ class ControllerService extends Controller
      * @param $what
      * @return mixed
      */
-    private function getConvertion($manager,$what)
+    private function getConvertion($manager, $what)
     {
         return $this->get('core.'.$manager.'_manager')->getRepository()->findOneById($what)->getName();
     }
@@ -61,7 +61,7 @@ class ControllerService extends Controller
      * @param $i
      * @return mixed
      */
-    private function filterView($allItems,$item, $number, $i)
+    private function filterView($allItems, $item, $number, $i)
     {
         if ($item->getIsArchived() != $number && $this->isArchived == $number)
         {
@@ -77,9 +77,9 @@ class ControllerService extends Controller
     public function executeCreateTicket($request)
     {
         return $this->get('core.zendesk_service')->createTicket(
-            $request->query->get('candidat')['name'],$request->query->get('candidat')['surname'],$request->query->get('candidat')['entiteHolding'],date("Y-m-d", strtotime($request->query->get('candidat')['startDate'])),
-            $this->getConvertion('agence',$request->query->get('candidat')['agence']),$this->getConvertion('service',$request->query->get('candidat')['service']),
-            $this->getConvertion('fonction',$request->query->get('candidat')['fonction']),$request->query->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
+            $request->query->get('candidat')['name'], $request->query->get('candidat')['surname'], $request->query->get('candidat')['entiteHolding'], date("Y-m-d", strtotime($request->query->get('candidat')['startDate'])),
+            $this->getConvertion('agence', $request->query->get('candidat')['agence']), $this->getConvertion('service', $request->query->get('candidat')['service']),
+            $this->getConvertion('fonction', $request->query->get('candidat')['fonction']), $request->query->get('candidat')['statusPoste'], 'xavier.arroues@aramisauto.com'
         );
     }
 
@@ -96,12 +96,12 @@ class ControllerService extends Controller
         {
             $i = 0;
             foreach ($allItems as $item) {
-                $item->setAgence($this->getConvertion('agence',$item->getAgence()));
-                $item->setFonction($this->getConvertion('fonction',$item->getFonction()));
-                $item->setService($this->getConvertion('service',$item->getService()));
-                $allItems = $this->filterView($allItems,$item,'0',$i);
-                $allItems = $this->filterView($allItems,$item,'1',$i);
-                $allItems = $this->filterView($allItems,$item,'2',$i);
+                $item->setAgence($this->getConvertion('agence', $item->getAgence()));
+                $item->setFonction($this->getConvertion('fonction', $item->getFonction()));
+                $item->setService($this->getConvertion('service', $item->getService()));
+                $allItems = $this->filterView($allItems, $item, '0', $i);
+                $allItems = $this->filterView($allItems, $item, '1', $i);
+                $allItems = $this->filterView($allItems, $item, '2', $i);
                 $i++;
             }
         }
@@ -156,7 +156,7 @@ class ControllerService extends Controller
             {
                 $this->get('core.' . strtolower($this->entity) . '_manager')->retablir($request->request->get(strtolower($this->entity))['id']);
                 $this->isArchived = '1';
-            }elseif ($request->request->get('sendAction') == "Sauver et Transformer")
+            } elseif ($request->request->get('sendAction') == "Sauver et Transformer")
             {
                 $this->get('core.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($user = $this->get('security.token_storage')->getToken()->getUser()->getUsername()),'C');
                 $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);

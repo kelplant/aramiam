@@ -158,7 +158,7 @@ class Candidat
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
     public function getStartDate()
     {
@@ -176,7 +176,7 @@ class Candidat
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAgence()
     {
@@ -194,7 +194,7 @@ class Candidat
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getService()
     {
@@ -212,7 +212,7 @@ class Candidat
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFonction()
     {

@@ -30,7 +30,7 @@ class MouvHistoryManager
         $itemToSet->setService($itemLoad['service']);
         $itemToSet->setFonction($itemLoad['fonction']);
         $itemToSet->setAdminId($adminId);
-        $itemToSet->setDateModif(new \Datetime());
+        $itemToSet->setDateModif(new Datetime());
         $itemToSet->setType($type);
         $this->em->persist($itemToSet);
         $this->em->flush();

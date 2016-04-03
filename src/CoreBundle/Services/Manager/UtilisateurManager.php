@@ -3,6 +3,7 @@ namespace CoreBundle\Services\Manager;
 
 use CoreBundle\Entity\Admin\Utilisateur;
 use DateTime;
+
 /**
  * Class UtilisateurManager
  * @package CoreBundle\Services\Manager
@@ -11,7 +12,7 @@ class UtilisateurManager extends AbstractManager
 {
     /**
      * @param $itemLoad
-     * @return Utilisateur
+     * @return bool|int
      */
     public function transform($itemLoad)
     {

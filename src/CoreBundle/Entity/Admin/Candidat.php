@@ -2,6 +2,7 @@
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * Class Candidat
@@ -37,7 +38,7 @@ class Candidat
     protected $civilite;
 
     /**
-     * @var string
+     * @var DateTime
      * @ORM\Column(type="date")
      */
     protected $startDate;

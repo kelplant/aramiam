@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class UtilisateurType extends AbstractType
 {
@@ -56,10 +57,20 @@ class UtilisateurType extends AbstractType
                     'class' => 'form-control font_exo_2',
                 ),
             ))
+            ->add('email', EmailType::class, array(
+                'label' => 'Email',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                ),
+                'attr' => array(
+                    'class' => 'form-control font_exo_2',
+                ),
+                'required' => false,
+            ))
             ->add('startDate', TextType::class, array(
                 'label' => 'Date d\'arrivée',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2 datepicker',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control date font_exo_2 datepicker',
@@ -82,6 +93,7 @@ class UtilisateurType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('entiteHolding', ChoiceType::class, array(
                 'choices' => array(
@@ -154,6 +166,7 @@ class UtilisateurType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('commentaire', TextareaType::class, array(
                 'label' => 'Commentaire',
@@ -163,10 +176,30 @@ class UtilisateurType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
+            ))
+            ->add('idCandidat', HiddenType::class, array(
+                'label' => 'idCandidat',
+                'required' => false,
+            ))
+            ->add('isCreateInGmail', HiddenType::class, array(
+                'label' => 'isCreateInGmail',
+                'required' => false,
+            ))
+            ->add('isCreateInOdigo', HiddenType::class, array(
+                'label' => 'isCreateInOdigo',
+                'required' => false,
+            ))
+            ->add('isCreateInRobusto', HiddenType::class, array(
+                'label' => 'isCreateInRobusto',
+                'required' => false,
+            ))
+            ->add('isCreateInSalesforce', HiddenType::class, array(
+                'label' => 'isCreateInSalesforce',
+                'required' => false,
             ))
         ;
     }
-
 
     /**
      * @param OptionsResolver $resolver

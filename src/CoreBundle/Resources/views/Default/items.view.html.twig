@@ -127,19 +127,21 @@
             });
         });
     </script>
-    <script>
-        $('.datepicker').datepicker({
-            format: "dd-mm-yyyy",
-            startDate: "-7d",
-            startView: 1,
-            todayBtn: "linked",
-            language: "fr",
-            orientation: "auto right",
-            daysOfWeekDisabled: "0,6",
-            daysOfWeekHighlighted: "1,2,3,4,5",
-            calendarWeeks: true,
-            autoclose: true,
-            todayHighlight: true
-        });
-    </script>
+    {% if is_archived == "0" %}
+        <script>
+            $('.datepicker').datepicker({
+                format: "dd-mm-yyyy",
+                startDate: "-7d",
+                startView: 1,
+                todayBtn: "linked",
+                language: "fr",
+                orientation: "auto right",
+                daysOfWeekDisabled: "0,6",
+                daysOfWeekHighlighted: "1,2,3,4,5",
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+        </script>
+    {% endif %}
 {% endblock %}

@@ -50,6 +50,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => true,
             ))
             ->add('surname', TextType::class, array(
                 'label' => 'Prénom',
@@ -59,6 +60,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => true,
             ))
             ->add('startDate', TextType::class, array(
                 'label' => 'Date d\'arrivée',
@@ -68,6 +70,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control date font_exo_2 datepicker',
                 ),
+                'required' => true,
             ))
             ->add('responsable', TextType::class, array(
                 'label' => 'Responsable',
@@ -86,6 +89,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('entiteHolding', ChoiceType::class, array(
                 'choices' => array(
@@ -158,6 +162,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('commentaire', TextareaType::class, array(
                 'label' => 'Commentaire',
@@ -167,6 +172,7 @@ class CandidatType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
         ;
     }

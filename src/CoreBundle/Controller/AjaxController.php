@@ -46,4 +46,14 @@ class AjaxController extends Controller
     {
         return new JsonResponse($this->get('core.service_manager')->createArray($serviceEdit));
     }
+
+    /**
+     * @param $utilisateurEdit
+     * @Route(path="/ajax/utilisateur/get/{utilisateurEdit}",name="ajax_get_utilisateur")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function utilisateurGetInfosIndex($utilisateurEdit)
+    {
+        return new JsonResponse($this->get('core.utilisateur_manager')->createArray($utilisateurEdit));
+    }
 }

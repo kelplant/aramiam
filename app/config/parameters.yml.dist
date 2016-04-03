@@ -55,6 +55,11 @@ parameters:
         1:             'Le candidat existe déjà, le nom doit être unique'
         6668:          'Candidat correctement supprimée'
         6667:          'Candidat correctement Mise à jour'
+    utilisateur_insert_exceptions:
+        6669:          'Utilisateur correctement ajoutée'
+        1:             'Erreur dans la création de l''utilisateur'
+        6668:          'Utilisateur correctement supprimée'
+        6667:          'Utilisateur correctement Mise à jour'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

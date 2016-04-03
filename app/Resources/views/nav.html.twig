@@ -33,7 +33,7 @@
                                 <li class="font_exo_2"><a href="{{ path('liste_des_utilisateurs' , { 'isArchived' : '0'}) }}"><i class="fa fa-users"></i> Utilisateurs Actifs</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2"><a href="#"><i class="fa fa-user-times"></i> Utilisateurs Inactifs</a></li>
+                                <li class="font_exo_2"><a href="{{ path('liste_des_utilisateurs' , { 'isArchived' : '1'}) }}"><i class="fa fa-user-times"></i> Utilisateurs Inactifs</a></li>
                             {% endif %}
                         </ul>
                     </li>

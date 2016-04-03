@@ -20,7 +20,7 @@ class CandidatManager extends AbstractManager
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setCivilite($itemLoad['civilite']);
-        $itemToSet->setStartDate(new \DateTime($itemLoad['startDate']));
+        $itemToSet->setStartDate(new DateTime($itemLoad['startDate']));
         $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
         $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
         $itemToSet->setAgence($itemLoad['agence']);
@@ -41,23 +41,9 @@ class CandidatManager extends AbstractManager
     public function add($itemLoad)
     {
         $itemToSet = new $this->entity;
-        $itemToSet->setName($itemLoad['name']);
-        $itemToSet->setSurname($itemLoad['surname']);
-        $itemToSet->setCivilite($itemLoad['civilite']);
-        $itemToSet->setStartDate(new \DateTime($itemLoad['startDate']));
-        $itemToSet->setAgence($itemLoad['agence']);
-        $itemToSet->setService($itemLoad['service']);
-        $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
-        $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
-        $itemToSet->setFonction($itemLoad['fonction']);
-        $itemToSet->setResponsable($itemLoad['responsable']);
-        $itemToSet->setStatusPoste($itemLoad['statusPoste']);
-        $itemToSet->setPredecesseur($itemLoad['predecesseur']);
-        $itemToSet->setCommentaire($itemLoad['commentaire']);
-        $itemToSet->setIsArchived('0');
 
         try {
-            $this->save($itemToSet);
+            $this->save($this->globalSetItem($itemToSet,$itemLoad));
             return 6669;
         } catch (\Exception $e) {
             return error_log($e->getMessage());

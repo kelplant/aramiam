@@ -70,10 +70,10 @@ class ControllerService extends Controller
                 $item->setAgence($this->get('core.agence_manager')->getRepository()->findOneById($item->getAgence())->getName());
                 $item->setFonction($this->get('core.fonction_manager')->getRepository()->findOneById($item->getFonction())->getName());
                 $item->setService($this->get('core.service_manager')->getRepository()->findOneById($item->getService())->getName());
-                if ($item->getIsArchived() == 1 AND $this->isArchived == 0)
+                if ($item->getIsArchived() == 1 && $this->isArchived == 0)
                 {
                     unset($allItems[$i]);
-                } elseif ($item->getIsArchived() == 0 AND $this->isArchived == 1)
+                } elseif ($item->getIsArchived() == 0 && $this->isArchived == 1)
                 {
                     unset($allItems[$i]);
                 }
@@ -159,7 +159,7 @@ class ControllerService extends Controller
 
             if($request->request->get('sendAction') == "Sauver et Transformer")
             {
-
+                echo "transform salarié";
             }
 
         }

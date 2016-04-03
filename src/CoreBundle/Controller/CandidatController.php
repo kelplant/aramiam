@@ -52,7 +52,7 @@ class CandidatController extends Controller
     public function indexAction()
     {
         $this->initData();
-        return $this->get('core.controller_service')->generateIndexAction();
+        return $this->get('core.controller_service')->getFullList($this->isArchived);
     }
 
     /**

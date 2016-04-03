@@ -79,7 +79,7 @@ class ControllerService extends Controller
      * @param $isArchived
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getFullList($isArchived)
+    public function getFullList($isArchived)
     {
 
         $formAdd = $this->generateForm();
@@ -114,14 +114,6 @@ class ControllerService extends Controller
             'formAdd' => $formAdd->createView(),
             'formEdit' => $formEdit->createView(),
         ));
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function generateIndexAction()
-    {
-        return $this->getFullList($this->isArchived);
     }
 
     /**

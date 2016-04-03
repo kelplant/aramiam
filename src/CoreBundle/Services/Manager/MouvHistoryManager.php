@@ -21,7 +21,7 @@ class MouvHistoryManager
         $this->em = $entityManager;
     }
 
-    public function add($itemLoad,$adminId,$type)
+    public function add($itemLoad, $adminId, $type)
     {
         $itemToSet = new MouvHistory();
         $itemToSet->setUserId($itemLoad['id']);

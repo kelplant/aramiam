@@ -58,7 +58,7 @@ class CandidatController extends Controller
     public function deleteAction(Request $request)
     {
         $this->initData();
-        $this->get('core.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'),$request->query->get('isArchived')));
+        $this->get('core.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
         return $this->get('core.controller_service')->generateDeleteAction();
     }
 

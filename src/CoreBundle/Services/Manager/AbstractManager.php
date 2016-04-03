@@ -122,7 +122,7 @@ abstract class AbstractManager
      * @param $itemId
      * @return bool|int
      */
-    public function removeCandidat($itemId,$isArchived)
+    public function removeCandidat($itemId, $isArchived)
     {
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {

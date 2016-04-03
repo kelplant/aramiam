@@ -3,6 +3,10 @@ namespace CoreBundle\Services\Manager;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class AbstractManager
+ * @package CoreBundle\Services\Manager
+ */
 abstract class AbstractManager
 {
     /**

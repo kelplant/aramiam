@@ -3,6 +3,10 @@ namespace CoreBundle\Services;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class ZendeskService
+ * @package CoreBundle\Services
+ */
 class ZendeskService extends Controller
 {
     /**
@@ -39,7 +43,7 @@ class ZendeskService extends Controller
     {
         return array(
             array(
-               'id'=>$parametersTicket['planifDateId'], 'value'=>date("Y-m-d",strtotime($due_at))),
+                'id'=>$parametersTicket['planifDateId'], 'value'=>date("Y-m-d",strtotime($due_at))),
             array(
                 'id' => $parametersTicket['agenceId'], 'value' => $agence),
             array(

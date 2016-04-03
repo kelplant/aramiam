@@ -5,7 +5,7 @@ use CoreBundle\Entity\Admin\Service;
 
 /**
  * Class ServiceManager
- * @package CoreBundle\Manager
+ * @package CoreBundle\Services\Manager
  */
 class ServiceManager extends AbstractManager
 {

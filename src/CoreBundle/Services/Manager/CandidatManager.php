@@ -6,7 +6,7 @@ use DateTime;
 
 /**
  * Class CandidatManager
- * @package CoreBundle\Manager
+ * @package CoreBundle\Services\Manager
  */
 class CandidatManager extends AbstractManager
 {

@@ -10,30 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
+/**
+ * Class ServiceType
+ * @package CoreBundle\Form\Admin
+ */
 class ServiceType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $submitName;
-
-    /**
-     * ServiceType constructor.
-     */
-    public function __construct()
-    {
-        $path = substr(Request::createFromGlobals()->getPathInfo(), 16, 4);
-
-        if ($path == 'add')
-        {
-            $this->submitName = 'Envoyer';
-        }
-        if ($path == 'edit')
-        {
-            $this->submitName = 'Mettre & Jour';
-        }
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options

@@ -18,28 +18,6 @@ use CoreBundle\Entity\Admin\Agence;
 class AgenceType extends AbstractType
 {
     /**
-     * @var string
-     */
-    private $submitName;
-
-    /**
-     * AgenceType constructor.
-     */
-    public function __construct()
-    {
-        $path = substr(Request::createFromGlobals()->getPathInfo(), 15, 4);
-
-        if ($path == 'add')
-        {
-            $this->submitName = 'Envoyer';
-        }
-        if ($path == 'edit')
-        {
-            $this->submitName = 'Mettre & Jour';
-        }
-    }
-
-    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */

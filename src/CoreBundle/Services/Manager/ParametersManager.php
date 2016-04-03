@@ -4,16 +4,29 @@ namespace CoreBundle\Services\Manager;
 use CoreBundle\Entity\Parameters;
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class ParametersManager
+ * @package CoreBundle\Services\Manager
+ */
 class ParametersManager
 {
+    private $em;
+
+    /**
+     * ParametersManager constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getParam($name)
     {
-        $param = $this->em->getRepository('CoreBundle:Parameters')->findOneByParamName($name);
-
-        return $value = $param->getParamValue();
+        return $this->em->getRepository('CoreBundle:Parameters')->findOneByParamName($name)->getParamValue();
     }
 
     /**
@@ -22,9 +35,7 @@ class ParametersManager
      */
     public function getAllAppParams($app)
     {
-        $param = $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
-
-        return $param;
+        return $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
     }
 
     /**

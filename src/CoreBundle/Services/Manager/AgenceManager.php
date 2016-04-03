@@ -5,7 +5,7 @@ use CoreBundle\Entity\Admin\Agence;
 
 /**
  * Class AgenceManager
- * @package CoreBundle\Manager
+ * @package CoreBundle\Services\Manager
  */
 class AgenceManager extends AbstractManager
 {

@@ -5,7 +5,7 @@ use CoreBundle\Entity\Admin\Fonction;
 
 /**
  * Class FonctionManager
- * @package CoreBundle\Manager
+ * @package CoreBundle\Services\Manager
  */
 class FonctionManager extends AbstractManager
 {

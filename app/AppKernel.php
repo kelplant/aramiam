@@ -20,7 +20,6 @@ class AppKernel extends Kernel
             new CoreBundle\CoreBundle(),
             new LightSaml\SymfonyBridgeBundle\LightSamlSymfonyBridgeBundle(),
             new LightSaml\SpBundle\LightSamlSpBundle(),
-            new ZendeskBundle\ZendeskBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Xavier
- * Date: 29/03/2016
- * Time: 13:17
- */
-
 namespace CoreBundle\Services;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ControllerService extends Controller
 {
-    # Under here for Controller Core
     private $message;
 
     private $insert;

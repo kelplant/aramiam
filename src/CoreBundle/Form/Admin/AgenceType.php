@@ -1,6 +1,5 @@
 <?php
-
-namespace CoreBundle\Form;
+namespace CoreBundle\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,10 +7,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-class ServiceType extends AbstractType
+use CoreBundle\Entity\Admin\Agence;
+
+/**
+ * Class AgenceType
+ * @package CoreBundle\Form
+ */
+class AgenceType extends AbstractType
 {
     /**
      * @var string
@@ -19,11 +23,11 @@ class ServiceType extends AbstractType
     private $submitName;
 
     /**
-     * ServiceType constructor.
+     * AgenceType constructor.
      */
     public function __construct()
     {
-        $path = substr(Request::createFromGlobals()->getPathInfo(), 16, 4);
+        $path = substr(Request::createFromGlobals()->getPathInfo(), 15, 4);
 
         if ($path == 'add')
         {
@@ -46,18 +50,9 @@ class ServiceType extends AbstractType
                 'label' => 'id',
             ))
             ->add('name', TextType::class, array(
-                'label' => 'Nom du service',
+                'label' => 'Nom de l\'agence',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
-                ),
-                'attr' => array(
-                    'class' => 'form-control font_exo_2',
-                ),
-            ))
-            ->add('shortName', TextType::class, array(
-                'label' => 'Nom raccourci',
-                'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-3 control-label align_righ font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -108,7 +103,7 @@ class ServiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Admin\Service'
+            'data_class' => 'CoreBundle\Entity\Admin\Agence'
         ));
     }
 }

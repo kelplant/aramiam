@@ -3,7 +3,7 @@
 namespace CoreBundle\Controller;
 
 use CoreBundle\Entity\Admin\Agence;
-use CoreBundle\Form\AgenceType;
+use CoreBundle\Form\Admin\AgenceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

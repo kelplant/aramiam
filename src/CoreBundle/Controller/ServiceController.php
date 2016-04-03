@@ -1,8 +1,7 @@
 <?php
-
 namespace CoreBundle\Controller;
 
-use CoreBundle\Form\ServiceType;
+use CoreBundle\Form\Admin\ServiceType;
 use CoreBundle\Entity\Admin\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Controller;
 
-use CoreBundle\Form\FonctionType;
+use CoreBundle\Form\Admin\FonctionType;
 use CoreBundle\Entity\Admin\Fonction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

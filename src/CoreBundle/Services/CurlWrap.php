@@ -1,6 +1,4 @@
 <?php
-// ZendeskBundle/Services/CurlWrap.php
-
 namespace CoreBundle\Services;
 
 class CurlWrap

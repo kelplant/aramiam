@@ -1,9 +1,7 @@
 <?php
-
 namespace CoreBundle\Controller;
 
-use CoreBundle\Form\CandidatType;
-use CoreBundle\Entity\Admin\Candidat;
+use CoreBundle\Form\Admin\CandidatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

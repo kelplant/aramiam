@@ -1,12 +1,9 @@
 <?php
-
-namespace CoreBundle\Form;
+namespace CoreBundle\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class UtilisateurType extends AbstractType
 {
@@ -17,22 +14,28 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('surname')
             ->add('viewName')
-            ->add('email')
-            ->add('odigoPhoneNumber')
-            ->add('redirectPhoneNumber')
-            ->add('odigoExtension')
-            ->add('startDate', 'datetime')
-            ->add('robustoProfil')
             ->add('isCreateInOdigo')
             ->add('isCreateInGmail')
+            ->add('isCreateInSalesforce')
+            ->add('isCreateInRobusto')
             ->add('isActive')
             ->add('isDelete')
+            ->add('name')
+            ->add('surname')
+            ->add('civilite')
+            ->add('startDate', 'date')
+            ->add('entiteHolding')
             ->add('agence')
             ->add('service')
             ->add('fonction')
+            ->add('statusPoste')
+            ->add('predecesseur')
+            ->add('responsable')
+            ->add('matriculeRH')
+            ->add('commentaire')
+            ->add('isArchived')
+            ->add('isConvertedUser')
         ;
     }
     

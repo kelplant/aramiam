@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Xavier
- * Date: 26/03/2016
- * Time: 02:24
- */
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;

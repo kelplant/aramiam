@@ -1,5 +1,4 @@
 <?php
-// ZendeskBundle/Entity/Parameters.php
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

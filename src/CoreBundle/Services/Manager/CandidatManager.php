@@ -43,7 +43,7 @@ class CandidatManager extends AbstractManager
         $itemToSet = new $this->entity;
 
         try {
-            $this->save($this->globalSetItem($itemToSet,$itemLoad));
+            $this->save($this->globalSetItem($itemToSet, $itemLoad));
             return 6669;
         } catch (\Exception $e) {
             return error_log($e->getMessage());

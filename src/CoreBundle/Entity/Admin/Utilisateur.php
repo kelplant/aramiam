@@ -10,11 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Utilisateur extends AbstractPerson
 {
-     /**
+    /**
      * @var string
      * @ORM\Column(type="string", length=100)
      */
-
     protected $viewName;
 
     /**

@@ -153,18 +153,18 @@ class ControllerService extends Controller
     {
         if ($request->request->get('formAction') == 'edit')
         {
-            if($request->request->get('sendAction') == "Sauvegarder" || $request->request->get('sendAction') == "Sauver et Transformer")
+            if ($request->request->get('sendAction') == "Sauvegarder" || $request->request->get('sendAction') == "Sauver et Transformer")
             {
-                $this->insert = $this->get('core.' . strtolower($this->entity) . '_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
+                $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
                 $this->message = $this->generateMessage($this->insert);
             }
             if ($request->request->get('sendAction') == "Rétablir")
             {
-                $this->get('core.' . strtolower($this->entity) . '_manager')->retablir($request->request->get(strtolower($this->entity))['id']);
+                $this->get('core.'.strtolower($this->entity).'_manager')->retablir($request->request->get(strtolower($this->entity))['id']);
                 $this->isArchived = '1';
             } elseif ($request->request->get('sendAction') == "Sauver et Transformer")
             {
-                $this->get('core.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($user = $this->get('security.token_storage')->getToken()->getUser()->getUsername()),'C');
+                $this->get('core.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($user = $this->get('security.token_storage')->getToken()->getUser()->getUsername()), 'C');
                 $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);
                 $this->get('core.utilisateur_manager')->add($request->request->get('candidat'));
             }

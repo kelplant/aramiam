@@ -32,17 +32,10 @@ class ServiceManager extends AbstractManager
      */
     public function add($itemLoad)
     {
-
         $itemToSet = new $this->entity;
-        $itemToSet->setName($itemLoad['name']);
-        $itemToSet->setShortName($itemLoad['shortName']);
-        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
-        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
-        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
-        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
 
         try {
-            $this->save($itemToSet);
+            $this->save($this->globalSetItem($itemToSet, $itemLoad));
             return 6669;
         } catch (\Exception $e) {
             return error_log($e->getMessage());

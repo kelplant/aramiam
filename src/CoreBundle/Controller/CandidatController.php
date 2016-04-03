@@ -70,7 +70,6 @@ class CandidatController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/candidat/form_exec", name="form_exec_candidat")
      * @Route(path="/admin/candidat/add", name="form_exec_add_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */

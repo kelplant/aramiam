@@ -83,7 +83,6 @@ class ControllerService extends Controller
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
-            'route' => $this->generateUrl('form_exec_'.strtolower($this->entity)),
             'message' => $this->message,
             'code_message' => (int)$this->insert,
             'edit_path'=> 'edit_'.strtolower($this->entity),

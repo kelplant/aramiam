@@ -52,7 +52,6 @@ class ServiceController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/services/form_exec", name="form_exec_service")
      * @Route(path="/admin/service/add", name="form_exec_add_service")
      * @return \Symfony\Component\HttpFoundation\Response
      */

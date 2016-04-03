@@ -52,7 +52,6 @@ class AgenceController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/agences/form_exec", name="form_exec_agence")
      * @Route(path="/admin/agences/add", name="form_exec_add_agence")
      * @return \Symfony\Component\HttpFoundation\Response
      */

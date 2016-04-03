@@ -52,7 +52,6 @@ class FonctionController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/fonction/form_exec", name="form_exec_fonction")
      * @Route(path="/admin/fonction/add", name="form_exec_add_fonction")
      * @return \Symfony\Component\HttpFoundation\Response
      */

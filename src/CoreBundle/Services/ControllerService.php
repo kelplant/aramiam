@@ -157,14 +157,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
      * @param mixed $message
      * @return ControllerService
      */
@@ -172,14 +164,6 @@ class ControllerService extends Controller
     {
         $this->message = $message;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInsert()
-    {
-        return $this->insert;
     }
 
     /**
@@ -193,14 +177,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
      * @param mixed $entity
      * @return ControllerService
      */
@@ -208,14 +184,6 @@ class ControllerService extends Controller
     {
         $this->entity = $entity;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNewEntity()
-    {
-        return $this->newEntity;
     }
 
     /**
@@ -229,14 +197,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getFormType()
-    {
-        return $this->formType;
-    }
-
-    /**
      * @param mixed $formType
      * @return ControllerService
      */
@@ -244,14 +204,6 @@ class ControllerService extends Controller
     {
         $this->formType = $formType;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAlertText()
-    {
-        return $this->alertText;
     }
 
     /**
@@ -265,14 +217,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getIsArchived()
-    {
-        return $this->isArchived;
-    }
-
-    /**
      * @param mixed $isArchived
      * @return ControllerService
      */
@@ -280,14 +224,6 @@ class ControllerService extends Controller
     {
         $this->isArchived = $isArchived;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreateFormArguments()
-    {
-        return $this->createFormArguments;
     }
 
     /**
@@ -301,14 +237,6 @@ class ControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getRemove()
-    {
-        return $this->remove;
-    }
-
-    /**
      * @param mixed $remove
      * @return ControllerService
      */
@@ -316,14 +244,6 @@ class ControllerService extends Controller
     {
         $this->remove = $remove;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFormItem()
-    {
-        return $this->formItem;
     }
 
     /**

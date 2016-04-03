@@ -39,11 +39,11 @@ class ZendeskService extends Controller
      * @param $new_station
      * @return array
      */
-    private function generateCustomFieldArray($parametersTicket,$due_at,$agence,$service,$new_station)
+    private function generateCustomFieldArray($parametersTicket, $due_at, $agence, $service, $new_station)
     {
         return array(
             array(
-                'id'=>$parametersTicket['planifDateId'], 'value'=>date("Y-m-d",strtotime($due_at))),
+                'id' => $parametersTicket['planifDateId'], 'value' => date("Y-m-d",strtotime($due_at))),
             array(
                 'id' => $parametersTicket['agenceId'], 'value' => $agence),
             array(
@@ -70,7 +70,7 @@ class ZendeskService extends Controller
      * @param $statusPoste
      * @return array
      */
-    private function generateMessageArray($nom,$prenom,$entite,$due_at,$agenceZendesk,$serviceZendesk,$fonctionZendesk,$statusPoste)
+    private function generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste)
     {
         return array(
             'nom' => $nom,
@@ -111,8 +111,8 @@ class ZendeskService extends Controller
      * @param $parametersTicket
      * @return string
      */
-    private function createJasonTicket($message_array,$due_at,$requester_email,$agence,$service_zendesk,$parametersTicket){
-
+    private function createJasonTicket($message_array, $due_at, $requester_email, $agence, $service_zendesk, $parametersTicket)
+    {
         $subject = "Un nouveau candidat a été ajouté";
         $service ="";
         $new_station = "false";
@@ -136,7 +136,7 @@ class ZendeskService extends Controller
             'organization_id' =>  $parametersTicket['organizationIdId'],
             'ticket_form_id' => $parametersTicket['ticketFormIdId'],
             'priority' => "high",
-            'custom_fields' => $this->generateCustomFieldArray($parametersTicket,$due_at,$agence,$service,$new_station),
+            'custom_fields' => $this->generateCustomFieldArray($parametersTicket, $due_at, $agence, $service, $new_station),
         )));
     }
 
@@ -159,6 +159,6 @@ class ZendeskService extends Controller
         define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
         define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
 
-        return $this->get('core.curl_wrap')->curlWrapExec("/tickets.json", $this->createJasonTicket($this->generateMessageArray($nom,$prenom,$entite,$due_at,$agenceZendesk,$serviceZendesk,$fonctionZendesk,$statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
+        return $this->get('core.curl_wrap')->curlWrapExec("/tickets.json", $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
     }
 }

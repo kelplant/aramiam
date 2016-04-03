@@ -38,60 +38,6 @@ abstract class AbstractManager
     }
 
     /**
-     * @return mixed
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
-     * @param mixed $entity
-     * @return AbstractManager
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-        return $this;
-    }
-
-    /**
-     * @param $repository
-     * @return AbstractManager
-     */
-    public function setRepository($repository)
-    {
-        $this->repository = $repository;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntityName()
-    {
-        return $this->entityName;
-    }
-
-    /**
-     * @param mixed $entityName
-     * @return AbstractManager
-     */
-    public function setEntityName($entityName)
-    {
-        $this->entityName = $entityName;
-        return $this;
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->em->getRepository($this->entityName);
-    }
-
-    /**
      * @param $itemId
      * @return null|object
      */
@@ -193,5 +139,59 @@ abstract class AbstractManager
     {
         $this->em->persist($entity);
         $this->em->flush();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param mixed $entity
+     * @return AbstractManager
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+
+    /**
+     * @param $repository
+     * @return AbstractManager
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityName()
+    {
+        return $this->entityName;
+    }
+
+    /**
+     * @param mixed $entityName
+     * @return AbstractManager
+     */
+    public function setEntityName($entityName)
+    {
+        $this->entityName = $entityName;
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository($this->entityName);
     }
 }

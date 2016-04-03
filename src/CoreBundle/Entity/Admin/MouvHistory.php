@@ -2,7 +2,7 @@
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use DateTime;
 /**
  * Class MouvHistory
  * @ORM\Entity()
@@ -55,7 +55,7 @@ class MouvHistory
     protected $adminId;
 
     /**
-     * @var string
+     * @var DateTime
      * @ORM\Column(type="datetime")
      */
     protected $dateModif;
@@ -193,7 +193,7 @@ class MouvHistory
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
     public function getDateModif()
     {
@@ -201,7 +201,7 @@ class MouvHistory
     }
 
     /**
-     * @param string $dateModif
+     * @param DateTime $dateModif
      * @return MouvHistory
      */
     public function setDateModif($dateModif)

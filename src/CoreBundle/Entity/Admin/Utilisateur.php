@@ -204,4 +204,5 @@ class Utilisateur extends Candidat
         $this->email = $email;
         return $this;
     }
+
 }

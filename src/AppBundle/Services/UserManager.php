@@ -2,7 +2,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class ParametersManager
@@ -10,14 +10,17 @@ use Doctrine\ORM\EntityManager;
  */
 class UserManager
 {
-    private $em;
+    private $managerRegistry;
 
+    private $em;
     /**
-     * ParametersManager constructor.
-     * @param EntityManager $entityManager
+     * MouvHistoryManager constructor.
+     * @param ManagerRegistry $managerRegistry
      */
-    public function __construct(EntityManager $entityManager) {
-        $this->em = $entityManager;
+    public function __construct(ManagerRegistry $managerRegistry) {
+        $this->managerRegistry = $managerRegistry;
+        $item = new User();
+        $this->em = $this->managerRegistry->getManagerForClass(get_class($item));
     }
 
     /**

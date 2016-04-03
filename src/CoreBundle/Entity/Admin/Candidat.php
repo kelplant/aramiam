@@ -166,7 +166,7 @@ class Candidat
     }
 
     /**
-     * @param string $startDate
+     * @param DateTime $startDate
      * @return Candidat
      */
     public function setStartDate($startDate)

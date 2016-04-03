@@ -21,7 +21,7 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setViewName($itemLoad['surname']." ".$itemLoad['name']);
-        $itemToSet->setStartDate(new \DateTime($itemLoad['startDate']));
+        $itemToSet->setStartDate(new DateTime($itemLoad['startDate']));
         $itemToSet->setAgence($itemLoad['agence']);
         $itemToSet->setService($itemLoad['service']);
         $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);

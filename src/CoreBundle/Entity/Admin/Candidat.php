@@ -5,8 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Candidat
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\CandidatRepository")
- * @ORM\Table(name="core_candidat")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\CandidatRepository")
+ * @ORM\Table(name="core_admin_candidats")
  */
 class Candidat
 {
@@ -98,15 +98,9 @@ class Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer", length=1)
      */
     protected $isArchived;
-
-    /**
-     * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true))
-     */
-    protected $isConvertedUser;
 
     /**
      * @return int
@@ -375,24 +369,6 @@ class Candidat
     public function setEntiteHolding($entiteHolding)
     {
         $this->entiteHolding = $entiteHolding;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsConvertedUser()
-    {
-        return $this->isConvertedUser;
-    }
-
-    /**
-     * @param string $isConvertedUser
-     * @return Candidat
-     */
-    public function setIsConvertedUser($isConvertedUser)
-    {
-        $this->isConvertedUser = $isConvertedUser;
         return $this;
     }
 }

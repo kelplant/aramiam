@@ -90,4 +90,14 @@ class CandidatManager extends AbstractManager
 
         return $itemArray;
     }
+
+    /**
+     * @param $itemId
+     */
+    public function transformUser($itemId)
+    {
+        $itemToSet = $this->getRepository()->findOneById($itemId);
+        $itemToSet->setIsArchived('2');
+        $this->em->flush();
+    }
 }

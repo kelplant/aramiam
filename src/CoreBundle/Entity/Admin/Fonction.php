@@ -4,8 +4,8 @@ namespace CoreBundle\Entity\Admin;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_fonction")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\FonctionRepository")
+ * @ORM\Table(name="core_admin_fonctions")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\FonctionRepository")
  */
 class Fonction
 {

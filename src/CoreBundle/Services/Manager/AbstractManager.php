@@ -142,6 +142,21 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
+     * @return bool|int
+     */
+    public function retablir($itemId)
+    {
+        $itemToSet = $this->getRepository()->findOneById($itemId);
+        try {
+            $itemToSet->setIsArchived('0');
+            $this->em->flush();
+            return 6668;
+        } catch (\Exception $e) {
+             return error_log($e->getMessage());
+        }
+    }
+    /**
+     * @param $itemId
      * @param $itemEditLoad
      * @return bool|int
      */

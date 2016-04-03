@@ -1,9 +1,9 @@
 <?php
-namespace CoreBundle\Repository;
+namespace CoreBundle\Repository\Admin;
 
 use Doctrine\ORM\EntityRepository;
 
-class ApplicationRepository extends EntityRepository
+class FonctionRepository extends EntityRepository
 {
     public function findAll()
     {

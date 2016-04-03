@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class MouvHistory
  * @ORM\Entity()
- * @ORM\Table(name="core_mouv_history")
+ * @ORM\Table(name="core_admin_mouvhistory")
  */
 class MouvHistory
 {

@@ -17,9 +17,16 @@
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
+                    {% if is_archived != "2" %}
                         <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCandidatEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                             <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                         </button>
+                    {% endif %}
+                    {% if is_archived == "2" %}
+                        <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir {{ alert_text }}" onclick="ajaxCandidatEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                            <span class="glyphicon glyphicon-eye-open  btn-xs" aria-hidden="true"></span>
+                        </button>
+                    {% endif %}
                     <input type='hidden' value='' id='ref_id_bouton'>
                     {% if is_archived == "0" %}
                         <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Archiver {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
@@ -60,7 +67,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un candidat</h4>
+                        <h4 class="modal-title font_exo_2" id="myModalLabel">{% if is_archived != "2" %}Edition d'un candidat{% endif %}{% if is_archived == "2" %}Voir un Candidat Transformé{% endif %}</h4>
                     </div>
                     <div class="modal-body">
                         {% embed "CoreBundle:Candidat:edit.body.html.twig"  %}

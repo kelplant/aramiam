@@ -10,8 +10,6 @@ class CandidatController extends Controller
 {
     private $isArchived;
 
-    private $itemToTemove;
-
     /**
      * @return array
      */
@@ -43,8 +41,7 @@ class CandidatController extends Controller
     }
 
     /**
-     * @Route(path="/admin/candidats", name="liste_des_candidats")
-     * @Route(path="/admin/candidats/archived", name="liste_des_candidats_archives")
+     * @Route(path="/admin/candidat", name="liste_des_candidats")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -55,7 +52,7 @@ class CandidatController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/candidats/delete", name="remove_candidat")
+     * @Route(path="/admin/candidat/delete", name="remove_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)

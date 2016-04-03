@@ -4,8 +4,8 @@ namespace CoreBundle\Entity\Admin;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_service")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\ServiceRepository")
+ * @ORM\Table(name="core_admin_services")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\ServiceRepository")
  */
 class Service
 {

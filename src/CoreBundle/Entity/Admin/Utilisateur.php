@@ -5,8 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Utilisateur
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\UtilisateurRepository")
- * @ORM\Table(name="core_utilisateur")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\UtilisateurRepository")
+ * @ORM\Table(name="core_admin_utilisateurs", uniqueConstraints={@ORM\UniqueConstraint(name="utilisateur_unique", columns={"name", "surname"})})
  */
 class Utilisateur extends Candidat
 {
@@ -20,57 +20,46 @@ class Utilisateur extends Candidat
 
     /**
      * @var string
-     * @ORM\Column(type="string"))
+     * @ORM\Column(type="string", length=100)
      */
 
     protected $viewName;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=10))
+     * @ORM\Column(type="integer", length=10)
      */
     protected $idCandidat;
 
     /**
      * @var string
-     * @ORM\Column(type="string"), nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $email;
+
     /**
      * @var string
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":0})
      */
     protected $isCreateInOdigo;
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":0})
      */
     protected $isCreateInGmail;
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":0})
      */
     protected $isCreateInSalesforce;
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":0})
      */
     protected $isCreateInRobusto;
-
-    /**
-     * @var string
-     * @ORM\Column(type="boolean")
-     */
-    protected $isActive;
-
-    /**
-     * @var string
-     * @ORM\Column(type="boolean")
-     */
-    protected $isDelete;
 
     /**
      * @return int
@@ -177,42 +166,6 @@ class Utilisateur extends Candidat
     public function setIsCreateInRobusto($isCreateInRobusto)
     {
         $this->isCreateInRobusto = $isCreateInRobusto;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * @param string $isActive
-     * @return Utilisateur
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsDelete()
-    {
-        return $this->isDelete;
-    }
-
-    /**
-     * @param string $isDelete
-     * @return Utilisateur
-     */
-    public function setIsDelete($isDelete)
-    {
-        $this->isDelete = $isDelete;
         return $this;
     }
 

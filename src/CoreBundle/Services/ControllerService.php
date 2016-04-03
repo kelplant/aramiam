@@ -53,6 +53,29 @@ class ControllerService extends Controller
     }
 
     /**
+     * @param $manager
+     * @param $what
+     * @return mixed
+     */
+    private function getConvertion($manager,$what)
+    {
+        return $this->get('core.'.$manager.'_manager')->getRepository()->findOneById($what)->getName();
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function executeCreateTicket($request)
+    {
+        return $this->get('core.zendesk_service')->createTicket(
+            $request->get('candidat')['name'],$request->get('candidat')['surname'],$request->get('candidat')['entiteHolding'],date("Y-m-d", strtotime($request->get('candidat')['startDate'])),
+            $this->getConvertion('agence',$request->get('candidat')['agence']),$this->getConvertion('service',$request->get('candidat')['service']),
+            $this->getConvertion('fonction',$request->get('candidat')['fonction']),$request->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
+        );
+    }
+
+    /**
      * @param $isArchived
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -67,9 +90,9 @@ class ControllerService extends Controller
             $i = 0;
             foreach ($allItems as $item) {
                 $item->setStartDate($item->getStartDate()->format('d-m-Y'));
-                $item->setAgence($this->get('core.agence_manager')->getRepository()->findOneById($item->getAgence())->getName());
-                $item->setFonction($this->get('core.fonction_manager')->getRepository()->findOneById($item->getFonction())->getName());
-                $item->setService($this->get('core.service_manager')->getRepository()->findOneById($item->getService())->getName());
+                $item->setAgence($this->getConvertion('agence',$item->getAgence()));
+                $item->setFonction($this->getConvertion('fonction',$item->getFonction()));
+                $item->setService($this->getConvertion('service',$item->getService()));
                 if ($item->getIsArchived() == 1 && $this->isArchived == 0)
                 {
                     unset($allItems[$i]);
@@ -85,7 +108,6 @@ class ControllerService extends Controller
             'all' => $allItems,
             'message' => $this->message,
             'code_message' => (int)$this->insert,
-            'edit_path'=> 'edit_'.strtolower($this->entity),
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
@@ -111,21 +133,6 @@ class ControllerService extends Controller
         $this->insert = $this->remove;
 
         return $this->getFullList($this->isArchived);
-    }
-
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function executeCreateTicket($request)
-    {
-        return $this->get('core.zendesk_service')->createTicket(
-            $request->get('candidat')['name'],$request->get('candidat')['surname'],$request->get('candidat')['entiteHolding'],date("Y-m-d", strtotime($request->get('candidat')['startDate'])),
-            $this->get('core.agence_manager')->getRepository()->findOneById($request->get('candidat')['agence'])->getName(),
-            $this->get('core.service_manager')->getRepository()->findOneById($request->get('candidat')['service'])->getName(),
-            $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('candidat')['fonction'])->getName(),
-            $request->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
-        );
     }
 
     /**

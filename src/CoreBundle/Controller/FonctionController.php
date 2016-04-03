@@ -53,11 +53,23 @@ class FonctionController extends Controller
     /**
      * @param Request $request
      * @Route(path="/admin/fonction/form_exec", name="form_exec_fonction")
+     * @Route(path="/admin/fonction/add", name="form_exec_add_fonction")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function form_execAction(Request $request)
+    public function form_exec_addAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->executeRequestAction($request);
+        return $this->get('core.controller_service')->executeRequestAddAction($request);
+    }
+
+    /**
+     * @param Request $request
+     * @Route(path="/admin/fonction/edit", name="form_exec_edit_fonction")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function form_exec_editAction(Request $request)
+    {
+        $this->initData();
+        return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

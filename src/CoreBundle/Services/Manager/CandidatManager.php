@@ -40,7 +40,6 @@ class CandidatManager extends AbstractManager
      */
     public function add($itemLoad)
     {
-
         $itemToSet = new $this->entity;
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
@@ -56,7 +55,6 @@ class CandidatManager extends AbstractManager
         $itemToSet->setPredecesseur($itemLoad['predecesseur']);
         $itemToSet->setCommentaire($itemLoad['commentaire']);
         $itemToSet->setIsArchived('0');
-
 
         try {
             $this->save($itemToSet);

@@ -116,29 +116,53 @@ class ControllerService extends Controller
 
     /**
      * @param $request
+     * @return mixed
+     */
+    public function executeCreateTicket($request)
+    {
+        return $this->get('core.zendesk_service')->createTicket(
+            $request->get('candidat')['name'],$request->get('candidat')['surname'],$request->get('candidat')['entiteHolding'],date("Y-m-d", strtotime($request->get('candidat')['startDate'])),
+            $this->get('core.agence_manager')->getRepository()->findOneById($request->get('candidat')['agence'])->getName(),
+            $this->get('core.service_manager')->getRepository()->findOneById($request->get('candidat')['service'])->getName(),
+            $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('candidat')['fonction'])->getName(),
+            $request->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
+        );
+    }
+
+    /**
+     * @param $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function executeRequestAction($request)
+    public function executeRequestAddAction($request)
     {
+
         if ($request->request->get('formAction') == 'add')
         {
             $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);
-            $this->get('core.zendesk_service')->createTicket(
-                $request->get('candidat')['name'],$request->get('candidat')['surname'],'AramisAuto',date("Y-m-d", strtotime($request->get('candidat')['startDate'])),
-                $this->get('core.agence_manager')->getRepository()->findOneById($request->get('candidat')['agence'])->getName(),
-                $this->get('core.service_manager')->getRepository()->findOneById($request->get('candidat')['service'])->getName(),
-                $this->get('core.fonction_manager')->getRepository()->findOneById($request->get('candidat')['fonction'])->getName(),
-                $request->get('candidat')['statusPoste'],'xavier.arroues@aramisauto.com'
-            );
-        }
+            $this->executeCreateTicket($request);
 
+        }
+        return $this->getFullList($this->isArchived);
+    }
+
+    /**
+     * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function executeRequestEditAction($request)
+    {
         if ($request->request->get('formAction') == 'edit')
         {
             $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
             $this->message = $this->generateMessage($this->insert);
-        }
 
+            if($request->request->get('sendAction') == "Sauver et Transformer")
+            {
+
+            }
+
+        }
         return $this->getFullList($this->isArchived);
     }
 

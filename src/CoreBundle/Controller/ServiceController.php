@@ -52,12 +52,24 @@ class ServiceController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/service/form_exec", name="form_exec_service")
+     * @Route(path="/admin/services/form_exec", name="form_exec_service")
+     * @Route(path="/admin/service/add", name="form_exec_add_service")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function form_execAction(Request $request)
+    public function form_exec_addAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->executeRequestAction($request);
+        return $this->get('core.controller_service')->executeRequestAddAction($request);
+    }
+
+    /**
+     * @param Request $request
+     * @Route(path="/admin/service/edit", name="form_exec_edit_service")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function form_exec_editAction(Request $request)
+    {
+        $this->initData();
+        return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

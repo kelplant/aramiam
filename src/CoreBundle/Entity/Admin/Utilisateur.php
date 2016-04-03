@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\UtilisateurRepository")
  * @ORM\Table(name="core_utilisateur")
  */
-class Utilisateur
+class Utilisateur extends Candidat
 {
     /**
      * @var int
@@ -26,49 +26,11 @@ class Utilisateur
 
     /**
      * @var string
-     * @ORM\Column(type="string")
-     */
-
-    protected $name;
-    /**
-     * @var string
-     * @ORM\Column(type="string"))
-     */
-
-    protected $surname;
-    /**
-     * @var string
      * @ORM\Column(type="string"))
      */
 
     protected $viewName;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $email;
-
-    /**
-     * @var string
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $startDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Agence")
-     */
-    protected $agence;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Service")
-     */
-    protected $service;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Fonction")
-     */
-    protected $fonction;
 
     /**
      * @var string
@@ -127,42 +89,6 @@ class Utilisateur
     /**
      * @return string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return Utilisateur
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-
-    /**
-     * @param string $surname
-     * @return Utilisateur
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getViewName()
     {
         return $this->viewName;
@@ -175,96 +101,6 @@ class Utilisateur
     public function setViewName($viewName)
     {
         $this->viewName = $viewName;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     * @return Utilisateur
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * @param string $startDate
-     * @return Utilisateur
-     */
-    public function setStartDate($startDate)
-    {
-        $this->startDate = $startDate;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAgence()
-    {
-        return $this->agence;
-    }
-
-    /**
-     * @param mixed $agence
-     * @return Utilisateur
-     */
-    public function setAgence($agence)
-    {
-        $this->agence = $agence;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param mixed $service
-     * @return Utilisateur
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFonction()
-    {
-        return $this->fonction;
-    }
-
-    /**
-     * @param mixed $fonction
-     * @return Utilisateur
-     */
-    public function setFonction($fonction)
-    {
-        $this->fonction = $fonction;
         return $this;
     }
 

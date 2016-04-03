@@ -1,5 +1,5 @@
-<div class="main_container">
-    <form action="{{ path( 'form_exec_candidat' ) }}" method="post" class="form-horizontal" id="form-edit">
+<div class="main_container" xmlns="http://www.w3.org/1999/html">
+    <form action="{{ path( 'form_exec_edit_candidat' ) }}" method="post" class="form-horizontal" id="form-edit">
         <input type="hidden" name="formAction" value="edit">
         {{ form_errors(formEdit) }}
         <div class="form-group">
@@ -98,6 +98,9 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-    <button type="button" class="btn btn-success" onclick="submit();">Sauvegarder</button>
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <input type="submit" class="btn btn-info" name="sendAction" value="Sauver et Transformer">
+    {% endif %}
+    <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
 </div>
 </form>

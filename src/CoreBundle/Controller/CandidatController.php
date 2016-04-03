@@ -71,11 +71,23 @@ class CandidatController extends Controller
     /**
      * @param Request $request
      * @Route(path="/admin/candidat/form_exec", name="form_exec_candidat")
+     * @Route(path="/admin/candidat/add", name="form_exec_add_candidat")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function form_execAction(Request $request)
+    public function form_exec_addAction(Request $request)
     {
         $this->initData();
-        return $this->get('core.controller_service')->executeRequestAction($request);
+        return $this->get('core.controller_service')->executeRequestAddAction($request);
+    }
+
+    /**
+     * @param Request $request
+     * @Route(path="/admin/candidat/edit", name="form_exec_edit_candidat")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function form_exec_editAction(Request $request)
+    {
+        $this->initData();
+        return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

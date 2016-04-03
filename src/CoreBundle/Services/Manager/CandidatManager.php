@@ -21,9 +21,10 @@ class CandidatManager extends AbstractManager
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setCivilite($itemLoad['civilite']);
         $itemToSet->setStartDate(new \DateTime($itemLoad['startDate']));
+        $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
+        $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
         $itemToSet->setAgence($itemLoad['agence']);
         $itemToSet->setService($itemLoad['service']);
-        $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
         $itemToSet->setFonction($itemLoad['fonction']);
         $itemToSet->setResponsable($itemLoad['responsable']);
         $itemToSet->setStatusPoste($itemLoad['statusPoste']);
@@ -48,6 +49,7 @@ class CandidatManager extends AbstractManager
         $itemToSet->setAgence($itemLoad['agence']);
         $itemToSet->setService($itemLoad['service']);
         $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
+        $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
         $itemToSet->setFonction($itemLoad['fonction']);
         $itemToSet->setResponsable($itemLoad['responsable']);
         $itemToSet->setStatusPoste($itemLoad['statusPoste']);
@@ -77,6 +79,7 @@ class CandidatManager extends AbstractManager
         $itemArray['surname'] = $itemToTransform->getSurname();
         $itemArray['civilite'] = $itemToTransform->getCivilite();
         $itemArray['startDate'] = $itemToTransform->getStartDate()->format('d-m-Y');
+        $itemArray['entiteHolding'] = $itemToTransform->getEntiteHolding();
         $itemArray['agence'] = $itemToTransform->getAgence();
         $itemArray['service'] = $itemToTransform->getService();
         $itemArray['fonction'] = $itemToTransform->getFonction();

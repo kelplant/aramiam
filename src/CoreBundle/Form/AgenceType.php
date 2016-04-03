@@ -54,46 +54,46 @@ class AgenceType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom de l\'agence',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right',
+                    'class' => 'col-sm-3 control-label align_righ font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control font_exo_2',
                 ),
             ))
             ->add('nameInCompany', TextType::class, array(
                 'label' => 'Dans Company',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control font_exo_2',
                 ),
             ))
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control font_exo_2',
                 ),
             ))
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control font_exo_2',
                 ),
             ))
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right',
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control',
+                    'class' => 'form-control font_exo_2',
                 ),
             ))
         ;

@@ -50,6 +50,12 @@ class Candidat
 
     /**
      * @var string
+     * @ORM\Column(type="string"), length=50))
+     */
+    protected $entiteHolding;
+
+    /**
+     * @var string
      * @ORM\Column(type="integer"), length=10))
      */
     protected $agence;
@@ -101,6 +107,12 @@ class Candidat
      * @ORM\Column(type="boolean")
      */
     protected $isArchived;
+
+    /**
+     * @var string
+     * @ORM\Column(type="integer", length=1, nullable=true))
+     */
+    protected $isConvertedUser;
 
     /**
      * @return int
@@ -354,4 +366,39 @@ class Candidat
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getEntiteHolding()
+    {
+        return $this->entiteHolding;
+    }
+
+    /**
+     * @param string $entiteHolding
+     * @return Candidat
+     */
+    public function setEntiteHolding($entiteHolding)
+    {
+        $this->entiteHolding = $entiteHolding;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsConvertedUser()
+    {
+        return $this->isConvertedUser;
+    }
+
+    /**
+     * @param string $isConvertedUser
+     * @return Candidat
+     */
+    public function setIsConvertedUser($isConvertedUser)
+    {
+        $this->isConvertedUser = $isConvertedUser;
+        return $this;
+    }
 }

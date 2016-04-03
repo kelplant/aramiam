@@ -59,6 +59,13 @@
             </div>
         </div>
         <div class="form-group">
+            {{ form_label(formAdd.entiteHolding) }}
+            {{ form_errors(formAdd.entiteHolding) }}
+            <div class="col-sm-8">
+                {{ form_widget(formAdd.entiteHolding) }}
+            </div>
+        </div>
+        <div class="form-group">
             {{ form_label(formAdd.agence) }}
             {{ form_errors(formAdd.agence) }}
             <div class="col-sm-8">

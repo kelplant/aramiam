@@ -14,8 +14,6 @@ class CandidatController extends Controller
 
     private $itemToTemove;
 
-    private $reqcase;
-
     /**
      * @return array
      */

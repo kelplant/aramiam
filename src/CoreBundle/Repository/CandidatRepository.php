@@ -17,8 +17,6 @@ class CandidatRepository extends EntityRepository
      */
     public function findAll()
     {
-        $allItems = $this->findBy(array(), array('startDate' => 'DESC'));
-
-        return $allItems;
+        return $this->findBy(array(), array('startDate' => 'ASC'));
     }
 }

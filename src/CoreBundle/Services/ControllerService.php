@@ -93,11 +93,10 @@ class ControllerService extends Controller
         $formAdd = $this->generateForm();
         $formEdit = $this->generateForm();
         $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
-        if ($this->entity == 'Candidat')
+        if ($this->entity == 'Candidat' || $this->entity == 'Utilisateur')
         {
             $i = 0;
             foreach ($allItems as $item) {
-                $item->setStartDate($item->getStartDate()->format('d-m-Y'));
                 $item->setAgence($this->getConvertion('agence',$item->getAgence()));
                 $item->setFonction($this->getConvertion('fonction',$item->getFonction()));
                 $item->setService($this->getConvertion('service',$item->getService()));
@@ -152,13 +151,12 @@ class ControllerService extends Controller
     {
         if ($request->request->get('formAction') == 'edit')
         {
+            $this->insert = $this->get('core.' . strtolower($this->entity) . '_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
+            $this->message = $this->generateMessage($this->insert);
             if ($request->request->get('sendAction') == "Rétablir")
             {
                 $this->get('core.' . strtolower($this->entity) . '_manager')->retablir($request->request->get(strtolower($this->entity))['id']);
                 $this->isArchived = '1';
-            }elseif ($request->request->get('sendAction') == "Sauver et Transformer" || $request->request->get('sendAction') == "Sauvegarder") {
-                $this->insert = $this->get('core.' . strtolower($this->entity) . '_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
-                $this->message = $this->generateMessage($this->insert);
             }elseif ($request->request->get('sendAction') == "Sauver et Transformer")
             {
                 $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);

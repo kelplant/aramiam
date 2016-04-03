@@ -2,7 +2,6 @@
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
-use DateTime;
 
 /**
  * Class Candidat

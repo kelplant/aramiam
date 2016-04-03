@@ -10,14 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Utilisateur extends AbstractPerson
 {
-    /**
-     * @var int
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
      /**
      * @var string
      * @ORM\Column(type="string", length=100)
@@ -60,24 +52,6 @@ class Utilisateur extends AbstractPerson
      * @ORM\Column(type="boolean", nullable=true, options={"default":0})
      */
     protected $isCreateInRobusto;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     * @return Utilisateur
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 
     /**
      * @return string

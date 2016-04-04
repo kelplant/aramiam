@@ -47,4 +47,15 @@ class ZendeskTicketLinkManager
 
         return;
     }
+
+    /**
+     * @param $ticketId
+     */
+    public function removeByTicketId($ticketId) {
+
+        $this->em->remove($this->em->getRepository('CoreBundle:Applications\ZendeskTicketLink')->findOneByTicketId($ticketId));
+        $this->em->flush();
+
+        return;
+    }
 }

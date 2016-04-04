@@ -43,19 +43,6 @@ class CandidatController extends Controller
     }
 
     /**
-     * @param Candidat $candidat
-     * @return mixed
-     */
-    public function formatCreateTicket(Candidat $candidat)
-    {
-        return $this->get('core.zendesk_service')->createTicket(
-            $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(),$candidat->getStartDate()->format("Y-m-d"),
-            $this->get('core.controller_service')->getConvertion('agence', $candidat->getAgence())->getName(), $this->get('core.controller_service')->getConvertion('service', $candidat->getService())->getName(),
-            $this->get('core.controller_service')->getConvertion('fonction', $candidat->getFonction())->getName(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
-        );
-    }
-
-    /**
      * @Route(path="/admin/candidat", name="liste_des_candidats")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -77,8 +64,7 @@ class CandidatController extends Controller
         if ($request->query->get('isArchived') == 0){
             $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
         } elseif ($request->query->get('isArchived') == 1){
-            var_dump($this->formatCreateTicket($this->get('core.candidat_manager')->load($request->query->get('itemDelete'))));
-            die();
+            $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->load($request->query->get('itemDelete')));
         }
 
         return $this->get('core.controller_service')->generateDeleteAction();

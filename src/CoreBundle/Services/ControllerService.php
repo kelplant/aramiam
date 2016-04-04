@@ -1,6 +1,7 @@
 <?php
 namespace CoreBundle\Services;
 
+use CoreBundle\Entity\Admin\Candidat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -49,7 +50,7 @@ class ControllerService extends Controller
      * @param $what
      * @return mixed
      */
-    public function getConvertion($manager, $what)
+    private function getConvertion($manager, $what)
     {
         return $this->get('core.'.$manager.'_manager')->getRepository()->findOneById($what);
     }
@@ -70,15 +71,15 @@ class ControllerService extends Controller
     }
 
     /**
-     * @param $request
+     * @param Candidat $candidat
      * @return mixed
      */
-    public function executeCreateTicket($request)
+    public function executeCreateTicket(Candidat $candidat)
     {
         return $this->get('core.zendesk_service')->createTicket(
-            $request->query->get('candidat')['name'], $request->query->get('candidat')['surname'], $request->query->get('candidat')['entiteHolding'], date("Y-m-d", strtotime($request->query->get('candidat')['startDate'])),
-            $this->getConvertion('agence', $request->query->get('candidat')['agence']), $this->getConvertion('service', $request->query->get('candidat')['service']),
-            $this->getConvertion('fonction', $request->query->get('candidat')['fonction']), $request->query->get('candidat')['statusPoste'], 'xavier.arroues@aramisauto.com'
+            $candidat->getId(), $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(),$candidat->getStartDate()->format("Y-m-d"),
+            $this->getConvertion('agence', $candidat->getAgence())->getName(), $this->getConvertion('service', $candidat->getService())->getName(),
+            $this->getConvertion('fonction', $candidat->getFonction())->getName(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
         );
     }
 
@@ -131,13 +132,12 @@ class ControllerService extends Controller
      * @param $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function executeRequestAddAction($request)
+    public function executeRequestAddAction(Request $request)
     {
         $return = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
         $this->message = $this->generateMessage($return['insert']);
-
         if ($this->entity == 'Candidat') {
-            $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($return['candidatId'],$this->executeCreateTicket($request)->ticket->id);
+            $this->executeCreateTicket($return['candidat']);
         }
         return $this->getFullList($this->isArchived);
     }

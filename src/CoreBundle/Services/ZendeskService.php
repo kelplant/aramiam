@@ -162,10 +162,12 @@ class ZendeskService extends Controller
      * @param $requester_email
      * @return mixed
      */
-    public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
+    public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
         $this->initCurlParams();
-        return $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
+        $createdTicket = $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
+        $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($id, $createdTicket->ticket->id);
+        return $createdTicket;
     }
 
     /**
@@ -175,6 +177,7 @@ class ZendeskService extends Controller
     public function deleteTicket($ticketId)
     {
         $this->initCurlParams();
+        $this->get('core.app_zendesk_ticket_link_manager')->removeByTicketId($ticketId);
         return $this->get('core.curl_wrap')->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json');
     }
 

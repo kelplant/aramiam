@@ -29,7 +29,6 @@ class CurlWrap
 
     /**
      * @param $url
-     * @param $json
      * @return mixed
      */
     public function curlWrapDelete($url)

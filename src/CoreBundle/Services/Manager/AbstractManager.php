@@ -131,10 +131,10 @@ abstract class AbstractManager
      */
     public function add($itemLoad) {
         $this->em = $this->setUpEm();
-        $itemToSet = new $this->entity;
+        $itemToSet = $itemToSend = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return array('insert' => 6669, 'candidatId' => $itemToSet->getId());
+            return array('insert' => 6669, 'candidat' => $itemToSend);
         } catch (\Exception $e) {
             return error_log($e->getMessage());
         }

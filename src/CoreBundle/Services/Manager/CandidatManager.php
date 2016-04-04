@@ -15,8 +15,8 @@ class CandidatManager extends AbstractManager
      * @param $itemLoad
      * @return Candidat
      */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
+    public function globalSetItem($itemToSet, $itemLoad) {
+        $this->em = $this->setUpEm();
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setCivilite($itemLoad['civilite']);
@@ -38,8 +38,8 @@ class CandidatManager extends AbstractManager
      * @param $itemLoad
      * @return mixed
      */
-    public function createArray($itemLoad)
-    {
+    public function createArray($itemLoad) {
+        $this->em = $this->setUpEm();
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();
@@ -64,8 +64,8 @@ class CandidatManager extends AbstractManager
     /**
      * @param $itemId
      */
-    public function transformUser($itemId)
-    {
+    public function transformUser($itemId) {
+        $this->em = $this->setUpEm();
         $itemToSet = $this->getRepository()->findOneById($itemId);
         $itemToSet->setIsArchived('2');
         $this->em->flush();

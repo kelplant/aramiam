@@ -29,7 +29,7 @@ services:
     core.abstract_manager:
         class: %core.agence_manager.class%
         abstract: true
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine']
 
     core.agence_manager:
         class: %core.agence_manager.class%

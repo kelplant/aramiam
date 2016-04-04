@@ -5,22 +5,22 @@ use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Class ParametersManager
- * @package CoreBundle\Services\Manager
+ * Class UserManager
+ * @package AppBundle\Services
  */
 class UserManager
 {
     private $managerRegistry;
 
     private $em;
+
     /**
-     * MouvHistoryManager constructor.
+     * UserManager constructor.
      * @param ManagerRegistry $managerRegistry
      */
     public function __construct(ManagerRegistry $managerRegistry) {
         $this->managerRegistry = $managerRegistry;
-        $item = new User();
-        $this->em = $this->managerRegistry->getManagerForClass(get_class($item));
+        $this->em = $this->managerRegistry->getManagerForClass(User::class);
     }
 
     /**

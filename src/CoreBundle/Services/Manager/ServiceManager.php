@@ -14,8 +14,8 @@ class ServiceManager extends AbstractManager
      * @param $itemLoad
      * @return Service
      */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
+    public function globalSetItem($itemToSet, $itemLoad) {
+        $this->em = $this->setUpEm();
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setShortName($itemLoad['shortName']);
         $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
@@ -30,8 +30,7 @@ class ServiceManager extends AbstractManager
      * @param $itemLoad
      * @return mixed
      */
-    public function createArray($itemLoad)
-    {
+    public function createArray($itemLoad) {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();

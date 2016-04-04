@@ -2,6 +2,7 @@
 namespace CoreBundle\Services\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class AbstractManager
@@ -20,20 +21,28 @@ abstract class AbstractManager
 
     protected $repository;
 
+    protected $managerRegistry;
+
     /**
-     * BaseManager constructor.
-     * @param EntityManager $em
+     * AbstractManager constructor.
+     * @param ManagerRegistry $managerRegistry
      */
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
+    public function __construct(ManagerRegistry $managerRegistry) {
+        $this->managerRegistry = $managerRegistry;
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|null
+     */
+    public function setUpEm() {
+        return $this->managerRegistry->getManagerForClass($this->entity);
     }
 
     /**
      * @param $entity
      */
-    public function save($entity)
-    {
+    public function save($entity) {
+        $this->em = $this->setUpEm();
         $this->persistAndFlush($entity);
     }
 
@@ -42,6 +51,7 @@ abstract class AbstractManager
      * @return null|object
      */
     public function load($itemId) {
+        $this->em = $this->setUpEm();
         return $this->getRepository()
             ->findOneBy(array('id' => $itemId));
     }
@@ -50,8 +60,8 @@ abstract class AbstractManager
      * @param $itemId
      * @return bool|int
      */
-    public function remove($itemId)
-    {
+    public function remove($itemId) {
+        $this->em = $this->setUpEm();
         $items = $this->getRepository()->findById($itemId);
         try {
             foreach ($items as $item) {
@@ -68,15 +78,13 @@ abstract class AbstractManager
      * @param $itemId
      * @return bool|int
      */
-    public function removeCandidat($itemId, $isArchived)
-    {
+    public function removeCandidat($itemId, $isArchived) {
+        $this->em = $this->setUpEm();
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {
-            if ($isArchived == '0')
-            {
+            if ($isArchived == '0') {
                 $itemToSet->setIsArchived('1');
-            } elseif ($isArchived == '1')
-            {
+            } elseif ($isArchived == '1') {
                 $itemToSet->setIsArchived('0');
             }
             $this->em->flush();
@@ -90,8 +98,8 @@ abstract class AbstractManager
      * @param $itemId
      * @return bool|int
      */
-    public function retablir($itemId)
-    {
+    public function retablir($itemId) {
+        $this->em = $this->setUpEm();
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {
             $itemToSet->setIsArchived('0');
@@ -106,10 +114,9 @@ abstract class AbstractManager
      * @param $itemEditLoad
      * @return bool|int
      */
-    public function edit($itemId, $itemEditLoad)
-    {
-        try
-        {
+    public function edit($itemId, $itemEditLoad) {
+        $this->em = $this->setUpEm();
+        try {
             $itemToSet = $this->getRepository()->findOneById($itemId);
             $this->globalSetItem($itemToSet, $itemEditLoad);
             $this->em->flush();
@@ -123,8 +130,8 @@ abstract class AbstractManager
      * @param $itemLoad
      * @return bool|int
      */
-    public function add($itemLoad)
-    {
+    public function add($itemLoad) {
+        $this->em = $this->setUpEm();
         $itemToSet = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
@@ -137,8 +144,8 @@ abstract class AbstractManager
     /**
      * @return array
      */
-    public function createList()
-    {
+    public function createList() {
+        $this->em = $this->setUpEm();
         $datas = $this->getRepository()->findAll();
         $finalDatas = [];
         foreach ($datas as $data) {
@@ -150,8 +157,8 @@ abstract class AbstractManager
     /**
      * @param $entity
      */
-    private function persistAndFlush($entity)
-    {
+    private function persistAndFlush($entity) {
+        $this->em = $this->setUpEm();
         $this->em->persist($entity);
         $this->em->flush();
     }
@@ -207,6 +214,7 @@ abstract class AbstractManager
      */
     public function getRepository()
     {
+        $this->em = $this->setUpEm();
         return $this->em->getRepository($this->entityName);
     }
 }

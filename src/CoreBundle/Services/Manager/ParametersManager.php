@@ -19,8 +19,7 @@ class ParametersManager
      */
     public function __construct(ManagerRegistry $managerRegistry) {
         $this->managerRegistry = $managerRegistry;
-        $item = new Parameters();
-        $this->em = $this->managerRegistry->getManagerForClass(get_class($item));
+        $this->em = $this->managerRegistry->getManagerForClass(Parameters::class);
     }
 
     /**

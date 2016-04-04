@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use DateTime;
 
 /**
- * Class ParametersManager
+ * Class MouvHistoryManager
  * @package CoreBundle\Services\Manager
  */
 class MouvHistoryManager
@@ -14,14 +14,14 @@ class MouvHistoryManager
     private $managerRegistry;
 
     private $em;
+
     /**
      * MouvHistoryManager constructor.
      * @param ManagerRegistry $managerRegistry
      */
     public function __construct(ManagerRegistry $managerRegistry) {
         $this->managerRegistry = $managerRegistry;
-        $item = new MouvHistory();
-        $this->em = $this->managerRegistry->getManagerForClass(get_class($item));
+        $this->em = $this->managerRegistry->getManagerForClass(MouvHistory::class);
     }
 
     public function add($itemLoad, $adminId, $type)

@@ -65,7 +65,7 @@ class UtilisateurManager extends AbstractManager
     }
 
     /**
-     * @param $itemToSet
+     * @param Utilisateur $itemToSet
      * @param $itemLoad
      * @return mixed
      */

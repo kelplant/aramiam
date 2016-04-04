@@ -1,7 +1,6 @@
 <?php
 namespace CoreBundle\Services\Manager;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
@@ -10,9 +9,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 abstract class AbstractManager
 {
-    /**
-     * @var EntityManager
-     */
+
     protected $em;
 
     protected $entity;
@@ -20,7 +17,9 @@ abstract class AbstractManager
     protected $entityName;
 
     protected $repository;
-
+    /**
+     * @var ManagerRegistry
+     */
     protected $managerRegistry;
 
     /**
@@ -32,7 +31,7 @@ abstract class AbstractManager
     }
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectManager|null
+     * @return \Doctrine\Common\Persistence\ObjectManager
      */
     public function setUpEm() {
         return $this->managerRegistry->getManagerForClass($this->entity);

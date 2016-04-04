@@ -70,4 +70,14 @@ class CandidatManager extends AbstractManager
         $itemToSet->setIsArchived('2');
         $this->em->flush();
     }
+
+    /**
+     * @param $itemId
+     * @return Candidat
+     */
+    public function loadCandidat($itemId) {
+        $this->em = $this->setUpEm();
+        return $this->getRepository()
+            ->findOneBy(array('id' => $itemId));
+    }
 }

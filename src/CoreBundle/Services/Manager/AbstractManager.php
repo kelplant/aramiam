@@ -47,7 +47,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
-     * @return null|object
+     * @return object
      */
     public function load($itemId) {
         $this->em = $this->setUpEm();

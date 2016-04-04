@@ -118,11 +118,11 @@ class ZendeskService extends Controller
      * @param $requester_email
      * @param $agence
      * @param $service_zendesk
-     * @param $parametersTicket
      * @return string
      */
-    private function createJasonTicket($message_array, $due_at, $requester_email, $agence, $service_zendesk, $parametersTicket)
+    private function createJsonTicket($message_array, $due_at, $requester_email, $agence, $service_zendesk)
     {
+        $parametersTicket = $this->generateParametersArray();
         $subject = "Un nouveau candidat a été ajouté";
         $service = "";
         $new_station = "false";
@@ -150,6 +150,23 @@ class ZendeskService extends Controller
         )));
     }
 
+    private function updateJsonTicket($ticketId, $newStartDate)
+    {
+        if (date("Y-m-d") < date("Y-m-d", strtotime($newStartDate))) {
+            $status = 'hold';
+        } else {
+            $status = 'open';
+        }
+        $parametersTicket = $this->generateParametersArray();
+        return json_encode(array('ticket' => array(
+            'status' => $status,
+            'custom_fields' => array(
+                array(
+                    'id' => $parametersTicket['planifDateId'], 'value' => date("Y-m-d", strtotime($newStartDate))),
+            )
+        )));
+    }
+
     /**
      * @param $nom
      * @param $prenom
@@ -165,7 +182,7 @@ class ZendeskService extends Controller
     public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
         $this->initCurlParams();
-        $createdTicket = $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
+        $createdTicket = $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk));
         $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($id, $createdTicket->ticket->id);
         return $createdTicket;
     }
@@ -181,4 +198,10 @@ class ZendeskService extends Controller
         return $this->get('core.curl_wrap')->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json');
     }
 
+    public function updateStartDateTicket($ticketId, $newStartDate)
+    {
+        $this->initCurlParams();
+        $this->get('core.curl_wrap')->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($ticketId, $newStartDate));
+        return;
+    }
 }

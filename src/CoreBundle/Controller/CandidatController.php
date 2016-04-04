@@ -64,7 +64,7 @@ class CandidatController extends Controller
         if ($request->query->get('isArchived') == 0){
             $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
         } elseif ($request->query->get('isArchived') == 1){
-            $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->load($request->query->get('itemDelete')));
+            $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
         }
 
         return $this->get('core.controller_service')->generateDeleteAction();
@@ -89,6 +89,7 @@ class CandidatController extends Controller
     public function form_exec_editAction(Request $request)
     {
         $this->initData();
+        $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(),date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
         return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

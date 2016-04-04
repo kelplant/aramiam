@@ -1,9 +1,9 @@
 <?php
-namespace CoreBundle\Repository\Admin;
+namespace CoreBundle\Repository\Applications;
 
 use Doctrine\ORM\EntityRepository;
 
-class MouvHistoryRepository extends EntityRepository
+class ZendeskTicketLinkRepository extends EntityRepository
 {
     /**
      * @return array

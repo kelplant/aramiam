@@ -9,6 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class ZendeskService extends Controller
 {
+
+    /**
+     *
+     */
+    private function initCurlParams()
+    {
+        define("ZDAPIKEY", $this->getParameter('zendesk_api_key')); # Alimenter parameter.yml
+        define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
+        define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
+    }
     /**
      * @param $message_array
      * @return string
@@ -154,11 +164,18 @@ class ZendeskService extends Controller
      */
     public function createTicket($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
-
-        define("ZDAPIKEY", $this->getParameter('zendesk_api_key')); # Alimenter parameter.yml
-        define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
-        define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
-
-        return $this->get('core.curl_wrap')->curlWrapExec("/tickets.json", $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
+        $this->initCurlParams();
+        return $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJasonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk, $this->generateParametersArray()));
     }
+
+    /**
+     * @param $ticketId
+     * @return mixed
+     */
+    public function deleteTicket($ticketId)
+    {
+        $this->initCurlParams();
+        return $this->get('core.curl_wrap')->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json');
+    }
+
 }

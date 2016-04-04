@@ -49,7 +49,7 @@ class ControllerService extends Controller
      * @param $what
      * @return mixed
      */
-    private function getConvertion($manager, $what)
+    public function getConvertion($manager, $what)
     {
         return $this->get('core.'.$manager.'_manager')->getRepository()->findOneById($what);
     }
@@ -63,8 +63,7 @@ class ControllerService extends Controller
      */
     private function filterView($allItems, $item, $number, $i)
     {
-        if ($item->getIsArchived() != $number && $this->isArchived == $number)
-        {
+        if ($item->getIsArchived() != $number && $this->isArchived == $number) {
             unset($allItems[$i]);
         }
         return $allItems;
@@ -92,8 +91,7 @@ class ControllerService extends Controller
         $formAdd = $this->generateForm();
         $formEdit = $this->generateForm();
         $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
-        if ($this->entity == 'Candidat' || $this->entity == 'Utilisateur')
-        {
+        if ($this->entity == 'Candidat' || $this->entity == 'Utilisateur') {
             $i = 0;
             foreach ($allItems as $item) {
                 $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
@@ -135,13 +133,12 @@ class ControllerService extends Controller
      */
     public function executeRequestAddAction($request)
     {
-        $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
-        $this->message = $this->generateMessage($this->insert);
-        if ($this->entity == 'Candidat')
-        {
-            $this->executeCreateTicket($request);
-        }
+        $return = $this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->entity)));
+        $this->message = $this->generateMessage($return['insert']);
 
+        if ($this->entity == 'Candidat') {
+            $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($return['candidatId'],$this->executeCreateTicket($request)->ticket->id);
+        }
         return $this->getFullList($this->isArchived);
     }
 
@@ -151,24 +148,19 @@ class ControllerService extends Controller
      */
     public function executeRequestEditAction($request)
     {
-        if ($request->request->get('formAction') == 'edit')
-        {
-            if ($request->request->get('sendAction') == "Sauvegarder" || $request->request->get('sendAction') == "Sauver et Transformer")
-            {
+        if ($request->request->get('formAction') == 'edit') {
+            if ($request->request->get('sendAction') == "Sauvegarder" || $request->request->get('sendAction') == "Sauver et Transformer") {
                 $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
                 $this->message = $this->generateMessage($this->insert);
             }
-            if ($request->request->get('sendAction') == "Rétablir")
-            {
+            if ($request->request->get('sendAction') == "Rétablir") {
                 $this->get('core.'.strtolower($this->entity).'_manager')->retablir($request->request->get(strtolower($this->entity))['id']);
                 $this->isArchived = '1';
-            } elseif ($request->request->get('sendAction') == "Sauver et Transformer")
-            {
+            } elseif ($request->request->get('sendAction') == "Sauver et Transformer") {
                 $this->get('core.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($user = $this->get('security.token_storage')->getToken()->getUser()->getUsername()), 'C');
                 $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);
                 $this->get('core.utilisateur_manager')->transform($request->request->get('candidat'));
             }
-
         }
         return $this->getFullList($this->isArchived);
     }

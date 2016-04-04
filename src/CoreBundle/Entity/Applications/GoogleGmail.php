@@ -4,7 +4,7 @@ namespace CoreBundle\Entity\Applications;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * Class GoogleGmail
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\ApplicationRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Applications\ApplicationRepository")
  * @ORM\Table(name="core_app_gmail")
  */
 class GoogleGmail

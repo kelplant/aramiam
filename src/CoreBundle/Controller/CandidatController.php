@@ -1,10 +1,12 @@
 <?php
 namespace CoreBundle\Controller;
 
+use CoreBundle\Entity\Admin\Candidat;
 use CoreBundle\Form\Admin\CandidatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use DateTime;
 
 class CandidatController extends Controller
 {
@@ -41,6 +43,19 @@ class CandidatController extends Controller
     }
 
     /**
+     * @param Candidat $candidat
+     * @return mixed
+     */
+    public function formatCreateTicket(Candidat $candidat)
+    {
+        return $this->get('core.zendesk_service')->createTicket(
+            $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(),$candidat->getStartDate()->format("Y-m-d"),
+            $this->get('core.controller_service')->getConvertion('agence', $candidat->getAgence())->getName(), $this->get('core.controller_service')->getConvertion('service', $candidat->getService())->getName(),
+            $this->get('core.controller_service')->getConvertion('fonction', $candidat->getFonction())->getName(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
+        );
+    }
+
+    /**
      * @Route(path="/admin/candidat", name="liste_des_candidats")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -59,6 +74,13 @@ class CandidatController extends Controller
     {
         $this->initData();
         $this->get('core.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        if ($request->query->get('isArchived') == 0){
+            $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
+        } elseif ($request->query->get('isArchived') == 1){
+            var_dump($this->formatCreateTicket($this->get('core.candidat_manager')->load($request->query->get('itemDelete'))));
+            die();
+        }
+
         return $this->get('core.controller_service')->generateDeleteAction();
     }
 

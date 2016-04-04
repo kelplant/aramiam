@@ -25,6 +25,8 @@ parameters:
     core.controller_service.class: CoreBundle\Services\ControllerService
     core.zendesk_service.class: CoreBundle\Services\ZendeskService
 
+    core.app_zendesk_ticket_link.class: CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager
+
 services:
     core.abstract_manager:
         class: %core.agence_manager.class%
@@ -77,6 +79,10 @@ services:
 
     core.mouv_history_manager:
         class: %core.mouv_history.class%
+        arguments: ['@doctrine']
+
+    core.app_zendesk_ticket_link_manager:
+        class: %core.app_zendesk_ticket_link.class%
         arguments: ['@doctrine']
 
     core.zendesk_service:

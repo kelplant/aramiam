@@ -134,7 +134,7 @@ abstract class AbstractManager
         $itemToSet = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return 6669;
+            return array('insert' => 6669, 'candidatId' => $itemToSet->getId());
         } catch (\Exception $e) {
             return error_log($e->getMessage());
         }

@@ -166,7 +166,7 @@ class ControllerService extends Controller
             {
                 $this->get('core.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($user = $this->get('security.token_storage')->getToken()->getUser()->getUsername()), 'C');
                 $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);
-                $this->get('core.utilisateur_manager')->add($request->request->get('candidat'));
+                $this->get('core.utilisateur_manager')->transform($request->request->get('candidat'));
             }
 
         }

@@ -36,22 +36,6 @@ class CandidatManager extends AbstractManager
 
     /**
      * @param $itemLoad
-     * @return bool|int
-     */
-    public function add($itemLoad)
-    {
-        $itemToSet = new $this->entity;
-
-        try {
-            $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return 6669;
-        } catch (\Exception $e) {
-            return error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @param $itemLoad
      * @return mixed
      */
     public function createArray($itemLoad)

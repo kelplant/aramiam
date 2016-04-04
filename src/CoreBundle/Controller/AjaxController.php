@@ -5,6 +5,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AjaxController
+ * @package CoreBundle\Controller
+ */
 class AjaxController extends Controller
 {
     /**

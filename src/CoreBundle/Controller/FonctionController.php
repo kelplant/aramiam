@@ -8,6 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class FonctionController
+ * @package CoreBundle\Controller
+ */
 class FonctionController extends Controller
 {
     private $itemToTemove;

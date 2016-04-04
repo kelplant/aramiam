@@ -78,8 +78,8 @@ class ControllerService extends Controller
     {
         return $this->get('core.zendesk_service')->createTicket(
             $candidat->getId(), $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(),$candidat->getStartDate()->format("Y-m-d"),
-            $this->getConvertion('agence', $candidat->getAgence())->getName(), $this->getConvertion('service', $candidat->getService())->getName(),
-            $this->getConvertion('fonction', $candidat->getFonction())->getName(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
+            $this->getConvertion('agence', $candidat->getAgence())->getNameInZendesk(), $this->getConvertion('service', $candidat->getService())->getNameInZendesk(),
+            $this->getConvertion('fonction', $candidat->getFonction())->getNameInZendesk(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
         );
     }
 

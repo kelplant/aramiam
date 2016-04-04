@@ -150,7 +150,11 @@ class ZendeskService extends Controller
         )));
     }
 
-    private function updateJsonTicket($ticketId, $newStartDate)
+    /**
+     * @param $newStartDate
+     * @return string
+     */
+    private function updateJsonTicket($newStartDate)
     {
         if (date("Y-m-d") < date("Y-m-d", strtotime($newStartDate))) {
             $status = 'hold';
@@ -182,7 +186,7 @@ class ZendeskService extends Controller
     public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
     {
         $this->initCurlParams();
-        $createdTicket = $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk));
+        $createdTicket = $this->get('core.curl_wrap')->curlWrapService("POST",'/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk));
         $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($id, $createdTicket->ticket->id);
         return $createdTicket;
     }
@@ -195,13 +199,13 @@ class ZendeskService extends Controller
     {
         $this->initCurlParams();
         $this->get('core.app_zendesk_ticket_link_manager')->removeByTicketId($ticketId);
-        return $this->get('core.curl_wrap')->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json');
+        return $this->get('core.curl_wrap')->curlWrapService("DELETE",'/api/v2/tickets/'.$ticketId.'.json', null);
     }
 
     public function updateStartDateTicket($ticketId, $newStartDate)
     {
         $this->initCurlParams();
-        $this->get('core.curl_wrap')->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($ticketId, $newStartDate));
+        $this->get('core.curl_wrap')->curlWrapService("PUT",'/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate));
         return;
     }
 }

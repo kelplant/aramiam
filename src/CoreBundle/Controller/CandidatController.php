@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use DateTime;
 
+/**
+ * Class CandidatController
+ * @package CoreBundle\Controller
+ */
 class CandidatController extends Controller
 {
     private $isArchived;

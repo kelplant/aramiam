@@ -8,6 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AgenceController
+ * @package CoreBundle\Controller
+ */
 class AgenceController extends Controller
 {
     private $itemToTemove;

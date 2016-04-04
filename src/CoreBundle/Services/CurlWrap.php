@@ -1,6 +1,10 @@
 <?php
 namespace CoreBundle\Services;
 
+/**
+ * Class CurlWrap
+ * @package CoreBundle\Services
+ */
 class CurlWrap
 {
     /**

@@ -144,7 +144,7 @@ class ZendeskService extends Controller
      * @param $service_zendesk
      * @return string
      */
-    private function returnService($agence,$service_zendesk)
+    private function returnService($agence, $service_zendesk)
     {
         if ($agence == "siège" && isset($service_zendesk)) {
             return $service_zendesk;
@@ -174,7 +174,7 @@ class ZendeskService extends Controller
             'organization_id' =>  $parametersTicket['organizationIdId'],
             'ticket_form_id' => $parametersTicket['ticketFormIdId'],
             'priority' => "high",
-            'custom_fields' => $this->generateCustomFieldArray($parametersTicket, $due_at, $agence, $this->returnService($agence,$service_zendesk), $this->returnStatusPoste($message_array['status_poste'])),
+            'custom_fields' => $this->generateCustomFieldArray($parametersTicket, $due_at, $agence, $this->returnService($agence, $service_zendesk), $this->returnStatusPoste($message_array['status_poste'])),
         )));
     }
 

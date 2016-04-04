@@ -31,7 +31,7 @@ abstract class AbstractManager
     }
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectManager|\Doctrine\ORM\EntityManager
+     * @return \Doctrine\Common\Persistence\ObjectManager
      */
     public function setUpEm() {
         return $this->managerRegistry->getManagerForClass($this->entity);

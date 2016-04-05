@@ -31,17 +31,9 @@ abstract class AbstractManager
     }
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectManager
-     */
-    public function setUpEm() {
-        return $this->managerRegistry->getManagerForClass($this->entity);
-    }
-
-    /**
      * @param $entity
      */
     public function save($entity) {
-        $this->em = $this->setUpEm();
         $this->persistAndFlush($entity);
     }
 
@@ -50,7 +42,6 @@ abstract class AbstractManager
      * @return object
      */
     public function load($itemId) {
-        $this->em = $this->setUpEm();
         return $this->getRepository()
             ->findOneBy(array('id' => $itemId));
     }
@@ -60,7 +51,6 @@ abstract class AbstractManager
      * @return bool|int
      */
     public function remove($itemId) {
-        $this->em = $this->setUpEm();
         $items = $this->getRepository()->findById($itemId);
         try {
             foreach ($items as $item) {
@@ -78,7 +68,6 @@ abstract class AbstractManager
      * @return bool|int
      */
     public function removeCandidat($itemId, $isArchived) {
-        $this->em = $this->setUpEm();
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {
             if ($isArchived == '0') {
@@ -98,7 +87,6 @@ abstract class AbstractManager
      * @return bool|int
      */
     public function retablir($itemId) {
-        $this->em = $this->setUpEm();
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {
             $itemToSet->setIsArchived('0');
@@ -114,7 +102,6 @@ abstract class AbstractManager
      * @return bool|int
      */
     public function edit($itemId, $itemEditLoad) {
-        $this->em = $this->setUpEm();
         try {
             $itemToSet = $this->getRepository()->findOneById($itemId);
             $this->globalSetItem($itemToSet, $itemEditLoad);
@@ -129,8 +116,8 @@ abstract class AbstractManager
      * @param $itemLoad
      * @return bool|int
      */
-    public function add($itemLoad) {
-        $this->em = $this->setUpEm();
+    public function add($itemLoad)
+    {
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
@@ -143,8 +130,8 @@ abstract class AbstractManager
     /**
      * @return array
      */
-    public function createList() {
-        $this->em = $this->setUpEm();
+    public function createList()
+    {
         $datas = $this->getRepository()->findAll();
         $finalDatas = [];
         foreach ($datas as $data) {
@@ -156,8 +143,8 @@ abstract class AbstractManager
     /**
      * @param $entity
      */
-    private function persistAndFlush($entity) {
-        $this->em = $this->setUpEm();
+    private function persistAndFlush($entity)
+    {
         $this->em->persist($entity);
         $this->em->flush();
     }
@@ -213,7 +200,6 @@ abstract class AbstractManager
      */
     public function getRepository()
     {
-        $this->em = $this->setUpEm();
-        return $this->em->getRepository($this->entityName);
+        return $this->managerRegistry->getManager()->getRepository($this->entityName);
     }
 }

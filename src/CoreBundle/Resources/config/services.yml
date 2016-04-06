@@ -24,6 +24,7 @@ parameters:
 
     core.controller_service.class: CoreBundle\Services\ControllerService
     core.zendesk_service.class: CoreBundle\Services\ZendeskService
+    core.google_api_service.class: CoreBundle\Services\GoogleApiService
 
     core.app_zendesk_ticket_link.class: CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager
 
@@ -87,5 +88,10 @@ services:
 
     core.zendesk_service:
         class: %core.zendesk_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.google_api_service:
+        class: %core.google_api_service.class%
         calls:
         - [ setContainer , [ "@service_container" ]]

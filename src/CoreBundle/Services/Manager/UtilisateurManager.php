@@ -27,7 +27,7 @@ class UtilisateurManager extends AbstractManager
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
             return 6669;
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
 

@@ -35,7 +35,12 @@ class MouvHistoryManager
         $itemToSet->setAdminId($adminId);
         $itemToSet->setDateModif(new Datetime());
         $itemToSet->setType($type);
-        $this->persistAndFlush($itemToSet);
+        try {
+            $this->persistAndFlush($itemToSet);
+            return $itemToSet;
+        }catch (\Exception $e) {
+            return error_log($e->getMessage());
+        }
     }
 
     /**

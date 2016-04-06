@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class ZendeskService extends Controller
 {
-
     /**
      *
      */

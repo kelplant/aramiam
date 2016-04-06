@@ -59,7 +59,7 @@ abstract class AbstractManager
             }
             return 6668;
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
 
@@ -78,7 +78,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6668;
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
 
@@ -93,7 +93,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6668;
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
     /**
@@ -108,7 +108,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6667;
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
 

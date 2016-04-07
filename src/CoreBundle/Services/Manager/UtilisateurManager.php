@@ -15,7 +15,6 @@ class UtilisateurManager extends AbstractManager
      * @return bool|int
      */
     public function transform($itemLoad) {
-        $this->em = $this->setUpEm();
         $itemLoad['idCandidat'] = $itemLoad['id'];
         $itemLoad['isCreateInGmail'] = '0';
         $itemLoad['isCreateInOdigo'] = '0';

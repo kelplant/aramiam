@@ -105,6 +105,7 @@ abstract class AbstractManager
         try {
             $itemToSet = $this->getRepository()->findOneById($itemId);
             $this->globalSetItem($itemToSet, $itemEditLoad);
+
             $this->em->flush();
             return 6667;
         } catch (\Exception $e) {
@@ -164,7 +165,7 @@ abstract class AbstractManager
     public function setEntity($entity)
     {
         $this->entity = $entity;
-        $this->managerRegistry->getManagerForClass($this->entity);
+        $this->em = $this->managerRegistry->getManagerForClass($this->entity);
         return $this;
     }
 

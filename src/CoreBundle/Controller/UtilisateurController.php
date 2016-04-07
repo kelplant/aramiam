@@ -33,7 +33,6 @@ class UtilisateurController extends Controller
     private function initData()
     {
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
-
         $this->get('core.controller_service')->setMessage('');
         $this->get('core.controller_service')->setInsert('');
         $this->get('core.controller_service')->setEntity('Utilisateur');

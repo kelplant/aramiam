@@ -80,10 +80,14 @@
     {% block javascripts %}
     <script>
         function ajaxCandidatEdit(editItem) {
+                        console.log(this);
             urlajax ="/ajax/candidat/get/"+editItem;
+                        console.log(urlajax);
             $.ajax({url:urlajax,success:function(result){
+            			console.log(result.name);
                 var frm = $("#form-edit");
                 var i;
+                console.dir(result);      // for debug
                 for (i in result) {
                     frm.find('[name="candidat[' + i + ']"]').val(result[i]);
                 }

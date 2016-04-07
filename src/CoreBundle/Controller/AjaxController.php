@@ -18,6 +18,8 @@ class AjaxController extends Controller
      */
     public function candidatGetInfosIndex($candidatEdit)
     {
+        var_dump($this->get('core.candidat_manager')->createArray($candidatEdit));
+        die();
         return new JsonResponse($this->get('core.candidat_manager')->createArray($candidatEdit));
     }
 

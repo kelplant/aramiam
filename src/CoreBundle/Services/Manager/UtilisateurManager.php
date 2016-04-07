@@ -15,7 +15,6 @@ class UtilisateurManager extends AbstractManager
      * @return bool|int
      */
     public function transform($itemLoad) {
-        $this->em = $this->setUpEm();
         $itemLoad['idCandidat'] = $itemLoad['id'];
         $itemLoad['isCreateInGmail'] = '0';
         $itemLoad['isCreateInOdigo'] = '0';
@@ -36,7 +35,6 @@ class UtilisateurManager extends AbstractManager
      * @return mixed
      */
     public function createArray($itemLoad) {
-        $this->em = $this->setUpEm();
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();
@@ -70,7 +68,6 @@ class UtilisateurManager extends AbstractManager
      * @return mixed
      */
     public function globalSetItem($itemToSet, $itemLoad) {
-        $this->em = $this->setUpEm();
         $itemToSet->setCivilite($itemLoad['civilite']);
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);

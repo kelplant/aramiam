@@ -16,7 +16,6 @@ class AgenceManager extends AbstractManager
      */
     public function globalSetItem($itemToSet, $itemLoad)
     {
-        $this->em = $this->setUpEm();
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
         $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
@@ -31,7 +30,6 @@ class AgenceManager extends AbstractManager
      */
     public function createArray($itemLoad)
     {
-        $this->em = $this->setUpEm();
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();

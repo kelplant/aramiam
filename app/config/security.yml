@@ -22,9 +22,9 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/agences/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/admin/fonctions/, role: ROLE_ADMIN }
-        - { path: ^/admin/services/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/admin/candidats/, role: ROLE_ADMIN }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/$, role: ROLE_USER }
+        - { path: ^/admin/agences/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/fonctions/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/services/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/candidats/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }

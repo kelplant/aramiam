@@ -15,7 +15,6 @@ class ServiceManager extends AbstractManager
      * @return Service
      */
     public function globalSetItem($itemToSet, $itemLoad) {
-        $this->em = $this->setUpEm();
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setShortName($itemLoad['shortName']);
         $itemToSet->setNameInCompany($itemLoad['nameInCompany']);

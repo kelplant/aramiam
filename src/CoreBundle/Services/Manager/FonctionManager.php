@@ -15,7 +15,6 @@ class FonctionManager extends AbstractManager
      * @return Fonction
      */
     public function globalSetItem($itemToSet, $itemLoad) {
-        $this->em = $this->setUpEm();
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setShortName($itemLoad['shortName']);
         $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
@@ -31,7 +30,6 @@ class FonctionManager extends AbstractManager
      * @return mixed
      */
     public function createArray($itemLoad) {
-        $this->em = $this->setUpEm();
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();

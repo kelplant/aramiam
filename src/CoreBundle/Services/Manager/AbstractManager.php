@@ -59,7 +59,7 @@ abstract class AbstractManager
             }
             return 6668;
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return error_log($e->getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6668;
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return error_log($e->getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6668;
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return error_log($e->getMessage());
         }
     }
     /**
@@ -108,7 +108,7 @@ abstract class AbstractManager
             $this->em->flush();
             return 6667;
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return error_log($e->getMessage());
         }
     }
 
@@ -164,6 +164,7 @@ abstract class AbstractManager
     public function setEntity($entity)
     {
         $this->entity = $entity;
+        $this->managerRegistry->getManagerForClass($this->entity);
         return $this;
     }
 

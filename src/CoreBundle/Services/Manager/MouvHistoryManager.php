@@ -24,6 +24,12 @@ class MouvHistoryManager
         $this->em = $this->managerRegistry->getManagerForClass(MouvHistory::class);
     }
 
+    /**
+     * @param $itemLoad
+     * @param $adminId
+     * @param $type
+     * @return bool|MouvHistory
+     */
     public function add($itemLoad, $adminId, $type)
     {
         $itemToSet = new MouvHistory();
@@ -45,11 +51,17 @@ class MouvHistoryManager
 
     /**
      * @param MouvHistory $mouvHistory
+     * @return bool|MouvHistory
      */
     private function persistAndFlush(MouvHistory $mouvHistory)
     {
-        $this->em->persist($mouvHistory);
-        $this->em->flush();
+        try {
+            $this->em->persist($mouvHistory);
+            $this->em->flush();
+            return $mouvHistory;
+        }catch (\Exception $e) {
+            return error_log($e->getMessage());
+        }
     }
 
 }

@@ -24,11 +24,6 @@ parameters:
         login:         ~
         password:      ~
 
-    google_api:
-        user_app_account: ~
-        certificat_name:  ~
-        admin_account:    ~
-
     odigo_wsdl_error_createagent_codes:
         0:             L'utlisateur a été crée
         105:           L'utilisateur existe déjà

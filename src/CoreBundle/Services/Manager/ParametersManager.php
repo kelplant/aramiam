@@ -28,11 +28,7 @@ class ParametersManager
      */
     public function getParam($name)
     {
-        try {
-            return $this->em->getRepository('CoreBundle:Parameters')->findOneByParamName($name)->getParamValue();
-        }catch (\Exception $e) {
-            return error_log($e->getMessage());
-        }
+        return $this->em->getRepository('CoreBundle:Parameters')->findOneByParamName($name)->getParamValue();
     }
 
     /**
@@ -41,18 +37,14 @@ class ParametersManager
      */
     public function getAllAppParams($app)
     {
-        try {
-            return $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
-        }catch (\Exception $e) {
-            return error_log($e->getMessage());
-        }
+        return $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
     }
 
     /**
      * @param $name
      * @param $value
      * @param $application
-     * @return bool|void
+     * @return bool
      */
     public function setParamForName($name, $value, $application)
     {
@@ -69,6 +61,7 @@ class ParametersManager
         try {
             $this->em->persist($insert);
             $this->em->flush();
+            return $mouvHistory;
         }catch (\Exception $e) {
             return error_log($e->getMessage());
         }

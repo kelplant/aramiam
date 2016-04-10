@@ -2,10 +2,9 @@
 
 namespace CoreBundle\Form\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
@@ -13,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  * Class FonctionType
  * @package CoreBundle\Form\Admin
  */
-class FonctionType extends AbstractType
+class FonctionType extends BaseType
 {
     /**
      * @param FormBuilderInterface $builder

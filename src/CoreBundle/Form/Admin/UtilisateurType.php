@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Form\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,8 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UtilisateurType extends AbstractType
+class UtilisateurType extends BaseType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -59,6 +60,16 @@ class UtilisateurType extends AbstractType
             ))
             ->add('email', EmailType::class, array(
                 'label' => 'Email',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                ),
+                'attr' => array(
+                    'class' => 'form-control font_exo_2',
+                ),
+                'required' => false,
+            ))
+            ->add('mainPassword', PasswordType::class, array(
+                'label' => 'Apps Password',
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

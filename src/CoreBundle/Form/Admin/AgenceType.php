@@ -1,21 +1,18 @@
 <?php
 namespace CoreBundle\Form\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
-use CoreBundle\Entity\Admin\Agence;
 
 /**
  * Class AgenceType
  * @package CoreBundle\Form
  */
-class AgenceType extends AbstractType
+class AgenceType extends BaseType
 {
     /**
      * @param FormBuilderInterface $builder

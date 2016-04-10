@@ -60,4 +60,14 @@ class AjaxController extends Controller
     {
         return new JsonResponse($this->get('core.utilisateur_manager')->createArray($utilisateurEdit));
     }
+
+    /**
+     * @param $utilisateurId
+     * @Route(path="/ajax/generate/email/{utilisateurId}",name="ajax_generate_email")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateListPossibleEmailIndex($utilisateurId)
+    {
+        return new JsonResponse($this->get('core.utilisateur_manager')->generateListPossibleEmail($utilisateurId));
+    }
 }

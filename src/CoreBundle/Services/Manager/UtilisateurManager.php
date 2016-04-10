@@ -14,7 +14,8 @@ class UtilisateurManager extends AbstractManager
      * @param $itemLoad
      * @return bool|int
      */
-    public function transform($itemLoad) {
+    public function transform($itemLoad)
+    {
         $itemLoad['idCandidat'] = $itemLoad['id'];
         $itemLoad['isCreateInGmail'] = '0';
         $itemLoad['isCreateInOdigo'] = '0';
@@ -31,10 +32,26 @@ class UtilisateurManager extends AbstractManager
     }
 
     /**
+     * @param $utilisateurId
+     * @return array
+     */
+    public function generateListPossibleEmail($utilisateurId)
+    {
+        $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
+        $possibleEmail = [];
+        $possibleEmail[] = str_replace(' ','-',strtolower($itemToTransform->getSurname())).'.'.str_replace(' ','-',strtolower($itemToTransform->getName())).'@aramisauto.com';
+        if (stripos($itemToTransform->getSurname(),'-') != false || stripos($itemToTransform->getName(),'-') != false || stripos($itemToTransform->getSurname(),' ') != false || stripos($itemToTransform->getName(),' ') != false) {
+            $possibleEmail[] = str_replace(' ','',strtolower($itemToTransform->getSurname())).'.'.str_replace(' ','',strtolower($itemToTransform->getName())).'@aramisauto.com';
+        }
+        return $possibleEmail;
+    }
+
+    /**
      * @param $itemLoad
      * @return mixed
      */
-    public function createArray($itemLoad) {
+    public function createArray($itemLoad)
+    {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();
@@ -43,6 +60,8 @@ class UtilisateurManager extends AbstractManager
         $itemArray['civilite'] = $itemToTransform->getCivilite();
         $itemArray['startDate'] = $itemToTransform->getStartDate()->format('d-m-Y');
         $itemArray['entiteHolding'] = $itemToTransform->getEntiteHolding();
+        $itemArray['email'] = $itemToTransform->getEmail();
+        $itemArray['mainPassword'] = $itemToTransform->getMainPassword();
         $itemArray['agence'] = $itemToTransform->getAgence();
         $itemArray['service'] = $itemToTransform->getService();
         $itemArray['fonction'] = $itemToTransform->getFonction();
@@ -67,13 +86,16 @@ class UtilisateurManager extends AbstractManager
      * @param $itemLoad
      * @return mixed
      */
-    public function globalSetItem($itemToSet, $itemLoad) {
+    public function globalSetItem($itemToSet, $itemLoad)
+    {
         $itemToSet->setCivilite($itemLoad['civilite']);
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setViewName($itemLoad['surname']." ".$itemLoad['name']);
         $itemToSet->setStartDate(new DateTime($itemLoad['startDate']));
         $itemToSet->setAgence($itemLoad['agence']);
+        $itemToSet->setEmail($itemLoad['email']);
+        $itemToSet->setMainPassword($itemLoad['mainPassword']);
         $itemToSet->setService($itemLoad['service']);
         $itemToSet->setMatriculeRH($itemLoad['matriculeRH']);
         $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
@@ -91,5 +113,18 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setEmail($itemLoad['email']);
 
         return $itemToSet;
+    }
+
+    /**
+     * @param $itemToSet
+     * @param $emailToSet
+     */
+    public function setEmail($itemToSet, $emailToSet)
+    {
+        $itemToSet = $this->getRepository()->findOneById($itemToSet);
+        $itemToSet->setEmail($emailToSet);
+        $itemToSet->setIsCreateInGmail('1');
+
+        return $this->em->flush();
     }
 }

@@ -1,139 +1,172 @@
-<div class="main_container" xmlns="http://www.w3.org/1999/html">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <form action="{{ path( 'form_exec_edit_utilisateur' ) }}" method="post" class="form-horizontal" id="form-edit">
-        <input type="hidden" name="formAction" value="edit">
-        {{ form_errors(formEdit) }}
-        <div class="form-group">
-            {{ form_label(formEdit.civilite) }}
-            {{ form_errors(formEdit.civilite) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.civilite) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.civilite, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modal-header modal-lg">
+                    <button type="button" class="close" data-dismiss="modal" onclick="resetEditItem();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">{% if is_archived != "2" %}Edition d'un utilisateur{% endif %}{% if is_archived == "2" %}Voir un Utilisateur{% endif %}</h4>
+                </div>
+                <div class="modal-body modal-lg">
+                    <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+                        <input type="hidden" name="formAction" value="edit">
+                        {{ form_errors(formEdit) }}
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                {{ form_label(formEdit.civilite) }}
+                                {{ form_errors(formEdit.civilite) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.civilite) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.civilite, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.name)  }}
+                                {{ form_errors(formEdit.name) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.name) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.name, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.surname) }}
+                                {{ form_errors(formEdit.surname) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.surname) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.surname, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.email) }}
+                                {{ form_errors(formEdit.email) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.email) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.email, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.mainPassword) }}
+                                {{ form_errors(formEdit.mainPassword) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.mainPassword) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.mainPassword, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.startDate) }}
+                                {{ form_errors(formEdit.startDate) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.startDate) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.startDate, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.responsable) }}
+                                {{ form_errors(formEdit.responsable) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.responsable) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.responsable, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.statusPoste) }}
+                                {{ form_errors(formEdit.statusPoste) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.statusPoste) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.statusPoste, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.predecesseur) }}
+                                {{ form_errors(formEdit.predecesseur) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.predecesseur) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.predecesseur, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.matriculeRH) }}
+                                {{ form_errors(formEdit.matriculeRH) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.matriculeRH) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.matriculeRH, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.entiteHolding) }}
+                                {{ form_errors(formEdit.entiteHolding) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.entiteHolding) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.entiteHolding, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.agence) }}
+                                {{ form_errors(formEdit.agence) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.agence) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.agence, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.service) }}
+                                {{ form_errors(formEdit.service) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.service) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.service, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.fonction) }}
+                                {{ form_errors(formEdit.fonction) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.fonction) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.fonction, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.commentaire) }}
+                                {{ form_errors(formEdit.commentaire) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.commentaire) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.commentaire, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                                <div name="actionPart" id="actionPart">
+
+                                </div>
+
+                                <hr>
+                                <button type="button" class="btn btn-warning" onclick="ajaxGenerateEmail();">Générer un Email</button>
+
+                        </div>
+
+                        {{ form_row(formEdit.id) }}
+                        {{ form_row(formEdit.idCandidat) }}
+                        {{ form_row(formEdit.isCreateInGmail) }}
+                        {{ form_row(formEdit.isCreateInOdigo) }}
+                        {{ form_row(formEdit.isCreateInRobusto) }}
+                        {{ form_row(formEdit.isCreateInSalesforce) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {% if is_archived != "2" %}
+                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal">Fermer</button>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {% if is_archived == "1" %}
+                                <input type="hidden" name="isArchived" value="1">
+                                <input type="submit" class="btn btn-info" name="sendAction" value="Rétablir">
+                            {% endif %}
+                        {% endif %}
+                        {% if is_archived == "0" %}
+                            <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                        {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            {{ form_label(formEdit.name)  }}
-            {{ form_errors(formEdit.name) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.name) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.name, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.surname) }}
-            {{ form_errors(formEdit.surname) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.surname) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.surname, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.email) }}
-            {{ form_errors(formEdit.email) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.email) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.email, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.startDate) }}
-            {{ form_errors(formEdit.startDate) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.startDate) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.startDate, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.responsable) }}
-            {{ form_errors(formEdit.responsable) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.responsable) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.responsable, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.statusPoste) }}
-            {{ form_errors(formEdit.statusPoste) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.statusPoste) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.statusPoste, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.predecesseur) }}
-            {{ form_errors(formEdit.predecesseur) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.predecesseur) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.predecesseur, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.matriculeRH) }}
-            {{ form_errors(formEdit.matriculeRH) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.matriculeRH) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.matriculeRH, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.entiteHolding) }}
-            {{ form_errors(formEdit.entiteHolding) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.entiteHolding) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.entiteHolding, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.agence) }}
-            {{ form_errors(formEdit.agence) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.agence) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.agence, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.service) }}
-            {{ form_errors(formEdit.service) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.service) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.service, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.fonction) }}
-            {{ form_errors(formEdit.fonction) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.fonction) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.fonction, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formEdit.commentaire) }}
-            {{ form_errors(formEdit.commentaire) }}
-            <div class="col-sm-8">
-                {% if is_archived == "0" %}{{ form_widget(formEdit.commentaire) }}{% endif %}
-                {% if is_archived != "0" %}{{ form_widget(formEdit.commentaire, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-            </div>
-        </div>
-        {{ form_row(formEdit.id) }}
-        {{ form_row(formEdit.idCandidat) }}
-        {{ form_row(formEdit.isCreateInGmail) }}
-        {{ form_row(formEdit.isCreateInOdigo) }}
-        {{ form_row(formEdit.isCreateInRobusto) }}
-        {{ form_row(formEdit.isCreateInSalesforce) }}
+    </form>
 </div>
-</div>
-{% if is_archived != "2" %}
-    <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-        {% if is_granted("ROLE_ADMIN") %}
-            {% if is_archived == "1" %}
-                <input type="hidden" name="isArchived" value="1">
-                <input type="submit" class="btn btn-info" name="sendAction" value="Rétablir">
-            {% endif %}
-        {% endif %}
-        {% if is_archived == "0" %}
-            <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
-        {% endif %}
-    </div>
-{% endif %}
-</form>
+
+

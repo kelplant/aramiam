@@ -149,6 +149,12 @@ class ControllerService extends Controller
     public function executeRequestEditAction($request)
     {
         if ($request->request->get('formAction') == 'edit') {
+            if (!is_null($request->request->get('genEmail'))) {
+                $this->get('core.google_api_service')->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']));
+                $this->get('core.utilisateur_manager')->setEmail($request->request->get('utilisateur')['id'],$request->request->get('genEmail'));
+                // + Set isCreated gmail 1
+                // + Maj Champ Email
+            }
             if ($request->request->get('sendAction') == "Sauvegarder" || $request->request->get('sendAction') == "Sauver et Transformer") {
                 $this->insert = $this->get('core.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->entity))['id'], $request->request->get(strtolower($this->entity)));
                 $this->message = $this->generateMessage($this->insert);

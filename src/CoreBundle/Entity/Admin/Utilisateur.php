@@ -18,15 +18,21 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=10, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    protected $idCandidat;
+    protected $email;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    protected $email;
+    protected $mainPassword;
+
+    /**
+     * @var string
+     * @ORM\Column(type="integer", length=10, nullable=true)
+     */
+    protected $idCandidat;
 
     /**
      * @var string
@@ -36,7 +42,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=10, nullable=true)
      */
     protected $isCreateInGmail;
 
@@ -175,6 +181,24 @@ class Utilisateur extends AbstractPerson
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMainPassword()
+    {
+        return $this->mainPassword;
+    }
+
+    /**
+     * @param string $mainPassword
+     * @return Utilisateur
+     */
+    public function setMainPassword($mainPassword)
+    {
+        $this->mainPassword = $mainPassword;
         return $this;
     }
 }

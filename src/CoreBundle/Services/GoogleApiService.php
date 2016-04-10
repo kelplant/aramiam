@@ -22,7 +22,7 @@ class GoogleApiService extends Controller
     {
         $params = $this->getParameter('google_api');
         $client_email = $params['user_app_account'];
-        $private_key = file_get_contents('../src/xavarr/GoogleApiBundle/Resources/config/'.$params['certificat_name']);
+        $private_key = file_get_contents('../app/config/'.$params['certificat_name']);
         $scopes = array(
             'https://www.googleapis.com/auth/admin.directory.user',
             'https://www.googleapis.com/auth/admin.directory.group'
@@ -131,12 +131,4 @@ class GoogleApiService extends Controller
         }
          return $this->isEgalOne($e, $this->createNewUserAccount($service, $userToCreate), 'User Already exist');
     }
-//
-//    public function indexAction()
-//    {
-//        $userToCreate = array('nom' => 'aaatest', 'prenom' => 'aaatest', 'email' => 'aaatest@aramisauto.com', 'password' => 'fDFD5fdDF');
-//
-//        echo $this->testAndCreateUser($userToCreate);
-//
-//    }
 }

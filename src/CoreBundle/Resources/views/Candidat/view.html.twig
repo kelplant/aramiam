@@ -79,15 +79,6 @@
 
     {% block javascripts %}
     <script>
-        function ajaxCandidatEdit(editItem) {
-            urlajax ="/ajax/candidat/get/"+editItem;
-            $.ajax({url:urlajax,success:function(result){
-                var frm = $("#form-edit");
-                var i;
-                for (i in result) {
-                    frm.find('[name="candidat[' + i + ']"]').val(result[i]);
-                }
-			}});
-        }
+
     </script>
     {% endblock %}

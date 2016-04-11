@@ -84,6 +84,14 @@ class UtilisateurController extends Controller
     public function form_exec_editAction(Request $request)
     {
         $this->initData();
+        if ($request->request->get('formAction') == 'edit') {
+            if (!is_null($request->request->get('genEmail'))) {
+                $this->get('core.google_api_service')->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']));
+                $this->get('core.utilisateur_manager')->setEmail($request->request->get('utilisateur')['id'],$request->request->get('genEmail'));
+                // + Set isCreated gmail 1
+                // + Maj Champ Email
+            }
+        }
         return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

@@ -61,16 +61,5 @@
     {% endblock %}
 
     {% block javascripts %}
-    <script>
-        function ajaxEdit(editItem) {
-            urlajax ="/ajax/agence/get/"+editItem;
-            $.ajax({url:urlajax,success:function(result){
-                var frm = $("#form-edit");
-                var i;
-                for (i in result) {
-                    frm.find('[name="agence[' + i + ']"]').val(result[i]);
-                }
-			}});
-        }
-    </script>
+
    {% endblock %}

@@ -62,16 +62,5 @@
     {% endblock %}
 
     {% block javascripts %}
-    <script>
-        function ajaxServiceEdit(editItem) {
-            urlajax ="/ajax/service/get/"+editItem;
-            $.ajax({url:urlajax,success:function(result){
-                var frm = $("#form-edit");
-                var i;
-                for (i in result) {
-                    frm.find('[name="service[' + i + ']"]').val(result[i]);
-                }
-			}});
-        }
-    </script>
+
     {% endblock %}

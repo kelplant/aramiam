@@ -62,3 +62,31 @@
 .background_white{
     background-color: #FFFFFF;
 }
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 30%;
+    margin-left: 35%;
+}
+.vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+.input-box {
+    position: relative;
+}
+
+.unit {
+    position: absolute;
+    display: block;
+    right: 5px;
+    top: 5px;
+    z-index: 9;
+}
+
+.actionPart {
+    margin-top: 2%;
+}
+.actionPartInput {
+    width: 30%;
+}

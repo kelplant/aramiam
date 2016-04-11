@@ -131,28 +131,37 @@
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.commentaire, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
                                 </div>
                             </div>
+                            {{ form_row(formEdit.id) }}
+                            <input type="hidden" name="utilisateur[idCandidat]" id="utilisateur_idCandidat" value="">
+                            <input type="hidden" name="utilisateur[isCreateInGmail]" id="utilisateur_idCandidatisCreateInGmail" value="">
+                            <input type="hidden" name="utilisateur[isCreateInOdigo]" id="utilisateur_isCreateInOdigo" value="">
+                            <input type="hidden" name="utilisateur[isCreateInRobusto]" id="utilisateur_isCreateInRobusto" value="">
+                            <input type="hidden" name="utilisateur[isCreateInSalesforce]" id="utilisateur_isCreateInSalesforce" value="">
                         </div>
                         <div class="col-sm-5">
-                                <div name="actionPart" id="actionPart">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Gmail <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" onclick="ajaxGenerateEmail();">
+                                        <a href="#"> Générer un Email</a>
+                                    </ul>
+                                </li>
+                                <li role="presentation" class="dropdown"><a href="#">Profile</a></li>
+                                <li role="presentation" class="dropdown"><a href="#">Messages</a></li>
+                            </ul>
+                            <div class="container actionPart">
+                                <div id="actionPart">
 
                                 </div>
-
-                                <hr>
-                                <button type="button" class="btn btn-warning" onclick="ajaxGenerateEmail();">Générer un Email</button>
-
+                            </div>
                         </div>
-
-                        {{ form_row(formEdit.id) }}
-                        {{ form_row(formEdit.idCandidat) }}
-                        {{ form_row(formEdit.isCreateInGmail) }}
-                        {{ form_row(formEdit.isCreateInOdigo) }}
-                        {{ form_row(formEdit.isCreateInRobusto) }}
-                        {{ form_row(formEdit.isCreateInSalesforce) }}
                     </div>
                 </div>
                 <div class="modal-footer">
                     {% if is_archived != "2" %}
-                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">Fermer</button>
                         {% if is_granted("ROLE_ADMIN") %}
                             {% if is_archived == "1" %}
                                 <input type="hidden" name="isArchived" value="1">
@@ -168,5 +177,4 @@
         </div>
     </form>
 </div>
-
 

@@ -109,6 +109,8 @@ abstract class AbstractManager
             $this->em->flush();
             return 6667;
         } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            die();
             return error_log($e->getMessage());
         }
     }

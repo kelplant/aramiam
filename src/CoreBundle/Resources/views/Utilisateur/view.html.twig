@@ -17,105 +17,53 @@
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
-                <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCandidatEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
-                    <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
-                </button>
-                <input type='hidden' value='' id='ref_id_bouton'>
-                {% if is_archived == "0" %}
-                    <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Archiver {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
-                        <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
-                        </button>
-                    </a>
-                {% endif %}{% if is_archived == "1" %}
-                    <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Rétablir {{ alert_text }}" data-confirm="Etes-vous certain de vouloir rétablir {{ alert_text }} ?">
-                        <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
-                        </button>
-                    </a>
-                {% endif %}
+                    <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxUtilisateurEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                        <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
+                    </button>
+                    <input type='hidden' value='' id='ref_id_bouton'>
+                    {% if is_archived == "0" %}
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Archiver {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}{% if is_archived == "1" %}
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id , 'isArchived' : item.isArchived}) }}"  title="Rétablir {{ alert_text }}" data-confirm="Etes-vous certain de vouloir rétablir {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs font_exo_2" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
     {% endblock %}
 
    {% block modal_form %}
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title font_exo_2" id="myModalLabel">Ajout d'un utilisateur</h4>
-            </div>
-            <div class="modal-body">
-                {% embed "CoreBundle:Utilisateur:add.body.html.twig"  %}
-                {% endembed %}
-            </div>
-        </div>
-    </div>
+       {#Include Modal Add#}
+       {% embed "CoreBundle:Utilisateur:add.body.html.twig"  %}
+       {% endembed %}
 
-                    {% embed "CoreBundle:Utilisateur:edit.body.html.twig"  %}
-                    {% endembed %}
+       {#Include Modal Edit#}
+       {% embed "CoreBundle:Utilisateur:edit.body.html.twig"  %}
+       {% endembed %}
 
-        {% endblock %}
+   {% endblock %}
 
         {% block javascripts %}
-            <script>
-                function ajaxCandidatEdit(editItem) {
-                    urlajax ="/ajax/utilisateur/get/"+editItem;
-                    $.ajax({url:urlajax,success:function(result){
-                        var frm = $("#form-edit");
-                        var i;
-                        for (i in result) {
-                            if (i == 'id')
-                            {
-                                sessionStorage.setItem("currentEditItem",result[i])
-                            }
-                            frm.find('[name="utilisateur[' + i + ']"]').val(result[i]);
-                        }
-                    }});
-                }
-            </script>
-            <script>
-                function ajaxGenerateEmail() {
-                    var currentEditItem = sessionStorage.getItem("currentEditItem");
-                    urlajax ="/ajax/generate/email/"+currentEditItem;
-                    $.ajax({url:urlajax,success:function(result){
-                        var i;
-                        var textToAppend = '';
-                        for (i in result) {
-                            textToAppend += '<div class="form-group font_exo_2"><input class="" type="radio" name="genEmail" value="'+result[i]+'"><label class="font_exo_2">' +result[i]+'</label></div>';
-                        }
-                        textToAppend += '<div class="form-group font_exo_2"><input type="radio" name="genEmail"><label class="font_exo_2"><input class="form-control font_exo_2" type="text" name="autreEmail"></label></div>';
-                        textToAppend += '<div class="form-group align_right font_exo_2"><button onclick="ajaxCreateGmailviaAPI();" class="btn btn-xs btn-warning">Créer sur Gmail</button></div></div>';
 
-                        document.getElementById("actionPart").innerHTML = textToAppend;
-                    }});
-                }
-            </script>
-    <script>
-                function ajaxCreateGmailviaAPI() {
+            <script>
+                $(document).ready(function(){
                     var currentEditItem = sessionStorage.getItem("currentEditItem");
-                    console.log(currentEditItem);
-                }
-    </script>
-    <script>
-        $(document).ready(function(){
-            var currentEditItem = sessionStorage.getItem("currentEditItem");
-            if (currentEditItem != 'null')
-            {
-                $(window).load(function(){
-                    $('#modalEdit').modal('show');
-                    ajaxCandidatEdit(currentEditItem);
+                    if (currentEditItem != 'null')
+                    {
+                        $(window).load(function(){
+                            $('#modalEdit').modal('show');
+                            ajaxCandidatEdit(currentEditItem);
+                        });
+                    }
                 });
-            }
-        });
-    </script>
-
-            <script>
-                function resetEditItem() {
-                    var currentEditItem =  sessionStorage.setItem("currentEditItem",null)
-                    console.log(currentEditItem);
-                }
             </script>
+
+
         {% endblock %}

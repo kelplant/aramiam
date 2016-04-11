@@ -25,6 +25,9 @@ class UtilisateurType extends BaseType
             ->add('id', HiddenType::class, array(
                 'label' => 'id',
             ))
+            ->add('idCandidat', HiddenType::class, array(
+                'label' => 'idCandidat',
+            ))
             ->add('civilite', ChoiceType::class, array(
                 'choices' => array(
                     'Monsieur' => 'Monsieur',
@@ -187,10 +190,6 @@ class UtilisateurType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
-                'required' => false,
-            ))
-            ->add('idCandidat', HiddenType::class, array(
-                'label' => 'idCandidat',
                 'required' => false,
             ))
             ->add('isCreateInGmail', HiddenType::class, array(

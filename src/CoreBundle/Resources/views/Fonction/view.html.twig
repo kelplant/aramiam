@@ -62,16 +62,5 @@
     {% endblock %}
 
     {% block javascripts %}
-    <script>
-        function ajaxFonctionEdit(editItem) {
-            urlajax ="/ajax/fonction/get/"+editItem;
-            $.ajax({url:urlajax,success:function(result){
-                var frm = $("#form-edit");
-                var i;
-                for (i in result) {
-                    frm.find('[name="fonction[' + i + ']"]').val(result[i]);
-                }
-			}});
-        }
-    </script>
+
     {% endblock %}

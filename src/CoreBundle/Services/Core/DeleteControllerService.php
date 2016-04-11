@@ -1,7 +1,10 @@
 <?php
 namespace CoreBundle\Services\Core;
 
-
+/**
+ * Class DeleteControllerService
+ * @package CoreBundle\Services\Core
+ */
 class DeleteControllerService extends AbstractControllerService
 {
     /**

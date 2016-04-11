@@ -5,6 +5,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Entity\Admin\Candidat;
 
+/**
+ * Class AbstractControllerService
+ * @package CoreBundle\Services\Core
+ */
 abstract class AbstractControllerService extends Controller
 {
     protected $message;
@@ -77,9 +81,9 @@ abstract class AbstractControllerService extends Controller
     protected function checkFormEntity($entity)
     {
         $majInEntity = preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE);
-        if ($majInEntity >1) {
-            for ($i=1;$i<=$majInEntity;$i++) {
-                return str_replace($matches[0][$i][0],'_'.$matches[0][$i][0],$this->entity);
+        if ($majInEntity > 1) {
+            for ($i = 1; $i <= $majInEntity; $i++) {
+                return str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], $this->entity);
             }
         } else {
             return $entity;
@@ -100,7 +104,7 @@ abstract class AbstractControllerService extends Controller
         }
         return $allItems;
     }
-   
+
     /**
      * @return array
      */

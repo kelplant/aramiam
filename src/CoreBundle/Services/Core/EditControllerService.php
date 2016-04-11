@@ -1,6 +1,10 @@
 <?php
 namespace CoreBundle\Services\Core;
 
+/**
+ * Class EditControllerService
+ * @package CoreBundle\Services\Core
+ */
 class EditControllerService extends AbstractControllerService
 {
     /**

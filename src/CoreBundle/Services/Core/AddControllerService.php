@@ -3,10 +3,14 @@ namespace CoreBundle\Services\Core;
 
 use Symfony\Component\HttpFoundation\Request;
 
- class AddControllerService extends AbstractControllerService
+/**
+ * Class AddControllerService
+ * @package CoreBundle\Services\Core
+ */
+class AddControllerService extends AbstractControllerService
 {
     /**
-     * @param $request
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function executeRequestAddAction(Request $request)

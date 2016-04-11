@@ -6,7 +6,6 @@ use CoreBundle\Form\Admin\CandidatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use DateTime;
 
 /**
  * Class CandidatController
@@ -46,7 +45,7 @@ class CandidatController extends Controller
         $this->get('core.'.$service.'.controller_service')->setMessage('');
         $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('Candidat');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Candidat');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(Candidat::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(CandidatType::class);
         $this->get('core.'.$service.'.controller_service')->setAlertText('ce candidat');
         $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);

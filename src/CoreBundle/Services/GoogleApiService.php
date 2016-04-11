@@ -38,9 +38,6 @@ class GoogleApiService extends Controller
         );
         $client = new Google_Client();
         $client->setAssertionCredentials($credentials);
-        if ($client->getAuth()->isAccessTokenExpired()) {
-            $client->getAuth()->refreshTokenWithAssertion();
-        }
         $service = new Google_Service_Directory($client);
 
         return $service;
@@ -69,7 +66,6 @@ class GoogleApiService extends Controller
         $user->setHashFunction("SHA-1");
         $user->setPrimaryEmail($userToCreate['email']);
         $user->setPassword(hash("sha1",$userToCreate['password']));
-        // $user->setExternalIds(array("value"=>28790,"type"=>"custom","customType"=>"EmployeeID"));
         return $user;
     }
 

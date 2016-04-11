@@ -103,15 +103,13 @@ abstract class AbstractManager
      */
     public function edit($itemId, $itemEditLoad) {
         try {
-            $itemToSet = $this->getRepository()->findOneById($itemId);
-            $this->globalSetItem($itemToSet, $itemEditLoad);
+            var_dump($itemId);
+            $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
 
             $this->em->flush();
-            return 6667;
+            return array('errorCode' => 6667, 'candidat' => $itemId);
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            die();
-            return error_log($e->getMessage());
+            array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'candidat' => $itemId);
         }
     }
 
@@ -124,9 +122,9 @@ abstract class AbstractManager
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return array('insert' => 6669, 'candidat' => $itemToSend);
+            return array('errorCode' => 6669, 'candidat' => $itemToSend);
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'candidat' => null);
         }
     }
 

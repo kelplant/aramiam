@@ -7,12 +7,15 @@ parameters:
     core.entityname.fonction.class: 'CoreBundle\Entity\Admin\Fonction'
     core.entity.service.class: CoreBundle\Entity\Admin\Service
     core.entityname.service.class: 'CoreBundle\Entity\Admin\Service'
+    core.entity.entite_holding.class: CoreBundle\Entity\Admin\EntiteHolding
+    core.entityname.entite_holding.class: 'CoreBundle\Entity\Admin\EntiteHolding'
     core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
 
     core.abstract_manager.class: CoreBundle\Services\Manager\AbstractManager
     core.agence_manager.class: CoreBundle\Services\Manager\AgenceManager
     core.service_manager.class: CoreBundle\Services\Manager\ServiceManager
+    core.entite_holding_manager.class: CoreBundle\Services\Manager\EntiteHoldingManager
     core.utilisateur_manager.class: CoreBundle\Services\Manager\UtilisateurManager
     core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
@@ -58,6 +61,12 @@ services:
         calls:
         - [setEntity, ["%core.entity.service.class%"]]
         - [setEntityName, ["%core.entityname.service.class%"]]
+    core.entite_holding_manager:
+        class: %core.entite_holding_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.entite_holding.class%"]]
+        - [setEntityName, ["%core.entityname.entite_holding.class%"]]
     core.candidat_manager:
         class: %core.candidat_manager.class%
         parent: core.abstract_manager

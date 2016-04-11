@@ -31,35 +31,16 @@
     {% endblock %}
 
     {% block modal_form %}
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title font_exo_2" id="myModalLabel">Ajout d'une agence</h4>
-                    </div>
-                    <div class="modal-body">
-                            {% embed "CoreBundle:Agence:add.body.html.twig"  %}
-                            {% endembed %}
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'une agence</h4>
-                    </div>
-                    <div class="modal-body">
-                        {% embed "CoreBundle:Agence:edit.body.html.twig"  %}
-                        {% endembed %}
-                </div>
 
-             </div>
-        </div>
+        {% embed "CoreBundle:Agence:add.body.html.twig"  %}
+        {% endembed %}
+
+
+        {% embed "CoreBundle:Agence:edit.body.html.twig"  %}
+        {% endembed %}
+
     {% endblock %}
 
     {% block javascripts %}
 
-   {% endblock %}
+    {% endblock %}

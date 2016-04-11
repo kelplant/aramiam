@@ -38,6 +38,18 @@ function ajaxFonctionEdit(editItem) {
     }});
 }
 
+// Fonction de chargement d'une EntiteHolding pendant Edit
+function ajaxEntiteHoldingEdit(editItem) {
+    urlajax ="/ajax/entite_holding/get/"+editItem;
+    $.ajax({url:urlajax,success:function(result){
+        var frm = $("#form-edit");
+        var i;
+        for (i in result) {
+            frm.find('[name="entite_holding[' + i + ']"]').val(result[i]);
+        }
+    }});
+}
+
 // Fonction de chargement d'un Candidat pendant Edit
 function ajaxCandidatEdit(editItem) {
     urlajax ="/ajax/candidat/get/"+editItem;

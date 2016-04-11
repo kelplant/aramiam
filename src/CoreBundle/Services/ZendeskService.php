@@ -131,12 +131,12 @@ class ZendeskService extends Controller
      */
     private function returnStatusPoste($StatusPoste)
     {
-        if ($StatusPoste['status_poste'] == "Création") {
+
+        if ($StatusPoste == "Création") {
             return "true";
         } else {
             return "false";
         }
-
     }
 
     /**

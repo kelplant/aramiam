@@ -65,6 +65,11 @@ parameters:
         1:             'Erreur dans la création de l''utilisateur'
         6668:          'Utilisateur correctement supprimée'
         6667:          'Utilisateur correctement Mise à jour'
+    entiteholding_insert_exceptions:
+        6669:          'Utilisateur correctement ajoutée'
+        1:             'Erreur dans la création de l''utilisateur'
+        6668:          'Utilisateur correctement supprimée'
+        6667:          'Utilisateur correctement Mise à jour'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

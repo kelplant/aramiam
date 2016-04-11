@@ -22,12 +22,12 @@
                             <div class="form-group">
                                 <div class="col-sm-2"></div>
                                 <div class=" col-sm-8 corp-message-3">
-                                    {% if code_message == 6669 %}
+                                    {% if (code_message != 1) and (code_message != "") %}
                                         <div class="form-group alert-success corp-message-1">
                                             {{ message }}
                                         </div>
                                     {% endif %}
-                                    {% if code_message == 1 %}
+                                    {% if (code_message == 1) and (code_message != "") and (code_message != 6669) and (code_message != 6667) %}
                                         <div class="form-group alert-danger corp-message-1">
                                             {{ message }}
                                         </div>
@@ -75,7 +75,6 @@
                         callback( data );
                     }
                 });
-
             }
         </script>
     {#Appel à la fonction de chargement Ajax Form#}

@@ -43,6 +43,9 @@
                         <a href="#" class="dropdown-toggle font_exo_2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Divers <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <li class="font_exo_2"><a href="{{ path('liste_des_entites_holding') }}"><i class="fa fa-home"></i> Liste des Entités</a></li>
+                            {% endif %}
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
                                 <li class="font_exo_2"><a href="{{ path('liste_des_agences') }}"><i class="fa fa-home"></i> Liste des Agences</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_SUPER_ADMIN") %}

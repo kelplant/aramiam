@@ -51,15 +51,15 @@
    {% endblock %}
 
         {% block javascripts %}
-
             <script>
                 $(document).ready(function(){
                     var currentEditItem = sessionStorage.getItem("currentEditItem");
                     if (currentEditItem != 'null')
                     {
+
                         $(window).load(function(){
                             $('#modalEdit').modal('show');
-                            ajaxCandidatEdit(currentEditItem);
+                            ajaxUtilisateurEdit(currentEditItem);
                         });
                     }
                 });

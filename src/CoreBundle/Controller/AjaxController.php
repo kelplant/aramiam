@@ -52,6 +52,16 @@ class AjaxController extends Controller
     }
 
     /**
+     * @param $entiteHoldingEdit
+     * @Route(path="/ajax/entite_holding/get/{entiteHoldingEdit}",name="ajax_get_entite_holding")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function entiteHoldingGetInfosIndex($entiteHoldingEdit)
+    {
+        return new JsonResponse($this->get('core.entite_holding_manager')->createArray($entiteHoldingEdit));
+    }
+
+    /**
      * @param $utilisateurEdit
      * @Route(path="/ajax/utilisateur/get/{utilisateurEdit}",name="ajax_get_utilisateur")
      * @return \Symfony\Component\HttpFoundation\Response

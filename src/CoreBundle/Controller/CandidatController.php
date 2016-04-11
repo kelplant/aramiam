@@ -25,8 +25,29 @@ class CandidatController extends Controller
         $listeChoices['listeFonctions'] = $this->get("core.fonction_manager")->createList();
         $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
         $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
+        $listeChoices['listeUtilisateurs'] = $this->get("core.utilisateur_manager")->createList();
 
         return $listeChoices;
+    }
+
+    /**
+     * @param $isArchived
+     * @param $request
+     * @return mixed|null
+     */
+    private function deleteOrArchive($isArchived, $request)
+    {
+        if ($isArchived == 0) {
+            if(is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))) == false) {
+                return $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
+            } else {
+                return null;
+            }
+        } elseif ($isArchived == 1) {
+            return $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -65,11 +86,7 @@ class CandidatController extends Controller
     {
         $this->initData();
         $this->get('core.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
-        if ($request->query->get('isArchived') == 0) {
-            $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
-        } elseif ($request->query->get('isArchived') == 1) {
-            $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
-        }
+        $this->deleteOrArchive($request->query->get('isArchived'), $request);
 
         return $this->get('core.controller_service')->generateDeleteAction();
     }
@@ -93,7 +110,10 @@ class CandidatController extends Controller
     public function form_exec_editAction(Request $request)
     {
         $this->initData();
-        $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(), date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
+        if(is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])) == false){
+            $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(), date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
+        }
+
         return $this->get('core.controller_service')->executeRequestEditAction($request);
     }
 }

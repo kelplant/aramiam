@@ -71,8 +71,10 @@ class CandidatType extends BaseType
                 ),
                 'required' => true,
             ))
-            ->add('responsable', TextType::class, array(
+            ->add('responsable', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
                 'label' => 'Responsable',
+                'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

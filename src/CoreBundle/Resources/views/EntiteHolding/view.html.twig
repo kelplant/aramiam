@@ -1,25 +1,17 @@
 {% extends '@Core/Default/items.view.html.twig' %}
-    {% block title %} Liste des Fonctions {% endblock %}
-    {% block breadcrumb %} Liste des Fonctions {% endblock %}
+    {% block title %} Liste des Entites {% endblock %}
+    {% block breadcrumb %} Liste des Entites {% endblock %}
     {% block corps_table_title %}
-        <th class="admin_cat_table_title">Fonction</th>
+        <th class="admin_cat_table_title">Entites</th>
         <th class="admin_cat_table_title">Raccourci</th>
-        <th class="admin_cat_table_title">Dans Company</th>
-        <th class="admin_cat_table_title">Dans Odigo</th>
-        <th class="admin_cat_table_title">Dans Salesforce</th>
-        <th class="admin_cat_table_title">Dans Zendesk</th>
     {% endblock %}
     {% block corps_table_cells %}
         {% for item in all %}
             <tr id="generalBtr" data-href="">
                 <td class="admin_cat_table_cell">{{ item.name }}</td>
                 <td class="admin_cat_table_cell">{{ item.shortName }}</td>
-                <td class="admin_cat_table_cell">{{ item.nameInCompany }}</td>
-                <td class="admin_cat_table_cell">{{ item.nameInOdigo }}</td>
-                <td class="admin_cat_table_cell">{{ item.nameInSalesforce }}</td>
-                <td class="admin_cat_table_cell">{{ item.nameInZendesk }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}"  onclick="ajaxFonctionEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxEntiteHoldingEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                     <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir supprimer {{ alert_text }} ?">
@@ -34,11 +26,11 @@
 
     {% block modal_form %}
 
-        {% embed "CoreBundle:Fonction:add.body.html.twig"  %}
+        {% embed "CoreBundle:EntiteHolding:add.body.html.twig"  %}
         {% endembed %}
 
 
-        {% embed "CoreBundle:Fonction:edit.body.html.twig"  %}
+        {% embed "CoreBundle:EntiteHolding:edit.body.html.twig"  %}
         {% endembed %}
 
     {% endblock %}

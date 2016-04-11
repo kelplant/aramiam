@@ -18,16 +18,16 @@ class EntiteHoldingController extends Controller
     /**
      *
      */
-    private function initData()
+    private function initData($service)
     {
-        $this->get('core.controller_service')->setMessage('');
-        $this->get('core.controller_service')->setInsert('');
-        $this->get('core.controller_service')->setEntity('EntiteHolding');
-        $this->get('core.controller_service')->setNewEntity(EntiteHolding::class);
-        $this->get('core.controller_service')->setFormType(EntiteHoldingType::class);
-        $this->get('core.controller_service')->setAlertText('cette entité');
-        $this->get('core.controller_service')->setIsArchived(NULL);
-        $this->get('core.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setMessage('');
+        $this->get('core.'.$service.'.controller_service')->setInsert('');
+        $this->get('core.'.$service.'.controller_service')->setEntity('EntiteHolding');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(EntiteHolding::class);
+        $this->get('core.'.$service.'.controller_service')->setFormType(EntiteHoldingType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('cette entité');
+        $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
     }
 
     /**
@@ -36,8 +36,8 @@ class EntiteHoldingController extends Controller
      */
     public function indexAction()
     {
-        $this->initData();
-        return $this->get('core.controller_service')->getFullList(NULL);
+        $this->initData('index');
+        return $this->get('core.index.controller_service')->getFullList(NULL);
     }
 
     /**
@@ -47,10 +47,10 @@ class EntiteHoldingController extends Controller
      */
     public function deleteAction(Request $request)
     {
-        $this->initData();
+        $this->initData('delete');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.controller_service')->setRemove($this->get('core.entite_holding_manager')->remove($this->itemToTemove));
-        return $this->get('core.controller_service')->generateDeleteAction();
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.entite_holding_manager')->remove($this->itemToTemove));
+        return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
@@ -60,8 +60,8 @@ class EntiteHoldingController extends Controller
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData();
-        return $this->get('core.controller_service')->executeRequestAddAction($request);
+        $this->initData('add');
+        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
@@ -71,7 +71,7 @@ class EntiteHoldingController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData();
-        return $this->get('core.controller_service')->executeRequestEditAction($request);
+        $this->initData('edit');
+        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

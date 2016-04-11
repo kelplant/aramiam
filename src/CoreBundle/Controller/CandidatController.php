@@ -17,21 +17,6 @@ class CandidatController extends Controller
     private $isArchived;
 
     /**
-     * @return array
-     */
-    private function generateListeChoices()
-    {
-        $listeChoices = [];
-        $listeChoices['listeFonctions'] = $this->get("core.fonction_manager")->createList();
-        $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
-        $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
-        $listeChoices['listeUtilisateurs'] = $this->get("core.utilisateur_manager")->createList();
-        $listeChoices['listeEntites'] = $this->get("core.entite_holding_manager")->createList();
-
-        return $listeChoices;
-    }
-
-    /**
      * @param $isArchived
      * @param $request
      * @return mixed|null
@@ -45,7 +30,7 @@ class CandidatController extends Controller
                 return null;
             }
         } elseif ($isArchived == 1) {
-            return $this->get('core.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
+            return $this->get('core.delete.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
         } else {
             return null;
         }
@@ -54,18 +39,18 @@ class CandidatController extends Controller
     /**
      *
      */
-    private function initData()
+    private function initData($service)
     {
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
 
-        $this->get('core.controller_service')->setMessage('');
-        $this->get('core.controller_service')->setInsert('');
-        $this->get('core.controller_service')->setEntity('Candidat');
-        $this->get('core.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Candidat');
-        $this->get('core.controller_service')->setFormType(CandidatType::class);
-        $this->get('core.controller_service')->setAlertText('ce candidat');
-        $this->get('core.controller_service')->setIsArchived($this->isArchived);
-        $this->get('core.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->generateListeChoices()));
+        $this->get('core.'.$service.'.controller_service')->setMessage('');
+        $this->get('core.'.$service.'.controller_service')->setInsert('');
+        $this->get('core.'.$service.'.controller_service')->setEntity('Candidat');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Candidat');
+        $this->get('core.'.$service.'.controller_service')->setFormType(CandidatType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('ce candidat');
+        $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**
@@ -74,8 +59,8 @@ class CandidatController extends Controller
      */
     public function indexAction()
     {
-        $this->initData();
-        return $this->get('core.controller_service')->getFullList($this->isArchived);
+        $this->initData('index');
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }
 
     /**
@@ -85,11 +70,11 @@ class CandidatController extends Controller
      */
     public function deleteAction(Request $request)
     {
-        $this->initData();
-        $this->get('core.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        $this->initData('delete');
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
         $this->deleteOrArchive($request->query->get('isArchived'), $request);
 
-        return $this->get('core.controller_service')->generateDeleteAction();
+        return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
@@ -99,8 +84,8 @@ class CandidatController extends Controller
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData();
-        return $this->get('core.controller_service')->executeRequestAddAction($request);
+        $this->initData('add');
+        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
@@ -110,11 +95,11 @@ class CandidatController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData();
+        $this->initData('edit');
         if(is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])) == false){
             $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(), date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
         }
 
-        return $this->get('core.controller_service')->executeRequestEditAction($request);
+        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

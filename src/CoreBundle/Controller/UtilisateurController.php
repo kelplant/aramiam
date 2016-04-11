@@ -15,34 +15,19 @@ class UtilisateurController extends Controller
     private $isArchived;
 
     /**
-     * @return array
-     */
-    private function generateListeChoices()
-    {
-        $listeChoices = [];
-        $listeChoices['listeFonctions'] = $this->get("core.fonction_manager")->createList();
-        $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
-        $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
-        $listeChoices['listeUtilisateurs'] = $this->get("core.utilisateur_manager")->createList();
-        $listeChoices['listeEntites'] = $this->get("core.entite_holding_manager")->createList();
-
-        return $listeChoices;
-    }
-
-    /**
      *
      */
-    private function initData()
+    private function initData($service)
     {
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
-        $this->get('core.controller_service')->setMessage('');
-        $this->get('core.controller_service')->setInsert('');
-        $this->get('core.controller_service')->setEntity('Utilisateur');
-        $this->get('core.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Utilisateur');
-        $this->get('core.controller_service')->setFormType(UtilisateurType::class);
-        $this->get('core.controller_service')->setAlertText('cet utilisateur');
-        $this->get('core.controller_service')->setIsArchived($this->isArchived);
-        $this->get('core.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->generateListeChoices()));
+        $this->get('core.'.$service.'.controller_service')->setMessage('');
+        $this->get('core.'.$service.'.controller_service')->setInsert('');
+        $this->get('core.'.$service.'.controller_service')->setEntity('Utilisateur');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Utilisateur');
+        $this->get('core.'.$service.'.controller_service')->setFormType(UtilisateurType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('cet utilisateur');
+        $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**
@@ -51,8 +36,8 @@ class UtilisateurController extends Controller
      */
     public function indexAction()
     {
-        $this->initData();
-        return $this->get('core.controller_service')->getFullList($this->isArchived);
+        $this->initData('index');
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }
 
     /**
@@ -62,9 +47,9 @@ class UtilisateurController extends Controller
      */
     public function deleteAction(Request $request)
     {
-        $this->initData();
-        $this->get('core.controller_service')->setRemove($this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
-        return $this->get('core.controller_service')->generateDeleteAction();
+        $this->initData('delete');
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
@@ -74,8 +59,8 @@ class UtilisateurController extends Controller
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData();
-        return $this->get('core.controller_service')->executeRequestAddAction($request);
+        $this->initData('add');
+        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
@@ -85,7 +70,7 @@ class UtilisateurController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData();
-        return $this->get('core.controller_service')->executeRequestEditAction($request);
+        $this->initData('edit');
+        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

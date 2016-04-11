@@ -37,7 +37,7 @@ class EntiteHoldingController extends Controller
     public function indexAction()
     {
         $this->initData('index');
-        return $this->get('core.index.controller_service')->getFullList(NULL);
+        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
     }
 
     /**

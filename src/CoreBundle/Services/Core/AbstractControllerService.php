@@ -91,6 +91,29 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
+     * @param $entity
+     * @param $allItems
+     * @return mixed
+     */
+    private function getListIfCandidatOrUtilisateur($entity, $allItems)
+    {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            $i = 0;
+            foreach ($allItems as $item) {
+                $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
+                $item->setFonction($this->getConvertion('fonction', $item->getFonction())->getName());
+                $item->setService($this->getConvertion('service', $item->getService())->getName());
+                $allItems = $this->filterView($allItems, $item, '0', $i);
+                $allItems = $this->filterView($allItems, $item, '1', $i);
+                $allItems = $this->filterView($allItems, $item, '2', $i);
+                $i++;
+            }
+        }
+
+        return $allItems;
+    }
+
+    /**
      * @param $allItems
      * @param $item
      * @param $number
@@ -128,20 +151,7 @@ abstract class AbstractControllerService extends Controller
     {
         $formAdd = $this->generateForm();
         $formEdit = $this->generateForm();
-        $allItems = $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
-
-        if ($this->entity == 'Candidat' || $this->entity == 'Utilisateur') {
-            $i = 0;
-            foreach ($allItems as $item) {
-                $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
-                $item->setFonction($this->getConvertion('fonction', $item->getFonction())->getName());
-                $item->setService($this->getConvertion('service', $item->getService())->getName());
-                $allItems = $this->filterView($allItems, $item, '0', $i);
-                $allItems = $this->filterView($allItems, $item, '1', $i);
-                $allItems = $this->filterView($allItems, $item, '2', $i);
-                $i++;
-            }
-        }
+        $allItems = $this->getListIfCandidatOrUtilisateur($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,

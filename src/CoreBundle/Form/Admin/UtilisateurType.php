@@ -90,8 +90,10 @@ class UtilisateurType extends BaseType
                     'class' => 'form-control date font_exo_2 datepicker',
                 ),
             ))
-            ->add('responsable', TextType::class, array(
+            ->add('responsable', ChoiceType::class, array(
                 'label' => 'Responsable',
+                'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
+                'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
@@ -110,11 +112,7 @@ class UtilisateurType extends BaseType
                 'required' => false,
             ))
             ->add('entiteHolding', ChoiceType::class, array(
-                'choices' => array(
-                    'Aramisauto' => 'Aramisauto',
-                    'The Custumers Company' => 'The Custumers Company',
-                    'The Remarketing Company' => 'The Remarketing Company',
-                ),
+                'choices' => $options["allow_extra_fields"]["listeEntites"],
                 'label' => 'Entité',
                 'multiple' => false,
                 'label_attr' => array(
@@ -172,8 +170,10 @@ class UtilisateurType extends BaseType
                     'class' => 'form-control font_exo_2',
                 )
             ))
-            ->add('predecesseur', TextType::class, array(
+            ->add('predecesseur', ChoiceType::class, array(
                 'label' => 'Prédécesseur',
+                'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
+                'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

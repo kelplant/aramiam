@@ -26,6 +26,7 @@ class CandidatController extends Controller
         $listeChoices['listeAgences'] = $this->get("core.agence_manager")->createList();
         $listeChoices['listeServices'] = $this->get("core.service_manager")->createList();
         $listeChoices['listeUtilisateurs'] = $this->get("core.utilisateur_manager")->createList();
+        $listeChoices['listeEntites'] = $this->get("core.entite_holding_manager")->createList();
 
         return $listeChoices;
     }

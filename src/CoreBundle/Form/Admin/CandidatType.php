@@ -93,11 +93,7 @@ class CandidatType extends BaseType
                 'required' => false,
             ))
             ->add('entiteHolding', ChoiceType::class, array(
-                'choices' => array(
-                    'Aramisauto' => 'Aramisauto',
-                    'The Custumers Company' => 'The Custumers Company',
-                    'The Remarketing Company' => 'The Remarketing Company',
-                ),
+                'choices' => $options["allow_extra_fields"]["listeEntites"],
                 'label' => 'Entité',
                 'multiple' => false,
                 'label_attr' => array(
@@ -155,8 +151,10 @@ class CandidatType extends BaseType
                     'class' => 'form-control font_exo_2',
                 )
             ))
-            ->add('predecesseur', TextType::class, array(
+            ->add('predecesseur', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
                 'label' => 'Prédécesseur',
+                'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

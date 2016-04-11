@@ -127,17 +127,4 @@ class UtilisateurManager extends AbstractManager
 
         return $this->em->flush();
     }
-
-    /**
-     * @return array
-     */
-    public function createListUtilisateurs()
-    {
-        $datas = $this->getRepository()->findAll();
-        $finalDatas = [];
-        foreach ($datas as $data) {
-            $finalDatas[$data->getViewName()] = $data->getId();
-        }
-        return $finalDatas;
-    }
 }

@@ -81,6 +81,8 @@ class ControllerService extends Controller
             for ($i=1;$i<=$majInEntity;$i++) {
                 return str_replace($matches[0][$i][0],'_'.$matches[0][$i][0],$this->entity);
             }
+        } else {
+            return $entity;
         }
     }
 

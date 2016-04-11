@@ -103,7 +103,6 @@ abstract class AbstractManager
      */
     public function edit($itemId, $itemEditLoad) {
         try {
-            var_dump($itemId);
             $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
 
             $this->em->flush();
@@ -136,7 +135,11 @@ abstract class AbstractManager
         $datas = $this->getRepository()->findAll();
         $finalDatas = [];
         foreach ($datas as $data) {
-            $finalDatas[$data->getName()] = $data->getId();
+            if ($this->entity == 'CoreBundle\Entity\Admin\Utilisateur') {
+                $finalDatas[$data->getViewName()] = $data->getId();
+            } else {
+                $finalDatas[$data->getName()] = $data->getId();
+            }
         }
         return $finalDatas;
     }

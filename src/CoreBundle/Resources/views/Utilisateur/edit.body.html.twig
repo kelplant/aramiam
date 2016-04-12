@@ -138,22 +138,56 @@
                             <input type="hidden" name="utilisateur[isCreateInRobusto]" id="utilisateur_isCreateInRobusto" value="">
                             <input type="hidden" name="utilisateur[isCreateInSalesforce]" id="utilisateur_isCreateInSalesforce" value="">
                         </div>
-                        <div class="col-sm-5">
-                            <ul class="nav nav-tabs">
-                                <li role="presentation" class="dropdown">
+                        <div class="col-sm-5 font_exo_2">
+                            <ul class="nav nav-pills marginNegABitLeft">
+                                <li role="presentation" class="dropdown" id="gmailToggle">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                         Gmail <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu" onclick="ajaxGenerateEmail();">
-                                        <a href="#"> Générer un Email</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="font_exo_2" onclick="ajaxGenerateEmail();"><a href="#"><i class="fa fa-user"></i> Générer un Email</a></li>
                                     </ul>
                                 </li>
-                                <li role="presentation" class="dropdown"><a href="#">Profile</a></li>
-                                <li role="presentation" class="dropdown"><a href="#">Messages</a></li>
+                                <li role="presentation" class="dropdown" id="odigoToggle">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Odigo <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="font_exo_2" onclick="ajaxGenerateOdigo();"><a href="#"><i class="fa fa-user"></i> Générer un Email</a></li>
+                                    </ul>
+                                </li>
+                                <li role="presentation" class="dropdown"><a href="#">Salesforce</a></li>
+                                <li role="presentation" class="dropdown"><a href="#">Robusto</a></li>
                             </ul>
-                            <div class="container actionPart">
-                                <div id="actionPart">
-
+                            <div class="container actionPart marginNegABitLeft">
+                                <div class="hide" id="actionOdigoPart">
+                                    <div class="form-group font_exo_2">
+                                        <label class="font_exo_2 col-sm-4">Identifiant :
+                                            <input type="text" name="prosodie[identifiant]" id="prosodie_identifiant" class="form-control">
+                                        </label>
+                                    </div>
+                                    <div class="form-group font_exo_2" id="prosodieListe"></div>
+                                    <div class="form-group font_exo_2" id="orangeliste"></div>
+                                    <div class="form-group font_exo_2 col-sm-4 align_right">
+                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateGmailviaAPI();" name="sendaction" id="sendaction" value="Créer sur Odigo">
+                                    </div>
+                                </div>
+                                <div class="hide" id="actionGmailPart">
+                                    <div id="actionGmailList"></div>
+                                    <div class="form-group font_exo_2" onclick="showhide();">
+                                        <label class="font_exo_2 col-sm-3">
+                                            <input class="col-sm-2" type="radio" id="otherMail" name="genEmail">Autre
+                                        </label>
+                                    </div>
+                                    <div class="form-group font_exo_2">
+                                        <div class="input-box hide actionPartInput" id="otherEmail">
+                                            <input title="Autre Email" class="form-control font_exo_2 " autofocus="autofocus" type="text" name="autreEmail">
+                                            <span class="unit">@aramisauto.com</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group font_exo_2 col-sm-4 align_right">
+                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateGmailviaAPI();" name="sendaction" id="sendaction" value="Créer sur Gmail">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +206,12 @@
                             <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
                         {% endif %}
                     {% endif %}
-                </div>
+                </div >
             </div>
         </div>
     </form>
 </div>
+
+
+
 

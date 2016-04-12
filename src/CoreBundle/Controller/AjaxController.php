@@ -80,4 +80,25 @@ class AjaxController extends Controller
     {
         return new JsonResponse($this->get('core.utilisateur_manager')->generateListPossibleEmail($utilisateurId));
     }
+
+    /**
+     * @param $agence
+     * @param $fonction
+     * @Route(path="/ajax/generate/odigo/{agence}/{fonction}",name="ajax_generate_odigo")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateListPossibleTelOdigoIndex($agence, $fonction)
+    {
+        return new JsonResponse($this->get('core.app.odigo.num_tel_liste_manager')->getAllTelForAgenceAndFonction($agence, $fonction));
+    }
+
+    /**
+     * @param $agence
+     * @Route(path="/ajax/generate/orange/{agence}",name="ajax_generate_orange")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateListPossibleTelOrangeIndex($agence)
+    {
+        return new JsonResponse($this->get('core.app.orange.num_tel_liste_manager')->getAllTelForAgence($agence));
+    }
 }

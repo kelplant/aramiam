@@ -41,14 +41,37 @@ class EditControllerService extends AbstractControllerService
     }
 
     /**
-     * @param $genEmail
+     * @param $sendaction
+     * @param $isCreateInGmail
      * @param $request
      */
-    private function ifGmailNotNullCreate($genEmail, $request)
+    private function ifGmailCreate($sendaction, $isCreateInGmail, $request)
     {
-        if (!is_null($genEmail)) {
+        if ($sendaction == "Créer sur Gmail" && $isCreateInGmail == 0) {
             $this->get('core.google_api_service')->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']));
             $this->get('core.utilisateur_manager')->setEmail($request->request->get('utilisateur')['id'],$request->request->get('genEmail'));
+        }
+    }
+
+    /**
+     * @param $sendaction
+     * @param $isCreateInOdigo
+     * @param $request
+     */
+    private function ifOdigoCreate($sendaction, $isCreateInOdigo, $request)
+    {
+        if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
+            $this->get('odigo.service.client')->createwithtemplate(
+                $request->request->get('prosodie')['numProsodie'],
+                $request->request->get('prosodie')['numOrange'],
+                $request->request->get('utilisateur')['surname'],
+                $request->request->get('utilisateur')['email'],
+                $request->request->get('utilisateur')['name'],
+                $request->request->get('utilisateur')['mainPassword'],
+                $this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getNameInOdigo(),
+                $this->get('core.fonction_manager')->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(),
+                $request->request->get('prosodie')['identifiant']
+            );
         }
     }
 
@@ -63,7 +86,8 @@ class EditControllerService extends AbstractControllerService
             $this->insert = $return['errorCode'];
             $this->message = $return['error'];
             $this->retablirOrTransformArchivedItem($request->request->get('sendAction'), $request);
-            $this->ifGmailNotNullCreate($request->request->get('genEmail'), $request);
+            $this->ifGmailCreate($request->request->get('sendAction'), $request->request->get('utilisateur')['isCreateInGmail'], $request);
+            $this->ifOdigoCreate($request->request->get('sendAction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request);
         }
         return $this->getFullList($this->isArchived);
     }

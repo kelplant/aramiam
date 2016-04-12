@@ -75,7 +75,6 @@
 .input-box {
     position: relative;
 }
-
 .unit {
     position: absolute;
     display: block;
@@ -83,10 +82,12 @@
     top: 5px;
     z-index: 9;
 }
-
 .actionPart {
-    margin-top: 2%;
+    margin-top: 8%;
 }
 .actionPartInput {
     width: 30%;
+}
+.marginNegABitLeft {
+    margin-left: -8%;
 }

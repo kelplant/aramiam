@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class ServiceType
@@ -51,6 +52,7 @@ class ServiceType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
@@ -60,6 +62,7 @@ class ServiceType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
@@ -69,6 +72,7 @@ class ServiceType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
@@ -78,6 +82,26 @@ class ServiceType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
+            ))
+            ->add('parentAgence', ChoiceType::class, array(
+                'choices' => $options["allow_extra_fields"]["listeAgences"],
+                'multiple' => false,
+                'label' => 'Agence Parente',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                ),
+                'attr' => array(
+                    'class' => 'form-control font_exo_2',
+                ),
+                'required' => true,
+                'group_by' => function($val, $key, $index) {
+                    if ($val == 31) {
+                        return $key;
+                    } else {
+                        return 'Agence';
+                    }
+                },
             ))
         ;
     }

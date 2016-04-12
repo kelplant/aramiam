@@ -50,6 +50,7 @@ class FonctionType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
@@ -59,6 +60,7 @@ class FonctionType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
@@ -68,6 +70,7 @@ class FonctionType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
@@ -77,6 +80,7 @@ class FonctionType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => false,
             ))
         ;
     }

@@ -1,5 +1,5 @@
 <?php
-namespace CoreBundle\Repository\Admin;
+namespace CoreBundle\Repository\Applications;
 
 use Doctrine\ORM\EntityRepository;
 

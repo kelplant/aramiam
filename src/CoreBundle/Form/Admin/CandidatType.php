@@ -112,7 +112,14 @@ class CandidatType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
-                )
+                ),
+                'group_by' => function($val, $key, $index) {
+                    if ($val == 31) {
+                        return $key;
+                    } else {
+                        return 'Agence';
+                    }
+                },
             ))
             ->add('service', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeServices"],
@@ -123,7 +130,7 @@ class CandidatType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
-                )
+                ),
             ))
             ->add('fonction', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeFonctions"],

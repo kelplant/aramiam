@@ -45,6 +45,11 @@ class Service
      */
     protected $nameInZendesk;
 
+    /** @var string
+     * @ORM\Column(type="integer")
+     */
+    protected $parentAgence;
+
     /**
      * @return mixed
      */
@@ -168,6 +173,24 @@ class Service
     public function setNameInZendesk($nameInZendesk)
     {
         $this->nameInZendesk = $nameInZendesk;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentAgence()
+    {
+        return $this->parentAgence;
+    }
+
+    /**
+     * @param string $parentAgence
+     * @return Service
+     */
+    public function setParentAgence($parentAgence)
+    {
+        $this->parentAgence = $parentAgence;
         return $this;
     }
 }

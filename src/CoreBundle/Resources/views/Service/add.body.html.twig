@@ -25,6 +25,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            {{ form_label(formAdd.parentAgence) }}
+                            {{ form_errors(formAdd.parentAgence) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formAdd.parentAgence) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             {{ form_label(formAdd.nameInCompany) }}
                             {{ form_errors(formAdd.nameInCompany) }}
                             <div class="col-sm-8">

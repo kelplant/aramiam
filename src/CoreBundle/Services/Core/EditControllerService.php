@@ -61,17 +61,7 @@ class EditControllerService extends AbstractControllerService
     private function ifOdigoCreate($sendaction, $isCreateInOdigo, $request)
     {
         if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
-            $this->get('odigo.service.client')->createwithtemplate(
-                $request->request->get('prosodie')['numProsodie'],
-                $request->request->get('prosodie')['numOrange'],
-                $request->request->get('utilisateur')['surname'],
-                $request->request->get('utilisateur')['email'],
-                $request->request->get('utilisateur')['name'],
-                $request->request->get('utilisateur')['mainPassword'],
-                $this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getNameInOdigo(),
-                $this->get('core.fonction_manager')->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(),
-                $request->request->get('prosodie')['identifiant']
-            );
+            $this->get('odigo.service.client')->createwithtemplate($request->request->get('prosodie')['numProsodie'], $request->request->get('prosodie')['numOrange'], $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->get('core.fonction_manager')->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant']);
         }
     }
 

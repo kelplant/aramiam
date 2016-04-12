@@ -33,7 +33,7 @@ class OdigoTelListeManager
     {
         $get = $this->getRepository()->findBy(array('service' => $service, 'fonction' => $fonction, 'inUse' => 0), array('numero' => 'ASC'));
         $listeTel = [];
-        for ($i=0; $i <= count($get) - 1; $i++) {
+        for ($i = 0; $i <= count($get) - 1; $i++) {
             $listeTel[$i] = $get[$i]->getNumero();
         }
         return $listeTel;

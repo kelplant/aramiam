@@ -61,8 +61,8 @@ class ParametersManager
         try {
             $this->em->persist($insert);
             $this->em->flush();
-            return $name;
-        }catch (\Exception $e) {
+            return null;
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }

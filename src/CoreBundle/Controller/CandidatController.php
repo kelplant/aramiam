@@ -95,7 +95,7 @@ class CandidatController extends Controller
     public function form_exec_editAction(Request $request)
     {
         $this->initData('edit');
-        if (is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])) === false){
+        if (is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])) === false) {
             $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(), date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
         }
 

@@ -43,7 +43,7 @@ abstract class AbstractControllerService extends Controller
 
     /**
      * @param $return
-     * @return mixed
+     * @return array
      */
     protected function checkErrorCode($return)
     {
@@ -65,7 +65,7 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
-     * @param $manager
+     * @param string $manager
      * @param $what
      * @return mixed
      */
@@ -76,7 +76,7 @@ abstract class AbstractControllerService extends Controller
 
     /**
      * @param $entity
-     * @return mixed
+     * @return string
      */
     protected function checkFormEntity($entity)
     {
@@ -116,8 +116,8 @@ abstract class AbstractControllerService extends Controller
     /**
      * @param $allItems
      * @param $item
-     * @param $number
-     * @param $i
+     * @param string $number
+     * @param integer $i
      * @return mixed
      */
     protected function filterView($allItems, $item, $number, $i)

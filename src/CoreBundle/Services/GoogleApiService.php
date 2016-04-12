@@ -32,7 +32,7 @@ class GoogleApiService extends Controller
             $client_email,
             $scopes,
             $private_key,
-            'notasecret',                                 // Default P12 password
+            'notasecret', // Default P12 password
             'http://oauth.net/grant_type/jwt/1.0/bearer', // Default grant type
             $user_to_impersonate
         );
@@ -45,7 +45,7 @@ class GoogleApiService extends Controller
 
     private function isEgalOne($test, $yes, $no)
     {
-        if($test == 1) {
+        if ($test == 1) {
             return $yes;
         } else {
             return $no;
@@ -65,7 +65,7 @@ class GoogleApiService extends Controller
         $user->setName($name);
         $user->setHashFunction("SHA-1");
         $user->setPrimaryEmail($userToCreate['email']);
-        $user->setPassword(hash("sha1",$userToCreate['password']));
+        $user->setPassword(hash("sha1", $userToCreate['password']));
         return $user;
     }
 
@@ -122,9 +122,9 @@ class GoogleApiService extends Controller
         $e = '0';
         try {
             $this->getInfosFromEmail($service, $userToCreate['email']);
-        }catch (Exception $e){
+        } catch (Exception $e){
             $e = error_log($e->getMessage());
         }
-         return $this->isEgalOne($e, $this->createNewUserAccount($service, $userToCreate), 'User Already exist');
+        return $this->isEgalOne($e, $this->createNewUserAccount($service, $userToCreate), 'User Already exist');
     }
 }

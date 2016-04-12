@@ -28,7 +28,7 @@ class MouvHistoryManager
      * @param $itemLoad
      * @param $adminId
      * @param $type
-     * @return bool|MouvHistory
+     * @return MouvHistory|string
      */
     public function add($itemLoad, $adminId, $type)
     {
@@ -43,24 +43,24 @@ class MouvHistoryManager
         $itemToSet->setType($type);
         try {
             $this->persistAndFlush($itemToSet);
-            return $itemToSet;
-        }catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $itemLoad['id'];
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 
     /**
      * @param MouvHistory $mouvHistory
-     * @return bool|MouvHistory
+     * @return MouvHistory|string
      */
     private function persistAndFlush(MouvHistory $mouvHistory)
     {
         try {
             $this->em->persist($mouvHistory);
             $this->em->flush();
-            return $mouvHistory;
-        }catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return null;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 

@@ -110,8 +110,7 @@ class AjaxController extends Controller
      */
     public function isAbleToUseOdigo($service, $fonction)
     {
-        if (is_null($this->get('core.service_manager')->load($service)->getNameInOdigo()) || $this->get('core.service_manager')->load($service)->getNameInOdigo() == "" || is_null($this->get('core.fonction_manager')->load($fonction)->getNameInOdigo()) || $this->get('core.fonction_manager')->load($fonction)->getNameInOdigo() == "")
-        {
+        if ($this->get('core.service_manager')->load($service)->getNameInOdigo() == "" || $this->get('core.fonction_manager')->load($fonction)->getNameInOdigo() == "") {
             return new JsonResponse(0);
         } else {
             return new JsonResponse(1);

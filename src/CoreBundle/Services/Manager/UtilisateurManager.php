@@ -40,7 +40,7 @@ class UtilisateurManager extends AbstractManager
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
         $possibleEmail = [];
         $possibleEmail[] = str_replace(' ','-',strtolower($itemToTransform->getSurname())).'.'.str_replace(' ','-',strtolower($itemToTransform->getName())).'@aramisauto.com';
-        if (stripos($itemToTransform->getSurname(),'-') != false || stripos($itemToTransform->getName(),'-') != false || stripos($itemToTransform->getSurname(),' ') != false || stripos($itemToTransform->getName(),' ') != false) {
+        if (stripos($itemToTransform->getSurname(),'-') != 0 || stripos($itemToTransform->getName(),'-') != 0 || stripos($itemToTransform->getSurname(),' ') != 0 || stripos($itemToTransform->getName(),' ') != 0) {
             $possibleEmail[] = str_replace(' ','',strtolower($itemToTransform->getSurname())).'.'.str_replace(' ','',strtolower($itemToTransform->getName())).'@aramisauto.com';
         }
         return $possibleEmail;

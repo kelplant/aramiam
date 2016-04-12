@@ -23,7 +23,7 @@ class CandidatController extends Controller
     private function deleteOrArchive($isArchived, $request)
     {
         if ($isArchived == 0) {
-            if(is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))) == false) {
+            if(is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))) === false) {
                 return $this->get('core.zendesk_service')->deleteTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->query->get('itemDelete'))->getTicketId());
             } else {
                 return null;

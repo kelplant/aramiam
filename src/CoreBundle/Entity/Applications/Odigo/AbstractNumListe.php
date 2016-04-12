@@ -70,18 +70,18 @@ abstract class AbstractNumListe
     /**
      * @return string
      */
-    public function getAgence()
+    public function getService()
     {
-        return $this->agence;
+        return $this->service;
     }
 
     /**
-     * @param string $agence
+     * @param string $service
      * @return AbstractNumListe
      */
-    public function setAgence($agence)
+    public function setService($service)
     {
-        $this->agence = $agence;
+        $this->service = $service;
         return $this;
     }
 

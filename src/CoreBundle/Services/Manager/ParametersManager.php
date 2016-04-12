@@ -44,7 +44,7 @@ class ParametersManager
      * @param $name
      * @param $value
      * @param $application
-     * @return bool
+     * @return string
      */
     public function setParamForName($name, $value, $application)
     {
@@ -61,9 +61,9 @@ class ParametersManager
         try {
             $this->em->persist($insert);
             $this->em->flush();
-            return $mouvHistory;
+            return $name;
         }catch (\Exception $e) {
-            return error_log($e->getMessage());
+            return $e->getMessage();
         }
     }
 }

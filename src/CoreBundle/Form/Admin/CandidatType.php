@@ -113,7 +113,7 @@ class CandidatType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
-                'group_by' => function($val, $key, $index) {
+                'group_by' => function($val, $key) {
                     if ($val == 31) {
                         return $key;
                     } else {

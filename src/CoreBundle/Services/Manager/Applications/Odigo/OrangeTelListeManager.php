@@ -5,12 +5,14 @@ use CoreBundle\Entity\Applications\Odigo\OrangeTelListe;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Class ParametersManager
- * @package CoreBundle\Services\Manager
+ * Class OrangeTelListeManager
+ * @package CoreBundle\Services\Manager\Applications\Odigo
  */
 class OrangeTelListeManager
 {
     private $managerRegistry;
+
+    private $repository;
 
     private $em;
     /**
@@ -23,16 +25,46 @@ class OrangeTelListeManager
     }
 
     /**
-     * @param $agence
+     * @param $service
      * @return mixed
      */
-    public function getAllTelForAgence($agence)
+    public function getAllTelForService($service)
     {
-        $get = $this->em->getRepository('CoreBundle:Applications\Odigo\OrangeTelListe')->findBy(array('agence' => $agence, 'inUse' => 0), array('numero' => 'ASC'));
+        $get = $this->getRepository()->findBy(array('service' => $service, 'inUse' => 0), array('numero' => 'ASC'));
         $listeTel = [];
         for($i=0; $i <= count($get)-1; $i++) {
             $listeTel[$i] = $get[$i]->getNumero();
         }
         return $listeTel;
+    }
+
+    /**
+     * @param $numTel
+     * @return mixed
+     */
+    public function setNumOrangeInUse($numTel)
+    {
+        $itemToSet = $this->getRepository()->findOneByNumero($numTel);
+        $itemToSet->setInUse('1');
+        $this->em->flush();
+        return $numTel;
+    }
+
+    /**
+     * @param $repository
+     * @return OdigoTelListeManager
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->managerRegistry->getManager()->getRepository('CoreBundle:Applications\Odigo\OrangeTelListe');
     }
 }

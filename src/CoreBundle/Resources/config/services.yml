@@ -11,6 +11,8 @@ parameters:
     core.entityname.entite_holding.class: 'CoreBundle\Entity\Admin\EntiteHolding'
     core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
+    core.entity.prosodie_odigo.class: CoreBundle\Entity\Applications\ProsodieOdigo
+    core.entityname.prosodie_odigo.class: 'CoreBundle\Entity\Applications\ProsodieOdigo'
 
     core.abstract_manager.class: CoreBundle\Services\Manager\AbstractManager
     core.agence_manager.class: CoreBundle\Services\Manager\AgenceManager
@@ -19,6 +21,8 @@ parameters:
     core.utilisateur_manager.class: CoreBundle\Services\Manager\UtilisateurManager
     core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
     core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
+
+    core.prosodie_odigo_manager.class: CoreBundle\Services\Manager\Applications\Odigo\ProsodieOdigoManager
 
     core.app_zendesk_ticket_link_manager.class: CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager
     core.app.odigo.num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OdigoTelListeManager
@@ -80,6 +84,15 @@ services:
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
+
+
+    core.prosodie_odigo_manager:
+        class: %core.prosodie_odigo_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.prosodie_odigo.class%"]]
+        - [setEntityName, ["%core.entityname.prosodie_odigo.class%"]]
+
 
     core.abstract.controller_service:
         class: %core.abstract.controller_service.class%

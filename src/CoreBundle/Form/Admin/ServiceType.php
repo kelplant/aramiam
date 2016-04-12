@@ -95,13 +95,7 @@ class ServiceType extends BaseType
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => true,
-                'group_by' => function($val, $key, $index) {
-                    if ($val == 31) {
-                        return $key;
-                    } else {
-                        return 'Agence';
-                    }
-                },
+
             ))
         ;
     }

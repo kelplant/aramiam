@@ -17,7 +17,7 @@ class OdigoApiService extends Controller
      * @param $odigoIdentfiant
      * @return array
      */
-    private function createWithTemplateArrayForRequestFromCompany($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant)
+    private function createWithTemplateArrayForRequest($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant)
     {
         return $userBeanWithTemplateInfos = array('active' => "1", 'data' => $odigoTel, 'ddiNumber' => $redirectTel, 'directAccessCode' => $odigoTel, 'firstName' => $prenom, 'language' => "1", 'listAgentGroup' => NULL, 'listTemplate' => $odigoService."_".$odigoFonction, 'mail' => $email, 'name' => $nom, 'overloadGroup' => "true", 'overloadTemplate' => "true", 'password' => $generalPassword, 'phoneLoginNumber' => $odigoTel, 'phoneLoginPassword' => NULL, 'templateId' => $odigoService."_".$odigoFonction, 'timeZone' => "fr", 'userId' => $odigoIdentfiant, 'skillId' => NULL, 'skillLevel' => NULL);
     }
@@ -36,7 +36,7 @@ class OdigoApiService extends Controller
      */
     public function createOdigoUser($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant)
     {
-        $createWithTemplate = $this->get('odigo.service.client')->createwithtemplate($this->getParameter('odigo'), $this->createWithTemplateArrayForRequestFromCompany($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant));
+        $createWithTemplate = $this->get('odigo.service.client')->createwithtemplate($this->getParameter('odigo'), $this->createWithTemplateArrayForRequest($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant));
         return $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes')[$createWithTemplate];
     }
 

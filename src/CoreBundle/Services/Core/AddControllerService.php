@@ -19,7 +19,7 @@ class AddControllerService extends AbstractControllerService
         $this->insert = $return['errorCode'];
         $this->message = $return['error'];
         if ($this->entity == 'Candidat') {
-            $this->executeCreateTicket($return['candidat']);
+            $this->executeCreateTicket($return['item']);
         }
         return $this->getFullList($this->isArchived);
     }

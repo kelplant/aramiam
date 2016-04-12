@@ -106,9 +106,9 @@ abstract class AbstractManager
             $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
 
             $this->em->flush();
-            return array('errorCode' => 6667, 'candidat' => $itemId);
+            return array('errorCode' => 6667, 'item' => $itemId);
         } catch (\Exception $e) {
-            array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'candidat' => $itemId);
+            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => $itemId);
         }
     }
 
@@ -121,9 +121,9 @@ abstract class AbstractManager
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return array('errorCode' => 6669, 'candidat' => $itemToSend);
+            return array('errorCode' => 6669, 'item' => $itemToSend);
         } catch (\Exception $e) {
-            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'candidat' => null);
+            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => null);
         }
     }
 

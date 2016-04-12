@@ -5,12 +5,14 @@ use CoreBundle\Entity\Applications\Odigo\OdigoTelListe;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Class ParametersManager
- * @package CoreBundle\Services\Manager
+ * Class OdigoTelListeManager
+ * @package CoreBundle\Services\Manager\Applications\Odigo
  */
 class OdigoTelListeManager
 {
     private $managerRegistry;
+
+    private $repository;
 
     private $em;
     /**
@@ -23,17 +25,47 @@ class OdigoTelListeManager
     }
 
     /**
-     * @param $agence
+     * @param $service
      * @param $fonction
      * @return mixed
      */
-    public function getAllTelForAgenceAndFonction($agence, $fonction)
+    public function getAllTelForServiceAndFonction($service, $fonction)
     {
-        $get = $this->em->getRepository('CoreBundle:Applications\Odigo\OdigoTelListe')->findBy(array('agence' => $agence, 'fonction' => $fonction, 'inUse' => 0), array('numero' => 'ASC'));
+        $get = $this->getRepository()->findBy(array('service' => $service, 'fonction' => $fonction, 'inUse' => 0), array('numero' => 'ASC'));
         $listeTel = [];
         for($i=0; $i <= count($get)-1; $i++) {
             $listeTel[$i] = $get[$i]->getNumero();
         }
         return $listeTel;
+    }
+
+    /**
+     * @param $numTel
+     * @return mixed
+     */
+    public function setNumProsodieInUse($numTel)
+    {
+        $itemToSet = $this->getRepository()->findOneByNumero($numTel);
+        $itemToSet->setInUse('1');
+        $this->em->flush();
+        return $numTel;
+    }
+
+    /**
+     * @param $repository
+     * @return OdigoTelListeManager
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->managerRegistry->getManager()->getRepository('CoreBundle:Applications\Odigo\OdigoTelListe');
     }
 }

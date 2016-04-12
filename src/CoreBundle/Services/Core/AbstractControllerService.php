@@ -48,11 +48,11 @@ abstract class AbstractControllerService extends Controller
     protected function checkErrorCode($return)
     {
         if ($return['errorCode'] === true) {
-            return array('errorCode' => $return['errorCode'], 'error' => $return['error'], 'candidat' => $return['candidat']);
+            return array('errorCode' => $return['errorCode'], 'error' => $return['error'], 'item' => $return['item']);
         } elseif ($return['errorCode'] == 6669 || $return['errorCode'] == 6667) {
-            return array('errorCode' => $return['errorCode'], 'error' => $this->generateMessage($return['errorCode']), 'candidat' => $return['candidat']);
+            return array('errorCode' => $return['errorCode'], 'error' => $this->generateMessage($return['errorCode']), 'item' => $return['item']);
         } else {
-            return array('errorCode' => null, 'error' => null, 'candidat' => null);
+            return array('errorCode' => null, 'error' => null, 'item' => null);
         }
     }
 

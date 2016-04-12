@@ -127,4 +127,12 @@ class UtilisateurManager extends AbstractManager
 
         return $this->em->flush();
     }
+
+    public function setIsCreateInOdigo($itemToSet)
+    {
+        $itemToSet = $this->getRepository()->findOneById($itemToSet);
+        $itemToSet->setIsCreateInGmail('1');
+
+        return $this->em->flush();
+    }
 }

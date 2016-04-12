@@ -23,7 +23,7 @@ abstract class AbstractNumListe
      * @var string
      * @ORM\Column(type="integer"))
      */
-    protected $agence;
+    protected $service;
 
     /**
      * @var string

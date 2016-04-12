@@ -4,7 +4,7 @@ namespace CoreBundle\Entity\Applications;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ProsodieOdigo
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\Applications\ApplicationRepository")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\Applications\ProsodieOdigoRepository")
  * @ORM\Table(name="core_app_odigo")
  */
 class ProsodieOdigo

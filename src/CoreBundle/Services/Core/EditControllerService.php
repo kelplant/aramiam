@@ -41,6 +41,21 @@ class EditControllerService extends AbstractControllerService
     }
 
     /**
+     * @param $numAutre
+     * @param $numOrange
+     * @return mixed
+     */
+    private function numForOdigo($numAutre, $numOrange)
+    {
+        if ($numAutre != null || $numAutre != "") {
+            return $numAutre;
+        } else {
+            $this->get('core.app.orange.num_tel_liste_manager')->setNumOrangeInUse($numOrange);
+            return $numOrange;
+        }
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInGmail
      * @param $request
@@ -61,7 +76,11 @@ class EditControllerService extends AbstractControllerService
     private function ifOdigoCreate($sendaction, $isCreateInOdigo, $request)
     {
         if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
-            $this->get('odigo.service.client')->createwithtemplate($request->request->get('prosodie')['numProsodie'], $request->request->get('prosodie')['numOrange'], $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->get('core.fonction_manager')->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant']);
+            $this->get('core.odigo_api_service')->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'],$request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->get('core.fonction_manager')->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant']);
+            $this->get('core.odigo_api_service')->exportOdigoModifications();
+            $this->get('core.utilisateur_manager')->setIsCreateInOdigo($request->request->get('prosodie')['numProsodie']);
+            $this->get('core.prosodie_odigo_manager')->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'],$request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));
+            $this->get('core.app.odigo.num_tel_liste_manager')->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);
         }
     }
 
@@ -75,9 +94,9 @@ class EditControllerService extends AbstractControllerService
             $return = $this->checkErrorCode($this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request));
             $this->insert = $return['errorCode'];
             $this->message = $return['error'];
-            $this->retablirOrTransformArchivedItem($request->request->get('sendAction'), $request);
-            $this->ifGmailCreate($request->request->get('sendAction'), $request->request->get('utilisateur')['isCreateInGmail'], $request);
-            $this->ifOdigoCreate($request->request->get('sendAction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request);
+            $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
+            $this->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request);
+            $this->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request);
         }
         return $this->getFullList($this->isArchived);
     }

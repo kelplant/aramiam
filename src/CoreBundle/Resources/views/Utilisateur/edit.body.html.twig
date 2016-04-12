@@ -140,39 +140,38 @@
                         </div>
                         <div class="col-sm-5 font_exo_2">
                             <ul class="nav nav-pills marginNegABitLeft">
-                                <li role="presentation" class="dropdown" id="gmailToggle">
+                                <li role="presentation" id="gmailToggle" onclick="ajaxGenerateEmail();">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        Gmail <span class="caret"></span>
+                                        Gmail
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="font_exo_2" onclick="ajaxGenerateEmail();"><a href="#"><i class="fa fa-user"></i> Générer un Email</a></li>
-                                    </ul>
                                 </li>
-                                <li role="presentation" class="dropdown" id="odigoToggle">
+                                <li role="presentation" id="odigoToggle" onclick="ajaxGenerateOdigo();">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        Odigo <span class="caret"></span>
+                                        Odigo
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="font_exo_2" onclick="ajaxGenerateOdigo();"><a href="#"><i class="fa fa-user"></i> Générer un Email</a></li>
-                                    </ul>
                                 </li>
-                                <li role="presentation" class="dropdown"><a href="#">Salesforce</a></li>
-                                <li role="presentation" class="dropdown"><a href="#">Robusto</a></li>
+                                <li role="presentation"><a href="#">Salesforce</a></li>
+                                <li role="presentation"><a href="#">Robusto</a></li>
                             </ul>
                             <div class="container actionPart marginNegABitLeft">
-                                <div class="hide" id="actionOdigoPart">
+                                <div class="hide" id="createActionOdigoPart">
                                     <div class="form-group font_exo_2">
                                         <label class="font_exo_2 col-sm-4">Identifiant :
-                                            <input type="text" name="prosodie[identifiant]" id="prosodie_identifiant" class="form-control">
+                                            <input type="text" name="prosodie[identifiant]" onclick="showOtherNum();" id="prosodie_identifiant" class="form-control">
                                         </label>
                                     </div>
                                     <div class="form-group font_exo_2" id="prosodieListe"></div>
                                     <div class="form-group font_exo_2" id="orangeliste"></div>
+                                    <div class="form-group font_exo_2 hide" id="otherNumField">
+                                        <label class="font_exo_2 col-sm-4">Autre Numéro :
+                                            <input type="text" name="prosodie[autreNum]" id="prosodie_autreNum" class="form-control">
+                                        </label>
+                                    </div>
                                     <div class="form-group font_exo_2 col-sm-4 align_right">
                                         <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateGmailviaAPI();" name="sendaction" id="sendaction" value="Créer sur Odigo">
                                     </div>
                                 </div>
-                                <div class="hide" id="actionGmailPart">
+                                <div class="hide" id="createActionGmailPart">
                                     <div id="actionGmailList"></div>
                                     <div class="form-group font_exo_2" onclick="showhide();">
                                         <label class="font_exo_2 col-sm-3">

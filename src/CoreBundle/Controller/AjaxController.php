@@ -82,23 +82,39 @@ class AjaxController extends Controller
     }
 
     /**
-     * @param $agence
+     * @param $service
      * @param $fonction
-     * @Route(path="/ajax/generate/odigo/{agence}/{fonction}",name="ajax_generate_odigo")
+     * @Route(path="/ajax/generate/odigo/{service}/{fonction}",name="ajax_generate_odigo")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateListPossibleTelOdigoIndex($agence, $fonction)
+    public function generateListPossibleTelOdigoIndex($service, $fonction)
     {
-        return new JsonResponse($this->get('core.app.odigo.num_tel_liste_manager')->getAllTelForAgenceAndFonction($agence, $fonction));
+        return new JsonResponse($this->get('core.app.odigo.num_tel_liste_manager')->getAllTelForServiceAndFonction($service, $fonction));
     }
 
     /**
-     * @param $agence
-     * @Route(path="/ajax/generate/orange/{agence}",name="ajax_generate_orange")
+     * @param $service
+     * @Route(path="/ajax/generate/orange/{service}",name="ajax_generate_orange")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function generateListPossibleTelOrangeIndex($agence)
+    public function generateListPossibleTelOrangeIndex($service)
     {
-        return new JsonResponse($this->get('core.app.orange.num_tel_liste_manager')->getAllTelForAgence($agence));
+        return new JsonResponse($this->get('core.app.orange.num_tel_liste_manager')->getAllTelForService($service));
+    }
+
+    /**
+     * @param $service
+     * @param $fonction
+     * @Route(path="/ajax/generate/odigo/isabletouse/{service}/{fonction}",name="ajax_able_use_odigo")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function isAbleToUseOdigo($service, $fonction)
+    {
+        if (is_null($this->get('core.service_manager')->load($service)->getNameInOdigo()) || $this->get('core.service_manager')->load($service)->getNameInOdigo() == "" || is_null($this->get('core.fonction_manager')->load($fonction)->getNameInOdigo()) || $this->get('core.fonction_manager')->load($fonction)->getNameInOdigo() == "")
+        {
+            return new JsonResponse(0);
+        } else {
+            return new JsonResponse(1);
+        }
     }
 }

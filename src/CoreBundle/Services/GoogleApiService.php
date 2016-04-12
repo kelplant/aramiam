@@ -122,7 +122,7 @@ class GoogleApiService extends Controller
         $e = '0';
         try {
             $this->getInfosFromEmail($service, $userToCreate['email']);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $e = error_log($e->getMessage());
         }
         return $this->isEgalOne($e, $this->createNewUserAccount($service, $userToCreate), 'User Already exist');

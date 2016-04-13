@@ -12,7 +12,6 @@
 /composer.phar
 /web/config.php
 /app/check.php
-/web/config.php
 /app/config/config.yml
 /app/config/saml.crt
 /app/config/saml.pem

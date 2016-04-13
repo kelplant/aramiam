@@ -55,7 +55,7 @@ class OdigoApiService extends Controller
      */
     public function exportOdigoModifications()
     {
-        $export = $this->get('odigo.service.client')->export($this->getParameter('odigo'), $this->getParameter('odigo_login'));
+        $export = $this->get('odigo.service.client')->export($this->getParameter('odigo'), $this->getParameter('odigo')['login']);
         return $this->getParameter('odigo_wsdl_error_export_codes')[$export];
     }
 }

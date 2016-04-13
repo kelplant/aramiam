@@ -23,13 +23,13 @@ class ProsodieOdigo
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $odigoPhoneNumber;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $redirectPhoneNumber;
 

@@ -283,6 +283,8 @@ function ajaxGenerateOdigo() {
                         });
                     }
                 });
+            } else {
+                $('#loading').addClass('hide').removeClass('show');
             }
         }
     });

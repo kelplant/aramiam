@@ -147,4 +147,13 @@ class UtilisateurManager extends AbstractManager
 
         return $prosodieNumId;
     }
+
+    public function setIsCreateInWindows($itemToSet)
+    {
+        $item = $this->getRepository()->findOneById($itemToSet);
+        $item->setIsCreateInWindows('1');
+        $this->em->flush();
+
+        return $itemToSet;
+    }
 }

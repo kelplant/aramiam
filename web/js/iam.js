@@ -103,6 +103,10 @@ function ajaxUtilisateurEdit(editItem) {
             {
                 sessionStorage.setItem("isCreateInOdigo",result[i])
             }
+            if (i == 'isCreateInWindows')
+            {
+                sessionStorage.setItem("isCreateInWindows",result[i])
+            }
             if (i == 'email')
             {
                 sessionStorage.setItem("email",result[i])
@@ -121,6 +125,7 @@ function resetEditItem() {
     sessionStorage.setItem("fonction",null);
     sessionStorage.setItem("isCreateInGmail",null);
     sessionStorage.setItem("isCreateInOdigo",null);
+    sessionStorage.setItem("isCreateInWindows",null);
     sessionStorage.setItem("email",null);
     sessionStorage.setItem("emailState",null);
     sessionStorage.setItem("ableToShowOdigo",null);
@@ -136,6 +141,7 @@ function getMeElem(elem)
 
 // Fonction de chargement du bloc Windows
 function ajaxGenerateWindows() {
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -145,12 +151,14 @@ function ajaxGenerateWindows() {
     $('#windowsToggle').addClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
-    $('#loading').removeClass('hide').addClass('show');
-    var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-    var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-    document.getElementById("windows_identifiant").value = prenom+nom;
-    $('#loading').addClass('hide').removeClass('show');
-    $('#createActionWindowsPart').addClass('show').removeClass('hide');
+    if (sessionStorage.getItem("isCreateInWindows") == 0) {
+        $('#loading').removeClass('hide').addClass('show');
+        var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+        var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+        document.getElementById("windows_identifiant").value = prenom+nom;
+        $('#loading').addClass('hide').removeClass('show');
+        $('#createActionWindowsPart').addClass('show').removeClass('hide');
+    }
 }
 
 // Fonction de chargement du bloc salesforce
@@ -183,6 +191,7 @@ function ajaxGenerateAramis() {
 
 // Fonction de chargement du bloc de gestion gmail
 function ajaxGenerateEmail() {
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
@@ -197,20 +206,21 @@ function ajaxGenerateEmail() {
     $.ajax({
         url: urlajax, success: function (result) {
             sessionStorage.setItem("emailState",result);
-            if (sessionStorage.getItem("emailState") == "nouser")
-            {
+            if (sessionStorage.getItem("emailState") == "nouser") {
                 var currentEditItem = sessionStorage.getItem("currentEditItem");
                 urlajax ="/ajax/generate/email/"+currentEditItem;
-                $.ajax({url:urlajax,success:function(result){
-                    var i;
-                    var textToAppend = '';
-                    for (i in result) {
-                        textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-3"><input class="font_exo_2 col-sm-2" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                $.ajax({
+                    url:urlajax,success:function(result) {
+                        var i;
+                        var textToAppend = '';
+                        for (i in result) {
+                            textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-3"><input class="font_exo_2 col-sm-2" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                        }
+                        document.getElementById("actionGmailList").innerHTML = textToAppend;
+                        $('#loading').addClass('hide').removeClass('show');
+                        $('#createActionGmailPart').addClass('show').removeClass('hide');
                     }
-                    document.getElementById("actionGmailList").innerHTML = textToAppend;
-                    $('#loading').addClass('hide').removeClass('show');
-                    $('#createActionGmailPart').addClass('show').removeClass('hide');
-                }});
+                });
             }
         }
     });
@@ -222,6 +232,7 @@ function ajaxGenerateOdigo() {
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
     $('#gmailToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
@@ -234,48 +245,47 @@ function ajaxGenerateOdigo() {
     $.ajax({
         url: urlajax, success: function (result) {
             sessionStorage.setItem("ableToShowOdigo",result)
-        }
-    });
-    if (sessionStorage.getItem("isCreateInOdigo") == 0 && sessionStorage.getItem("ableToShowOdigo") == 1)
-    {
-        var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-        var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-        document.getElementById("prosodie_identifiant").value = prenom+nom;
-        var currentEditItem = sessionStorage.getItem("currentEditItem");
-        urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
-        $.ajax({
-            url: urlajax, success: function (result) {
-                var i;
-                var prosodieListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
-                prosodieListe += '<select name="prosodie[numProsodie]" id="prosodie_numProsodie" class="form-control">';
-                for (i in result) {
-                    prosodieListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
-                }
-                prosodieListe += '</select>';
-                prosodieListe += '</label>';
-                document.getElementById("prosodieListe").innerHTML = prosodieListe;
-
-                urlajax = "/ajax/generate/orange/" + service;
+            if (sessionStorage.getItem("isCreateInOdigo") == 0 && sessionStorage.getItem("ableToShowOdigo") == 1) {
+                var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+                var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+                document.getElementById("prosodie_identifiant").value = prenom+nom;
+                var currentEditItem = sessionStorage.getItem("currentEditItem");
+                urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
                 $.ajax({
                     url: urlajax, success: function (result) {
                         var i;
-                        var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
-                        orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
+                        var prosodieListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
+                        prosodieListe += '<select name="prosodie[numProsodie]" id="prosodie_numProsodie" class="form-control">';
                         for (i in result) {
-                            orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                            prosodieListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
                         }
-                        orangeListe += '</select>';
-                        orangeListe += '</label>';
-                        orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
-                        document.getElementById("orangeliste").innerHTML = orangeListe;
+                        prosodieListe += '</select>';
+                        prosodieListe += '</label>';
+                        document.getElementById("prosodieListe").innerHTML = prosodieListe;
 
-                        $('#loading').addClass('hide').removeClass('show');
-                        $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                        urlajax = "/ajax/generate/orange/" + service;
+                        $.ajax({
+                            url: urlajax, success: function (result) {
+                                var i;
+                                var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
+                                orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
+                                for (i in result) {
+                                    orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                                }
+                                orangeListe += '</select>';
+                                orangeListe += '</label>';
+                                orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
+                                document.getElementById("orangeliste").innerHTML = orangeListe;
+
+                                $('#loading').addClass('hide').removeClass('show');
+                                $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                            }
+                        });
                     }
                 });
             }
-        });
-    }
+        }
+    });
 }
 
 // Fonction d'affichage du champ autre email pendant création gmail

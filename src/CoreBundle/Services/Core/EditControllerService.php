@@ -85,6 +85,20 @@ class EditControllerService extends AbstractControllerService
     }
 
     /**
+     * @param $newPassword
+     * @return string
+     */
+    private function pwd_encryption( $newPassword )
+    {
+        $newPassword = "\"" . $newPassword . "\"";
+        $newPassw = "";
+        for ($i = 0; $i < strlen($newPassword); $i++){
+            $newPassw .= "{$newPassword{$i}}\000";
+        }
+        return $newPassw;
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInWindows
      * @param $request
@@ -93,8 +107,9 @@ class EditControllerService extends AbstractControllerService
     private function ifWindowsCreate($sendaction, $isCreateInWindows, $request)
     {
         if ($sendaction == "Créer Session Windows" && $isCreateInWindows == 0) {
-            $dn_user='CN='.$request->request->get('utilisateur')['viewName'].',OU=Utilisateurs,OU=clphoto,DC=clphoto,DC=local';
-            $ldaprecord = array( 'cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array ('0' => 'top', '1' => 'person', '2' => 'user'));
+            $dn_user='CN='.$request->request->get('utilisateur')['viewName'].','.$this->get('core.service_manager')->load($request->request->get('utilisateur')['service'])->getActiveDirectoryDn();
+            $ldaprecord = array( 'cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array ('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
+            $this->get('core.utilisateur_manager')->setIsCreateInWindows($request->request->get('utilisateur')['id']);
             return $this->get('core.active_directory_api_service')->createUser($this->getParameter('active_directory'), $dn_user, $ldaprecord);
         }
     }

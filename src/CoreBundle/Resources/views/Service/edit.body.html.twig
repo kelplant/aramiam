@@ -59,6 +59,13 @@
                                 {{ form_widget(formEdit.nameInZendesk) }}
                             </div>
                         </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.activeDirectoryDn) }}
+                            {{ form_errors(formEdit.activeDirectoryDn) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formEdit.activeDirectoryDn) }}
+                            </div>
+                        </div>
                         {{ form_row(formEdit.id) }}
                     </div>
                 </div>

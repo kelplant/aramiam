@@ -21,6 +21,8 @@ class UtilisateurManager extends AbstractManager
         $itemLoad['isCreateInOdigo'] = '0';
         $itemLoad['isCreateInRobusto'] = '0';
         $itemLoad['isCreateInSalesforce'] = '0';
+        $itemLoad['isCreateInWindows'] = '0';
+        $itemLoad['viewName'] = $itemLoad['surname']." ".$itemLoad['name'];
         $itemLoad['email'] = NULL;
         $itemToSet = new Utilisateur();
         try {
@@ -57,6 +59,7 @@ class UtilisateurManager extends AbstractManager
         $itemArray['id'] = $itemToTransform->getId();
         $itemArray['name'] = $itemToTransform->getName();
         $itemArray['surname'] = $itemToTransform->getSurname();
+        $itemArray['viewName'] = $itemToTransform->getViewName();
         $itemArray['civilite'] = $itemToTransform->getCivilite();
         $itemArray['startDate'] = $itemToTransform->getStartDate()->format('d-m-Y');
         $itemArray['entiteHolding'] = $itemToTransform->getEntiteHolding();
@@ -76,6 +79,7 @@ class UtilisateurManager extends AbstractManager
         $itemArray['isCreateInOdigo'] = $itemToTransform->getIsCreateInOdigo();
         $itemArray['isCreateInRobusto'] = $itemToTransform->getIsCreateInRobusto();
         $itemArray['isCreateInSalesforce'] = $itemToTransform->getIsCreateInSalesforce();
+        $itemArray['isCreateInWindows'] = $itemToTransform->getIsCreateInWindows();
         $itemArray['email'] = $itemToTransform->getEmail();
 
         return $itemArray;
@@ -91,7 +95,7 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setCivilite($itemLoad['civilite']);
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
-        $itemToSet->setViewName($itemLoad['surname']." ".$itemLoad['name']);
+        $itemToSet->setViewName($itemLoad['viewName']);
         $itemToSet->setStartDate(new DateTime($itemLoad['startDate']));
         $itemToSet->setAgence($itemLoad['agence']);
         $itemToSet->setEmail($itemLoad['email']);
@@ -110,6 +114,7 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setIsCreateInOdigo($itemLoad['isCreateInOdigo']);
         $itemToSet->setIsCreateInRobusto($itemLoad['isCreateInRobusto']);
         $itemToSet->setIsCreateInSalesforce($itemLoad['isCreateInSalesforce']);
+        $itemToSet->setIsCreateInWindows($itemLoad['isCreateInWindows']);
         $itemToSet->setEmail($itemLoad['email']);
 
         return $itemToSet;
@@ -124,15 +129,22 @@ class UtilisateurManager extends AbstractManager
         $itemToSet = $this->getRepository()->findOneById($itemToSet);
         $itemToSet->setEmail($emailToSet);
         $itemToSet->setIsCreateInGmail('1');
+        $this->em->flush();
 
-        return $this->em->flush();
+        return $emailToSet;
     }
 
-    public function setIsCreateInOdigo($itemToSet)
+    /**
+     * @param $itemToSet
+     * @param $prosodieNumId
+     * @return mixed
+     */
+    public function setIsCreateInOdigo($itemToSet, $prosodieNumId)
     {
         $itemToSet = $this->getRepository()->findOneById($itemToSet);
-        $itemToSet->setIsCreateInGmail('1');
+        $itemToSet->setIsCreateInOdigo($prosodieNumId);
+        $this->em->flush();
 
-        return $this->em->flush();
+        return $prosodieNumId;
     }
 }

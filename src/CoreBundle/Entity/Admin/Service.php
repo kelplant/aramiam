@@ -46,6 +46,11 @@ class Service
     protected $nameInZendesk;
 
     /** @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $activeDirectoryDn;
+
+    /** @var string
      * @ORM\Column(type="integer")
      */
     protected $parentAgence;
@@ -191,6 +196,24 @@ class Service
     public function setParentAgence($parentAgence)
     {
         $this->parentAgence = $parentAgence;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getActiveDirectoryDn()
+    {
+        return $this->activeDirectoryDn;
+    }
+
+    /**
+     * @param string $activeDirectoryDn
+     * @return Service
+     */
+    public function setActiveDirectoryDn($activeDirectoryDn)
+    {
+        $this->activeDirectoryDn = $activeDirectoryDn;
         return $this;
     }
 }

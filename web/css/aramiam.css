@@ -83,15 +83,32 @@
     z-index: 9;
 }
 .actionPart {
-    margin-top: 8%;
+    margin-top: 20%;
 }
 .actionPartInput {
     width: 30%;
 }
+.marginNegABitABitLeft {
+    margin-left: -1%;
+}
 .marginNegABitLeft {
-    margin-left: -8%;
+    margin-left: -13%;
 }
 .otherNumButton {
     margin-top: 1.6% !important;
     margin-left: 3% !important;
+}
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }

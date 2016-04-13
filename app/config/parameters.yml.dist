@@ -29,6 +29,11 @@ parameters:
         certificat_name:  ~
         admin_account:    ~
 
+    active_directory:
+        ldaphost:      ~
+        ldapUsername:  ~
+        ldapPassword:  ~
+
     odigo_wsdl_error_createagent_codes:
         0:             L'utlisateur a été crée
         105:           L'utilisateur existe déjà

@@ -1,5 +1,5 @@
 <?php
-namespace CoreBundle\Services\Manager\Applications\Odigo;
+namespace CoreBundle\Services\Manager\Applications;
 
 use CoreBundle\Entity\Applications\ProsodieOdigo;
 use CoreBundle\Services\Manager\AbstractManager;

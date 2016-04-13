@@ -7,7 +7,7 @@
                     <h4 class="modal-title font_exo_2" id="myModalLabel">{% if is_archived != "2" %}Edition d'un utilisateur{% endif %}{% if is_archived == "2" %}Voir un Utilisateur{% endif %}</h4>
                 </div>
                 <div class="modal-body modal-lg">
-                    <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+                    <div class="container-fluid marginNegABitABitLeft" xmlns="http://www.w3.org/1999/html">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_errors(formEdit) }}
                         <div class="col-sm-7">
@@ -33,6 +33,14 @@
                                 <div class="col-sm-8">
                                     {% if is_archived == "0" %}{{ form_widget(formEdit.surname) }}{% endif %}
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.surname, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.viewName) }}
+                                {{ form_errors(formEdit.viewName) }}
+                                <div class="col-sm-8">
+                                    {% if is_archived == "0" %}{{ form_widget(formEdit.viewName) }}{% endif %}
+                                    {% if is_archived != "0" %}{{ form_widget(formEdit.viewName, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -132,14 +140,15 @@
                                 </div>
                             </div>
                             {{ form_row(formEdit.id) }}
-                            <input type="hidden" name="utilisateur[idCandidat]" id="utilisateur_idCandidat" value="">
-                            <input type="hidden" name="utilisateur[isCreateInGmail]" id="utilisateur_idCandidatisCreateInGmail" value="">
-                            <input type="hidden" name="utilisateur[isCreateInOdigo]" id="utilisateur_isCreateInOdigo" value="">
-                            <input type="hidden" name="utilisateur[isCreateInRobusto]" id="utilisateur_isCreateInRobusto" value="">
-                            <input type="hidden" name="utilisateur[isCreateInSalesforce]" id="utilisateur_isCreateInSalesforce" value="">
+                            {{ form_row(formEdit.idCandidat) }}
+                            {{ form_row(formEdit.isCreateInGmail) }}
+                            {{ form_row(formEdit.isCreateInOdigo) }}
+                            {{ form_row(formEdit.isCreateInRobusto) }}
+                            {{ form_row(formEdit.isCreateInSalesforce) }}
+                            {{ form_row(formEdit.isCreateInWindows) }}
                         </div>
                         <div class="col-sm-5 font_exo_2">
-                            <ul class="nav nav-pills marginNegABitLeft">
+                            <ul class="nav nav-pills navbar-right marginNegABitLeft">
                                 <li role="presentation" id="gmailToggle" onclick="ajaxGenerateEmail();">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                         Gmail
@@ -150,14 +159,30 @@
                                         Odigo
                                     </a>
                                 </li>
-                                <li role="presentation"><a href="#">Salesforce</a></li>
-                                <li role="presentation"><a href="#">Robusto</a></li>
+                                <li role="presentation" id="windowsToggle" onclick="ajaxGenerateWindows();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Windows
+                                    </a>
+                                </li>
+                                <li role="presentation" id="salesforceToggle" onclick="ajaxGenerateSalesforce();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Salesf.
+                                    </a>
+                                </li>
+                                <li role="presentation" id="aramisToggle" onclick="ajaxGenerateAramis();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Aramis
+                                    </a>
+                                </li>
                             </ul>
                             <div class="container actionPart marginNegABitLeft">
+                                <div class="container hide col-sm-4 text-center" id="loading">
+                                    <button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh spinning"></span> Loading...</button>
+                                </div>
                                 <div class="hide" id="createActionOdigoPart">
                                     <div class="form-group font_exo_2">
                                         <label class="font_exo_2 col-sm-4">Identifiant :
-                                            <input type="text" name="prosodie[identifiant]" onclick="showOtherNum();" id="prosodie_identifiant" class="form-control">
+                                            <input type="text" name="prosodie[identifiant]" id="prosodie_identifiant" class="form-control">
                                         </label>
                                     </div>
                                     <div class="form-group font_exo_2" id="prosodieListe"></div>
@@ -168,7 +193,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group font_exo_2 col-sm-4 align_right">
-                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateGmailviaAPI();" name="sendaction" id="sendaction" value="Créer sur Odigo">
+                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer sur Odigo">
                                     </div>
                                 </div>
                                 <div class="hide" id="createActionGmailPart">
@@ -185,8 +210,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group font_exo_2 col-sm-4 align_right">
-                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateGmailviaAPI();" name="sendaction" id="sendaction" value="Créer sur Gmail">
+                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer sur Gmail">
                                     </div>
+                                </div>
+                                <div class="hide" id="createActionWindowsPart">
+                                    <div class="form-group font_exo_2">
+                                        <label class="font_exo_2 col-sm-4">Identifiant :
+                                            <input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control">
+                                        </label>
+                                    </div>
+                                    <div class="form-group font_exo_2 col-sm-4 align_right">
+                                        <input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer Session Windows">
+                                    </div>
+                                </div>
+                                <div class="hide" id="createActionSalesforcePart">
+                                </div>
+                                <div class="hide" id="createActionAramisPart">
                                 </div>
                             </div>
                         </div>

@@ -32,6 +32,13 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        {{ form_label(formAdd.viewName) }}
+                        {{ form_errors(formAdd.viewName) }}
+                        <div class="col-sm-8">
+                           {{ form_widget(formAdd.viewName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         {{ form_label(formAdd.startDate) }}
                         {{ form_errors(formAdd.startDate) }}
                         <div class="col-sm-8">
@@ -102,11 +109,12 @@
                         </div>
                     </div>
                     {{ form_row(formAdd.id) }}
-                    {{ form_row(formEdit.idCandidat) }}
-                    {{ form_row(formEdit.isCreateInGmail) }}
-                    {{ form_row(formEdit.isCreateInOdigo) }}
-                    {{ form_row(formEdit.isCreateInRobusto) }}
-                    {{ form_row(formEdit.isCreateInSalesforce) }}
+                    {{ form_row(formAdd.idCandidat) }}
+                    {{ form_row(formAdd.isCreateInGmail) }}
+                    {{ form_row(formAdd.isCreateInOdigo) }}
+                    {{ form_row(formAdd.isCreateInRobusto) }}
+                    {{ form_row(formAdd.isCreateInSalesforce) }}
+                    {{ form_row(formAdd.isCreateInWindows) }}
 
                 </div>
                 <div class="modal-footer">

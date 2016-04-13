@@ -18,7 +18,7 @@ class GoogleApiService extends Controller
     /**
      * @return Google_Service_Directory
      */
-    private function innitApi()
+    public function innitApi()
     {
         $params = $this->getParameter('google_api');
         $client_email = $params['user_app_account'];

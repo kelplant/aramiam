@@ -1,0 +1,28 @@
+parameters:
+    core.curl_wrap.class: CoreBundle\Services\CurlWrap
+    core.zendesk_service.class: CoreBundle\Services\ZendeskService
+    core.google_api_service.class: CoreBundle\Services\GoogleApiService
+    core.odigo_api_service.class: CoreBundle\Services\OdigoApiService
+    core.active_directory_api_service.class: CoreBundle\Services\ActiveDirectoryApiService
+
+services:
+    core.curl_wrap:
+        class: %core.curl_wrap.class%
+
+    core.zendesk_service:
+        class: %core.zendesk_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.google_api_service:
+        class: %core.google_api_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.odigo_api_service:
+        class: %core.odigo_api_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.active_directory_api_service:
+        class: %core.active_directory_api_service.class%

@@ -4,6 +4,7 @@ namespace CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Exception;
 
 /**
  * Class AjaxController
@@ -105,7 +106,7 @@ class AjaxController extends Controller
     /**
      * @param $service
      * @param $fonction
-     * @Route(path="/ajax/generate/odigo/isabletouse/{service}/{fonction}",name="ajax_able_use_odigo")
+     * @Route(path="/ajax/check/odigo/isabletouse/{service}/{fonction}",name="ajax_able_use_odigo")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function isAbleToUseOdigo($service, $fonction)
@@ -114,6 +115,20 @@ class AjaxController extends Controller
             return new JsonResponse(0);
         } else {
             return new JsonResponse(1);
+        }
+    }
+
+    /**
+     * @param $email
+     * @Route(path="/ajax/check/google/isexist/{email}",name="ajax_exist_in_google")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function isExistGmailAccount($email)
+    {
+        try {
+            return new JsonResponse($this->get('core.google_api_service')->getInfosFromEmail($this->get('core.google_api_service')->innitApi(), $email));
+        } catch (Exception $e) {
+            return new JsonResponse('nouser');
         }
     }
 }

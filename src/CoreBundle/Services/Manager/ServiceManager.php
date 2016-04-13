@@ -21,6 +21,8 @@ class ServiceManager extends AbstractManager
         $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
         $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
         $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
+        $itemToSet->setParentAgence($itemLoad['parentAgence']);
+        $itemToSet->setActiveDirectoryDn($itemLoad['activeDirectoryDn']);
 
         return $itemToSet;
     }
@@ -39,6 +41,8 @@ class ServiceManager extends AbstractManager
         $itemArray['nameInOdigo'] = $itemToTransform->getNameInOdigo();
         $itemArray['nameInSalesforce'] = $itemToTransform->getNameInSalesforce();
         $itemArray['nameInZendesk'] = $itemToTransform->getNameInZendesk();
+        $itemArray['parentAgence'] = $itemToTransform->getParentAgence();
+        $itemArray['activeDirectoryDn'] = $itemToTransform->getActiveDirectoryDn();
 
         return $itemArray;
     }

@@ -68,6 +68,8 @@ function ajaxCandidatEdit(editItem) {
 
 // Fonction de chargement d'un Utilisateur pendant Edit
 function ajaxUtilisateurEdit(editItem) {
+    sessionStorage.setItem("emailState",null);
+    sessionStorage.setItem("ableToShowOdigo",null);
     urlajax ="/ajax/utilisateur/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var frm = $("#form-edit");
@@ -101,6 +103,10 @@ function ajaxUtilisateurEdit(editItem) {
             {
                 sessionStorage.setItem("isCreateInOdigo",result[i])
             }
+            if (i == 'email')
+            {
+                sessionStorage.setItem("email",result[i])
+            }
             frm.find('[name="utilisateur[' + i + ']"]').val(result[i]);
         }
     }});
@@ -115,29 +121,11 @@ function resetEditItem() {
     sessionStorage.setItem("fonction",null);
     sessionStorage.setItem("isCreateInGmail",null);
     sessionStorage.setItem("isCreateInOdigo",null);
+    sessionStorage.setItem("email",null);
+    sessionStorage.setItem("emailState",null);
+    sessionStorage.setItem("ableToShowOdigo",null);
 }
 
-// Fonction de chargement du bloc de gestion gmail
-function ajaxGenerateEmail() {
-    $('#odigoToggle').removeClass('active');
-    $('#gmailToggle').addClass('active');
-    $('#createActionOdigoPart').removeClass('show').addClass('hide');
-    if (sessionStorage.getItem("isCreateInGmail") == 0)
-    {
-        $('#createActionGmailPart').addClass('show').removeClass('hide');
-        var currentEditItem = sessionStorage.getItem("currentEditItem");
-        urlajax ="/ajax/generate/email/"+currentEditItem;
-        $.ajax({url:urlajax,success:function(result){
-            var i;
-            var textToAppend = '';
-            for (i in result) {
-                textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-3"><input class="font_exo_2 col-sm-2" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
-            }
-            document.getElementById("actionGmailList").innerHTML = textToAppend;
-
-        }});
-    }
-}
 
 function getMeElem(elem)
 {
@@ -146,14 +134,103 @@ function getMeElem(elem)
     return liste.options[liste.selectedIndex].value;
 }
 
+// Fonction de chargement du bloc Windows
+function ajaxGenerateWindows() {
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#gmailToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#windowsToggle').addClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#loading').removeClass('hide').addClass('show');
+    var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+    var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+    document.getElementById("windows_identifiant").value = prenom+nom;
+    $('#loading').addClass('hide').removeClass('show');
+    $('#createActionWindowsPart').addClass('show').removeClass('hide');
+}
+
+// Fonction de chargement du bloc salesforce
+function ajaxGenerateSalesforce() {
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#gmailToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').addClass('active');
+    $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+}
+
+// Fonction de chargement du bloc aramis
+function ajaxGenerateAramis() {
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#gmailToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').addClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#createActionAramisPart').addClass('show').removeClass('hide');
+}
+
+// Fonction de chargement du bloc de gestion gmail
+function ajaxGenerateEmail() {
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#gmailToggle').addClass('active');
+    $('#loading').removeClass('hide').addClass('show');
+    urlajax = "/ajax/check/google/isexist/" + sessionStorage.getItem("email");
+    $.ajax({
+        url: urlajax, success: function (result) {
+            sessionStorage.setItem("emailState",result);
+            if (sessionStorage.getItem("emailState") == "nouser")
+            {
+                var currentEditItem = sessionStorage.getItem("currentEditItem");
+                urlajax ="/ajax/generate/email/"+currentEditItem;
+                $.ajax({url:urlajax,success:function(result){
+                    var i;
+                    var textToAppend = '';
+                    for (i in result) {
+                        textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-3"><input class="font_exo_2 col-sm-2" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                    }
+                    document.getElementById("actionGmailList").innerHTML = textToAppend;
+                    $('#loading').addClass('hide').removeClass('show');
+                    $('#createActionGmailPart').addClass('show').removeClass('hide');
+                }});
+            }
+        }
+    });
+}
+
 // Fonction de chargement du bloc de gestion gmail
 function ajaxGenerateOdigo() {
-    $('#gmailToggle').removeClass('active');
-    $('#odigoToggle').addClass('active');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#gmailToggle').removeClass('active');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#odigoToggle').addClass('active');
+    $('#loading').removeClass('hide').addClass('show');
     var service = sessionStorage.getItem("service");
     var fonction = sessionStorage.getItem("fonction");
-    urlajax = "/ajax/generate/odigo/isabletouse/" + service + "/" + fonction;
+    urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
     $.ajax({
         url: urlajax, success: function (result) {
             sessionStorage.setItem("ableToShowOdigo",result)
@@ -161,7 +238,6 @@ function ajaxGenerateOdigo() {
     });
     if (sessionStorage.getItem("isCreateInOdigo") == 0 && sessionStorage.getItem("ableToShowOdigo") == 1)
     {
-        $('#createActionOdigoPart').addClass('show').removeClass('hide');
         var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
         var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
         document.getElementById("prosodie_identifiant").value = prenom+nom;
@@ -178,21 +254,25 @@ function ajaxGenerateOdigo() {
                 prosodieListe += '</select>';
                 prosodieListe += '</label>';
                 document.getElementById("prosodieListe").innerHTML = prosodieListe;
-            }
-        });
-        urlajax = "/ajax/generate/orange/" + service;
-        $.ajax({
-            url: urlajax, success: function (result) {
-                var i;
-                var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
-                orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
-                for (i in result) {
-                    orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
-                }
-                orangeListe += '</select>';
-                orangeListe += '</label>';
-                orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
-                document.getElementById("orangeliste").innerHTML = orangeListe;
+
+                urlajax = "/ajax/generate/orange/" + service;
+                $.ajax({
+                    url: urlajax, success: function (result) {
+                        var i;
+                        var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
+                        orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
+                        for (i in result) {
+                            orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        }
+                        orangeListe += '</select>';
+                        orangeListe += '</label>';
+                        orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
+                        document.getElementById("orangeliste").innerHTML = orangeListe;
+
+                        $('#loading').addClass('hide').removeClass('show');
+                        $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                    }
+                });
             }
         });
     }
@@ -219,6 +299,6 @@ function setViewUtilisateur(){
     window.location = "/admin/utilisateur?isArchived=0";
 }
 
-function ajaxCreateGmailviaAPI() {
+function ajaxCreateViaAPI() {
     var currentEditItem = sessionStorage.getItem("currentEditItem");
 }

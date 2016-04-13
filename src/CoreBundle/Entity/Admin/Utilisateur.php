@@ -59,6 +59,12 @@ class Utilisateur extends AbstractPerson
     protected $isCreateInRobusto;
 
     /**
+     * @var string
+     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     */
+    protected $isCreateInWindows;
+
+    /**
      * @return string
      */
     public function getViewName()
@@ -199,6 +205,24 @@ class Utilisateur extends AbstractPerson
     public function setMainPassword($mainPassword)
     {
         $this->mainPassword = $mainPassword;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsCreateInWindows()
+    {
+        return $this->isCreateInWindows;
+    }
+
+    /**
+     * @param string $isCreateInWindows
+     * @return Utilisateur
+     */
+    public function setIsCreateInWindows($isCreateInWindows)
+    {
+        $this->isCreateInWindows = $isCreateInWindows;
         return $this;
     }
 }

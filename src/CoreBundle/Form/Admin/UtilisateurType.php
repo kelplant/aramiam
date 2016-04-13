@@ -61,6 +61,15 @@ class UtilisateurType extends BaseType
                     'class' => 'form-control font_exo_2',
                 ),
             ))
+            ->add('viewName', TextType::class, array(
+                'label' => 'Affiché',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                ),
+                'attr' => array(
+                    'class' => 'form-control font_exo_2',
+                ),
+            ))
             ->add('email', EmailType::class, array(
                 'label' => 'Email',
                 'label_attr' => array(
@@ -205,6 +214,10 @@ class UtilisateurType extends BaseType
                 'required' => false,
             ))
             ->add('isCreateInSalesforce', HiddenType::class, array(
+                'label' => 'isCreateInSalesforce',
+                'required' => false,
+            ))
+            ->add('isCreateInWindows', HiddenType::class, array(
                 'label' => 'isCreateInSalesforce',
                 'required' => false,
             ))

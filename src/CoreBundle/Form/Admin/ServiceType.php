@@ -95,7 +95,16 @@ class ServiceType extends BaseType
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => true,
-
+            ))
+            ->add('activeDirectoryDn', TextType::class, array(
+                'label' => 'Dn Active Directory',
+                'label_attr' => array(
+                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                ),
+                'attr' => array(
+                    'class' => 'form-control font_exo_2',
+                ),
+                'required' => false,
             ))
         ;
     }

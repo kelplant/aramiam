@@ -1,15 +1,29 @@
 parameters:
     core.app_zendesk_ticket_link_manager.class: CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager
-    core.app.odigo.num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OdigoTelListeManager
-    core.app.orange.num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OrangeTelListeManager
+
+    core.app.odigo.odigo_num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OdigoTelListeManager
+    core.entity.odigo_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OdigoTelListe
+    core.entityname.odigo_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OdigoTelListe'
+
+    core.app.odigo.orange_num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OrangeTelListeManager
+    core.entity.orange_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OrangeTelListe
+    core.entityname.orange_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OrangeTelListe'
 
 services:
     core.app_zendesk_ticket_link_manager:
         class: %core.app_zendesk_ticket_link_manager.class%
         arguments: ['@doctrine']
-    core.app.odigo.num_tel_liste_manager:
-        class: %core.app.odigo.num_tel_liste_manager.class%
-        arguments: ['@doctrine']
-    core.app.orange.num_tel_liste_manager:
-        class: %core.app.orange.num_tel_liste_manager.class%
-        arguments: ['@doctrine']
+
+    core.odigotelliste_manager:
+        class: %core.app.odigo.odigo_num_tel_liste_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.odigo_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%core.entityname.odigo_num_tel_liste_manager.class%"]]
+
+    core.orangetelliste_manager:
+        class: %core.app.odigo.orange_num_tel_liste_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.orange_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%core.entityname.orange_num_tel_liste_manager.class%"]]

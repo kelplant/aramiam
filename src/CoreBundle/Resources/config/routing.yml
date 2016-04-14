@@ -2,7 +2,3 @@ core_homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
 
-# Routing for Utilisateurs
-liste_des_utilisateurs:
-    path:     /admin/utilisateurs
-    defaults: { _controller: CoreBundle:Utilisateur:index }

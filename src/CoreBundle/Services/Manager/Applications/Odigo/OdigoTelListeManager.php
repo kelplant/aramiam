@@ -2,26 +2,43 @@
 namespace CoreBundle\Services\Manager\Applications\Odigo;
 
 use CoreBundle\Entity\Applications\Odigo\OdigoTelListe;
+use CoreBundle\Services\Manager\AbstractManager;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class OdigoTelListeManager
  * @package CoreBundle\Services\Manager\Applications\Odigo
  */
-class OdigoTelListeManager
+class OdigoTelListeManager extends AbstractManager
 {
-    private $managerRegistry;
-
-    private $repository;
-
-    private $em;
     /**
-     * MouvHistoryManager constructor.
-     * @param ManagerRegistry $managerRegistry
+     * @param $itemToSet
+     * @param $itemLoad
+     * @return OdigoTelListe
      */
-    public function __construct(ManagerRegistry $managerRegistry) {
-        $this->managerRegistry = $managerRegistry;
-        $this->em = $this->managerRegistry->getManagerForClass(OdigoTelListe::class);
+    public function globalSetItem($itemToSet, $itemLoad)
+    {
+        $itemToSet->setNumero($itemLoad['numero']);
+        $itemToSet->setService($itemLoad['service']);
+        $itemToSet->setInUse($itemLoad['inUse']);
+        $itemToSet->setFonction($itemLoad['fonction']);
+        return $itemToSet;
+    }
+
+    /**
+     * @param $itemLoad
+     * @return mixed
+     */
+    public function createArray($itemLoad)
+    {
+        $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+        $itemArray = [];
+        $itemArray['numero'] = $itemToTransform->getNumero();
+        $itemArray['service'] = $itemToTransform->getService();
+        $itemArray['inUse'] = $itemToTransform->getInUse();
+        $itemArray['fonction'] = $itemToTransform->getFonction();
+
+        return $itemArray;
     }
 
     /**
@@ -49,23 +66,5 @@ class OdigoTelListeManager
         $itemToSet->setInUse('1');
         $this->em->flush();
         return $numTel;
-    }
-
-    /**
-     * @param $repository
-     * @return OdigoTelListeManager
-     */
-    public function setRepository($repository)
-    {
-        $this->repository = $repository;
-        return $this;
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->managerRegistry->getManager()->getRepository('CoreBundle:Applications\Odigo\OdigoTelListe');
     }
 }

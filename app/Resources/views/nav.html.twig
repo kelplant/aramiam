@@ -57,14 +57,29 @@
                         </ul>
                     </li>
                 {% endif %}
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle font_exo_2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Odigo <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <li class="font_exo_2"><a href="{{ path('odigo_tel_liste') }}"><i class="fa fa-puzzle-piece"></i> Numéros Odigo</a></li>
+                            {% endif %}
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <li class="font_exo_2"><a href="{{ path('orange_tel_liste') }}"><i class="fa fa-puzzle-piece"></i> Numéros Orange</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
             {#{% endif %}#}
             <ul class="nav navbar-nav navbar-right">
-                <li>{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a href="#" class="font_exo_2">Déconnexion</a>
-                {% else %}
-                    <a href="#" class="font_exo_2">Connexion</a>
-                {% endif %}</li>
+                <li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('fos_user_security_logout') }}" class="font_exo_2">Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}" class="font_exo_2">Connexion</a>
+                    {% endif %}
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

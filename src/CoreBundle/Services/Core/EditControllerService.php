@@ -50,7 +50,7 @@ class EditControllerService extends AbstractControllerService
         if ($numAutre != null || $numAutre != "") {
             return $numAutre;
         } else {
-            $this->get('core.app.orange.num_tel_liste_manager')->setNumOrangeInUse($numOrange);
+            $this->get('core.orangetelliste_manager')->setNumOrangeInUse($numOrange);
             return $numOrange;
         }
     }
@@ -80,7 +80,7 @@ class EditControllerService extends AbstractControllerService
             $this->get('core.odigo_api_service')->exportOdigoModifications();
             $return = $this->get('core.prosodie_odigo_manager')->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));
             $this->get('core.utilisateur_manager')->setIsCreateInOdigo($request->request->get('utilisateur')['id'], $return['item']->getId());
-            $this->get('core.app.odigo.num_tel_liste_manager')->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);
+            $this->get('core.odigotelliste_manager')->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);
         }
     }
 

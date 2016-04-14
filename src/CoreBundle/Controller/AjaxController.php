@@ -90,7 +90,7 @@ class AjaxController extends Controller
      */
     public function generateListPossibleTelOdigoIndex($service, $fonction)
     {
-        return new JsonResponse($this->get('core.app.odigo.num_tel_liste_manager')->getAllTelForServiceAndFonction($service, $fonction));
+        return new JsonResponse($this->get('core.odigotelliste_manager')->getAllTelForServiceAndFonction($service, $fonction));
     }
 
     /**
@@ -100,7 +100,7 @@ class AjaxController extends Controller
      */
     public function generateListPossibleTelOrangeIndex($service)
     {
-        return new JsonResponse($this->get('core.app.orange.num_tel_liste_manager')->getAllTelForService($service));
+        return new JsonResponse($this->get('core.orangetelliste_manager')->getAllTelForService($service));
     }
 
     /**

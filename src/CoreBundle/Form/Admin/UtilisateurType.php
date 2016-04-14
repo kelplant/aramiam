@@ -164,7 +164,6 @@ class UtilisateurType extends BaseType
                     'class' => 'form-control font_exo_2',
                 )
             ))
-
             ->add('statusPoste', ChoiceType::class, array(
                 'choices' => array(
                     'Remplacement' => 'Remplacement',

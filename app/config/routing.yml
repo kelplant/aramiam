@@ -16,3 +16,18 @@ logout:
 login_check:
     path: /saml/login_check
     defaults: { _controller: GeneralBundle:Default:index }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security_login:
+    path:      /manual/login
+    defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
+
+fos_user_security_logout:
+    path:      /manual/logout
+    defaults:  { _controller: FOSUserBundle:Security:logout, _method: POST }
+
+fos_user_security_login_check:
+    path:      /manual/login_check
+    defaults:  { _controller: FOSUserBundle:Security:check, _method: POST }

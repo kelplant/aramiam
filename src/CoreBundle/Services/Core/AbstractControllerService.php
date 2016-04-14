@@ -97,19 +97,26 @@ abstract class AbstractControllerService extends Controller
      */
     private function getListIfCandidatOrUtilisateur($entity, $allItems)
     {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            $i = 0;
-            foreach ($allItems as $item) {
-                $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
-                $item->setFonction($this->getConvertion('fonction', $item->getFonction())->getName());
+        $i = 0;
+        foreach ($allItems as $item) {
+            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity = 'OrangeTelListe') {
                 $item->setService($this->getConvertion('service', $item->getService())->getName());
-                $allItems = $this->filterView($allItems, $item, '0', $i);
-                $allItems = $this->filterView($allItems, $item, '1', $i);
-                $allItems = $this->filterView($allItems, $item, '2', $i);
-                $i++;
-            }
-        }
 
+            }
+            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
+                $item->setFonction($this->getConvertion('fonction', $item->getFonction())->getName());
+
+            }
+            if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+                $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
+            }
+            $i++;
+        }
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            $allItems = $this->filterView($allItems, $item, '0', $i);
+            $allItems = $this->filterView($allItems, $item, '1', $i);
+            $allItems = $this->filterView($allItems, $item, '2', $i);
+        }
         return $allItems;
     }
 
@@ -120,7 +127,7 @@ abstract class AbstractControllerService extends Controller
      * @param integer $i
      * @return mixed
      */
-    protected function filterView($allItems, $item, $number, $i)
+    private function filterView($allItems, $item, $number, $i)
     {
         if ($item->getIsArchived() != $number && $this->isArchived == $number) {
             unset($allItems[$i]);

@@ -81,7 +81,7 @@ class UtilisateurType extends BaseType
                 'required' => false,
             ))
             ->add('mainPassword', PasswordType::class, array(
-                'label' => 'Apps Password',
+                'label' => 'Password',
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

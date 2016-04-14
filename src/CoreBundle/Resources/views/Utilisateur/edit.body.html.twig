@@ -54,9 +54,19 @@
                             <div class="form-group">
                                 {{ form_label(formEdit.mainPassword) }}
                                 {{ form_errors(formEdit.mainPassword) }}
-                                <div class="col-sm-8">
+                                <div class="col-sm-5">
                                     {% if is_archived == "0" %}{{ form_widget(formEdit.mainPassword) }}{% endif %}
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.mainPassword, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" onclick="replaceT();" class="btn btn-default" title="Voir Password">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" onclick="generatePassword();" class="btn btn-default" title="Générer un Password">
+                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                    </button>
                                 </div>
                             </div>
                             <div class="form-group">

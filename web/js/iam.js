@@ -1,67 +1,30 @@
 /**
  * Created by Xavier on 11/04/2016.
  */
-
-// Fonction de chargement d'un Service pendant Edit
-function ajaxServiceEdit(editItem) {
-    urlajax ="/ajax/service/get/"+editItem;
+// Fonction de chargement Standard Edit
+function ajaxCoreEdit(url, editItem) {
+    urlajax ="/ajax/"+url+"/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var frm = $("#form-edit");
         var i;
         for (i in result) {
-            frm.find('[name="service[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement d'une Agence pendant Edit
-function ajaxEdit(editItem) {
-    urlajax ="/ajax/agence/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            frm.find('[name="agence[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement d'une Fonction pendant Edit
-function ajaxFonctionEdit(editItem) {
-    urlajax ="/ajax/fonction/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            frm.find('[name="fonction[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement d'une EntiteHolding pendant Edit
-function ajaxEntiteHoldingEdit(editItem) {
-    urlajax ="/ajax/entite_holding/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            frm.find('[name="entite_holding[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement d'un Candidat pendant Edit
-function ajaxCandidatEdit(editItem) {
-    urlajax ="/ajax/candidat/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            if (i == 'predecesseur')
+            if (url == 'candidat' && i == 'predecesseur')
             {
                 sessionStorage.setItem("currentPredecesseurId",result[i])
             }
-            frm.find('[name="candidat[' + i + ']"]').val(result[i]);
+            frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
+        }
+    }});
+}
+
+// Fonction de chargement de la liste de tel odigo pendant Edit
+function ajaxODigoTelListeEdit(editItem) {
+    urlajax ="/ajax/odigotelliste/get/"+editItem;
+    $.ajax({url:urlajax,success:function(result){
+        var frm = $("#form-edit");
+        var i;
+        for (i in result) {
+            frm.find('[name="odigo_tel_liste[' + i + ']"]').val(result[i]);
         }
     }});
 }

@@ -28,7 +28,7 @@ class OdigoTelListeController extends Controller
         $this->get('core.'.$service.'.controller_service')->setFormType(OdigoTelListeType::class);
         $this->get('core.'.$service.'.controller_service')->setAlertText('cet numéro Odigo');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**

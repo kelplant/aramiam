@@ -73,6 +73,26 @@ class AjaxController extends Controller
     }
 
     /**
+     * @param $odigotellisteEdit
+     * @Route(path="/ajax/odigo_tel_liste/get/{odigotellisteEdit}",name="ajax_get_odigotelliste")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function odigoTelListeGetInfosIndex($odigotellisteEdit)
+    {
+        return new JsonResponse($this->get('core.odigotelliste_manager')->createArray($odigotellisteEdit));
+    }
+
+    /**
+     * @param $orangetellisteEdit
+     * @Route(path="/ajax/odigo_tel_liste/get/{odigotellisteEdit}",name="ajax_get_orangetelliste")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function orangeTelListeGetInfosIndex($orangetellisteEdit)
+    {
+        return new JsonResponse($this->get('core.odigotelliste_manager')->createArray($orangetellisteEdit));
+    }
+
+    /**
      * @param $utilisateurId
      * @Route(path="/ajax/generate/email/{utilisateurId}",name="ajax_generate_email")
      * @return \Symfony\Component\HttpFoundation\Response

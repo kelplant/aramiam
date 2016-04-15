@@ -3,6 +3,7 @@
 namespace CoreBundle\Form\Applications\Odigo;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,9 +43,8 @@ class OrangeTelListeType extends AbstractType
                     'class' => 'form-control font_exo_2',
                 )
             ))
-            ->add('inUse', ChoiceType::class, array(
+            ->add('inUse', CheckboxType::class, array(
                 'label' => 'Attribué ?',
-                'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),

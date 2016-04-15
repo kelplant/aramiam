@@ -80,13 +80,54 @@ abstract class AbstractControllerService extends Controller
      */
     protected function checkFormEntity($entity)
     {
-        $majInEntity = preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE);
+        var_dump($majInEntity = preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE));
+        die();
         if ($majInEntity > 1) {
             for ($i = 1; $i <= $majInEntity; $i++) {
                 return str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], $this->entity);
             }
         } else {
             return $entity;
+        }
+    }
+
+    /**
+     * @param $service
+     * @param $entity
+     * @return mixed|null
+     */
+    private function ifFilterConvertService($service, $entity)
+    {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
+            return $service->setService($this->getConvertion('service', $service->getService())->getName());
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param $fonction
+     * @param $entity
+     * @return mixed|null
+     */
+    private function ifFilterConvertFonction($fonction, $entity)
+    {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
+            return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param $agence
+     * @param $entity
+     * @return mixed|null
+     */
+    private function ifFilterConvertAgence($agence, $entity)
+    {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            $agence->setAgence($this->getConvertion('agence', $agence->getAgence())->getName());
         }
     }
 
@@ -98,18 +139,11 @@ abstract class AbstractControllerService extends Controller
     private function getListIfCandidatOrUtilisateur($entity, $allItems)
     {
         $i = 0;
+
         foreach ($allItems as $item) {
-            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity = 'OrangeTelListe') {
-                $item->setService($this->getConvertion('service', $item->getService())->getName());
-
-            }
-            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
-                $item->setFonction($this->getConvertion('fonction', $item->getFonction())->getName());
-
-            }
-            if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-                $item->setAgence($this->getConvertion('agence', $item->getAgence())->getName());
-            }
+            $this->ifFilterConvertService($item, $entity);
+            $this->ifFilterConvertFonction($item, $entity);
+            $this->ifFilterConvertAgence($item, $entity);
             $i++;
         }
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
@@ -167,6 +201,7 @@ abstract class AbstractControllerService extends Controller
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
+            'entity' => strtolower($this->checkFormEntity($this->entity)),
             'formAdd' => $formAdd->createView(),
             'formEdit' => $formEdit->createView(),
         ));

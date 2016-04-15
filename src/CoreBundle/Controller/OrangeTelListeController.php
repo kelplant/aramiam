@@ -28,7 +28,7 @@ class OrangeTelListeController extends Controller
         $this->get('core.'.$service.'.controller_service')->setFormType(OrangeTelListeType::class);
         $this->get('core.'.$service.'.controller_service')->setAlertText('cet numéro Orange');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**

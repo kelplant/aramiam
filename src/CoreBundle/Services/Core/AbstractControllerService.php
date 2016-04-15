@@ -55,9 +55,6 @@ abstract class AbstractControllerService extends Controller
      */
     protected function generateForm()
     {
-        var_dump($this->formType);
-        var_dump($this->newEntity);
-        var_dump($this->createFormArguments);
         return $this->createForm($this->formType, new $this->newEntity, $this->createFormArguments);
     }
 

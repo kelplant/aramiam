@@ -1,33 +1,29 @@
 parameters:
     core.abstract_manager.class: CoreBundle\Services\Manager\AbstractManager
 
-    core.agence_manager.class: CoreBundle\Services\Manager\AgenceManager
+    core.agence_manager.class: CoreBundle\Services\Manager\Admin\AgenceManager
     core.entity.agence.class: CoreBundle\Entity\Admin\Agence
     core.entityname.agence.class: 'CoreBundle\Entity\Admin\Agence'
 
-    core.service_manager.class: CoreBundle\Services\Manager\ServiceManager
+    core.service_manager.class: CoreBundle\Services\Manager\Admin\ServiceManager
     core.entity.service.class: CoreBundle\Entity\Admin\Service
     core.entityname.service.class: 'CoreBundle\Entity\Admin\Service'
 
-    core.entite_holding_manager.class: CoreBundle\Services\Manager\EntiteHoldingManager
+    core.entite_holding_manager.class: CoreBundle\Services\Manager\Admin\EntiteHoldingManager
     core.entity.entite_holding.class: CoreBundle\Entity\Admin\EntiteHolding
     core.entityname.entite_holding.class: 'CoreBundle\Entity\Admin\EntiteHolding'
 
-    core.utilisateur_manager.class: CoreBundle\Services\Manager\UtilisateurManager
+    core.utilisateur_manager.class: CoreBundle\Services\Manager\Admin\UtilisateurManager
     core.entity.utilisateur.class: CoreBundle\Entity\Admin\Utilisateur
     core.entityname.utilisateur.class: 'CoreBundle\Entity\Admin\Utilisateur'
 
-    core.fonction_manager.class: CoreBundle\Services\Manager\FonctionManager
+    core.fonction_manager.class: CoreBundle\Services\Manager\Admin\FonctionManager
     core.entity.fonction.class: CoreBundle\Entity\Admin\Fonction
     core.entityname.fonction.class: 'CoreBundle\Entity\Admin\Fonction'
 
-    core.candidat_manager.class: CoreBundle\Services\Manager\CandidatManager
+    core.candidat_manager.class: CoreBundle\Services\Manager\Admin\CandidatManager
     core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
-
-    core.prosodie_odigo_manager.class: CoreBundle\Services\Manager\Applications\ProsodieOdigoManager
-    core.entity.prosodie_odigo.class: CoreBundle\Entity\Applications\ProsodieOdigo
-    core.entityname.prosodie_odigo.class: 'CoreBundle\Entity\Applications\ProsodieOdigo'
 
     core.parameters_calls.class: CoreBundle\Services\Manager\ParametersManager
     core.mouv_history.class: CoreBundle\Services\Manager\MouvHistoryManager
@@ -75,13 +71,6 @@ services:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
 
-
-    core.prosodie_odigo_manager:
-        class: %core.prosodie_odigo_manager.class%
-        parent: core.abstract_manager
-        calls:
-        - [setEntity, ["%core.entity.prosodie_odigo.class%"]]
-        - [setEntityName, ["%core.entityname.prosodie_odigo.class%"]]
 
     core.parameters_calls:
         class: %core.parameters_calls.class%

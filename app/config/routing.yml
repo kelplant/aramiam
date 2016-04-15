@@ -2,6 +2,22 @@ core:
     resource: "@CoreBundle/Resources/config/routing.yml"
     prefix:   /
 
+core_admin_annot:
+    resource: "@CoreBundle/Controller/Admin/"
+    type:     annotation
+
+core_app_salesforce_annot:
+    resource: "@CoreBundle/Controller/Applications/Salesforce/"
+    type:     annotation
+
+core_app_odigo_annot:
+    resource: "@CoreBundle/Controller/Applications/Odigo/"
+    type:     annotation
+
+core_apps_annot:
+    resource: "@CoreBundle/Controller/Applications/"
+    type:     annotation
+
 core_annot:
     resource: "@CoreBundle/Controller/"
     type:     annotation

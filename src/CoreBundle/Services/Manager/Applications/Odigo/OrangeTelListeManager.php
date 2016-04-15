@@ -3,7 +3,6 @@ namespace CoreBundle\Services\Manager\Applications\Odigo;
 
 use CoreBundle\Entity\Applications\Odigo\OrangeTelListe;
 use CoreBundle\Services\Manager\AbstractManager;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class OrangeTelListeManager

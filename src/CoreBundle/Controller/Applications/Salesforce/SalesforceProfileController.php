@@ -1,18 +1,17 @@
 <?php
+namespace CoreBundle\Controller\Applications\Salesforce;
 
-namespace CoreBundle\Controller;
-
-use CoreBundle\Entity\Applications\Odigo\OdigoTelListe;
-use CoreBundle\Form\Applications\Odigo\OdigoTelListeType;
+use CoreBundle\Entity\Applications\Salesforce\SalesforceProfile;
+use CoreBundle\Form\Applications\Salesforce\SalesforceProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class OdigoTelListeController
- * @package CoreBundle\Controller
+ * Class ProfileController
+ * @package CoreBundle\Controller\Applications\Salesforce
  */
-class OdigoTelListeController extends Controller
+class SalesforceProfileController extends Controller
 {
     private $itemToTemove;
 
@@ -23,16 +22,16 @@ class OdigoTelListeController extends Controller
     {
         $this->get('core.'.$service.'.controller_service')->setMessage('');
         $this->get('core.'.$service.'.controller_service')->setInsert('');
-        $this->get('core.'.$service.'.controller_service')->setEntity('OdigoTelListe');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity(OdigoTelListe::class);
-        $this->get('core.'.$service.'.controller_service')->setFormType(OdigoTelListeType::class);
-        $this->get('core.'.$service.'.controller_service')->setAlertText('cet numéro Odigo');
+        $this->get('core.'.$service.'.controller_service')->setEntity('SalesforceProfile');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(SalesforceProfile::class);
+        $this->get('core.'.$service.'.controller_service')->setFormType(SalesforceProfileType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('ce profile Salesforce');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
     }
 
     /**
-     * @Route(path="/app/odigo/odigo_tel_liste", name="odigo_tel_liste")
+     * @Route(path="/app/salesforce/profile_liste", name="salesforce_profile_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -43,36 +42,39 @@ class OdigoTelListeController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/app/odigo/odigo_tel_liste/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_odigotelliste")
+     * @Route(path="/app/salesforce/salesforce_profile/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_salesforceprofile")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
     {
         $this->initData('delete');
+        $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.odigotelliste_manager')->remove($this->itemToTemove));
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.salesforceprofile_manager')->remove($this->itemToTemove));
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
      * @param Request $request
-     * @Route(path="/app/odigo/odigo_tel_liste/add", name="form_exec_add_odigo_tel_liste")
+     * @Route(path="/app/salesforce/salesforce_profile/add", name="form_exec_add_salesforce_profile")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_addAction(Request $request)
     {
         $this->initData('add');
+        $this->initData('index');
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
      * @param Request $request
-     * @Route(path="/app/odigo/odigo_tel_liste/edit", name="form_exec_edit_odigo_tel_liste")
+     * @Route(path="/app/salesforce/salesforce_profile/edit", name="form_exec_edit_salesforce_profile")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_editAction(Request $request)
     {
         $this->initData('edit');
+        $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

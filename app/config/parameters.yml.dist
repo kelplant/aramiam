@@ -75,6 +75,21 @@ parameters:
         1:             'Erreur dans la création de l''utilisateur'
         6668:          'Utilisateur correctement supprimée'
         6667:          'Utilisateur correctement Mise à jour'
+    odigotelliste_insert_exceptions:
+        6669:          'Numéro Odigo correctement ajoutée'
+        1:             'Erreur dans la création du Numéro Odigo'
+        6668:          'Numéro Odigo correctement supprimée'
+        6667:          'Numéro Odigo correctement Mise à jour'
+    orangetelliste_insert_exceptions:
+        6669:          'Numéro Orange correctement ajoutée'
+        1:             'Erreur dans la création du Numéro Orange'
+        6668:          'Numéro Orange correctement supprimée'
+        6667:          'Numéro Orange correctement Mise à jour'
+    salesforceprofile_insert_exceptions:
+        6669:          'Profile Salesforce correctement ajoutée'
+        1:             'Erreur dans la création du Profile Salesforce'
+        6668:          'Profile Salesforce correctement supprimée'
+        6667:          'Profile Salesforce correctement Mise à jour'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

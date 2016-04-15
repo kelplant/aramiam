@@ -1,5 +1,5 @@
 <?php
-namespace CoreBundle\Controller;
+namespace CoreBundle\Controller\Admin;
 
 use CoreBundle\Entity\Admin\Candidat;
 use CoreBundle\Form\Admin\CandidatType;
@@ -70,6 +70,7 @@ class CandidatController extends Controller
     public function deleteAction(Request $request)
     {
         $this->initData('delete');
+        $this->initData('index');
         $this->get('core.delete.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
         $this->deleteOrArchive($request->query->get('isArchived'), $request);
 
@@ -84,6 +85,7 @@ class CandidatController extends Controller
     public function form_exec_addAction(Request $request)
     {
         $this->initData('add');
+        $this->initData('index');
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
@@ -95,6 +97,7 @@ class CandidatController extends Controller
     public function form_exec_editAction(Request $request)
     {
         $this->initData('edit');
+        $this->initData('index');
         if (is_null($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])) === false) {
             $this->get('core.zendesk_service')->updateStartDateTicket($this->get('core.app_zendesk_ticket_link_manager')->getNumTicket($request->request->get('candidat')['id'])->getTicketId(), date("Y-m-d", strtotime($request->request->get('candidat')['startDate'])));
         }

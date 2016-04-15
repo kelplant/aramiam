@@ -3,12 +3,15 @@ namespace CoreBundle\Services\Core;
 
 use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Entity\Admin\Candidat;
+use CoreBundle\Entity\Admin\Fonction;
+use CoreBundle\Form\Admin\FonctionType;
 /**
  * Class AddControllerService
  * @package CoreBundle\Services\Core
  */
 class AddControllerService extends AbstractControllerService
 {
+
     /**
      * @param Candidat $candidat
      * @return mixed

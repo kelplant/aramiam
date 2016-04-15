@@ -1,6 +1,7 @@
 <?php
-namespace CoreBundle\Services\Manager;
+namespace CoreBundle\Services\Manager\Admin;
 
+use CoreBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Candidat;
 use DateTime;
 

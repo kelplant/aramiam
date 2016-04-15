@@ -1,0 +1,51 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path('form_exec_add_orange_tel_liste') }}" method="post" class="form-horizontal" id="form-edit">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un Profile Salesforce</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="main_container">
+                        <input type="hidden" name="formAction" value="edit">
+                        {{ form_errors(formEdit) }}
+                        <div class="form-group">
+                            {{ form_label(formEdit.profileId) }}
+                            {{ form_errors(formEdit.profileId) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formEdit.profileId) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.profileName) }}
+                            {{ form_errors(formEdit.profileName) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formEdit.profileName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.userLicenseId) }}
+                            {{ form_errors(formEdit.userLicenseId) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formEdit.userLicenseId) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.userType) }}
+                            {{ form_errors(formEdit.userType) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(formEdit.userType) }}
+                            </div>
+                        </div>
+                        {{ form_row(formEdit.id) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

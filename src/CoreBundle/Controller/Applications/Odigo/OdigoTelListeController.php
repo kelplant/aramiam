@@ -1,17 +1,18 @@
 <?php
-namespace CoreBundle\Controller;
 
-use CoreBundle\Form\Admin\EntiteHoldingType;
-use CoreBundle\Entity\Admin\EntiteHolding;
+namespace CoreBundle\Controller\Applications\Odigo;
+
+use CoreBundle\Entity\Applications\Odigo\OdigoTelListe;
+use CoreBundle\Form\Applications\Odigo\OdigoTelListeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class ServiceController
+ * Class OdigoTelListeController
  * @package CoreBundle\Controller
  */
-class EntiteHoldingController extends Controller
+class OdigoTelListeController extends Controller
 {
     private $itemToTemove;
 
@@ -22,16 +23,16 @@ class EntiteHoldingController extends Controller
     {
         $this->get('core.'.$service.'.controller_service')->setMessage('');
         $this->get('core.'.$service.'.controller_service')->setInsert('');
-        $this->get('core.'.$service.'.controller_service')->setEntity('EntiteHolding');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity(EntiteHolding::class);
-        $this->get('core.'.$service.'.controller_service')->setFormType(EntiteHoldingType::class);
-        $this->get('core.'.$service.'.controller_service')->setAlertText('cette entité');
+        $this->get('core.'.$service.'.controller_service')->setEntity('OdigoTelListe');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(OdigoTelListe::class);
+        $this->get('core.'.$service.'.controller_service')->setFormType(OdigoTelListeType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('cet numéro Odigo');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**
-     * @Route(path="/admin/entite_holding", name="liste_des_entites_holding")
+     * @Route(path="/app/odigo/odigo_tel_liste", name="odigo_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -42,36 +43,39 @@ class EntiteHoldingController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/admin/entiteholding/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_entiteholding")
+     * @Route(path="/app/odigo/odigo_tel_liste/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_odigotelliste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
     {
         $this->initData('delete');
+        $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.entite_holding_manager')->remove($this->itemToTemove));
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.odigotelliste_manager')->remove($this->itemToTemove));
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
      * @param Request $request
-     * @Route(path="/admin/entiteholding/add", name="form_exec_add_entiteholding")
+     * @Route(path="/app/odigo/odigo_tel_liste/add", name="form_exec_add_odigo_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_addAction(Request $request)
     {
         $this->initData('add');
+        $this->initData('index');
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
      * @param Request $request
-     * @Route(path="/admin/entiteholding/edit", name="form_exec_edit_entiteholding")
+     * @Route(path="/app/odigo/odigo_tel_liste/edit", name="form_exec_edit_odigo_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_editAction(Request $request)
     {
         $this->initData('edit');
+        $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

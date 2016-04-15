@@ -1,6 +1,10 @@
 parameters:
     core.app_zendesk_ticket_link_manager.class: CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager
 
+    core.prosodie_odigo_manager.class: CoreBundle\Services\Manager\Applications\ProsodieOdigoManager
+    core.entity.prosodie_odigo.class: CoreBundle\Entity\Applications\ProsodieOdigo
+    core.entityname.prosodie_odigo.class: 'CoreBundle\Entity\Applications\ProsodieOdigo'
+
     core.app.odigo.odigo_num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OdigoTelListeManager
     core.entity.odigo_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OdigoTelListe
     core.entityname.odigo_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OdigoTelListe'
@@ -9,10 +13,22 @@ parameters:
     core.entity.orange_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OrangeTelListe
     core.entityname.orange_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OrangeTelListe'
 
+    core.app.salesforce.profile_manager.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceProfileManager
+    core.entity.salesforce_profile.class: CoreBundle\Entity\Applications\Salesforce\SalesforceProfile
+    core.entityname.salesforce_profile.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceProfile'
+
+
 services:
     core.app_zendesk_ticket_link_manager:
         class: %core.app_zendesk_ticket_link_manager.class%
         arguments: ['@doctrine']
+
+    core.prosodie_odigo_manager:
+        class: %core.prosodie_odigo_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.prosodie_odigo.class%"]]
+        - [setEntityName, ["%core.entityname.prosodie_odigo.class%"]]
 
     core.odigotelliste_manager:
         class: %core.app.odigo.odigo_num_tel_liste_manager.class%
@@ -27,3 +43,10 @@ services:
         calls:
         - [setEntity, ["%core.entity.orange_num_tel_liste_manager.class%"]]
         - [setEntityName, ["%core.entityname.orange_num_tel_liste_manager.class%"]]
+
+    core.salesforceprofile_manager:
+        class: %core.app.salesforce.profile_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.salesforce_profile.class%"]]
+        - [setEntityName, ["%core.entityname.salesforce_profile.class%"]]

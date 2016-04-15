@@ -159,7 +159,7 @@ class AjaxController extends Controller
      */
     public function addOdigoNumberViaFiles($lineToInsert)
     {
-        $test[] = explode(";",$lineToInsert);
+        $test[] = explode(";", $lineToInsert);
         return new JsonResponse($this->get('core.odigotelliste_manager')->addFromApi($test[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($test[0][1]), $this->get('core.fonction_manager')->returnIdFromOdigoName($test[0][2])));
     }
 
@@ -170,7 +170,7 @@ class AjaxController extends Controller
      */
     public function addOrangeNumberViaFiles($lineToInsert)
     {
-        $test[] = explode(";",$lineToInsert);
+        $test[] = explode(";", $lineToInsert);
         return new JsonResponse($this->get('core.orangetelliste_manager')->addFromApi($test[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($test[0][1])));
     }
 }

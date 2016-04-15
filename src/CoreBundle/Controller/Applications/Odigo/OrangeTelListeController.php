@@ -1,76 +1,81 @@
 <?php
-namespace CoreBundle\Controller;
 
-use CoreBundle\Form\Admin\UtilisateurType;
+namespace CoreBundle\Controller\Applications\Odigo;
+
+use CoreBundle\Entity\Applications\Odigo\OrangeTelListe;
+use CoreBundle\Form\Applications\Odigo\OrangeTelListeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request as Request;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class UtilisateurController
+ * Class OrangeTelListeController
  * @package CoreBundle\Controller
  */
-class UtilisateurController extends Controller
+class OrangeTelListeController extends Controller
 {
-    private $isArchived;
+    private $itemToTemove;
 
     /**
      *
      */
     private function initData($service)
     {
-        $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
         $this->get('core.'.$service.'.controller_service')->setMessage('');
         $this->get('core.'.$service.'.controller_service')->setInsert('');
-        $this->get('core.'.$service.'.controller_service')->setEntity('Utilisateur');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Utilisateur');
-        $this->get('core.'.$service.'.controller_service')->setFormType(UtilisateurType::class);
-        $this->get('core.'.$service.'.controller_service')->setAlertText('cet utilisateur');
-        $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);
+        $this->get('core.'.$service.'.controller_service')->setEntity('OrangeTelListe');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(OrangeTelListe::class);
+        $this->get('core.'.$service.'.controller_service')->setFormType(OrangeTelListeType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('cet numéro Orange');
+        $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
     }
 
     /**
-     * @Route(path="/admin/utilisateur", name="liste_des_utilisateurs")
+     * @Route(path="/app/odigo/orange_tel_liste", name="orange_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
         $this->initData('index');
-        return $this->get('core.index.controller_service')->generateIndexAction($this->isArchived);
+        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
     }
 
     /**
      * @param Request $request
-     * @Route(path="/admin/utilisateur/delete", name="remove_utilisateur")
+     * @Route(path="/app/odigo/orange_tel_liste/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_orangetelliste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
     {
         $this->initData('delete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        $this->initData('index');
+        $this->itemToTemove = $request->get('itemDelete');
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.orangetelliste_manager')->remove($this->itemToTemove));
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
      * @param Request $request
-     * @Route(path="/admin/utilisateur/add", name="form_exec_add_utilisateur")
+     * @Route(path="/app/odigo/orange_tel_liste/add", name="form_exec_add_orange_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_addAction(Request $request)
     {
         $this->initData('add');
+        $this->initData('index');
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
      * @param Request $request
-     * @Route(path="/admin/utilisateur/edit", name="form_exec_edit_utilisateur")
+     * @Route(path="/app/odigo/orange_tel_liste/edit", name="form_exec_edit_orange_tel_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_editAction(Request $request)
     {
         $this->initData('edit');
+        $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

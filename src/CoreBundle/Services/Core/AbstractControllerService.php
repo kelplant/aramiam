@@ -128,6 +128,7 @@ abstract class AbstractControllerService extends Controller
     private function getListIfCandidatOrUtilisateur($entity, $allItems)
     {
         $i = 0;
+        $item = null;
         foreach ($allItems as $item) {
             $this->ifFilterConvertService($item, $entity);
             $this->ifFilterConvertFonction($item, $entity);

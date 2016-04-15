@@ -7,6 +7,8 @@ namespace CoreBundle\Services\Core;
  */
 class DeleteControllerService extends AbstractControllerService
 {
+    protected $remove;
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -16,5 +18,15 @@ class DeleteControllerService extends AbstractControllerService
         $this->insert = $this->remove;
 
         return $this->getFullList($this->isArchived);
+    }
+
+    /**
+     * @param $remove
+     * @return $this
+     */
+    public function setRemove($remove)
+    {
+        $this->remove = $remove;
+        return $this;
     }
 }

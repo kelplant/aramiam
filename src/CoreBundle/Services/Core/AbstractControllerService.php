@@ -25,10 +25,6 @@ abstract class AbstractControllerService extends Controller
 
     protected $createFormArguments;
 
-    protected $remove;
-
-    protected $formItem;
-
     /**
      * @param $item
      * @return mixed
@@ -276,26 +272,6 @@ abstract class AbstractControllerService extends Controller
     public function setCreateFormArguments($createFormArguments)
     {
         $this->createFormArguments = $createFormArguments;
-        return $this;
-    }
-
-    /**
-     * @param $remove
-     * @return $this
-     */
-    public function setRemove($remove)
-    {
-        $this->remove = $remove;
-        return $this;
-    }
-
-    /**
-     * @param $formItem
-     * @return $this
-     */
-    public function setFormItem($formItem)
-    {
-        $this->formItem = $formItem;
         return $this;
     }
 }

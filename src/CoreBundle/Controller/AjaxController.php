@@ -84,12 +84,12 @@ class AjaxController extends Controller
 
     /**
      * @param $orangetellisteEdit
-     * @Route(path="/ajax/odigo_tel_liste/get/{odigotellisteEdit}",name="ajax_get_orangetelliste")
+     * @Route(path="/ajax/orange_tel_liste/get/{orangetellisteEdit}",name="ajax_get_orangetelliste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function orangeTelListeGetInfosIndex($orangetellisteEdit)
     {
-        return new JsonResponse($this->get('core.odigotelliste_manager')->createArray($orangetellisteEdit));
+        return new JsonResponse($this->get('core.orangetelliste_manager')->createArray($orangetellisteEdit));
     }
 
     /**
@@ -150,5 +150,16 @@ class AjaxController extends Controller
         } catch (Exception $e) {
             return new JsonResponse('nouser');
         }
+    }
+
+    /**
+     * @param $lineToInsert
+     * @Route(path="/ajax/insert/odigo/{lineToInsert}",name="ajax_insert_odigo_number")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addOdigoNumberViaFiles($lineToInsert)
+    {
+        $test[] = explode(";",$lineToInsert);
+        return new JsonResponse($this->get('core.odigotelliste_manager')->addFromApi($test[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($test[0][1]), $this->get('core.fonction_manager')->returnIdFromOdigoName($test[0][2])));
     }
 }

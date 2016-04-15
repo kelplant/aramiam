@@ -67,4 +67,25 @@ class OdigoTelListeManager extends AbstractManager
         $this->em->flush();
         return $numTel;
     }
+
+    /**
+     * @param $num
+     * @param $agence
+     * @param $fonction
+     * @return array
+     */
+    public function addFromApi($num, $agence, $fonction)
+    {
+        $itemToSet = new $this->entity;
+        try {
+            $itemToSet->setNumero($num);
+            $itemToSet->setService($agence);
+            $itemToSet->setFonction($fonction);
+            $itemToSet->setInUse('0');
+            $this->save($itemToSet);
+            return '1';
+        } catch (\Exception $e) {
+            return '0';
+        }
+    }
 }

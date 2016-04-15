@@ -3,103 +3,62 @@
  */
 // Fonction de chargement Standard Edit
 function ajaxCoreEdit(url, editItem) {
+    if (url == 'utilisateur') {
+        localStorage.setItem("emailState", null);
+        localStorage.setItem("ableToShowOdigo", null);
+    }
     urlajax ="/ajax/"+url+"/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var frm = $("#form-edit");
         var i;
         for (i in result) {
-            if (url == 'candidat' && i == 'predecesseur')
-            {
-                sessionStorage.setItem("currentPredecesseurId",result[i])
+            if (url == 'utilisateur') {
+                if (i == 'id') {
+                    localStorage.setItem("currentEditItem", result[i])
+                }
+                if (i == 'name') {
+                    localStorage.setItem("currentName", result[i])
+                }
+                if (i == 'surname') {
+                    localStorage.setItem("currentSurname", result[i])
+                }
+                if (i == 'service') {
+                    localStorage.setItem("service", result[i])
+                }
+                if (i == 'fonction') {
+                    localStorage.setItem("fonction", result[i])
+                }
+                if (i == 'isCreateInGmail') {
+                    localStorage.setItem("isCreateInGmail", result[i])
+                }
+                if (i == 'isCreateInOdigo') {
+                    localStorage.setItem("isCreateInOdigo", result[i])
+                }
+                if (i == 'isCreateInWindows') {
+                    localStorage.setItem("isCreateInWindows", result[i])
+                }
+                if (i == 'email') {
+                    localStorage.setItem("email", result[i])
+                }
             }
-            frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement de la liste de tel odigo pendant Edit
-function ajaxODigoTelListeEdit(editItem) {
-    urlajax ="/ajax/odigotelliste/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            frm.find('[name="odigo_tel_liste[' + i + ']"]').val(result[i]);
-        }
-    }});
-}
-
-// Fonction de chargement d'un Utilisateur pendant Edit
-function ajaxUtilisateurEdit(editItem) {
-    sessionStorage.setItem("emailState",null);
-    sessionStorage.setItem("ableToShowOdigo",null);
-    urlajax ="/ajax/utilisateur/get/"+editItem;
-    $.ajax({url:urlajax,success:function(result){
-        var frm = $("#form-edit");
-        var i;
-        for (i in result) {
-            if (i == 'id')
-            {
-                sessionStorage.setItem("currentEditItem",result[i])
+            if (url == 'candidat' && i == 'predecesseur') {
+                localStorage.setItem("currentPredecesseurId", result[i])
             }
-            if (i == 'name')
-            {
-                sessionStorage.setItem("currentName",result[i])
+            if (url == 'odigo_tel_liste' && i == 'inUse') {
+                document.forms[1].elements[5].checked = result[i];
+            } else if (url == 'orange_tel_liste' && i == 'inUse'){
+                document.forms[1].elements[4].checked =  result[i];
             }
-            if (i == 'surname')
-            {
-                sessionStorage.setItem("currentSurname",result[i])
+            else {
+                frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
             }
-            if (i == 'service')
-            {
-                sessionStorage.setItem("service",result[i])
-            }
-            if (i == 'fonction')
-            {
-                sessionStorage.setItem("fonction",result[i])
-            }
-            if (i == 'isCreateInGmail')
-            {
-                sessionStorage.setItem("isCreateInGmail",result[i])
-            }
-            if (i == 'isCreateInOdigo')
-            {
-                sessionStorage.setItem("isCreateInOdigo",result[i])
-            }
-            if (i == 'isCreateInWindows')
-            {
-                sessionStorage.setItem("isCreateInWindows",result[i])
-            }
-            if (i == 'email')
-            {
-                sessionStorage.setItem("email",result[i])
-            }
-            frm.find('[name="utilisateur[' + i + ']"]').val(result[i]);
         }
     }});
 }
 
 // Fonction de mise en session du user éditer en cours
 function resetEditItem() {
-    sessionStorage.setItem("currentEditItem",null);
-    sessionStorage.setItem("currentName",null);
-    sessionStorage.setItem("currentSurname",null);
-    sessionStorage.setItem("service",null);
-    sessionStorage.setItem("fonction",null);
-    sessionStorage.setItem("isCreateInGmail",null);
-    sessionStorage.setItem("isCreateInOdigo",null);
-    sessionStorage.setItem("isCreateInWindows",null);
-    sessionStorage.setItem("email",null);
-    sessionStorage.setItem("emailState",null);
-    sessionStorage.setItem("ableToShowOdigo",null);
-}
-
-
-function getMeElem(elem)
-{
-    var liste;
-    liste = document.getElementById(elem);
-    return liste.options[liste.selectedIndex].value;
+    localStorage.clear();
 }
 
 // Fonction de chargement du bloc Windows
@@ -114,10 +73,10 @@ function ajaxGenerateWindows() {
     $('#windowsToggle').addClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
-    if (sessionStorage.getItem("isCreateInWindows") == 0) {
+    if (localStorage.getItem("isCreateInWindows") == 0) {
         $('#loading').removeClass('hide').addClass('show');
-        var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-        var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+        var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+        var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
         document.getElementById("windows_identifiant").value = prenom+nom;
         $('#loading').addClass('hide').removeClass('show');
         $('#createActionWindowsPart').addClass('show').removeClass('hide');
@@ -165,12 +124,12 @@ function ajaxGenerateEmail() {
     $('#odigoToggle').removeClass('active');
     $('#gmailToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
-    urlajax = "/ajax/check/google/isexist/" + sessionStorage.getItem("email");
+    urlajax = "/ajax/check/google/isexist/" + localStorage.getItem("email");
     $.ajax({
         url: urlajax, success: function (result) {
-            sessionStorage.setItem("emailState",result);
-            if (sessionStorage.getItem("emailState") == "nouser") {
-                var currentEditItem = sessionStorage.getItem("currentEditItem");
+            localStorage.setItem("emailState",result);
+            if (localStorage.getItem("emailState") == "nouser") {
+                var currentEditItem = localStorage.getItem("currentEditItem");
                 urlajax ="/ajax/generate/email/"+currentEditItem;
                 $.ajax({
                     url:urlajax,success:function(result) {
@@ -202,17 +161,17 @@ function ajaxGenerateOdigo() {
     $('#salesforceToggle').removeClass('active');
     $('#odigoToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
-    var service = sessionStorage.getItem("service");
-    var fonction = sessionStorage.getItem("fonction");
+    var service = localStorage.getItem("service");
+    var fonction = localStorage.getItem("fonction");
     urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
     $.ajax({
         url: urlajax, success: function (result) {
-            sessionStorage.setItem("ableToShowOdigo",result)
-            if (sessionStorage.getItem("isCreateInOdigo") == 0 && sessionStorage.getItem("ableToShowOdigo") == 1) {
-                var nom = sessionStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-                var prenom = sessionStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+            localStorage.setItem("ableToShowOdigo",result)
+            if (localStorage.getItem("isCreateInOdigo") == 0 && localStorage.getItem("ableToShowOdigo") == 1) {
+                var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+                var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
                 document.getElementById("prosodie_identifiant").value = prenom+nom;
-                var currentEditItem = sessionStorage.getItem("currentEditItem");
+                var currentEditItem = localStorage.getItem("currentEditItem");
                 urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
                 $.ajax({
                     url: urlajax, success: function (result) {
@@ -269,13 +228,13 @@ function showOtherNum() {
 
 // Fonction de lien vers le predecesseur
 function setViewUtilisateur(){
-    var currentEditItem = sessionStorage.getItem("currentPredecesseurId");
-    sessionStorage.setItem("currentEditItem",currentEditItem);
+    var currentEditItem = localStorage.getItem("currentPredecesseurId");
+    localStorage.setItem("currentEditItem",currentEditItem);
     window.location = "/admin/utilisateur?isArchived=0";
 }
 
 function ajaxCreateViaAPI() {
-    var currentEditItem = sessionStorage.getItem("currentEditItem");
+    var currentEditItem = localStorage.getItem("currentEditItem");
 }
 
 // Fonction Show Password
@@ -308,4 +267,52 @@ function generatePassword()
         }
     }
     document.getElementById("utilisateur_mainPassword").value = randomstring;
+}
+
+function processOdigoCsvFile() {
+    $('#progressBarOdigoBulkImportDiv').addClass('show').removeClass('hide');
+    $('#fileSelectDiv').addClass('hide');
+    $('#fileUploadInfos').addClass('hide');
+    $('#upload').addClass('hide');
+    document.getElementById('progressBarOdigoBulkImport').innerHTML = '0%';
+    var fileUpload = document.getElementById("fileUpload");
+    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+    if (regex.test(fileUpload.value.toLowerCase())) {
+        if (typeof (FileReader) != "undefined") {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var rows = e.target.result.split("\n");
+                var totalRows = rows.length - 1;
+                localStorage.setItem("totalRows", totalRows);
+                var successRows = 0;
+                var currentRow = 0;
+                for (var i = 1; i < rows.length; i++) {
+                    var cells = rows[i].split(",");
+                    urlajax = "/ajax/insert/odigo/" + cells;
+                    $.ajax({
+                        url: urlajax, success: function (result) {
+                            currentRow = parseInt(currentRow) + parseInt('1');
+                            var reglede3 = Math.round(parseInt(currentRow) * parseInt('100') / parseInt(totalRows)).toString();
+                            document.getElementById('progressBarOdigoBulkImport').innerHTML = reglede3+'%';
+                            $('#progressBarOdigoBulkImport').width(reglede3+'%').attr('aria-valuenow', reglede3);
+                            successRows = parseInt(successRows) + parseInt(result);
+                            if (parseInt(currentRow) == parseInt(totalRows))
+                            {
+                                localStorage.setItem("successRows",successRows);
+                                $('#resultInsertFile').addClass('show').removeClass('hide');
+                                document.getElementById('resultInsertFile').innerHTML = localStorage.getItem("successRows")+"/"+localStorage.getItem("totalRows")+' correctement inséré(s)';
+                                $('#progressBarOdigoBulkImport').removeClass('active');
+                            }
+                        }
+                    });
+
+                }
+            }
+            reader.readAsText(fileUpload.files[0]);
+        } else {
+            alert("This browser does not support HTML5.");
+        }
+    } else {
+        alert("Please upload a valid CSV file.");
+    }
 }

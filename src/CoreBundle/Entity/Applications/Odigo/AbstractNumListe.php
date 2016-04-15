@@ -15,7 +15,7 @@ abstract class AbstractNumListe
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, unique=true)
      */
     protected $numero;
 

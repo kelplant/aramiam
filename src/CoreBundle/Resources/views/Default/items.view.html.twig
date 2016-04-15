@@ -16,7 +16,16 @@
 
             <div class="row">
                 <div class="col-md-12">
-                      <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">{% block title %}{% endblock %}<button type="button" class="btn btn-primary btn-success pull-right font_exo_2" data-toggle="modal" data-target="#modalAdd" id="addForm"><i class="fa fa-plus"></i> Nouveau</button></div>
+                      <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">
+                          {% block title %}{% endblock %}
+                          <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
+                              <i class="fa fa-plus"></i> Nouveau
+                          </button>
+                          {% if entity == 'odigo_tel_liste' %}
+                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
+                                  <i class="fa fa-plus"></i> Add Batch</button>
+                          {% endif %}
+                      </div>
                     {% if message is defined %}
                         {% if message is not null %}
                             <div class="form-group">

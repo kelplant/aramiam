@@ -17,7 +17,7 @@
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxUtilisateurEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                     <input type='hidden' value='' id='ref_id_bouton'>

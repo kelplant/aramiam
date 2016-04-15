@@ -1,6 +1,6 @@
 {% extends '@Core/Default/items.view.html.twig' %}
-    {% block title %} Liste des Agences {% endblock %}
-    {% block breadcrumb %} Liste des Agences {% endblock %}
+    {% block title %} Liste des Numéros Odigo {% endblock %}
+    {% block breadcrumb %} Liste des Numéros Odigo {% endblock %}
     {% block corps_table_title %}
         <th class="admin_cat_table_title">Numero</th>
         <th class="admin_cat_table_title">Service</th>
@@ -33,6 +33,8 @@
         {% embed "CoreBundle:OdigoTelListe:add.body.html.twig"  %}
         {% endembed %}
 
+        {% embed "CoreBundle:OdigoTelListe:addViaFile.body.html.twig"  %}
+        {% endembed %}
 
         {% embed "CoreBundle:OdigoTelListe:edit.body.html.twig"  %}
         {% endembed %}
@@ -40,5 +42,28 @@
     {% endblock %}
 
     {% block javascripts %}
+    <script>
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+    </script>
+        <script>
+            $(document).ready( function() {
+                $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 
+                    var input = $(this).parents('.input-group').find(':text'),
+                            log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                    if( input.length ) {
+                        input.val(log);
+                    } else {
+                        if( log ) alert(log);
+                    }
+
+                });
+            });
+        </script>
     {% endblock %}

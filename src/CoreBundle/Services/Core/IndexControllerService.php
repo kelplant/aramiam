@@ -5,6 +5,29 @@ namespace CoreBundle\Services\Core;
 class IndexControllerService extends AbstractControllerService
 {
     /**
+     * @param $entity
+     * @param $allItems
+     * @return mixed
+     */
+    private function getListIfCandidatOrUtilisateur($entity, $allItems)
+    {
+        $i = 0;
+        $item = null;
+        foreach ($allItems as $item) {
+            $this->ifFilterConvertService($item, $entity);
+            $this->ifFilterConvertFonction($item, $entity);
+            $this->ifFilterConvertAgence($item, $entity);
+            $i++;
+        }
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            $allItems = $this->filterView($allItems, $item, '0', $i);
+            $allItems = $this->filterView($allItems, $item, '1', $i);
+            $allItems = $this->filterView($allItems, $item, '2', $i);
+        }
+        return $allItems;
+    }
+
+    /**
      * @param $isArchived
      * @return \Symfony\Component\HttpFoundation\Response
      */

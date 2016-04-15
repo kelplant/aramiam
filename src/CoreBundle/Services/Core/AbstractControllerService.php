@@ -85,7 +85,7 @@ abstract class AbstractControllerService extends Controller
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertService($service, $entity)
+    protected function ifFilterConvertService($service, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
             return $service->setService($this->getConvertion('service', $service->getService())->getName());
@@ -99,7 +99,7 @@ abstract class AbstractControllerService extends Controller
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertFonction($fonction, $entity)
+    protected function ifFilterConvertFonction($fonction, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
             return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
@@ -113,34 +113,11 @@ abstract class AbstractControllerService extends Controller
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertAgence($agence, $entity)
+    protected function ifFilterConvertAgence($agence, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
             $agence->setAgence($this->getConvertion('agence', $agence->getAgence())->getName());
         }
-    }
-
-    /**
-     * @param $entity
-     * @param $allItems
-     * @return mixed
-     */
-    protected function getListIfCandidatOrUtilisateur($entity, $allItems)
-    {
-        $i = 0;
-        $item = null;
-        foreach ($allItems as $item) {
-            $this->ifFilterConvertService($item, $entity);
-            $this->ifFilterConvertFonction($item, $entity);
-            $this->ifFilterConvertAgence($item, $entity);
-            $i++;
-        }
-        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            $allItems = $this->filterView($allItems, $item, '0', $i);
-            $allItems = $this->filterView($allItems, $item, '1', $i);
-            $allItems = $this->filterView($allItems, $item, '2', $i);
-        }
-        return $allItems;
     }
 
     /**
@@ -150,7 +127,7 @@ abstract class AbstractControllerService extends Controller
      * @param integer $i
      * @return mixed
      */
-    private function filterView($allItems, $item, $number, $i)
+    protected function filterView($allItems, $item, $number, $i)
     {
         if ($item->getIsArchived() != $number && $this->isArchived == $number) {
             unset($allItems[$i]);

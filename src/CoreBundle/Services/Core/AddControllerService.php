@@ -34,6 +34,6 @@ class AddControllerService extends AbstractControllerService
         if ($this->entity == 'Candidat') {
             $this->executeCreateTicket($return['item']);
         }
-        return $this->getFullList($this->isArchived);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }
 }

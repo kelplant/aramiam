@@ -128,6 +128,6 @@ class EditControllerService extends AbstractControllerService
             $this->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request);
             $this->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request);
         }
-        return $this->getFullList($this->isArchived);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }
 }

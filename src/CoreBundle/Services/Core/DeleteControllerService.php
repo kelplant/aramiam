@@ -17,7 +17,7 @@ class DeleteControllerService extends AbstractControllerService
         $this->message = $this->generateMessage($this->remove);
         $this->insert = $this->remove;
 
-        return $this->getFullList($this->isArchived);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }
 
     /**

@@ -125,7 +125,7 @@ abstract class AbstractControllerService extends Controller
      * @param $allItems
      * @return mixed
      */
-    private function getListIfCandidatOrUtilisateur($entity, $allItems)
+    protected function getListIfCandidatOrUtilisateur($entity, $allItems)
     {
         $i = 0;
         $item = null;
@@ -171,29 +171,6 @@ abstract class AbstractControllerService extends Controller
         $listeChoices['listeEntites'] = $this->get("core.entite_holding_manager")->createList();
 
         return $listeChoices;
-    }
-
-    /**
-     * @param $isArchived
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getFullList($isArchived)
-    {
-        $formAdd = $this->generateForm();
-        $formEdit = $this->generateForm();
-        $allItems = $this->getListIfCandidatOrUtilisateur($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
-
-        return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
-            'all' => $allItems,
-            'message' => $this->message,
-            'code_message' => $this->insert,
-            'remove_path' => 'remove_'.strtolower($this->entity),
-            'alert_text' => $this->alertText,
-            'is_archived' => $isArchived,
-            'entity' => strtolower($this->checkFormEntity($this->entity)),
-            'formAdd' => $formAdd->createView(),
-            'formEdit' => $formEdit->createView(),
-        ));
     }
 
     /**

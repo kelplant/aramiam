@@ -12,7 +12,6 @@ security:
 
     firewalls:
         main:
-            pattern: ^/saml
             light_saml_sp:
                 provider: db_provider       # user provider name configured in step 9
                 user_creator: user_creator  # name of the user creator service created in step 10
@@ -20,6 +19,7 @@ security:
                 check_path: /saml/login_check
             logout:
                 path: /logout
+                target: https://adfs.clphoto.fr:3890/adfs/ls/?wa=wsignout1.0
             anonymous: ~
         fos:
             pattern: ^/
@@ -39,8 +39,7 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/manual/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/agences/, role: ROLE_SUPER_ADMIN }
         - { path: ^/admin/fonctions/, role: ROLE_ADMIN }
         - { path: ^/admin/services/, role: ROLE_SUPER_ADMIN }

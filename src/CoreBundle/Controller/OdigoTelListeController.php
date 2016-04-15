@@ -48,8 +48,10 @@ class OdigoTelListeController extends Controller
      */
     public function deleteAction(Request $request)
     {
-        $this->initData('index');
-        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
+        $this->initData('delete');
+        $this->itemToTemove = $request->get('itemDelete');
+        $this->get('core.delete.controller_service')->setRemove($this->get('core.odigotelliste_manager')->remove($this->itemToTemove));
+        return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
     /**
@@ -59,8 +61,8 @@ class OdigoTelListeController extends Controller
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData('index');
-        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
+        $this->initData('add');
+        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
     /**
@@ -70,7 +72,7 @@ class OdigoTelListeController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData('index');
-        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
+        $this->initData('edit');
+        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
 }

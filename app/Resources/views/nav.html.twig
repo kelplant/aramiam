@@ -75,9 +75,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('fos_user_security_logout') }}" class="font_exo_2">Déconnexion</a>
+                        <a href="{{ path('logout') }}" class="font_exo_2">Déconnexion</a>
                     {% else %}
-                        <a href="{{ path('fos_user_security_login') }}" class="font_exo_2">Connexion</a>
+                        <a href="{{ path('logout') }}" class="font_exo_2">Connexion</a>
                     {% endif %}
                 </li>
             </ul>

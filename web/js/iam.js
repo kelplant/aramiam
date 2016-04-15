@@ -269,12 +269,13 @@ function generatePassword()
     document.getElementById("utilisateur_mainPassword").value = randomstring;
 }
 
-function processOdigoCsvFile() {
-    $('#progressBarOdigoBulkImportDiv').addClass('show').removeClass('hide');
+// Fonction Process Bulk Import Orange Numbers
+function processCsvFile(url) {
+    $('#progressBarBulkImportDiv').addClass('show').removeClass('hide');
     $('#fileSelectDiv').addClass('hide');
     $('#fileUploadInfos').addClass('hide');
     $('#upload').addClass('hide');
-    document.getElementById('progressBarOdigoBulkImport').innerHTML = '0%';
+    document.getElementById('progressBarBulkImport').innerHTML = '0%';
     var fileUpload = document.getElementById("fileUpload");
     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
     if (regex.test(fileUpload.value.toLowerCase())) {
@@ -288,20 +289,20 @@ function processOdigoCsvFile() {
                 var currentRow = 0;
                 for (var i = 1; i < rows.length; i++) {
                     var cells = rows[i].split(",");
-                    urlajax = "/ajax/insert/odigo/" + cells;
+                    urlajax = url + cells;
                     $.ajax({
                         url: urlajax, success: function (result) {
                             currentRow = parseInt(currentRow) + parseInt('1');
                             var reglede3 = Math.round(parseInt(currentRow) * parseInt('100') / parseInt(totalRows)).toString();
-                            document.getElementById('progressBarOdigoBulkImport').innerHTML = reglede3+'%';
-                            $('#progressBarOdigoBulkImport').width(reglede3+'%').attr('aria-valuenow', reglede3);
+                            document.getElementById('progressBarBulkImport').innerHTML = reglede3+'%';
+                            $('#progressBarBulkImport').width(reglede3+'%').attr('aria-valuenow', reglede3);
                             successRows = parseInt(successRows) + parseInt(result);
                             if (parseInt(currentRow) == parseInt(totalRows))
                             {
                                 localStorage.setItem("successRows",successRows);
                                 $('#resultInsertFile').addClass('show').removeClass('hide');
                                 document.getElementById('resultInsertFile').innerHTML = localStorage.getItem("successRows")+"/"+localStorage.getItem("totalRows")+' correctement inséré(s)';
-                                $('#progressBarOdigoBulkImport').removeClass('active');
+                                $('#progressBarBulkImport').removeClass('active');
                             }
                         }
                     });

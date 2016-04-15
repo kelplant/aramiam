@@ -64,4 +64,23 @@ class OrangeTelListeManager extends AbstractManager
         $this->em->flush();
         return $numTel;
     }
+
+    /**
+     * @param $num
+     * @param $service
+     * @return array
+     */
+    public function addFromApi($num, $service)
+    {
+        $itemToSet = new $this->entity;
+        try {
+            $itemToSet->setNumero($num);
+            $itemToSet->setService($service);
+            $itemToSet->setInUse('0');
+            $this->save($itemToSet);
+            return '1';
+        } catch (\Exception $e) {
+            return '0';
+        }
+    }
 }

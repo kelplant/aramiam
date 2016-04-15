@@ -70,16 +70,16 @@ class OdigoTelListeManager extends AbstractManager
 
     /**
      * @param $num
-     * @param $agence
+     * @param $service
      * @param $fonction
      * @return array
      */
-    public function addFromApi($num, $agence, $fonction)
+    public function addFromApi($num, $service, $fonction)
     {
         $itemToSet = new $this->entity;
         try {
             $itemToSet->setNumero($num);
-            $itemToSet->setService($agence);
+            $itemToSet->setService($service);
             $itemToSet->setFonction($fonction);
             $itemToSet->setInUse('0');
             $this->save($itemToSet);

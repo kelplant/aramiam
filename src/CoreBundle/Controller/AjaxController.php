@@ -162,4 +162,15 @@ class AjaxController extends Controller
         $test[] = explode(";",$lineToInsert);
         return new JsonResponse($this->get('core.odigotelliste_manager')->addFromApi($test[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($test[0][1]), $this->get('core.fonction_manager')->returnIdFromOdigoName($test[0][2])));
     }
+
+    /**
+     * @param $lineToInsert
+     * @Route(path="/ajax/insert/orange/{lineToInsert}",name="ajax_insert_orange_number")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addOrangeNumberViaFiles($lineToInsert)
+    {
+        $test[] = explode(";",$lineToInsert);
+        return new JsonResponse($this->get('core.orangetelliste_manager')->addFromApi($test[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($test[0][1])));
+    }
 }

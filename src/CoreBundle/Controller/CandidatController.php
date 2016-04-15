@@ -29,7 +29,7 @@ class CandidatController extends Controller
                 return null;
             }
         } elseif ($isArchived == 1) {
-            return $this->get('core.delete.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
+            return $this->get('core.add.controller_service')->executeCreateTicket($this->get('core.candidat_manager')->loadCandidat($request->query->get('itemDelete')));
         } else {
             return null;
         }

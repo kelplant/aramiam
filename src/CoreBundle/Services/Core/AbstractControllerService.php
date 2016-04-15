@@ -80,11 +80,8 @@ abstract class AbstractControllerService extends Controller
      */
     protected function checkFormEntity($entity)
     {
-        $majInEntity = preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE);
-        if ($majInEntity > 1) {
-            for ($i = 1; $i <= $majInEntity - 1; $i++) {
-                var_dump($entity = str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], $entity));
-            }
+        for ($i = 1; $i <= preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE) - 1; $i++) {
+            $entity = str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], $entity);
         }
         return $entity;
     }
@@ -137,7 +134,6 @@ abstract class AbstractControllerService extends Controller
     private function getListIfCandidatOrUtilisateur($entity, $allItems)
     {
         $i = 0;
-
         foreach ($allItems as $item) {
             $this->ifFilterConvertService($item, $entity);
             $this->ifFilterConvertFonction($item, $entity);

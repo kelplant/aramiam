@@ -45,11 +45,11 @@ class SalesforceProfileManager extends AbstractManager
      */
     public function truncateTable()
     {
-        $connection = $this->em->getConnection();
+        $connection = $this->managerRegistry->getConnection();
         $platform  = $connection->getDatabasePlatform();
 
         try {
-            return $connection->executeUpdate($platform->getTruncateTableSQL('core_app_salesforce_profile', true /* whether to cascade */));
+            return $connection->executeUpdate($platform->getTruncateTableSQL('core_app_salesforce_profile', true));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

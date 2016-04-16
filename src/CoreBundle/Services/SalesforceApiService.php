@@ -107,7 +107,6 @@ class SalesforceApiService
      */
     public function getAccountByUsername($emailToLook, $params)
     {
-        var_dump($_SESSION['access_token']);
         $query = "SELECT Id,Username FROM User WHERE Username = '".$emailToLook."'";
         return $this->executeQuery($query, $params);
     }

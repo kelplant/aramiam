@@ -166,7 +166,7 @@ function ajaxGenerateOdigo() {
     urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
     $.ajax({
         url: urlajax, success: function (result) {
-            localStorage.setItem("ableToShowOdigo",result)
+            localStorage.setItem("ableToShowOdigo",result);
             if (localStorage.getItem("isCreateInOdigo") == 0 && localStorage.getItem("ableToShowOdigo") == 1) {
                 var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
                 var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
@@ -308,7 +308,7 @@ function processCsvFile(url) {
                     });
 
                 }
-            }
+            };
             reader.readAsText(fileUpload.files[0]);
         } else {
             alert("This browser does not support HTML5.");
@@ -316,4 +316,24 @@ function processCsvFile(url) {
     } else {
         alert("Please upload a valid CSV file.");
     }
+}
+
+//Fonction de rechargement des profiles Sf
+function reloadProfilesFromSf()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadSfProfiles").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/salesforce/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadSfProfiles").removeClass("hide").addClass("show");
+                    window.location = "/app/salesforce/profile_liste";
+                }
+            });
+        }
+    });
 }

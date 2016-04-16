@@ -25,6 +25,11 @@
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
                                   <i class="fa fa-plus"></i> Add Batch</button>
                           {% endif %}
+                          {% if entity == 'salesforce_profile' %}
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Wait</button>
+                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadSfProfiles" onclick="reloadProfilesFromSf();">
+                                  <i class="fa fa-plus"></i> Reload From Sf</button>
+                          {% endif %}
                       </div>
                     {% if message is defined %}
                         {% if message is not null %}

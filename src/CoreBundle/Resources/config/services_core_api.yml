@@ -4,6 +4,9 @@ parameters:
     core.google_api_service.class: CoreBundle\Services\GoogleApiService
     core.odigo_api_service.class: CoreBundle\Services\OdigoApiService
     core.active_directory_api_service.class: CoreBundle\Services\ActiveDirectoryApiService
+    core.salesforce_api_service.class: CoreBundle\Services\SalesforceApiService
+
+    security.acces_service.class: CoreBundle\Services\Security\AccesService
 
 services:
     core.curl_wrap:
@@ -24,5 +27,13 @@ services:
         calls:
         - [ setContainer , [ "@service_container" ]]
 
+    core.salesforce_api_service:
+        class: %core.salesforce_api_service.class%
+
     core.active_directory_api_service:
         class: %core.active_directory_api_service.class%
+
+    security.acces_service:
+        class: %security.acces_service.class%
+        calls:
+        - [ setContainer , [ "@service_container" ]]

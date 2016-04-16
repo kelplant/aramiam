@@ -12,6 +12,7 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
+
     core.delete.controller_service:
         class: %core.delete.controller_service.class%
         parent: core.abstract.controller_service

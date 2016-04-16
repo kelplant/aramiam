@@ -29,6 +29,7 @@ services:
 
     core.salesforce_api_service:
         class: %core.salesforce_api_service.class%
+        arguments: ['@core.salesforcetoken_store', '@security.token_storage']
 
     core.active_directory_api_service:
         class: %core.active_directory_api_service.class%

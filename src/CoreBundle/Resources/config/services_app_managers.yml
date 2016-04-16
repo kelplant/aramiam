@@ -6,17 +6,20 @@ parameters:
     core.entityname.prosodie_odigo.class: 'CoreBundle\Entity\Applications\ProsodieOdigo'
 
     core.app.odigo.odigo_num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OdigoTelListeManager
-    core.entity.odigo_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OdigoTelListe
-    core.entityname.odigo_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OdigoTelListe'
+    core.entity.odigo.odigo_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OdigoTelListe
+    core.entityname.odigo.odigo_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OdigoTelListe'
 
     core.app.odigo.orange_num_tel_liste_manager.class: CoreBundle\Services\Manager\Applications\Odigo\OrangeTelListeManager
-    core.entity.orange_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OrangeTelListe
-    core.entityname.orange_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OrangeTelListe'
+    core.entity.odigo.orange_num_tel_liste_manager.class: CoreBundle\Entity\Applications\Odigo\OrangeTelListe
+    core.entityname.odigo.orange_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OrangeTelListe'
 
     core.app.salesforce.profile_manager.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceProfileManager
-    core.entity.salesforce_profile.class: CoreBundle\Entity\Applications\Salesforce\SalesforceProfile
-    core.entityname.salesforce_profile.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceProfile'
+    core.entity.salesforce.profile.class: CoreBundle\Entity\Applications\Salesforce\SalesforceProfile
+    core.entityname.salesforce.profile.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceProfile'
 
+    core.app.salesforce.token_store.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager
+    core.entity.salesforce.token_store.class: CoreBundle\Entity\Applications\Salesforce\SalesforceTokenStore
+    core.entityname.salesforce.token_store.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceTokenStore'
 
 services:
     core.app_zendesk_ticket_link_manager:
@@ -34,19 +37,26 @@ services:
         class: %core.app.odigo.odigo_num_tel_liste_manager.class%
         parent: core.abstract_manager
         calls:
-        - [setEntity, ["%core.entity.odigo_num_tel_liste_manager.class%"]]
-        - [setEntityName, ["%core.entityname.odigo_num_tel_liste_manager.class%"]]
+        - [setEntity, ["%core.entity.odigo.odigo_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%core.entityname.odigo.odigo_num_tel_liste_manager.class%"]]
 
     core.orangetelliste_manager:
         class: %core.app.odigo.orange_num_tel_liste_manager.class%
         parent: core.abstract_manager
         calls:
-        - [setEntity, ["%core.entity.orange_num_tel_liste_manager.class%"]]
-        - [setEntityName, ["%core.entityname.orange_num_tel_liste_manager.class%"]]
+        - [setEntity, ["%core.entity.odigo.orange_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%core.entityname.odigo.orange_num_tel_liste_manager.class%"]]
 
     core.salesforceprofile_manager:
         class: %core.app.salesforce.profile_manager.class%
         parent: core.abstract_manager
         calls:
-        - [setEntity, ["%core.entity.salesforce_profile.class%"]]
-        - [setEntityName, ["%core.entityname.salesforce_profile.class%"]]
+        - [setEntity, ["%core.entity.salesforce.profile.class%"]]
+        - [setEntityName, ["%core.entityname.salesforce.profile.class%"]]
+
+    core.salesforcetoken_store:
+        class: %core.app.salesforce.token_store.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.salesforce.token_store.class%"]]
+        - [setEntityName, ["%core.entityname.salesforce.token_store.class%"]]

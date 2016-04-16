@@ -23,7 +23,7 @@ class SalesforceApiService
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @return resource
      */
     private function curlInitAndHeader($url)
@@ -42,16 +42,16 @@ class SalesforceApiService
     {
         $loginurl = "https://test.salesforce.com/services/oauth2/token";
         $params = "grant_type=password"
-            . "&client_id=" . $params['consumerKey']
-            . "&client_secret=" . $params['secret']
-            . "&username=" . $params['username']
-            . "&password=" . $params['password'];
+            . "&client_id=".$params['consumerKey']
+            . "&client_secret=".$params['secret']
+            . "&username=".$params['username']
+            . "&password=".$params['password'];
         $curl = $this->curlInitAndHeader($loginurl);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
         $jsonDecoded = json_decode(curl_exec($curl));
 
-        return $this->tokenManager->add(array('username' => $this->securityContext->getToken()->getUser()->getUsername(),'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
+        return $this->tokenManager->add(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
     }
 
     /**
@@ -72,7 +72,7 @@ class SalesforceApiService
     }
 
     /**
-     * @param $query
+     * @param string $query
      * @param $params
      * @return mixed|string
      */

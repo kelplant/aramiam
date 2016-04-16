@@ -6,6 +6,7 @@ use CoreBundle\Entity\Admin\Agence;
 use CoreBundle\Form\Admin\AgenceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -77,5 +78,15 @@ class AgenceController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $agenceEdit
+     * @Route(path="/ajax/agence/get/{agenceEdit}",name="ajax_get_agence")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function agenceGetInfosIndex($agenceEdit)
+    {
+        return new JsonResponse($this->get('core.agence_manager')->createArray($agenceEdit));
     }
 }

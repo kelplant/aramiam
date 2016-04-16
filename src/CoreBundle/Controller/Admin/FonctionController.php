@@ -6,6 +6,7 @@ use CoreBundle\Entity\Admin\Fonction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class FonctionController
@@ -76,5 +77,15 @@ class FonctionController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $fonctionEdit
+     * @Route(path="/ajax/fonction/get/{fonctionEdit}",name="ajax_get_fonction")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function fonctionGetInfosIndex($fonctionEdit)
+    {
+        return new JsonResponse($this->get('core.fonction_manager')->createArray($fonctionEdit));
     }
 }

@@ -5,6 +5,7 @@ use CoreBundle\Form\Admin\EntiteHoldingType;
 use CoreBundle\Entity\Admin\EntiteHolding;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -76,5 +77,15 @@ class EntiteHoldingController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $entiteHoldingEdit
+     * @Route(path="/ajax/entite_holding/get/{entiteHoldingEdit}",name="ajax_get_entite_holding")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function entiteHoldingGetInfosIndex($entiteHoldingEdit)
+    {
+        return new JsonResponse($this->get('core.entite_holding_manager')->createArray($entiteHoldingEdit));
     }
 }

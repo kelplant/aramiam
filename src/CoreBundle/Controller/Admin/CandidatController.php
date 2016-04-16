@@ -5,6 +5,7 @@ use CoreBundle\Entity\Admin\Candidat;
 use CoreBundle\Form\Admin\CandidatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -103,5 +104,15 @@ class CandidatController extends Controller
         }
 
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $candidatEdit
+     * @Route(path="/ajax/candidat/get/{candidatEdit}",name="ajax_get_candidat")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function candidatGetInfosIndex($candidatEdit)
+    {
+        return new JsonResponse($this->get('core.candidat_manager')->createArray($candidatEdit));
     }
 }

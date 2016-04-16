@@ -6,6 +6,7 @@ use CoreBundle\Entity\Applications\Odigo\OrangeTelListe;
 use CoreBundle\Form\Applications\Odigo\OrangeTelListeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -77,5 +78,25 @@ class OrangeTelListeController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $orangetellisteEdit
+     * @Route(path="/ajax/orange_tel_liste/get/{orangetellisteEdit}",name="ajax_get_orangetelliste")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function orangeTelListeGetInfosIndex($orangetellisteEdit)
+    {
+        return new JsonResponse($this->get('core.orangetelliste_manager')->createArray($orangetellisteEdit));
+    }
+
+    /**
+     * @param $service
+     * @Route(path="/ajax/generate/orange/{service}",name="ajax_generate_orange")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateListPossibleTelOrangeIndex($service)
+    {
+        return new JsonResponse($this->get('core.orangetelliste_manager')->getAllTelForService($service));
     }
 }

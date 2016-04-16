@@ -5,6 +5,7 @@ use CoreBundle\Form\Admin\ServiceType;
 use CoreBundle\Entity\Admin\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -76,5 +77,15 @@ class ServiceController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $serviceEdit
+     * @Route(path="/ajax/service/get/{serviceEdit}",name="ajax_get_service")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function serviceGetInfosIndex($serviceEdit)
+    {
+        return new JsonResponse($this->get('core.service_manager')->createArray($serviceEdit));
     }
 }

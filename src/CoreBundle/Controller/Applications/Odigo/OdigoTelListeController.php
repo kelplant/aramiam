@@ -6,6 +6,7 @@ use CoreBundle\Entity\Applications\Odigo\OdigoTelListe;
 use CoreBundle\Form\Applications\Odigo\OdigoTelListeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -77,5 +78,26 @@ class OdigoTelListeController extends Controller
         $this->initData('edit');
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+    }
+
+    /**
+     * @param $odigotellisteEdit
+     * @Route(path="/ajax/odigo_tel_liste/get/{odigotellisteEdit}",name="ajax_get_odigotelliste")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function odigoTelListeGetInfosIndex($odigotellisteEdit)
+    {
+        return new JsonResponse($this->get('core.odigotelliste_manager')->createArray($odigotellisteEdit));
+    }
+
+    /**
+     * @param $service
+     * @param $fonction
+     * @Route(path="/ajax/generate/odigo/{service}/{fonction}",name="ajax_generate_odigo")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function generateListPossibleTelOdigoIndex($service, $fonction)
+    {
+        return new JsonResponse($this->get('core.odigotelliste_manager')->getAllTelForServiceAndFonction($service, $fonction));
     }
 }

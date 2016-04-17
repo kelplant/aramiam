@@ -85,46 +85,6 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
-     * @param $service
-     * @param $entity
-     * @return mixed|null
-     */
-    protected function ifFilterConvertService($service, $entity)
-    {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
-            return $service->setService($this->getConvertion('service', $service->getService())->getName());
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * @param $fonction
-     * @param $entity
-     * @return mixed|null
-     */
-    protected function ifFilterConvertFonction($fonction, $entity)
-    {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
-            return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * @param $agence
-     * @param $entity
-     * @return mixed|null
-     */
-    protected function ifFilterConvertAgence($agence, $entity)
-    {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            $agence->setAgence($this->getConvertion('agence', $agence->getAgence())->getName());
-        }
-    }
-
-    /**
      * @param $allItems
      * @param $item
      * @param string $number

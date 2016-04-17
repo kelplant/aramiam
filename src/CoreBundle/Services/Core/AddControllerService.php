@@ -11,7 +11,6 @@ use CoreBundle\Form\Admin\FonctionType;
  */
 class AddControllerService extends AbstractControllerService
 {
-
     /**
      * @param Candidat $candidat
      * @return mixed
@@ -33,9 +32,6 @@ class AddControllerService extends AbstractControllerService
     {
         $this->initBothForms();
         $this->formAdd->handleRequest($request);
-        var_dump($this->formAdd->isSubmitted());
-        var_dump($this->formAdd->isValid());
-        die();
         if ($this->formAdd->isSubmitted() && $this->formAdd->isValid()) {
             $return = $this->checkErrorCode($this->get('core.' . strtolower($this->entity) . '_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity)))));
             $this->insert = $return['errorCode'];

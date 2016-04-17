@@ -31,12 +31,19 @@ class AddControllerService extends AbstractControllerService
      */
     public function executeRequestAddAction(Request $request)
     {
-        $return = $this->checkErrorCode($this->get('core.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity)))));
-        $this->insert = $return['errorCode'];
-        $this->message = $return['error'];
-        if ($this->entity == 'Candidat') {
-            $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));
+        $this->initBothForms();
+        $this->formAdd->handleRequest($request);
+        var_dump($this->formAdd->isSubmitted());
+        var_dump($this->formAdd->isValid());
+        die();
+        if ($this->formAdd->isSubmitted() && $this->formAdd->isValid()) {
+            $return = $this->checkErrorCode($this->get('core.' . strtolower($this->entity) . '_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity)))));
+            $this->insert = $return['errorCode'];
+            $this->message = $return['error'];
+            if ($this->entity == 'Candidat') {
+                $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));
+            }
         }
-        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
     }
 }

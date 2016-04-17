@@ -29,12 +29,12 @@ class IndexControllerService extends AbstractControllerService
 
     /**
      * @param $isArchived
+     * @param $formAdd
+     * @param $formEdit
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFullList($isArchived)
+    public function getFullList($isArchived, $formAdd, $formEdit)
     {
-        $formAdd = $this->generateForm();
-        $formEdit = $this->generateForm();
         $allItems = $this->getListIfCandidatOrUtilisateur($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
@@ -56,6 +56,8 @@ class IndexControllerService extends AbstractControllerService
      */
     public function generateIndexAction($isArchived)
     {
-        return $this->getFullList($isArchived);
+        $this->initBothForms();
+
+        return $this->getFullList($isArchived, $this->formAdd, $this->formEdit);
     }
 }

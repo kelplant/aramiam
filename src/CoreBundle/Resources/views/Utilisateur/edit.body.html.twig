@@ -1,5 +1,5 @@
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
-    <form action="{{ path( 'form_exec_edit_utilisateur' ) }}" method="post" class="form-horizontal" id="form-edit">
+    <form action="{{ path( 'form_exec_edit_utilisateur' ) }}" method="post" class="form-horizontal" id="form-edit" name="form-edit">
         <div class="modal-dialog modal-lg">
             <div class="modal-content modal-lg">
                 <div class="modal-header modal-lg">
@@ -59,12 +59,12 @@
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.mainPassword, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
                                 </div>
                                 <div class="col-sm-1">
-                                    <button type="button" onclick="replaceT();" class="btn btn-default" title="Voir Password">
+                                    <button type="button" onclick="replaceT('form-edit');" class="btn btn-default" title="Voir Password">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </button>
                                 </div>
                                 <div class="col-sm-1">
-                                    <button type="button" onclick="generatePassword();" class="btn btn-default" title="Générer un Password">
+                                    <button type="button" onclick="generatePassword('form-edit');" class="btn btn-default" title="Générer un Password">
                                         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                                     </button>
                                 </div>

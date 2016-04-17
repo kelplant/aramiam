@@ -213,9 +213,9 @@ class SalesforceApiService
                     'Telephone_interne__c' => $odigoInfos['redirectPhoneNumber'],
                     'Phone' => $odigoInfos['odigoPhoneNumber'],
                     'Title' => $request->request->get('salesforce')['civilite'],
-                    'DepartementRegion__c' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInRobusto(),
-                    'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInRobusto(),
-                    'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInRobusto(),
+                    'DepartementRegion__c' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
+                    'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
+                    'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
                 )
             );
         } else {

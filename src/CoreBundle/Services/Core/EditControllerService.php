@@ -57,6 +57,8 @@ class EditControllerService extends AbstractControllerService
             $this->get('core.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
             $this->get('core.salesforce_api_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request);
         }
-        return $this->get('core.index.controller_service')->getFullList($this->isArchived);
+        $this->initBothForms();
+
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
     }
 }

@@ -25,6 +25,10 @@ abstract class AbstractControllerService extends Controller
 
     protected $createFormArguments;
 
+    protected $formAdd;
+
+    protected $formEdit;
+
     /**
      * @param $item
      * @return mixed
@@ -136,6 +140,15 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
+     *
+     */
+    protected function initBothForms()
+    {
+        $this->formAdd = $this->generateForm();
+        $this->formEdit = $this->generateForm();
+    }
+
+    /**
      * @return array
      */
     public function generateListeChoices()
@@ -227,6 +240,42 @@ abstract class AbstractControllerService extends Controller
     public function setCreateFormArguments($createFormArguments)
     {
         $this->createFormArguments = $createFormArguments;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormAdd()
+    {
+        return $this->formAdd;
+    }
+
+    /**
+     * @param mixed $formAdd
+     * @return AbstractControllerService
+     */
+    public function setFormAdd($formAdd)
+    {
+        $this->formAdd = $formAdd;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormEdit()
+    {
+        return $this->formEdit;
+    }
+
+    /**
+     * @param mixed $formEdit
+     * @return AbstractControllerService
+     */
+    public function setFormEdit($formEdit)
+    {
+        $this->formEdit = $formEdit;
         return $this;
     }
 }

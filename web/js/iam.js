@@ -2,7 +2,8 @@
  * Created by Xavier on 11/04/2016.
  */
 // Fonction de chargement Standard Edit
-function ajaxCoreEdit(url, editItem) {
+function ajaxCoreEdit(url, editItem)
+{
     if (url == 'utilisateur') {
         localStorage.setItem("emailState", null);
         localStorage.setItem("ableToShowOdigo", null);
@@ -57,12 +58,14 @@ function ajaxCoreEdit(url, editItem) {
 }
 
 // Fonction de mise en session du user éditer en cours
-function resetEditItem() {
+function resetEditItem()
+{
     localStorage.clear();
 }
 
 // Fonction de chargement du bloc Windows
-function ajaxGenerateWindows() {
+function ajaxGenerateWindows()
+{
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
@@ -84,7 +87,8 @@ function ajaxGenerateWindows() {
 }
 
 // Fonction de chargement du bloc salesforce
-function ajaxGenerateSalesforce() {
+function ajaxGenerateSalesforce()
+{
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -134,7 +138,8 @@ function ajaxGenerateSalesforce() {
 }
 
 // Fonction de chargement du bloc aramis
-function ajaxGenerateAramis() {
+function ajaxGenerateAramis()
+{
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -148,7 +153,8 @@ function ajaxGenerateAramis() {
 }
 
 // Fonction de chargement du bloc de gestion gmail
-function ajaxGenerateEmail() {
+function ajaxGenerateEmail()
+{
     $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
@@ -185,7 +191,8 @@ function ajaxGenerateEmail() {
 }
 
 // Fonction de chargement du bloc de gestion gmail
-function ajaxGenerateOdigo() {
+function ajaxGenerateOdigo()
+{
     $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
@@ -259,7 +266,8 @@ function ajaxGenerateOdigo() {
 }
 
 // Fonction d'affichage du champ autre email pendant création gmail
-function showhide() {
+function showhide()
+{
     if($('#otherMail').prop('checked')) {
         $('#otherEmail').addClass('show').removeClass('hide');
     } else {
@@ -268,29 +276,33 @@ function showhide() {
 }
 
 // Fonction Affiche Autre numéro Field
-function showOtherNum() {
+function showOtherNum()
+{
     $('#otherNumField').addClass('show').removeClass('hide');
 }
 
 // Fonction de lien vers le predecesseur
-function setViewUtilisateur(){
+function setViewUtilisateur()
+{
     var currentEditItem = localStorage.getItem("currentPredecesseurId");
     localStorage.setItem("currentEditItem",currentEditItem);
     window.location = "/admin/utilisateur?isArchived=0";
 }
 
-function ajaxCreateViaAPI() {
+function ajaxCreateViaAPI()
+{
     var currentEditItem = localStorage.getItem("currentEditItem");
 }
 
 // Fonction Show Password
-function replaceT() {
-    var newO = document.getElementById("utilisateur_mainPassword")
+function replaceT(formName)
+{
+    var newO = document.getElementById(formName).elements["utilisateur_mainPassword"];
     newO.setAttribute('type', 'text');
 }
 
 // Fonction de Generation de mot de passe
-function generatePassword()
+function generatePassword(formName)
 {
     var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     var string_length = 8;
@@ -312,7 +324,7 @@ function generatePassword()
             charCount += 1;
         }
     }
-    document.getElementById("utilisateur_mainPassword").value = randomstring;
+    document.getElementById(formName).elements["utilisateur_mainPassword"].value = randomstring;
 }
 
 // Fonction Process Bulk Import Orange Numbers

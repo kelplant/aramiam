@@ -3,6 +3,10 @@ namespace CoreBundle\Repository\Applications;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class ZendeskTicketLinkRepository
+ * @package CoreBundle\Repository\Applications
+ */
 class ZendeskTicketLinkRepository extends EntityRepository
 {
     /**

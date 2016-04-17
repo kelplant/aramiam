@@ -17,6 +17,6 @@ class AccesService extends Controller
     public function validateUser($login, $password)
     {
         $user = $this->get('fos_user.user_manager')->findUserByUsername($login);
-        return ($password == $user->getPassword())? true : false;
+        return ($password == $user->getPassword()) ? true : false;
     }
 }

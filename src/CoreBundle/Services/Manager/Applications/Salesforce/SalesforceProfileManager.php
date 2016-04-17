@@ -47,19 +47,4 @@ class SalesforceProfileManager extends AbstractManager
     {
         return $this->getRepository()->findBy(array('userType' => 'Standard'), array('profileName' => 'ASC'));
     }
-
-    /**
-     * @return mixed
-     */
-    public function truncateTable()
-    {
-        $connection = $this->managerRegistry->getConnection();
-        $platform  = $connection->getDatabasePlatform();
-
-        try {
-            return $connection->executeUpdate($platform->getTruncateTableSQL('core_app_salesforce_profile', true));
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
 }

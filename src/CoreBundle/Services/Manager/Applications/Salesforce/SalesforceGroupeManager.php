@@ -35,19 +35,4 @@ class SalesforceGroupeManager extends AbstractManager
 
         return $itemArray;
     }
-
-    /**
-     * @return mixed
-     */
-    public function truncateTable()
-    {
-        $connection = $this->managerRegistry->getConnection();
-        $platform  = $connection->getDatabasePlatform();
-
-        try {
-            return $connection->executeUpdate($platform->getTruncateTableSQL('core_app_salesforce_groupe', true));
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
 }

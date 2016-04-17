@@ -91,6 +91,11 @@ parameters:
         1:             'Erreur dans la création du Profile Salesforce'
         6668:          'Profile Salesforce correctement supprimée'
         6667:          'Profile Salesforce correctement Mise à jour'
+    salesforcegroupe_insert_exceptions:
+        6669:          'Groupe Salesforce correctement ajoutée'
+        1:             'Erreur dans la création du Groupe Salesforce'
+        6668:          'Groupe Salesforce correctement supprimée'
+        6667:          'Groupe Salesforce correctement Mise à jour'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

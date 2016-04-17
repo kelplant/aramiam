@@ -372,7 +372,7 @@ function reloadProfilesFromSf()
     urlajax = "/ajax/get/credentials";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/salesforce/profile/reload"+result['user']+"/"+result['password'];
+            urlajax = "/batch/salesforce/profile/reload/"+result['user']+"/"+result['password'];
             $.ajax({
                 url: urlajax, success: function (result) {
                     $("#waiting").removeClass("show").addClass("hide");

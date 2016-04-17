@@ -3,6 +3,10 @@ namespace CoreBundle\Repository\Admin;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class MouvHistoryRepository
+ * @package CoreBundle\Repository\Admin
+ */
 class MouvHistoryRepository extends EntityRepository
 {
     /**

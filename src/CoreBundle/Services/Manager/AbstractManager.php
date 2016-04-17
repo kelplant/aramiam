@@ -155,6 +155,19 @@ abstract class AbstractManager
     }
 
     /**
+     * @return mixed
+     */
+    public function truncateTable()
+    {
+        $connection = $this->managerRegistry->getConnection();
+        try {
+            return $connection->executeUpdate($connection->getDatabasePlatform()->getTruncateTableSQL($this->managerRegistry->getManager()->getClassMetadata($this->entityName)->getTableName(), true));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
      * @param $entity
      */
     private function persistAndFlush($entity)

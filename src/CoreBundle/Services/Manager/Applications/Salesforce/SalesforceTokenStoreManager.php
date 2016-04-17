@@ -46,7 +46,7 @@ class SalesforceTokenStoreManager extends AbstractManager
      */
     public function updateOrAdd($itemLoad)
     {
-        if(!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username']))== true)) {
+        if (!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username'])) == true)) {
             return $this->editByUsername($itemLoad);
         } else {
             $itemToSet = $itemToSend = new $this->entity;

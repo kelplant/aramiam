@@ -38,7 +38,7 @@ class SalesforceApiService
      * @param ServiceManager $serviceManager
      * @param FonctionManager $fonctionManager
      */
-    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager,$fonctionManager)
+    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager)
     {
         $this->tokenManager = $tokenManager;
         $this->securityContext = $securityContext;
@@ -218,7 +218,6 @@ class SalesforceApiService
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInRobusto(),
                 )
             );
-            die();
         } else {
             return null;
         }

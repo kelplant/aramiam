@@ -15,9 +15,10 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    zendesk_api_key:   ~
-    zendesk_api_user:  ~
-    zendesk_api_url:   ~
+    zendesk_api:
+        key:           ~
+        user:          ~
+        url:           ~
 
     odigo:
         url:           ~

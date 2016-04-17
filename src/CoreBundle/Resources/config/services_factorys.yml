@@ -1,0 +1,12 @@
+parameters:
+    core.factory.abstract.class: CoreBundle\Factory\AbstractFactory
+    core.factory.apps.salesforce.Salesforce_user.class: CoreBundle\Factory\Applications\Salesforce\SalesforceUserFactory
+
+services:
+    core.factory.abstract:
+        class: %core.factory.abstract.class%
+        abstract: true
+
+    core.factory.apps.salesforce.Salesforce_user:
+        class: %core.factory.apps.salesforce.Salesforce_user.class%
+        parent: odigo.factory.abstract

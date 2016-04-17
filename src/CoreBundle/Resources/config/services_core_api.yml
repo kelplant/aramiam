@@ -14,25 +14,23 @@ services:
 
     core.zendesk_service:
         class: %core.zendesk_service.class%
-        calls:
-        - [ setContainer , [ "@service_container" ]]
+        arguments: [ '@core.curl_wrap', '@core.app_zendesk_ticket_link_manager', '@core.parameters_calls' ]
 
     core.google_api_service:
         class: %core.google_api_service.class%
-        calls:
-        - [ setContainer , [ "@service_container" ]]
+        arguments: [ '@core.utilisateur_manager' ]
 
     core.odigo_api_service:
         class: %core.odigo_api_service.class%
-        calls:
-        - [ setContainer , [ "@service_container" ]]
+        arguments: [ '@core.utilisateur_manager', '@core.odigotelliste_manager', '@core.orangetelliste_manager', '@core.prosodie_odigo_manager', '@core.service_manager', '@core.fonction_manager', '@odigo.service.client' ]
 
     core.salesforce_api_service:
         class: %core.salesforce_api_service.class%
-        arguments: ['@core.salesforcetoken_store', '@security.token_storage']
+        arguments: [ '@core.salesforcetoken_store', '@security.token_storage' ]
 
     core.active_directory_api_service:
         class: %core.active_directory_api_service.class%
+        arguments: [ '@core.service_manager', '@core.utilisateur_manager' ]
 
     security.acces_service:
         class: %security.acces_service.class%

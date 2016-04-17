@@ -2,6 +2,8 @@
 namespace CoreBundle\Services;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager as SalesforceTokenStore;
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Class SalesforceApiService
  * @package CoreBundle\Services
@@ -55,17 +57,19 @@ class SalesforceApiService
     }
 
     /**
-     * @param $query
+     * @param string $query
+     * @param $params
      * @return mixed
      */
-    private function initExcecuteQuery($query)
+    private function initExcecuteQuery($query, $params)
     {
+        if (is_null($this->tokenManager->loadByUsername($this->securityContext->getToken()->getUser()->getUsername()))) {
+            $this->connnect($params);
+        }
         $tokenInfos = $this->tokenManager->loadByUsername($this->securityContext->getToken()->getUser()->getUsername());
         $url = $tokenInfos->getInstanceUrl().'/services/data/v36.0/query?q='.urlencode($query);
-
         $curl = $this->curlInitAndHeader($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array('Authorization: OAuth '.$tokenInfos->getAccessToken()));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken()));
         $json_response = curl_exec($curl);
         curl_close($curl);
         return json_decode($json_response, true);
@@ -79,14 +83,13 @@ class SalesforceApiService
     public function executeQuery($query, $params)
     {
         try {
-            return $this->initExcecuteQuery($query);
-        } catch (\Exception $e) {
-            $this->connnect($params);
-            try {
-                return $this->initExcecuteQuery($query);
-            } catch (Exception $e) {
-                return $e->getMessage();
+            $queryResult = $this->initExcecuteQuery($query, $params);
+            if (isset($queryResult[0]['message']) == "Session expired or invalid" ) {
+                $this->connnect($params);
             }
+            return $queryResult;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 
@@ -96,7 +99,7 @@ class SalesforceApiService
      */
     public function getListOfProfiles($params)
     {
-        $query = "SELECT Id,Name,UserLicenseId,UserType FROM Profile";
+        $query = "SELECT Id,Name,UserLicenseId,UserType FROM Profile ORDER BY Name ASC NULLS FIRST";
         return $this->executeQuery($query, $params);
     }
 
@@ -112,20 +115,31 @@ class SalesforceApiService
     }
 
     /**
-     * @return mixed
+     * @param $sendaction
+     * @param $isCreateInSalesforce
+     * @param $request
      */
-    public function getTokenManager()
+    public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request)
     {
-        return $this->tokenManager;
-    }
-
-    /**
-     * @param mixed $tokenManager
-     * @return SalesforceApiService
-     */
-    public function setTokenManager($tokenManager)
-    {
-        $this->tokenManager = $tokenManager;
-        return $this;
+        if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
+            $newUser = $this->get('core.factory.apps.salesforce.salesforce_user')->createFromEntity(
+                array(
+                    'Username' => null,
+                    'LastName' => null,
+                    'FirstName' => null,
+                    'Email' => null,
+                    'TimeZoneSidKey' => null,
+                    'Alias' => null,
+                    'CommunityNickname' => null,
+                    'IsActive' => null,
+                    'LocaleSidKey' => null,
+                    'EmailEncodingKey' => null,
+                    'ProfileId' => null,
+                    'LanguageLocaleKey' => null,
+                    'UserPermissionsMobileUser' => null,
+                    'UserPreferencesDisableAutoSubForFeeds' => null,
+                )
+            );
+        }
     }
 }

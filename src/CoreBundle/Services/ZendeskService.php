@@ -1,24 +1,34 @@
 <?php
 namespace CoreBundle\Services;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CoreBundle\Services\Manager\Applications\ZendeskTicketLinkManager;
+use CoreBundle\Services\Manager\ParametersManager;
 
 /**
  * Class ZendeskService
  * @package CoreBundle\Services
  */
-class ZendeskService extends Controller
+class ZendeskService
 {
+    protected $curlWrap;
+
+    protected $zendeskTicketLinkManager;
+
+    protected $parametersCalls;
 
     /**
-     *
+     * ZendeskService constructor.
+     * @param CurlWrap $curlWrap
+     * @param ZendeskTicketLinkManager $zendeskTicketLinkManager
+     * @param ParametersManager $parametersCalls
      */
-    private function initCurlParams()
+    public function __construct($curlWrap, $zendeskTicketLinkManager, $parametersCalls)
     {
-        define("ZDAPIKEY", $this->getParameter('zendesk_api_key')); # Alimenter parameter.yml
-        define("ZDUSER", $this->getParameter('zendesk_api_user')); # Alimenter parameter.yml
-        define("ZDURL", $this->getParameter('zendesk_api_url')); # Alimenter parameter.yml
+        $this->curlWrap = $curlWrap;
+        $this->zendeskTicketLinkManager = $zendeskTicketLinkManager;
+        $this->parametersCalls = $parametersCalls;
     }
+
     /**
      * @param $message_array
      * @return string
@@ -82,16 +92,7 @@ class ZendeskService extends Controller
      */
     private function generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste)
     {
-        return array(
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'entite' => $entite,
-            'due_at' => $due_at,
-            'agence' => $agenceZendesk,
-            'service' => $serviceZendesk,
-            'fonction' => $fonctionZendesk,
-            'status_poste' => $statusPoste,
-        );
+        return array('nom' => $nom, 'prenom' => $prenom, 'entite' => $entite, 'due_at' => $due_at, 'agence' => $agenceZendesk, 'service' => $serviceZendesk, 'fonction' => $fonctionZendesk, 'status_poste' => $statusPoste);
     }
 
     /**
@@ -99,17 +100,7 @@ class ZendeskService extends Controller
      */
     private function generateParametersArray()
     {
-        return array(
-            'organizationIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_organizationIdId'),
-            'ticketFormIdId' => $this->get('core.parameters_calls')->getParam('zendesk_field_ticketFormIdId'),
-            'planifDateId' => $this->get('core.parameters_calls')->getParam('zendesk_field_planifDateId'),
-            'agenceId' => $this->get('core.parameters_calls')->getParam('zendesk_field_agenceId'),
-            'servicesId' => $this->get('core.parameters_calls')->getParam('zendesk_field_servicesId'),
-            'typeId' => $this->get('core.parameters_calls')->getParam('zendesk_field_typeId'),
-            'mainCatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_mainCatId'),
-            'lowCatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_lowCatId'),
-            'sendMatId' => $this->get('core.parameters_calls')->getParam('zendesk_field_sendMatId'),
-        );
+        return array( 'organizationIdId' => $this->parametersCalls->getParam('zendesk_field_organizationIdId'), 'ticketFormIdId' => $this->parametersCalls->getParam('zendesk_field_ticketFormIdId'), 'planifDateId' => $this->parametersCalls->getParam('zendesk_field_planifDateId'), 'agenceId' => $this->parametersCalls->getParam('zendesk_field_agenceId'), 'servicesId' => $this->parametersCalls->getParam('zendesk_field_servicesId'), 'typeId' => $this->parametersCalls->getParam('zendesk_field_typeId'), 'mainCatId' => $this->parametersCalls->getParam('zendesk_field_mainCatId'), 'lowCatId' => $this->parametersCalls->getParam('zendesk_field_lowCatId'), 'sendMatId' => $this->parametersCalls->getParam('zendesk_field_sendMatId'));
     }
 
     /**
@@ -207,11 +198,10 @@ class ZendeskService extends Controller
      * @param $requester_email
      * @return mixed
      */
-    public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email)
+    public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email, $paramsZendeskApi)
     {
-        $this->initCurlParams();
-        $createdTicket = $this->get('core.curl_wrap')->curlWrapPost('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk));
-        $this->get('core.app_zendesk_ticket_link_manager')->setParamForName($id, $createdTicket->ticket->id);
+        $createdTicket = $this->curlWrap->curlWrapPost('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk), $paramsZendeskApi);
+        $this->zendeskTicketLinkManager->setParamForName($id, $createdTicket->ticket->id);
         return $createdTicket;
     }
 
@@ -219,17 +209,15 @@ class ZendeskService extends Controller
      * @param $ticketId
      * @return mixed
      */
-    public function deleteTicket($ticketId)
+    public function deleteTicket($ticketId, $paramsZendeskApi)
     {
-        $this->initCurlParams();
-        $this->get('core.app_zendesk_ticket_link_manager')->removeByTicketId($ticketId);
-        return $this->get('core.curl_wrap')->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json');
+        $this->zendeskTicketLinkManager->removeByTicketId($ticketId);
+        return $this->curlWrap->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json', $paramsZendeskApi);
     }
 
-    public function updateStartDateTicket($ticketId, $newStartDate)
+    public function updateStartDateTicket($ticketId, $newStartDate, $paramsZendeskApi)
     {
-        $this->initCurlParams();
-        $this->get('core.curl_wrap')->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate));
+        $this->curlWrap->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate), $paramsZendeskApi);
         return;
     }
 }

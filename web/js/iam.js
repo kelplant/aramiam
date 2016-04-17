@@ -89,12 +89,48 @@ function ajaxGenerateSalesforce() {
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePartNew').addClass('hide').removeClass('show');
     $('#gmailToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').addClass('active');
-    $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+    $('#loading').removeClass('hide').addClass('show');
+    urlajax ="/ajax/get/salesforce/utilisateur/"+localStorage.getItem("email");
+    $.ajax({
+        url:urlajax,success:function(result) {
+            if (result['totalSize'] == 1)
+            {
+                $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
+
+                $('#loading').removeClass('show').addClass('hide');
+                $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
+                $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+            } else {
+                $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
+                urlajax ="/ajax/get/salesforce/profiles";
+                $.ajax({
+                    url:urlajax,success:function(result) {
+                        var i;
+                        var profilesListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
+                        profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
+                        for (i in result) {
+                            profilesListe += '<option value="'+result[i].userLicenseId+'">'+result[i].profileName+'</option>';
+                        }
+                        profilesListe += '</select>';
+                        profilesListe += '</label>';
+                        document.getElementById("salesforceProfilesListe").innerHTML = profilesListe;
+
+                        $('#loading').removeClass('show').addClass('hide');
+                        $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
+                        $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                    }
+                });
+            }
+        }
+    });
 }
 
 // Fonction de chargement du bloc aramis

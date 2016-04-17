@@ -16,12 +16,12 @@ class AddControllerService extends AbstractControllerService
      * @param Candidat $candidat
      * @return mixed
      */
-    public function executeCreateTicket(Candidat $candidat)
+    public function executeCreateTicket(Candidat $candidat, $paramsZendeskApi)
     {
         return $this->get('core.zendesk_service')->createTicket(
             $candidat->getId(), $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(), $candidat->getStartDate()->format("Y-m-d"),
             $this->getConvertion('agence', $candidat->getAgence())->getNameInZendesk(), $this->getConvertion('service', $candidat->getService())->getNameInZendesk(),
-            $this->getConvertion('fonction', $candidat->getFonction())->getNameInZendesk(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com'
+            $this->getConvertion('fonction', $candidat->getFonction())->getNameInZendesk(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com', $paramsZendeskApi
         );
     }
 
@@ -35,7 +35,7 @@ class AddControllerService extends AbstractControllerService
         $this->insert = $return['errorCode'];
         $this->message = $return['error'];
         if ($this->entity == 'Candidat') {
-            $this->executeCreateTicket($return['item']);
+            $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived);
     }

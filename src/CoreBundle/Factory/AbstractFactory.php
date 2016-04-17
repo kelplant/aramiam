@@ -14,7 +14,7 @@ abstract class AbstractFactory
     {
         $result = [];
 
-        foreach($collection as $entityData) {
+        foreach ($collection as $entityData) {
             $result[] = $this->createFromEntity($entityData);
         }
         return $result;

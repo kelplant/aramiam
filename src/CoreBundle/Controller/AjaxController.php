@@ -62,7 +62,6 @@ class AjaxController extends Controller
     }
 
     /**
-
      * @Route(path="/ajax/get/salesforce/profiles",name="ajax_get_salesforce_profiles")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -70,7 +69,7 @@ class AjaxController extends Controller
     {
         $finalTab = array();
         $i = 0;
-        foreach($this->get('core.salesforceprofile_manager')->getStandardProfileListe() as $item) {
+        foreach ($this->get('core.salesforceprofile_manager')->getStandardProfileListe() as $item) {
             $finalTab[$i] = array('id' => $item->getId(), 'profileName' => $item->getProfileName(), 'userLicenseId' => $item->getUserLicenseId(), 'userType' => $item->getUserType());
             $i++;
         }

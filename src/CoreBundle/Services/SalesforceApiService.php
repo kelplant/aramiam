@@ -1,5 +1,6 @@
 <?php
 namespace CoreBundle\Services;
+use CoreBundle\Factory\Applications\Salesforce\SalesforceUserFactory;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager as SalesforceTokenStore;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,18 @@ class SalesforceApiService
 
     protected $securityContext;
 
+    protected $salesforceUserFactory;
+
     /**
      * SalesforceApiService constructor.
      * @param SalesforceTokenStore $tokenManager
+     * @param SalesforceUserFactory $salesforceUserFactory
      */
-    public function __construct($tokenManager, $securityContext)
+    public function __construct($tokenManager, $securityContext, $salesforceUserFactory)
     {
         $this->tokenManager = $tokenManager;
         $this->securityContext = $securityContext;
+        $this->salesforceUserFactory = $salesforceUserFactory;
     }
 
     /**
@@ -84,7 +89,7 @@ class SalesforceApiService
     {
         try {
             $queryResult = $this->initExcecuteQuery($query, $params);
-            if (isset($queryResult[0]['message']) == "Session expired or invalid" ) {
+            if (isset($queryResult[0]['message']) == "Session expired or invalid") {
                 $this->connnect($params);
             }
             return $queryResult;

@@ -100,7 +100,7 @@ class ZendeskService
      */
     private function generateParametersArray()
     {
-        return array( 'organizationIdId' => $this->parametersCalls->getParam('zendesk_field_organizationIdId'), 'ticketFormIdId' => $this->parametersCalls->getParam('zendesk_field_ticketFormIdId'), 'planifDateId' => $this->parametersCalls->getParam('zendesk_field_planifDateId'), 'agenceId' => $this->parametersCalls->getParam('zendesk_field_agenceId'), 'servicesId' => $this->parametersCalls->getParam('zendesk_field_servicesId'), 'typeId' => $this->parametersCalls->getParam('zendesk_field_typeId'), 'mainCatId' => $this->parametersCalls->getParam('zendesk_field_mainCatId'), 'lowCatId' => $this->parametersCalls->getParam('zendesk_field_lowCatId'), 'sendMatId' => $this->parametersCalls->getParam('zendesk_field_sendMatId'));
+        return array('organizationIdId' => $this->parametersCalls->getParam('zendesk_field_organizationIdId'), 'ticketFormIdId' => $this->parametersCalls->getParam('zendesk_field_ticketFormIdId'), 'planifDateId' => $this->parametersCalls->getParam('zendesk_field_planifDateId'), 'agenceId' => $this->parametersCalls->getParam('zendesk_field_agenceId'), 'servicesId' => $this->parametersCalls->getParam('zendesk_field_servicesId'), 'typeId' => $this->parametersCalls->getParam('zendesk_field_typeId'), 'mainCatId' => $this->parametersCalls->getParam('zendesk_field_mainCatId'), 'lowCatId' => $this->parametersCalls->getParam('zendesk_field_lowCatId'), 'sendMatId' => $this->parametersCalls->getParam('zendesk_field_sendMatId'));
     }
 
     /**
@@ -187,6 +187,7 @@ class ZendeskService
     }
 
     /**
+     * @param $id
      * @param $nom
      * @param $prenom
      * @param $entite
@@ -196,6 +197,7 @@ class ZendeskService
      * @param $fonctionZendesk
      * @param $statusPoste
      * @param $requester_email
+     * @param $paramsZendeskApi
      * @return mixed
      */
     public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email, $paramsZendeskApi)
@@ -207,6 +209,7 @@ class ZendeskService
 
     /**
      * @param $ticketId
+     * @param $paramsZendeskApi
      * @return mixed
      */
     public function deleteTicket($ticketId, $paramsZendeskApi)
@@ -215,6 +218,11 @@ class ZendeskService
         return $this->curlWrap->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json', $paramsZendeskApi);
     }
 
+    /**
+     * @param $ticketId
+     * @param $newStartDate
+     * @param $paramsZendeskApi
+     */
     public function updateStartDateTicket($ticketId, $newStartDate, $paramsZendeskApi)
     {
         $this->curlWrap->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate), $paramsZendeskApi);

@@ -25,7 +25,6 @@ class SalesforceUserFactory extends AbstractFactory
             $salesforceUser['EmailEncodingKey'],
             $salesforceUser['ProfileId'],
             $salesforceUser['LanguageLocaleKey'],
-            $salesforceUser['Username'],
             $salesforceUser['UserPermissionsMobileUser'],
             $salesforceUser['UserPreferencesDisableAutoSubForFeeds']
         );

@@ -74,6 +74,7 @@ class OdigoApiService
      * @param $odigoService
      * @param $odigoFonction
      * @param $odigoIdentfiant
+     * @param $paramsOdigo
      * @param $paramsOdigoWsdl
      * @return mixed
      */
@@ -85,6 +86,7 @@ class OdigoApiService
 
     /**
      * @param $odigoUserId
+     * @param $paramsOdigo
      * @param $paramsOdigoWsdl
      * @return mixed
      */
@@ -95,6 +97,7 @@ class OdigoApiService
     }
 
     /**
+     * @param $paramsOdigo
      * @param $paramsOdigoWsdl
      * @return mixed
      */

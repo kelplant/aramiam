@@ -10,6 +10,7 @@ class CurlWrap
     /**
      * @param $url
      * @param $json
+     * @param $paramsZendeskApi
      * @return mixed
      */
     public function curlWrapPost($url, $json, $paramsZendeskApi)
@@ -33,6 +34,7 @@ class CurlWrap
 
     /**
      * @param $url
+     * @param $paramsZendeskApi
      * @return mixed
      */
     public function curlWrapDelete($url, $paramsZendeskApi)
@@ -56,6 +58,7 @@ class CurlWrap
     /**
      * @param $url
      * @param $json
+     * @param $paramsZendeskApi
      * @return mixed
      */
     public function curlWrapPut($url, $json, $paramsZendeskApi)

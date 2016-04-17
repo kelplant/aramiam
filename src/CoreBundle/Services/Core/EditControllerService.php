@@ -53,7 +53,7 @@ class EditControllerService extends AbstractControllerService
             $this->message = $return['error'];
             $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
             $this->get('core.google_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
-            $this->get('core.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request,$this->getParameter('odigo'), $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes'));
+            $this->get('core.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request, $this->getParameter('odigo'), $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes'));
             $this->get('core.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
             $this->get('core.salesforce_api_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request);
         }

@@ -93,7 +93,7 @@ class SalesforceApiService
                 $this->connnect($params);
             }
             return $queryResult;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -120,31 +120,45 @@ class SalesforceApiService
     }
 
     /**
+     * @param $lastName
+     * @param $firstName
+     * @return string
+     */
+    private function shortNickName($lastName, $firstName)
+    {
+        return iconv('utf-8', 'ascii//TRANSLIT', strtolower(substr($firstName,0,3).str_replace(" ", "", str_replace("-", "", $lastName))));
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInSalesforce
-     * @param $request
+     * @param Request $request
+     * @return \CoreBundle\Entity\Applications\Salesforce\SalesforceUser|null
      */
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request)
     {
         if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
-            $newUser = $this->get('core.factory.apps.salesforce.salesforce_user')->createFromEntity(
+            $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
+            return $this->salesforceUserFactory->createFromEntity(
                 array(
-                    'Username' => null,
-                    'LastName' => null,
-                    'FirstName' => null,
-                    'Email' => null,
-                    'TimeZoneSidKey' => null,
-                    'Alias' => null,
-                    'CommunityNickname' => null,
-                    'IsActive' => null,
-                    'LocaleSidKey' => null,
-                    'EmailEncodingKey' => null,
-                    'ProfileId' => null,
-                    'LanguageLocaleKey' => null,
-                    'UserPermissionsMobileUser' => null,
-                    'UserPreferencesDisableAutoSubForFeeds' => null,
+                    'Username' => $request->request->get('utilisateur')['email'],
+                    'LastName' => $request->request->get('utilisateur')['name'],
+                    'FirstName' => $request->request->get('utilisateur')['surname'],
+                    'Email' => $request->request->get('utilisateur')['email'],
+                    'TimeZoneSidKey' => 'Europe/Paris',
+                    'Alias' => $nickname,
+                    'CommunityNickname' => $nickname."aramisauto",
+                    'IsActive' => true,
+                    'LocaleSidKey' => "fr_FR",
+                    'EmailEncodingKey' => "ISO-8859-1",
+                    'ProfileId' => $request->request->get('salesforce')['profile'],
+                    'LanguageLocaleKey' => "FR",
+                    'UserPermissionsMobileUser' => true,
+                    'UserPreferencesDisableAutoSubForFeeds' => false,
                 )
             );
+        } else {
+            return null;
         }
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace CoreBundle\Services\Core;
 
-
 class IndexControllerService extends AbstractControllerService
 {
     /**

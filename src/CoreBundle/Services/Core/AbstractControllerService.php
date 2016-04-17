@@ -204,14 +204,6 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function getFormAdd()
-    {
-        return $this->formAdd;
-    }
-
-    /**
      * @param mixed $formAdd
      * @return AbstractControllerService
      */
@@ -219,14 +211,6 @@ abstract class AbstractControllerService extends Controller
     {
         $this->formAdd = $formAdd;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFormEdit()
-    {
-        return $this->formEdit;
     }
 
     /**

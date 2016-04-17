@@ -14,8 +14,12 @@ parameters:
     core.entityname.odigo.orange_num_tel_liste_manager.class: 'CoreBundle\Entity\Applications\Odigo\OrangeTelListe'
 
     core.app.salesforce.profile_manager.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceProfileManager
-    core.entity.salesforce.profile.class: CoreBundle\Entity\Applications\Salesforce\SalesforceProfile
-    core.entityname.salesforce.profile.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceProfile'
+    core.entity.salesforce.profile_manager.class: CoreBundle\Entity\Applications\Salesforce\SalesforceProfile
+    core.entityname.salesforce.profile_manager.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceProfile'
+
+    core.app.salesforce.groupe_manager.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceGroupeManager
+    core.entity.salesforce.groupe_manager.class: CoreBundle\Entity\Applications\Salesforce\SalesforceGroupe
+    core.entityname.salesforce.groupe_manager.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceGroupe'
 
     core.app.salesforce.token_store.class: CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager
     core.entity.salesforce.token_store.class: CoreBundle\Entity\Applications\Salesforce\SalesforceTokenStore
@@ -51,8 +55,15 @@ services:
         class: %core.app.salesforce.profile_manager.class%
         parent: core.abstract_manager
         calls:
-        - [setEntity, ["%core.entity.salesforce.profile.class%"]]
-        - [setEntityName, ["%core.entityname.salesforce.profile.class%"]]
+        - [setEntity, ["%core.entity.salesforce.profile_manager.class%"]]
+        - [setEntityName, ["%core.entityname.salesforce.profile_manager.class%"]]
+
+    core.salesforcegroupe_manager:
+        class: %core.app.salesforce.groupe_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.salesforce.groupe_manager.class%"]]
+        - [setEntityName, ["%core.entityname.salesforce.groupe_manager.class%"]]
 
     core.salesforcetoken_store:
         class: %core.app.salesforce.token_store.class%

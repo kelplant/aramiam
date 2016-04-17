@@ -41,6 +41,39 @@ class SalesforceTokenStoreManager extends AbstractManager
     }
 
     /**
+     * @param $itemLoad
+     * @return bool|int
+     */
+    public function updateOrAdd($itemLoad)
+    {
+        if(!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username']))== true)) {
+            return $this->editByUsername($itemLoad);
+        } else {
+            $itemToSet = $itemToSend = new $this->entity;
+            try {
+                $this->save($this->globalSetItem($itemToSet, $itemLoad));
+                return array('errorCode' => 6669, 'item' => $itemToSend);
+            } catch (\Exception $e) {
+                return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => null);
+            }
+        }
+    }
+
+    /**
+     * @param $itemEditLoad
+     * @return bool|int
+     */
+    public function editByUsername($itemEditLoad) {
+        try {
+            $this->globalSetItem($this->getRepository()->findOneBy(array('username' => $itemEditLoad['username'])), $itemEditLoad);
+            $this->em->flush();
+            return array('errorCode' => 6667, 'item' => $itemEditLoad);
+        } catch (\Exception $e) {
+            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => null);
+        }
+    }
+
+    /**
      * @param $itemId
      * @return object
      */

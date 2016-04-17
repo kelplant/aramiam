@@ -96,6 +96,7 @@ abstract class AbstractManager
             return error_log($e->getMessage());
         }
     }
+
     /**
      * @param $itemId
      * @param $itemEditLoad

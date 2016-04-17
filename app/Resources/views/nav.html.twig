@@ -77,6 +77,9 @@
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
                                 <li class="font_exo_2"><a href="{{ path('salesforce_profile_liste') }}"><i class="fa fa-puzzle-piece"></i> Profiles Salesforce</a></li>
                             {% endif %}
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <li class="font_exo_2"><a href="{{ path('salesforce_groupe_liste') }}"><i class="fa fa-puzzle-piece"></i> Groupes Salesforce</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 {% endif %}

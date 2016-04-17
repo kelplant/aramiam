@@ -1,6 +1,10 @@
 <?php
 namespace CoreBundle\Services;
 use CoreBundle\Factory\Applications\Salesforce\SalesforceUserFactory;
+use CoreBundle\Services\Manager\Admin\AgenceManager;
+use CoreBundle\Services\Manager\Admin\FonctionManager;
+use CoreBundle\Services\Manager\Admin\ServiceManager;
+use CoreBundle\Services\Manager\Applications\ProsodieOdigoManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager as SalesforceTokenStore;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,16 +21,32 @@ class SalesforceApiService
 
     protected $salesforceUserFactory;
 
+    protected $prosodieOdigo;
+
+    protected $agenceManager;
+
+    protected $serviceManager;
+
+    protected $fonctionManager;
+
     /**
      * SalesforceApiService constructor.
      * @param SalesforceTokenStore $tokenManager
      * @param SalesforceUserFactory $salesforceUserFactory
+     * @param ProsodieOdigoManager $prosodieOdigo
+     * @param AgenceManager $agenceManager
+     * @param ServiceManager $serviceManager
+     * @param FonctionManager $fonctionManager
      */
-    public function __construct($tokenManager, $securityContext, $salesforceUserFactory)
+    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager,$fonctionManager)
     {
         $this->tokenManager = $tokenManager;
         $this->securityContext = $securityContext;
         $this->salesforceUserFactory = $salesforceUserFactory;
+        $this->prosodieOdigo = $prosodieOdigo;
+        $this->agenceManager = $agenceManager;
+        $this->serviceManager = $serviceManager;
+        $this->fonctionManager = $fonctionManager;
     }
 
     /**
@@ -58,7 +78,7 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
         $jsonDecoded = json_decode(curl_exec($curl));
 
-        return $this->tokenManager->add(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
+        return $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
     }
 
     /**
@@ -91,6 +111,11 @@ class SalesforceApiService
             $queryResult = $this->initExcecuteQuery($query, $params);
             if (isset($queryResult[0]['message']) == "Session expired or invalid") {
                 $this->connnect($params);
+                try {
+                    return $this->initExcecuteQuery($query, $params);
+                } catch (Exception $e) {
+                    return $e->getMessage();
+                }
             }
             return $queryResult;
         } catch (Exception $e) {
@@ -109,13 +134,23 @@ class SalesforceApiService
     }
 
     /**
+     * @param $params
+     * @return mixed
+     */
+    public function getListOfGroupes($params)
+    {
+        $query = "SELECT Id,Name FROM Group ORDER BY Name ASC NULLS LAST";
+        return $this->executeQuery($query, $params);
+    }
+
+    /**
      * @param $emailToLook
      * @param $params
      * @return mixed
      */
     public function getAccountByUsername($emailToLook, $params)
     {
-        $query = "SELECT Id,Username FROM User WHERE Username = '".$emailToLook."'";
+        $query = "SELECT Id,Username,CallCenterId FROM User WHERE Username = '".$emailToLook."'";
         return $this->executeQuery($query, $params);
     }
 
@@ -126,7 +161,17 @@ class SalesforceApiService
      */
     private function shortNickName($lastName, $firstName)
     {
-        return iconv('utf-8', 'ascii//TRANSLIT', strtolower(substr($firstName,0,3).str_replace(" ", "", str_replace("-", "", $lastName))));
+        return iconv('utf-8', 'ascii//TRANSLIT', strtolower(substr($firstName, 0, 3).str_replace(" ", "", str_replace("-", "", $lastName))));
+    }
+
+    private function ifOdigoCreated($isCreatedInOdigo)
+    {
+        if ($isCreatedInOdigo != 0) {
+            $odigoInfos = $this->prosodieOdigo->load($isCreatedInOdigo);
+            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getOdigoRedirectPhoneNumber());
+        } else {
+            return array('callcenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null);
+        }
     }
 
     /**
@@ -139,6 +184,7 @@ class SalesforceApiService
     {
         if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
+            $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo']);
             return $this->salesforceUserFactory->createFromEntity(
                 array(
                     'Username' => $request->request->get('utilisateur')['email'],
@@ -155,8 +201,24 @@ class SalesforceApiService
                     'LanguageLocaleKey' => "FR",
                     'UserPermissionsMobileUser' => true,
                     'UserPreferencesDisableAutoSubForFeeds' => false,
+                    'CallCenterId' => $odigoInfos['callcenterId'],
+                    'Street' => '23 Avenue Aristide Briand', //Addresse from Robusto Agence
+                    'City' => 'Arcueil', //City from Robusto Agence
+                    'PostalCode' => '94110', //CodePostal from Robusto Agence
+                    'State ' => 'France', //Pays from Robusto Agence
+                    'ExternalID__c' => '9999', #Id from Robusto
+                    'Fax' => '0606060606', //Fax from Robusto Agence
+                    'Extension' =>  $odigoInfos['odigoExtension'],
+                    'OdigoCti__Odigo_login__c' => $odigoInfos['odigoExtension'],
+                    'Telephone_interne__c' => $odigoInfos['redirectPhoneNumber'],
+                    'Phone' => $odigoInfos['odigoPhoneNumber'],
+                    'Title' => $request->request->get('salesforce')['civilite'],
+                    'DepartementRegion__c' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInRobusto(),
+                    'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInRobusto(),
+                    'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInRobusto(),
                 )
             );
+            die();
         } else {
             return null;
         }

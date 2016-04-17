@@ -41,9 +41,10 @@ security:
     access_control:
         - { path: ^/manual/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/ajax/$, role: ROLE_ADMIN }
-        - { path: ^/admin/agences/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/admin/fonctions/, role: ROLE_ADMIN }
-        - { path: ^/admin/services/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/admin/candidats/, role: ROLE_ADMIN }
+        - { path: ^/admin/agences/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/app/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/fonctions/$, role: ROLE_ADMIN }
+        - { path: ^/admin/services/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/candidats/$, role: ROLE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/$, role: ROLE_USER }

@@ -40,6 +40,9 @@ class SalesforceProfileManager extends AbstractManager
         return $itemArray;
     }
 
+    /**
+     * @return array
+     */
     public function getStandardProfileListe()
     {
         return $this->getRepository()->findBy(array('userType' => 'Standard'), array('profileName' => 'ASC'));

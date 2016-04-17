@@ -214,8 +214,13 @@ function ajaxGenerateOdigo() {
                         var i;
                         var prosodieListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
                         prosodieListe += '<select name="prosodie[numProsodie]" id="prosodie_numProsodie" class="form-control">';
-                        for (i in result) {
-                            prosodieListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        if (result.length >= 1) {
+                            prosodieListe += '<option value="">Numéro Prosodie</option>';
+                            for (i in result) {
+                                prosodieListe += '<option value="' + result[i] + '">' + result[i] + '</option>';
+                            }
+                        } else {
+                            prosodieListe += '<option value="">Pas de Numéros</option>';
                         }
                         prosodieListe += '</select>';
                         prosodieListe += '</label>';
@@ -227,8 +232,13 @@ function ajaxGenerateOdigo() {
                                 var i;
                                 var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
                                 orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
-                                for (i in result) {
-                                    orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                                if (result.length >= 1) {
+                                    orangeListe += '<option value="">Numéro Orange</option>';
+                                    for (i in result) {
+                                        orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
+                                    }
+                                } else {
+                                    orangeListe += '<option value="">Pas de Numéros</option>';
                                 }
                                 orangeListe += '</select>';
                                 orangeListe += '</label>';
@@ -362,12 +372,33 @@ function reloadProfilesFromSf()
     urlajax = "/ajax/get/credentials";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/salesforce/"+result['user']+"/"+result['password'];
+            urlajax = "/batch/salesforce/profile/reload"+result['user']+"/"+result['password'];
             $.ajax({
                 url: urlajax, success: function (result) {
                     $("#waiting").removeClass("show").addClass("hide");
                     $("#reloadSfProfiles").removeClass("hide").addClass("show");
                     window.location = "/app/salesforce/profile_liste";
+                }
+            });
+        }
+    });
+}
+
+
+//Fonction de rechargement des groupes Sf
+function reloadGroupesFromSf()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadSfGroupes").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/salesforce/groupe/reload/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadSfGroupes").removeClass("hide").addClass("show");
+                    window.location = "/app/salesforce/groupe_liste";
                 }
             });
         }

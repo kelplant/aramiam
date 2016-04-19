@@ -89,24 +89,6 @@ class AramisAgency
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $shortUrl;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $fullUrl;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $detailPageTitle;
-
-    /**
-     * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isSaleAppointmentsEligible;
@@ -354,60 +336,6 @@ class AramisAgency
     public function setSlug($slug)
     {
         $this->slug = $slug;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShortUrl()
-    {
-        return $this->shortUrl;
-    }
-
-    /**
-     * @param string $shortUrl
-     * @return AramisAgency
-     */
-    public function setShortUrl($shortUrl)
-    {
-        $this->shortUrl = $shortUrl;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullUrl()
-    {
-        return $this->fullUrl;
-    }
-
-    /**
-     * @param string $fullUrl
-     * @return AramisAgency
-     */
-    public function setFullUrl($fullUrl)
-    {
-        $this->fullUrl = $fullUrl;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDetailPageTitle()
-    {
-        return $this->detailPageTitle;
-    }
-
-    /**
-     * @param string $detailPageTitle
-     * @return AramisAgency
-     */
-    public function setDetailPageTitle($detailPageTitle)
-    {
-        $this->detailPageTitle = $detailPageTitle;
         return $this;
     }
 

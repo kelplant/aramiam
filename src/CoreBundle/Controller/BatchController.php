@@ -1,7 +1,6 @@
 <?php
 namespace CoreBundle\Controller;
 
-use CoreBundle\Entity\Applications\Aramis\AramisAgency;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -82,15 +81,18 @@ class BatchController extends Controller
      */
     public function loadAgenciesFromAramis()
     {
-        $this->get('core.agence_manager')->truncateTable();
+        $this->get('core.aramisagency_manager')->truncateTable();
         $client = new GuzzleHttp\Client();
         $res = $client->request('GET', $this->getParameter('aramis_api')['ws_agency_url'], []);
-        $i = 0;
-        $returns = [];
         foreach(new \SimpleXMLElement($res->getBody()) as $agence) {
-            $returns[$i] = $this->get('core.factory.apps.aramis.aramis_agency')->createFromEntity($agence);
-            $i = $i + 1 ;
+            $addAgency = $this->get('core.factory.apps.aramis.aramis_agency')->createFromEntity($agence);
+            var_dump($id = $addAgency->getId());
+            if (!is_null($id) && $id != "00") {
+                $this->get('core.agence_manager')->save($addAgency);
+            } else {
+                $this->get('core.agence_manager')->flush();
+            }
         }
-        return new JsonResponse($returns);
+        return new JsonResponse($res->getBody());
     }
 }

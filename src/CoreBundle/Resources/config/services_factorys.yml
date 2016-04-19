@@ -15,4 +15,3 @@ services:
     core.factory.apps.aramis.aramis_agency:
         class: %core.factory.apps.aramis.aramis_agency.class%
         parent: odigo.factory.abstract
-        arguments: [ '@core.aramisagency_manager' ]

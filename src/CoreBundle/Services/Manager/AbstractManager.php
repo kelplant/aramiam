@@ -38,6 +38,13 @@ abstract class AbstractManager
     }
 
     /**
+     *
+     */
+    public function flush() {
+        $this->em->flush();
+    }
+
+    /**
      * @param $itemId
      * @return object
      */

@@ -3,21 +3,11 @@ namespace CoreBundle\Factory\Applications\Aramis;
 
 use CoreBundle\Factory\AbstractFactory;
 use CoreBundle\Entity\Applications\Aramis\AramisAgency;
-use CoreBundle\Services\Manager\Applications\Aramis\AramisAgencyManager;
 use Doctrine\Common\Util\Inflector;
 
 class AramisAgencyFactory extends AbstractFactory
 {
-    protected $aramisAgencyManager;
 
-    /**
-     * AramisAgencyFactory constructor.
-     * @param AramisAgencyManager $aramisAgencyManager
-     */
-    public function __construct(AramisAgencyManager $aramisAgencyManager)
-    {
-        $this->aramisAgencyManager = $aramisAgencyManager;
-    }
 
     /**
      * @param $aramisAgency
@@ -34,16 +24,6 @@ class AramisAgencyFactory extends AbstractFactory
                 }
             }
         }
-        $id = $addAgency->getId();
-        if ($id != "" && $id != "00") {
-            try {
-                $this->aramisAgencyManager->save($addAgency);
-                return array ('id' => $id, 'status' => "OK");
-            } catch (\Exception $e) {
-                return array ('id' => $id, 'status' => $e->getMessage());
-            }
-        } else {
-            return array ('id' => 'noId', 'status' => "KO");
-        }
+        return $addAgency;
     }
 }

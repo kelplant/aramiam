@@ -3,32 +3,27 @@ namespace CoreBundle\Factory\Applications\Salesforce;
 
 use CoreBundle\Factory\AbstractFactory;
 use CoreBundle\Entity\Applications\Salesforce\SalesforceUser;
+use Doctrine\Common\Util\Inflector;
 
+/**
+ * Class SalesforceUserFactory
+ * @package CoreBundle\Factory\Applications\Salesforce
+ */
 class SalesforceUserFactory extends AbstractFactory
 {
     /**
-     * @param $salesforceUser
+     * @param $userInfos
      * @return SalesforceUser
      */
-    public function createFromEntity($salesforceUser)
+    public function createFromEntity($userInfos)
     {
-        $salesforceUser = new SalesforceUser(
-            $salesforceUser['Username'],
-            $salesforceUser['LastName'],
-            $salesforceUser['FirstName'],
-            $salesforceUser['Email'],
-            $salesforceUser['TimeZoneSidKey'],
-            $salesforceUser['Alias'],
-            $salesforceUser['CommunityNickname'],
-            $salesforceUser['IsActive'],
-            $salesforceUser['LocaleSidKey'],
-            $salesforceUser['EmailEncodingKey'],
-            $salesforceUser['ProfileId'],
-            $salesforceUser['LanguageLocaleKey'],
-            $salesforceUser['UserPermissionsMobileUser'],
-            $salesforceUser['UserPreferencesDisableAutoSubForFeeds']
-        );
+        $newSalesforceUser = new SalesforceUser();
+        foreach ($userInfos as  $key => $value) {
+            if ($value != "") {
+                $newSalesforceUser->{"set" . Inflector::camelize($key)}($value);
+            }
+        }
 
-        return $salesforceUser;
+        return $newSalesforceUser;
     }
 }

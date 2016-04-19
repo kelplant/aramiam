@@ -36,7 +36,7 @@ class AramisAgencyManager extends AbstractManager
         $itemToSet->setIsSaleAppointmentsEligible($itemLoad['isSaleAppointmentsEligible']);
         $itemToSet->setIsPurchaseAppointmentsEligible($itemLoad['isPurchaseAppointmentsEligible']);
         $itemToSet->setIsPurchaseSaleAppointmentsEligible($itemLoad['isPurchaseSaleAppointmentsEligible']);
-                
+
         return $itemToSet;
     }
 

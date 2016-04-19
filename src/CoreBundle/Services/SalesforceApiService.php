@@ -167,7 +167,8 @@ class SalesforceApiService
     {
         if ($isCreatedInOdigo != 0) {
             $odigoInfos = $this->prosodieOdigo->load($isCreatedInOdigo);
-            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getOdigoRedirectPhoneNumber());
+
+            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getRedirectPhoneNumber());
         } else {
             return array('callcenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null);
         }
@@ -184,7 +185,7 @@ class SalesforceApiService
         if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
             $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo']);
-            return $this->salesforceUserFactory->createFromEntity(
+            $newSalesforceUser =  $this->salesforceUserFactory->createFromEntity(
                 array(
                     'Username' => $request->request->get('utilisateur')['email'],
                     'LastName' => $request->request->get('utilisateur')['name'],
@@ -211,12 +212,13 @@ class SalesforceApiService
                     'OdigoCti__Odigo_login__c' => $odigoInfos['odigoExtension'],
                     'Telephone_interne__c' => $odigoInfos['redirectPhoneNumber'],
                     'Phone' => $odigoInfos['odigoPhoneNumber'],
-                    'Title' => $request->request->get('salesforce')['civilite'],
+                    'Title' => $request->request->get('utilisateur')['civilite'],
                     'DepartementRegion__c' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
                 )
             );
+            return $newSalesforceUser;
         } else {
             return null;
         }

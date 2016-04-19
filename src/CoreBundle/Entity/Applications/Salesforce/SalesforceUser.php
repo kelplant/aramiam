@@ -79,40 +79,79 @@ class SalesforceUser
     protected $UserPreferencesDisableAutoSubForFeeds;
 
     /**
-     * SalesforceUser constructor.
-     * @param string $Username
-     * @param string $LastName
-     * @param string $FirstName
-     * @param string $Email
-     * @param string $TimeZoneSidKey
-     * @param string $Alias
-     * @param string $CommunityNickname
-     * @param string $IsActive
-     * @param string $LocaleSidKey
-     * @param string $EmailEncodingKey
-     * @param string $ProfileId
-     * @param string $LanguageLocaleKey
-     * @param string $UserPermissionsMobileUser
-     * @param string $UserPreferencesDisableAutoSubForFeeds
+     * @var string
      */
-    public function __construct($Username = null, $LastName = null, $FirstName = null, $Email = null, $TimeZoneSidKey = null, $Alias = null, $CommunityNickname = null, $IsActive = null, $LocaleSidKey = null, $EmailEncodingKey = null, $ProfileId = null, $LanguageLocaleKey = null, $UserPermissionsMobileUser = null, $UserPreferencesDisableAutoSubForFeeds = null)
-    {
-        $this->Username = $Username;
-        $this->LastName = $LastName;
-        $this->FirstName = $FirstName;
-        $this->Email = $Email;
-        $this->TimeZoneSidKey = $TimeZoneSidKey;
-        $this->Alias = $Alias;
-        $this->CommunityNickname = $CommunityNickname;
-        $this->IsActive = $IsActive;
-        $this->LocaleSidKey = $LocaleSidKey;
-        $this->EmailEncodingKey = $EmailEncodingKey;
-        $this->ProfileId = $ProfileId;
-        $this->LanguageLocaleKey = $LanguageLocaleKey;
-        $this->UserPermissionsMobileUser = $UserPermissionsMobileUser;
-        $this->UserPreferencesDisableAutoSubForFeeds = $UserPreferencesDisableAutoSubForFeeds;
-    }
+    protected $CallCenterId;
 
+    /**
+     * @var string
+     */
+    protected $Street;
+
+    /**
+     * @var string
+     */
+    protected $City;
+
+    /**
+     * @var string
+     */
+    protected $PostalCode;
+
+    /**
+     * @var string
+     */
+    protected $State;
+
+    /**
+     * @var string
+     */
+    protected $ExternalID__c;
+
+    /**
+     * @var string
+     */
+    protected $Fax;
+
+    /**
+     * @var string
+     */
+    protected $Extension;
+
+    /**
+     * @var string
+     */
+    protected $OdigoCti__Odigo_login__c;
+
+    /**
+     * @var string
+     */
+    protected $Telephone_interne__c;
+
+    /**
+     * @var string
+     */
+    protected $Phone;
+
+    /**
+     * @var string
+     */
+    protected $Title;
+
+    /**
+     * @var string
+     */
+    protected $DepartementRegion__c;
+
+    /**
+     * @var string
+     */
+    protected $Department;
+
+    /**
+     * @var string
+     */
+    protected $Division;
 
     /**
      * @return string
@@ -363,6 +402,276 @@ class SalesforceUser
     public function setUserPreferencesDisableAutoSubForFeeds($UserPreferencesDisableAutoSubForFeeds)
     {
         $this->UserPreferencesDisableAutoSubForFeeds = $UserPreferencesDisableAutoSubForFeeds;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCallCenterId()
+    {
+        return $this->CallCenterId;
+    }
+
+    /**
+     * @param string $CallCenterId
+     * @return SalesforceUser
+     */
+    public function setCallCenterId($CallCenterId)
+    {
+        $this->CallCenterId = $CallCenterId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->Street;
+    }
+
+    /**
+     * @param string $Street
+     * @return SalesforceUser
+     */
+    public function setStreet($Street)
+    {
+        $this->Street = $Street;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->City;
+    }
+
+    /**
+     * @param string $City
+     * @return SalesforceUser
+     */
+    public function setCity($City)
+    {
+        $this->City = $City;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->PostalCode;
+    }
+
+    /**
+     * @param string $PostalCode
+     * @return SalesforceUser
+     */
+    public function setPostalCode($PostalCode)
+    {
+        $this->PostalCode = $PostalCode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->State;
+    }
+
+    /**
+     * @param string $State
+     * @return SalesforceUser
+     */
+    public function setState($State)
+    {
+        $this->State = $State;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalIDC()
+    {
+        return $this->ExternalID__c;
+    }
+
+    /**
+     * @param string $ExternalID__c
+     * @return SalesforceUser
+     */
+    public function setExternalIDC($ExternalID__c)
+    {
+        $this->ExternalID__c = $ExternalID__c;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->Fax;
+    }
+
+    /**
+     * @param string $Fax
+     * @return SalesforceUser
+     */
+    public function setFax($Fax)
+    {
+        $this->Fax = $Fax;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->Extension;
+    }
+
+    /**
+     * @param string $Extension
+     * @return SalesforceUser
+     */
+    public function setExtension($Extension)
+    {
+        $this->Extension = $Extension;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOdigoCtiOdigoLoginC()
+    {
+        return $this->OdigoCti__Odigo_login__c;
+    }
+
+    /**
+     * @param string $OdigoCti__Odigo_login__c
+     * @return SalesforceUser
+     */
+    public function setOdigoCtiOdigoLoginC($OdigoCti__Odigo_login__c)
+    {
+        $this->OdigoCti__Odigo_login__c = $OdigoCti__Odigo_login__c;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephoneInterneC()
+    {
+        return $this->Telephone_interne__c;
+    }
+
+    /**
+     * @param string $Telephone_interne__c
+     * @return SalesforceUser
+     */
+    public function setTelephoneInterneC($Telephone_interne__c)
+    {
+        $this->Telephone_interne__c = $Telephone_interne__c;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->Phone;
+    }
+
+    /**
+     * @param string $Phone
+     * @return SalesforceUser
+     */
+    public function setPhone($Phone)
+    {
+        $this->Phone = $Phone;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->Title;
+    }
+
+    /**
+     * @param string $Title
+     * @return SalesforceUser
+     */
+    public function setTitle($Title)
+    {
+        $this->Title = $Title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDepartementRegionC()
+    {
+        return $this->DepartementRegion__c;
+    }
+
+    /**
+     * @param string $DepartementRegion__c
+     * @return SalesforceUser
+     */
+    public function setDepartementRegionC($DepartementRegion__c)
+    {
+        $this->DepartementRegion__c = $DepartementRegion__c;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDepartment()
+    {
+        return $this->Department;
+    }
+
+    /**
+     * @param string $Department
+     * @return SalesforceUser
+     */
+    public function setDepartment($Department)
+    {
+        $this->Department = $Department;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDivision()
+    {
+        return $this->Division;
+    }
+
+    /**
+     * @param string $Division
+     * @return SalesforceUser
+     */
+    public function setDivision($Division)
+    {
+        $this->Division = $Division;
         return $this;
     }
 }

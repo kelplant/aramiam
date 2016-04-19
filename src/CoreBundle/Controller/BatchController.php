@@ -1,9 +1,11 @@
 <?php
 namespace CoreBundle\Controller;
 
+use CoreBundle\Entity\Applications\Aramis\AramisAgency;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use GuzzleHttp;
 
 /**
  * Class BatchController
@@ -71,5 +73,24 @@ class BatchController extends Controller
         $explodedTab = array();
         $explodedTab[] = explode(";", $lineToInsert);
         return new JsonResponse($this->get('core.orangetelliste_manager')->addFromApi($explodedTab[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($explodedTab[0][1])));
+    }
+
+    /**
+
+     * @Route(path="/batch/insert/agencies",name="ajax_insert_agencies")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function loadAgenciesFromAramis()
+    {
+        $this->get('core.agence_manager')->truncateTable();
+        $client = new GuzzleHttp\Client();
+        $res = $client->request('GET', $this->getParameter('aramis_api')['ws_agency_url'], []);
+        $i = 0;
+        $returns = [];
+        foreach(new \SimpleXMLElement($res->getBody()) as $agence) {
+            $returns[$i] = $this->get('core.factory.apps.aramis.aramis_agency')->createFromEntity($agence);
+            $i = $i + 1 ;
+        }
+        return new JsonResponse($returns);
     }
 }

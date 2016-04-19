@@ -67,15 +67,14 @@ class SalesforceApiService
      */
     private function connnect($params)
     {
-        $loginurl = "https://test.salesforce.com/services/oauth2/token";
-        $params = "grant_type=password"
+        $paramsCurl = "grant_type=password"
             . "&client_id=".$params['consumerKey']
             . "&client_secret=".$params['secret']
             . "&username=".$params['username']
             . "&password=".$params['password'];
-        $curl = $this->curlInitAndHeader($loginurl);
+        $curl = $this->curlInitAndHeader($params['urlAauth2']);
         curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
         $jsonDecoded = json_decode(curl_exec($curl));
 
         return $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));

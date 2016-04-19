@@ -25,6 +25,10 @@ parameters:
     core.entity.salesforce.token_store.class: CoreBundle\Entity\Applications\Salesforce\SalesforceTokenStore
     core.entityname.salesforce.token_store.class: 'CoreBundle\Entity\Applications\Salesforce\SalesforceTokenStore'
 
+    core.app.aramis.agency_manager.class: CoreBundle\Services\Manager\Applications\Aramis\AramisAgencyManager
+    core.entity.aramis.agency_manager.class: CoreBundle\Entity\Applications\Aramis\AramisAgency
+    core.entityname.aramis.agency_manager.class: 'CoreBundle\Entity\Applications\Aramis\AramisAgency'
+
 services:
     core.app_zendesk_ticket_link_manager:
         class: %core.app_zendesk_ticket_link_manager.class%
@@ -71,3 +75,10 @@ services:
         calls:
         - [setEntity, ["%core.entity.salesforce.token_store.class%"]]
         - [setEntityName, ["%core.entityname.salesforce.token_store.class%"]]
+
+    core.aramisagency_manager:
+        class: %core.app.aramis.agency_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.aramis.agency_manager.class%"]]
+        - [setEntityName, ["%core.entityname.aramis.agency_manager.class%"]]

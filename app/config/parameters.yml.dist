@@ -35,6 +35,16 @@ parameters:
         ldapUsername:  ~
         ldapPassword:  ~
 
+    salesforce:
+        consumerKey:   ~
+        secret:        ~
+        username:      ~
+        password:      ~
+        url_oauth2:    ~
+
+    aramis_api:
+        ws_agency_url: ~
+
     odigo_wsdl_error_createagent_codes:
         0:             L'utlisateur a été crée
         105:           L'utilisateur existe déjà

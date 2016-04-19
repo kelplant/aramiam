@@ -30,7 +30,8 @@
         "aramis/odigo-service-bundle": "dev-master",
         "lightsaml/sp-bundle": "^1.0",
         "google/apiclient": "1.0.*@beta",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "repositories" : [{
         "type" : "vcs",

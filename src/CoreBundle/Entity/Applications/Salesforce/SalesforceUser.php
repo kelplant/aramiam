@@ -154,14 +154,6 @@ class SalesforceUser
     protected $Division;
 
     /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->Username;
-    }
-
-    /**
      * @param string $Username
      * @return SalesforceUser
      */
@@ -169,14 +161,6 @@ class SalesforceUser
     {
         $this->Username = $Username;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->LastName;
     }
 
     /**
@@ -190,14 +174,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->FirstName;
-    }
-
-    /**
      * @param string $FirstName
      * @return SalesforceUser
      */
@@ -205,14 +181,6 @@ class SalesforceUser
     {
         $this->FirstName = $FirstName;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->Email;
     }
 
     /**
@@ -226,14 +194,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getTimeZoneSidKey()
-    {
-        return $this->TimeZoneSidKey;
-    }
-
-    /**
      * @param string $TimeZoneSidKey
      * @return SalesforceUser
      */
@@ -241,14 +201,6 @@ class SalesforceUser
     {
         $this->TimeZoneSidKey = $TimeZoneSidKey;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->Alias;
     }
 
     /**
@@ -262,14 +214,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getCommunityNickname()
-    {
-        return $this->CommunityNickname;
-    }
-
-    /**
      * @param string $CommunityNickname
      * @return SalesforceUser
      */
@@ -277,14 +221,6 @@ class SalesforceUser
     {
         $this->CommunityNickname = $CommunityNickname;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsActive()
-    {
-        return $this->IsActive;
     }
 
     /**
@@ -298,14 +234,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getLocaleSidKey()
-    {
-        return $this->LocaleSidKey;
-    }
-
-    /**
      * @param string $LocaleSidKey
      * @return SalesforceUser
      */
@@ -313,14 +241,6 @@ class SalesforceUser
     {
         $this->LocaleSidKey = $LocaleSidKey;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmailEncodingKey()
-    {
-        return $this->EmailEncodingKey;
     }
 
     /**
@@ -334,14 +254,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getProfileId()
-    {
-        return $this->ProfileId;
-    }
-
-    /**
      * @param string $ProfileId
      * @return SalesforceUser
      */
@@ -349,14 +261,6 @@ class SalesforceUser
     {
         $this->ProfileId = $ProfileId;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguageLocaleKey()
-    {
-        return $this->LanguageLocaleKey;
     }
 
     /**
@@ -370,14 +274,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getUserPermissionsMobileUser()
-    {
-        return $this->UserPermissionsMobileUser;
-    }
-
-    /**
      * @param string $UserPermissionsMobileUser
      * @return SalesforceUser
      */
@@ -385,14 +281,6 @@ class SalesforceUser
     {
         $this->UserPermissionsMobileUser = $UserPermissionsMobileUser;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserPreferencesDisableAutoSubForFeeds()
-    {
-        return $this->UserPreferencesDisableAutoSubForFeeds;
     }
 
     /**
@@ -406,14 +294,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getCallCenterId()
-    {
-        return $this->CallCenterId;
-    }
-
-    /**
      * @param string $CallCenterId
      * @return SalesforceUser
      */
@@ -421,14 +301,6 @@ class SalesforceUser
     {
         $this->CallCenterId = $CallCenterId;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->Street;
     }
 
     /**
@@ -442,14 +314,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->City;
-    }
-
-    /**
      * @param string $City
      * @return SalesforceUser
      */
@@ -457,14 +321,6 @@ class SalesforceUser
     {
         $this->City = $City;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPostalCode()
-    {
-        return $this->PostalCode;
     }
 
     /**
@@ -478,14 +334,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getState()
-    {
-        return $this->State;
-    }
-
-    /**
      * @param string $State
      * @return SalesforceUser
      */
@@ -493,14 +341,6 @@ class SalesforceUser
     {
         $this->State = $State;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExternalIDC()
-    {
-        return $this->ExternalID__c;
     }
 
     /**
@@ -514,14 +354,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getFax()
-    {
-        return $this->Fax;
-    }
-
-    /**
      * @param string $Fax
      * @return SalesforceUser
      */
@@ -529,14 +361,6 @@ class SalesforceUser
     {
         $this->Fax = $Fax;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtension()
-    {
-        return $this->Extension;
     }
 
     /**
@@ -550,14 +374,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getOdigoCtiOdigoLoginC()
-    {
-        return $this->OdigoCti__Odigo_login__c;
-    }
-
-    /**
      * @param string $OdigoCti__Odigo_login__c
      * @return SalesforceUser
      */
@@ -565,14 +381,6 @@ class SalesforceUser
     {
         $this->OdigoCti__Odigo_login__c = $OdigoCti__Odigo_login__c;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelephoneInterneC()
-    {
-        return $this->Telephone_interne__c;
     }
 
     /**
@@ -586,14 +394,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->Phone;
-    }
-
-    /**
      * @param string $Phone
      * @return SalesforceUser
      */
@@ -601,14 +401,6 @@ class SalesforceUser
     {
         $this->Phone = $Phone;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->Title;
     }
 
     /**
@@ -622,14 +414,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getDepartementRegionC()
-    {
-        return $this->DepartementRegion__c;
-    }
-
-    /**
      * @param string $DepartementRegion__c
      * @return SalesforceUser
      */
@@ -640,14 +424,6 @@ class SalesforceUser
     }
 
     /**
-     * @return string
-     */
-    public function getDepartment()
-    {
-        return $this->Department;
-    }
-
-    /**
      * @param string $Department
      * @return SalesforceUser
      */
@@ -655,14 +431,6 @@ class SalesforceUser
     {
         $this->Department = $Department;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDivision()
-    {
-        return $this->Division;
     }
 
     /**

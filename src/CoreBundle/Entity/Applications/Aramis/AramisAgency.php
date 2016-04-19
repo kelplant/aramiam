@@ -65,30 +65,6 @@ class AramisAgency
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $openingText1;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $openingHours1;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $openingText2;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $openingHours2;
-
-    /**
-     * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $pointOfSale;
@@ -306,78 +282,6 @@ class AramisAgency
     public function setEmail($email)
     {
         $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpeningText1()
-    {
-        return $this->openingText1;
-    }
-
-    /**
-     * @param string $openingText1
-     * @return AramisAgency
-     */
-    public function setOpeningText1($openingText1)
-    {
-        $this->openingText1 = $openingText1;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpeningHours1()
-    {
-        return $this->openingHours1;
-    }
-
-    /**
-     * @param string $openingHours1
-     * @return AramisAgency
-     */
-    public function setOpeningHours1($openingHours1)
-    {
-        $this->openingHours1 = $openingHours1;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpeningText2()
-    {
-        return $this->openingText2;
-    }
-
-    /**
-     * @param string $openingText2
-     * @return AramisAgency
-     */
-    public function setOpeningText2($openingText2)
-    {
-        $this->openingText2 = $openingText2;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpeningHours2()
-    {
-        return $this->openingHours2;
-    }
-
-    /**
-     * @param string $openingHours2
-     * @return AramisAgency
-     */
-    public function setOpeningHours2($openingHours2)
-    {
-        $this->openingHours2 = $openingHours2;
         return $this;
     }
 

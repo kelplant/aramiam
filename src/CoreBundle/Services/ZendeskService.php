@@ -202,7 +202,7 @@ class ZendeskService
      */
     public function createTicket($id, $nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste, $requester_email, $paramsZendeskApi)
     {
-        $createdTicket = $this->curlWrap->curlWrapPost('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk), $paramsZendeskApi);
+        $createdTicket = $this->curlWrap->curlWrap('/api/v2/tickets.json', $this->createJsonTicket($this->generateMessageArray($nom, $prenom, $entite, $due_at, $agenceZendesk, $serviceZendesk, $fonctionZendesk, $statusPoste), $due_at, $requester_email, $agenceZendesk, $serviceZendesk), $paramsZendeskApi, "POST");
         $this->zendeskTicketLinkManager->setParamForName($id, $createdTicket->ticket->id);
         return $createdTicket;
     }
@@ -215,7 +215,7 @@ class ZendeskService
     public function deleteTicket($ticketId, $paramsZendeskApi)
     {
         $this->zendeskTicketLinkManager->removeByTicketId($ticketId);
-        return $this->curlWrap->curlWrapDelete('/api/v2/tickets/'.$ticketId.'.json', $paramsZendeskApi);
+        return $this->curlWrap->curlWrap('/api/v2/tickets/'.$ticketId.'.json', null, $paramsZendeskApi, "DELETE");
     }
 
     /**
@@ -225,7 +225,7 @@ class ZendeskService
      */
     public function updateStartDateTicket($ticketId, $newStartDate, $paramsZendeskApi)
     {
-        $this->curlWrap->curlWrapPut('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate), $paramsZendeskApi);
+        $this->curlWrap->curlWrap('/api/v2/tickets/'.$ticketId.'.json', $this->updateJsonTicket($newStartDate), $paramsZendeskApi, "PUT");
         return;
     }
 }

@@ -26,10 +26,6 @@ class AramisAgencyManager extends AbstractManager
         $itemToSet->setCity($itemLoad['city']);
         $itemToSet->setPhone($itemLoad['phone']);
         $itemToSet->setEmail($itemLoad['email']);
-        $itemToSet->setOpeningText1($itemLoad['openingText1']);
-        $itemToSet->setOpeningHours1($itemLoad['openingHours1']);
-        $itemToSet->setOpeningText2($itemLoad['openingText2']);
-        $itemToSet->setOpeningHours2($itemLoad['openingHours2']);
         $itemToSet->setPointOfSale($itemLoad['pointOfSale']);
         $itemToSet->setCoordonnees($itemLoad['coordonnees']);
         $itemToSet->setCargarantieId($itemLoad['cargarantieId']);
@@ -40,8 +36,7 @@ class AramisAgencyManager extends AbstractManager
         $itemToSet->setIsSaleAppointmentsEligible($itemLoad['isSaleAppointmentsEligible']);
         $itemToSet->setIsPurchaseAppointmentsEligible($itemLoad['isPurchaseAppointmentsEligible']);
         $itemToSet->setIsPurchaseSaleAppointmentsEligible($itemLoad['isPurchaseSaleAppointmentsEligible']);
-        
-        
+                
         return $itemToSet;
     }
 
@@ -62,10 +57,6 @@ class AramisAgencyManager extends AbstractManager
         $itemArray['city'] = $itemToTransform->getCity();
         $itemArray['phone'] = $itemToTransform->getPhone();
         $itemArray['email'] = $itemToTransform->getEmail();
-        $itemArray['openingText1'] = $itemToTransform->getOpeningText1();
-        $itemArray['openingHours1'] = $itemToTransform->getOpeningHours1();
-        $itemArray['openingText2'] = $itemToTransform->getOpeningText2();
-        $itemArray['openingHours2'] = $itemToTransform->getOpeningHours2();
         $itemArray['pointOfSale'] = $itemToTransform->getPointOfSale();
         $itemArray['coordonnees'] = $itemToTransform->getCoordonnees();
         $itemArray['cargarantieId'] = $itemToTransform->getCargarantieId();

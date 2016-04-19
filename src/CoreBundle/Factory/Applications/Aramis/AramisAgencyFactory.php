@@ -18,7 +18,7 @@ class AramisAgencyFactory extends AbstractFactory
         $addAgency = new AramisAgency();
         foreach ($aramisAgency as  $key => $value)
         {
-            if (!in_array("set" . Inflector::camelize($key), array ("setlinks", "setschedules", "setpurchaseCalendar", "setsaleCalendar", "setpurchaseSaleCalendar", "setsalespersons", "setappointementRadius"))) {
+            if (!in_array("set" . Inflector::camelize($key), array ("opening_text1", "opening_hours1", "opening_text2", "opening_hours2", "setlinks", "setschedules", "setpurchaseCalendar", "setsaleCalendar", "setpurchaseSaleCalendar", "setsalespersons", "setappointementRadius"))) {
                 if ($value != "") {
                     $addAgency->{"set" . Inflector::camelize($key)}($value);
                 }

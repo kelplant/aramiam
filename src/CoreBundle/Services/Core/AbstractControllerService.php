@@ -85,21 +85,6 @@ abstract class AbstractControllerService extends Controller
     }
 
     /**
-     * @param $allItems
-     * @param $item
-     * @param string $number
-     * @param integer $i
-     * @return mixed
-     */
-    protected function filterView($allItems, $item, $number, $i)
-    {
-        if ($item->getIsArchived() != $number && $this->isArchived == $number) {
-            unset($allItems[$i]);
-        }
-        return $allItems;
-    }
-
-    /**
      *
      */
     protected function initBothForms()

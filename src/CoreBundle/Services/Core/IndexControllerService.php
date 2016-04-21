@@ -44,25 +44,53 @@ class IndexControllerService extends AbstractControllerService
     }
 
     /**
+     * @param $allItems
+     * @param $item
+     * @param string $number
+     * @param integer $i
+     * @return mixed
+     */
+    private function filterView($allItems, $item, $number, $i)
+    {
+        if ($item->getIsArchived() != $number && $this->isArchived == $number) {
+            unset($allItems[$i]);
+        }
+        return $allItems;
+    }
+
+    /**
      * @param $entity
      * @param $allItems
      * @return mixed
      */
-    private function getListIfCandidatOrUtilisateur($entity, $allItems)
+    private function ifCandidatOUtilisateurList($entity, $allItems)
     {
-        $i = 0;
-        $item = null;
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            $i = 0;
+            foreach ($allItems as $item) {
+                $allItems = $this->filterView($allItems, $item, '0', $i);
+                $allItems = $this->filterView($allItems, $item, '1', $i);
+                $allItems = $this->filterView($allItems, $item, '2', $i);
+                $i = $i + 1;
+            }
+        }
+        return $allItems;
+    }
+
+    /**
+     * @param $entity
+     * @param $allItems
+     * @return mixed
+     */
+    private function getListOfItems($entity, $allItems)
+    {
         foreach ($allItems as $item) {
             $this->ifFilterConvertService($item, $entity);
             $this->ifFilterConvertFonction($item, $entity);
             $this->ifFilterConvertAgence($item, $entity);
-            $i++;
         }
-        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            $allItems = $this->filterView($allItems, $item, '0', $i);
-            $allItems = $this->filterView($allItems, $item, '1', $i);
-            $allItems = $this->filterView($allItems, $item, '2', $i);
-        }
+        $this->ifCandidatOUtilisateurList($entity, $allItems);
+
         return $allItems;
     }
 
@@ -74,7 +102,7 @@ class IndexControllerService extends AbstractControllerService
      */
     public function getFullList($isArchived, $formAdd, $formEdit, $optionMessage)
     {
-        $allItems = $this->getListIfCandidatOrUtilisateur($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
+        $allItems = $this->getListOfItems($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
 
         if (!is_null($optionMessage)) {
             $this->message = $optionMessage['error'];

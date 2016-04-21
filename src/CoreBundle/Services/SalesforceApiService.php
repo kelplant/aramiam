@@ -73,7 +73,7 @@ class SalesforceApiService
 
     /**
      * @param $params
-     * @return mixed
+     * @return bool|int
      */
     private function connnect($params)
     {
@@ -91,9 +91,11 @@ class SalesforceApiService
     }
 
     /**
-     * @param string $query
+     * @param $query
      * @param $params
-     * @return mixed
+     * @param $json
+     * @param $action
+     * @return array
      */
     private function initExcecuteQuery($query, $params, $json, $action)
     {
@@ -111,9 +113,11 @@ class SalesforceApiService
     }
 
     /**
-     * @param string $query
+     * @param $query
      * @param $params
-     * @return mixed|string
+     * @param $json
+     * @param $action
+     * @return array|string
      */
     public function executeQuery($query, $params, $json, $action)
     {
@@ -135,7 +139,8 @@ class SalesforceApiService
 
     /**
      * @param $params
-     * @return mixed
+     * @param $newSalesforceUser
+     * @return array|string
      */
     public function createNewUser($params, $newSalesforceUser)
     {
@@ -183,6 +188,11 @@ class SalesforceApiService
         return iconv('utf-8', 'ascii//TRANSLIT', strtolower(substr($firstName, 0, 3).str_replace(" ", "", str_replace("-", "", $lastName))));
     }
 
+    /**
+     * @param $isCreatedInOdigo
+     * @param $callCenterId
+     * @return array
+     */
     private function ifOdigoCreated($isCreatedInOdigo, $callCenterId)
     {
         if ($isCreatedInOdigo != 0) {
@@ -198,7 +208,8 @@ class SalesforceApiService
      * @param $sendaction
      * @param $isCreateInSalesforce
      * @param Request $request
-     * @return \CoreBundle\Entity\Applications\Salesforce\SalesforceUser|null
+     * @param $params
+     * @return array|null|string
      */
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
@@ -207,7 +218,7 @@ class SalesforceApiService
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
             $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'],  $paramsForSalesforceApi["salesforce_odigo_cti_id"]);
             $agenceCompany = $this->aramisAgencyManager->load($this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany());
-            $newSalesforceUser =  $this->salesforceUserFactory->createFromEntity(
+            $newSalesforceUser = $this->salesforceUserFactory->createFromEntity(
                 array(
                     'Username' => $request->request->get('utilisateur')['email'],
                     'LastName' => $request->request->get('utilisateur')['name'],

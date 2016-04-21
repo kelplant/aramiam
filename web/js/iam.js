@@ -121,7 +121,7 @@ function ajaxGenerateSalesforce()
                         var profilesListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
                         profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
                         for (i in result) {
-                            profilesListe += '<option value="'+result[i].userLicenseId+'">'+result[i].profileName+'</option>';
+                            profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
                         }
                         profilesListe += '</select>';
                         profilesListe += '</label>';

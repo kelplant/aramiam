@@ -37,7 +37,11 @@ class ParametersManager
      */
     public function getAllAppParams($app)
     {
-        return $this->em->getRepository('CoreBundle:Parameters')->findByApplication($app);
+        $return = [];
+        foreach ($this->em->getRepository('CoreBundle:Parameters')->findByApplication($app) as $param) {
+                $return[$param->getParamName()] = $param->getParamValue();
+        }
+        return $return;
     }
 
     /**

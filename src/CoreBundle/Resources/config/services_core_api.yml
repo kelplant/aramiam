@@ -26,7 +26,7 @@ services:
 
     core.salesforce_api_service:
         class: %core.salesforce_api_service.class%
-        arguments: [ '@core.salesforcetoken_store', '@security.token_storage', '@core.factory.apps.salesforce.salesforce_user', '@core.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager' ]
+        arguments: [ '@core.salesforcetoken_store', '@security.token_storage', '@core.factory.apps.salesforce.salesforce_user', '@core.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@core.parameters_calls', '@core.aramisagency_manager' ]
 
     core.active_directory_api_service:
         class: %core.active_directory_api_service.class%

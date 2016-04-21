@@ -18,7 +18,7 @@ class DeleteControllerService extends AbstractControllerService
         $this->insert = $this->remove;
         $this->initBothForms();
 
-        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit, null);
     }
 
     /**

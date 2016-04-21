@@ -11,147 +11,142 @@ class SalesforceUser
      *
      * @var string
      */
-    protected $Username;
+    public $Username;
 
     /**
      * @var string
      */
-    protected $LastName;
+    public $LastName;
 
     /**
      * @var string
      */
-    protected $FirstName;
+    public $FirstName;
 
     /**
      * @var string
      */
-    protected $Email;
+    public $Email;
 
     /**
      * @var string
      */
-    protected $TimeZoneSidKey;
+    public $TimeZoneSidKey;
 
     /**
      * @var string
      */
-    protected $Alias;
+    public $Alias;
 
     /**
      * @var string
      */
-    protected $CommunityNickname;
+    public $CommunityNickname;
 
     /**
      * @var string
      */
-    protected $IsActive;
+    public $IsActive;
 
     /**
      * @var string
      */
-    protected $LocaleSidKey;
+    public $LocaleSidKey;
 
     /**
      * @var string
      */
-    protected $EmailEncodingKey;
+    public $EmailEncodingKey;
 
     /**
      * @var string
      */
-    protected $ProfileId;
+    public $ProfileId;
 
     /**
      * @var string
      */
-    protected $LanguageLocaleKey;
+    public $LanguageLocaleKey;
 
     /**
      * @var string
      */
-    protected $UserPermissionsMobileUser;
+    public $UserPermissionsMobileUser;
 
     /**
      * @var string
      */
-    protected $UserPreferencesDisableAutoSubForFeeds;
+    public $UserPreferencesDisableAutoSubForFeeds;
 
     /**
      * @var string
      */
-    protected $CallCenterId;
+    public $CallCenterId;
 
     /**
      * @var string
      */
-    protected $Street;
+    public $Street;
 
     /**
      * @var string
      */
-    protected $City;
+    public $City;
 
     /**
      * @var string
      */
-    protected $PostalCode;
+    public $PostalCode;
 
     /**
      * @var string
      */
-    protected $State;
+    public $State;
 
     /**
      * @var string
      */
-    protected $ExternalID__c;
+    public $ExternalID__c;
 
     /**
      * @var string
      */
-    protected $Fax;
+    public $Fax;
 
     /**
      * @var string
      */
-    protected $Extension;
+    public $Extension;
 
     /**
      * @var string
      */
-    protected $OdigoCti__Odigo_login__c;
+    public $OdigoCti__Odigo_login__c;
 
     /**
      * @var string
      */
-    protected $Telephone_interne__c;
+    public $Telephone_interne__c;
 
     /**
      * @var string
      */
-    protected $Phone;
+    public $Phone;
 
     /**
      * @var string
      */
-    protected $Title;
+    public $Title;
 
     /**
      * @var string
      */
-    protected $DepartementRegion__c;
+    public $Department;
 
     /**
      * @var string
      */
-    protected $Department;
-
-    /**
-     * @var string
-     */
-    protected $Division;
+    public $Division;
 
     /**
      * @param string $Username
@@ -410,16 +405,6 @@ class SalesforceUser
     public function setTitle($Title)
     {
         $this->Title = $Title;
-        return $this;
-    }
-
-    /**
-     * @param string $DepartementRegion__c
-     * @return SalesforceUser
-     */
-    public function setDepartementRegionC($DepartementRegion__c)
-    {
-        $this->DepartementRegion__c = $DepartementRegion__c;
         return $this;
     }
 

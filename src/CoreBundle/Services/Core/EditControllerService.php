@@ -49,20 +49,20 @@ class EditControllerService extends AbstractControllerService
     {
         $this->initBothForms();
         $this->formEdit->handleRequest($request);
-
+        $return = null;
         if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
             if ($request->request->get('formAction') == 'edit') {
                 $return = $this->checkErrorCode($this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request));
-                $this->insert = $return['errorCode'];
-                $this->message = $return['error'];
+                $this->get('core.index.controller_service')->setInsert($return['errorCode']);
+                $this->get('core.index.controller_service')->setMessage($return['error']);
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
                 $this->get('core.google_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
                 $this->get('core.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request, $this->getParameter('odigo'), $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes'));
                 $this->get('core.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
-                $this->get('core.salesforce_api_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request);
+                $return = $this->get('core.salesforce_api_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request, $this->getParameter('salesforce'));
             }
         }
 
-        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit, $return);
     }
 }

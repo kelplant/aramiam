@@ -4,7 +4,9 @@ use CoreBundle\Factory\Applications\Salesforce\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
+use CoreBundle\Services\Manager\Applications\Aramis\AramisAgencyManager;
 use CoreBundle\Services\Manager\Applications\ProsodieOdigoManager;
+use CoreBundle\Services\Manager\ParametersManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use CoreBundle\Services\Manager\Applications\Salesforce\SalesforceTokenStoreManager as SalesforceTokenStore;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,10 @@ class SalesforceApiService
 
     protected $fonctionManager;
 
+    protected $parametersManager;
+
+    protected $aramisAgencyManager;
+
     /**
      * SalesforceApiService constructor.
      * @param SalesforceTokenStore $tokenManager
@@ -37,8 +43,10 @@ class SalesforceApiService
      * @param AgenceManager $agenceManager
      * @param ServiceManager $serviceManager
      * @param FonctionManager $fonctionManager
+     * @param ParametersManager $parametersManager
+     * @param AramisAgencyManager $aramisAgencyManager
      */
-    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager)
+    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager, $parametersManager, $aramisAgencyManager)
     {
         $this->tokenManager = $tokenManager;
         $this->securityContext = $securityContext;
@@ -47,6 +55,8 @@ class SalesforceApiService
         $this->agenceManager = $agenceManager;
         $this->serviceManager = $serviceManager;
         $this->fonctionManager = $fonctionManager;
+        $this->parametersManager = $parametersManager;
+        $this->aramisAgencyManager = $aramisAgencyManager;
     }
 
     /**
@@ -73,7 +83,7 @@ class SalesforceApiService
             . "&username=".$params['username']
             . "&password=".$params['password'];
         $curl = $this->curlInitAndHeader($params['urlAauth2']);
-        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
         $jsonDecoded = json_decode(curl_exec($curl));
 
@@ -85,18 +95,19 @@ class SalesforceApiService
      * @param $params
      * @return mixed
      */
-    private function initExcecuteQuery($query, $params)
+    private function initExcecuteQuery($query, $params, $json, $action)
     {
         if (is_null($this->tokenManager->loadByUsername($this->securityContext->getToken()->getUser()->getUsername()))) {
             $this->connnect($params);
         }
         $tokenInfos = $this->tokenManager->loadByUsername($this->securityContext->getToken()->getUser()->getUsername());
-        $url = $tokenInfos->getInstanceUrl().'/services/data/v36.0/query?q='.urlencode($query);
+        $url = $tokenInfos->getInstanceUrl().'/services/data/v36.0'.$query;
         $curl = $this->curlInitAndHeader($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken()));
-        $json_response = curl_exec($curl);
-        curl_close($curl);
-        return json_decode($json_response, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $action);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken(),
+            "Content-type: application/json"));
+        return array('error' => curl_exec($curl), 'errorCode' => curl_getinfo($curl, CURLINFO_HTTP_CODE));
     }
 
     /**
@@ -104,14 +115,14 @@ class SalesforceApiService
      * @param $params
      * @return mixed|string
      */
-    public function executeQuery($query, $params)
+    public function executeQuery($query, $params, $json, $action)
     {
         try {
-            $queryResult = $this->initExcecuteQuery($query, $params);
+            $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
             if (isset($queryResult[0]['message']) == "Session expired or invalid") {
                 $this->connnect($params);
                 try {
-                    return $this->initExcecuteQuery($query, $params);
+                    return $this->initExcecuteQuery($query, $params, $json, $action);
                 } catch (Exception $e) {
                     return $e->getMessage();
                 }
@@ -126,10 +137,19 @@ class SalesforceApiService
      * @param $params
      * @return mixed
      */
+    public function createNewUser($params, $newSalesforceUser)
+    {
+        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+    }
+
+    /**
+     * @param $params
+     * @return mixed
+     */
     public function getListOfProfiles($params)
     {
         $query = "SELECT Id,Name,UserLicenseId,UserType FROM Profile ORDER BY Name ASC NULLS FIRST";
-        return $this->executeQuery($query, $params);
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
     }
 
     /**
@@ -139,7 +159,7 @@ class SalesforceApiService
     public function getListOfGroupes($params)
     {
         $query = "SELECT Id,Name FROM Group ORDER BY Name ASC NULLS LAST";
-        return $this->executeQuery($query, $params);
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
     }
 
     /**
@@ -150,7 +170,7 @@ class SalesforceApiService
     public function getAccountByUsername($emailToLook, $params)
     {
         $query = "SELECT Id,Username,CallCenterId FROM User WHERE Username = '".$emailToLook."'";
-        return $this->executeQuery($query, $params);
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
     }
 
     /**
@@ -163,14 +183,14 @@ class SalesforceApiService
         return iconv('utf-8', 'ascii//TRANSLIT', strtolower(substr($firstName, 0, 3).str_replace(" ", "", str_replace("-", "", $lastName))));
     }
 
-    private function ifOdigoCreated($isCreatedInOdigo)
+    private function ifOdigoCreated($isCreatedInOdigo, $callCenterId)
     {
         if ($isCreatedInOdigo != 0) {
             $odigoInfos = $this->prosodieOdigo->load($isCreatedInOdigo);
 
-            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getRedirectPhoneNumber());
+            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getRedirectPhoneNumber(), 'callCenterId' => $callCenterId);
         } else {
-            return array('callcenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null);
+            return array('callcenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null, 'callCenterId' => null);
         }
     }
 
@@ -180,11 +200,13 @@ class SalesforceApiService
      * @param Request $request
      * @return \CoreBundle\Entity\Applications\Salesforce\SalesforceUser|null
      */
-    public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request)
+    public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
         if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
+            $paramsForSalesforceApi = $this->parametersManager->getAllAppParams('salesforce_api');
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
-            $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo']);
+            $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'],  $paramsForSalesforceApi["salesforce_odigo_cti_id"]);
+            $agenceCompany = $this->aramisAgencyManager->load($this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany());
             $newSalesforceUser =  $this->salesforceUserFactory->createFromEntity(
                 array(
                     'Username' => $request->request->get('utilisateur')['email'],
@@ -192,7 +214,7 @@ class SalesforceApiService
                     'FirstName' => $request->request->get('utilisateur')['surname'],
                     'Email' => $request->request->get('utilisateur')['email'],
                     'TimeZoneSidKey' => 'Europe/Paris',
-                    'Alias' => $nickname,
+                    'Alias' => substr($nickname, 0, 8),
                     'CommunityNickname' => $nickname."aramisauto",
                     'IsActive' => true,
                     'LocaleSidKey' => "fr_FR",
@@ -201,24 +223,23 @@ class SalesforceApiService
                     'LanguageLocaleKey' => "FR",
                     'UserPermissionsMobileUser' => true,
                     'UserPreferencesDisableAutoSubForFeeds' => false,
-                    'CallCenterId' => $odigoInfos['callcenterId'],
-                    'Street' => '23 Avenue Aristide Briand', //Addresse from Robusto Agence
-                    'City' => 'Arcueil', //City from Robusto Agence
-                    'PostalCode' => '94110', //CodePostal from Robusto Agence
-                    'State ' => 'France', //Pays from Robusto Agence
+                    'CallCenterId' => $odigoInfos['callCenterId'],
+                    'Street' => $agenceCompany->getAddress1(),
+                    'City' => $agenceCompany->getCity(),
+                    'PostalCode' => $agenceCompany->getZipCode(),
+                    'State ' => 'France',
                     'ExternalID__c' => '9999', #Id from Robusto
                     'Fax' => '0606060606', //Fax from Robusto Agence
-                    'Extension' =>  $odigoInfos['odigoExtension'],
+                    'Extension' => $odigoInfos['odigoExtension'],
                     'OdigoCti__Odigo_login__c' => $odigoInfos['odigoExtension'],
                     'Telephone_interne__c' => $odigoInfos['redirectPhoneNumber'],
                     'Phone' => $odigoInfos['odigoPhoneNumber'],
-                    'Title' => $request->request->get('utilisateur')['civilite'],
-                    'DepartementRegion__c' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
+                    'Title' => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
                     'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
                 )
             );
-            return $newSalesforceUser;
+            return $this->createNewUser($params, json_encode($newSalesforceUser));
         } else {
             return null;
         }

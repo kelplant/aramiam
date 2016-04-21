@@ -70,7 +70,7 @@ class AjaxController extends Controller
         $finalTab = array();
         $i = 0;
         foreach ($this->get('core.salesforceprofile_manager')->getStandardProfileListe() as $item) {
-            $finalTab[$i] = array('id' => $item->getId(), 'profileName' => $item->getProfileName(), 'userLicenseId' => $item->getUserLicenseId(), 'userType' => $item->getUserType());
+            $finalTab[$i] = array('id' => $item->getId(), 'profileId' => $item->getProfileId(), 'profileName' => $item->getProfileName(), 'userLicenseId' => $item->getUserLicenseId(), 'userType' => $item->getUserType());
             $i++;
         }
         return new JsonResponse($finalTab);

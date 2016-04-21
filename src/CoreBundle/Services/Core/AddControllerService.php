@@ -40,6 +40,6 @@ class AddControllerService extends AbstractControllerService
                 $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));
             }
         }
-        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit, null);
     }
 }

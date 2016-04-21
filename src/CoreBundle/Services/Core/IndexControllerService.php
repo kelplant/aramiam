@@ -72,9 +72,14 @@ class IndexControllerService extends AbstractControllerService
      * @param $formEdit
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFullList($isArchived, $formAdd, $formEdit)
+    public function getFullList($isArchived, $formAdd, $formEdit, $optionMessage)
     {
         $allItems = $this->getListIfCandidatOrUtilisateur($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
+
+        if (!is_null($optionMessage)) {
+            $this->message = $optionMessage['error'];
+            $this->insert = $optionMessage['errorCode'];
+        }
 
         return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
@@ -97,6 +102,6 @@ class IndexControllerService extends AbstractControllerService
     {
         $this->initBothForms();
 
-        return $this->getFullList($isArchived, $this->formAdd, $this->formEdit);
+        return $this->getFullList($isArchived, $this->formAdd, $this->formEdit, null);
     }
 }

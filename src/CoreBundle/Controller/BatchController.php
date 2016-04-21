@@ -18,12 +18,12 @@ class BatchController extends Controller
      */
     public function reloadSalesforceProfileTable($login, $password)
     {
-        if ($this->get('security.acces_service')->validateUser($login, $password) === true)
+        if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
-            $this->get('core.salesforceprofile_manager')->truncateTable();
-            $response = json_decode($this->get('core.salesforce_api_service')->getListOfProfiles($this->getParameter('salesforce'))["error"])->records;
+            $this->get('salesforce.salesforceprofile_manager')->truncateTable();
+            $response = json_decode($this->get('salesforce.salesforce_api_service')->getListOfProfiles($this->getParameter('salesforce'))["error"])->records;
             foreach ((array)$response as $record) {
-                $this->get('core.salesforceprofile_manager')->add(array('profileId' => $record->Id, 'profileName' => $record->Name, 'userLicenseId' => $record->UserLicenseId, 'userType' => $record->UserType));
+                $this->get('salesforce.salesforceprofile_manager')->add(array('profileId' => $record->Id, 'profileName' => $record->Name, 'userLicenseId' => $record->UserLicenseId, 'userType' => $record->UserType));
             }
             return $this->render("@Core/Default/Batch/succes.html.twig");
         } else {
@@ -37,13 +37,13 @@ class BatchController extends Controller
      */
     public function reloadSalesforceGroupeTable($login, $password)
     {
-        if ($this->get('security.acces_service')->validateUser($login, $password) === true)
+        if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
-            $this->get('core.salesforcegroupe_manager')->truncateTable();
-            $response = json_decode($this->get('core.salesforce_api_service')->getListOfGroupes($this->getParameter('salesforce'))["error"])->records;
+            $this->get('salesforce.salesforcegroupe_manager')->truncateTable();
+            $response = json_decode($this->get('salesforce.salesforce_api_service')->getListOfGroupes($this->getParameter('salesforce'))["error"])->records;
             foreach ((array)$response as $record) {
                 var_dump($record);
-                $this->get('core.salesforcegroupe_manager')->add(array('groupeId' => $record->Id, 'groupeName' => $record->Name));
+                $this->get('salesforce.salesforcegroupe_manager')->add(array('groupeId' => $record->Id, 'groupeName' => $record->Name));
             }
             return $this->render("@Core/Default/Batch/succes.html.twig");
         } else {
@@ -60,7 +60,7 @@ class BatchController extends Controller
     {
         $explodedTab = array();
         $explodedTab[] = explode(";", $lineToInsert);
-        return new JsonResponse($this->get('core.odigotelliste_manager')->addFromApi($explodedTab[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($explodedTab[0][1]), $this->get('core.fonction_manager')->returnIdFromOdigoName($explodedTab[0][2])));
+        return new JsonResponse($this->get('odigo.odigotelliste_manager')->addFromApi($explodedTab[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($explodedTab[0][1]), $this->get('core.fonction_manager')->returnIdFromOdigoName($explodedTab[0][2])));
     }
 
     /**
@@ -72,7 +72,7 @@ class BatchController extends Controller
     {
         $explodedTab = array();
         $explodedTab[] = explode(";", $lineToInsert);
-        return new JsonResponse($this->get('core.orangetelliste_manager')->addFromApi($explodedTab[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($explodedTab[0][1])));
+        return new JsonResponse($this->get('odigo.orangetelliste_manager')->addFromApi($explodedTab[0][0], $this->get('core.service_manager')->returnIdFromOdigoName($explodedTab[0][1])));
     }
 
     /**
@@ -82,7 +82,7 @@ class BatchController extends Controller
      */
     public function loadAgenciesFromAramis()
     {
-        $this->get('core.aramisagency_manager')->truncateTable();
+        $this->get('aramis.aramisagency_manager')->truncateTable();
         $client = new GuzzleHttp\Client();
         $res = $client->request('GET', $this->getParameter('aramis_api')['ws_agency_url'], [
             'headers' => [
@@ -91,7 +91,7 @@ class BatchController extends Controller
             ]
         ]);
         foreach(json_decode($res->getBody()) as $agence) {
-            $addAgency = $this->get('core.factory.apps.aramis.aramis_agency')->createFromEntity($agence);
+            $addAgency = $this->get('aramis.factory.aramis_agency')->createFromEntity($agence);
             if (!is_null($addAgency->getId()) && $addAgency->getId() != "00") {
                 $this->get('core.agence_manager')->save($addAgency);
             } else {

@@ -29,6 +29,8 @@ abstract class AbstractControllerService extends Controller
 
     protected $formEdit;
 
+    protected $servicePrefix;
+
     /**
      * @param $item
      * @return mixed
@@ -205,6 +207,16 @@ abstract class AbstractControllerService extends Controller
     public function setFormEdit($formEdit)
     {
         $this->formEdit = $formEdit;
+        return $this;
+    }
+
+    /**
+     * @param mixed $servicePrefix
+     * @return AbstractControllerService
+     */
+    public function setServicePrefix($servicePrefix)
+    {
+        $this->servicePrefix = $servicePrefix;
         return $this;
     }
 }

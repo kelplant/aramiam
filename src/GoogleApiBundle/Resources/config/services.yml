@@ -1,0 +1,8 @@
+parameters:
+    google.google_api_service.class: GoogleApiBundle\Services\GoogleApiService
+
+services:
+    google.google_api_service:
+        class: %google.google_api_service.class%
+        arguments: [ '@core.utilisateur_manager' ]
+

@@ -17,7 +17,7 @@ class AddControllerService extends AbstractControllerService
      */
     public function executeCreateTicket(Candidat $candidat, $paramsZendeskApi)
     {
-        return $this->get('core.zendesk_service')->createTicket(
+        return $this->get('zendesk.zendesk_service')->createTicket(
             $candidat->getId(), $candidat->getName(), $candidat->getSurname(), $candidat->getEntiteHolding(), $candidat->getStartDate()->format("Y-m-d"),
             $this->getConvertion('agence', $candidat->getAgence())->getNameInZendesk(), $this->getConvertion('service', $candidat->getService())->getNameInZendesk(),
             $this->getConvertion('fonction', $candidat->getFonction())->getNameInZendesk(), $candidat->getStatusPoste(), 'xavier.arroues@aramisauto.com', $paramsZendeskApi
@@ -33,7 +33,7 @@ class AddControllerService extends AbstractControllerService
         $this->initBothForms();
         $this->formAdd->handleRequest($request);
         if ($this->formAdd->isSubmitted() && $this->formAdd->isValid()) {
-            $return = $this->checkErrorCode($this->get('core.' . strtolower($this->entity) . '_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity)))));
+            $return = $this->checkErrorCode($this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity)))));
             $this->insert = $return['errorCode'];
             $this->message = $return['error'];
             if ($this->entity == 'Candidat') {

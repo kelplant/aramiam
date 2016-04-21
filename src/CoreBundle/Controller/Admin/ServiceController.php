@@ -29,6 +29,7 @@ class ServiceController extends Controller
         $this->get('core.'.$service.'.controller_service')->setAlertText('ce service');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
     }
 
     /**

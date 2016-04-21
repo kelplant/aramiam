@@ -1,0 +1,7 @@
+parameters:
+    ad.active_directory_api_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiService
+
+services:
+    ad.active_directory_api_service:
+        class: %ad.active_directory_api_service.class%
+        arguments: [ '@core.service_manager', '@core.utilisateur_manager' ]

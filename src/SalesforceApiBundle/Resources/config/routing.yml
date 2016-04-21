@@ -1,0 +1,3 @@
+salesforce_api_annot:
+    resource: "@SalesforceApiBundle/Controller/"
+    type:     annotation

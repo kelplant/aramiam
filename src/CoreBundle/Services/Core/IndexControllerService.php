@@ -44,40 +44,6 @@ class IndexControllerService extends AbstractControllerService
     }
 
     /**
-     * @param $allItems
-     * @param $item
-     * @param string $number
-     * @param integer $i
-     * @return mixed
-     */
-    private function filterView($allItems, $item, $number, $i)
-    {
-        if ($item->getIsArchived() != $number && $this->isArchived == $number) {
-            unset($allItems[$i]);
-        }
-        return $allItems;
-    }
-
-    /**
-     * @param $entity
-     * @param $allItems
-     * @return mixed
-     */
-    private function ifCandidatOUtilisateurList($entity, $allItems)
-    {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            $i = 0;
-            foreach ($allItems as $item) {
-                $allItems = $this->filterView($allItems, $item, '0', $i);
-                $allItems = $this->filterView($allItems, $item, '1', $i);
-                $allItems = $this->filterView($allItems, $item, '2', $i);
-                $i = $i + 1;
-            }
-        }
-        return $allItems;
-    }
-
-    /**
      * @param $entity
      * @param $allItems
      * @return mixed
@@ -89,9 +55,20 @@ class IndexControllerService extends AbstractControllerService
             $this->ifFilterConvertFonction($item, $entity);
             $this->ifFilterConvertAgence($item, $entity);
         }
-        $this->ifCandidatOUtilisateurList($entity, $allItems);
-
         return $allItems;
+    }
+
+    /**
+     * @param $entity
+     * @return mixed
+     */
+    private function ifCandidatOUtilisateurList($entity)
+    {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur') {
+            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived ));
+        } else {
+            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
+        }
     }
 
     /**
@@ -102,14 +79,15 @@ class IndexControllerService extends AbstractControllerService
      */
     public function getFullList($isArchived, $formAdd, $formEdit, $optionMessage)
     {
-        $allItems = $this->getListOfItems($this->entity, $this->get('core.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
+
+        $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
 
         if (!is_null($optionMessage)) {
             $this->message = $optionMessage['error'];
             $this->insert = $optionMessage['errorCode'];
         }
 
-        return $this->render('CoreBundle:'.$this->entity.':view.html.twig', array(
+        return $this->render(explode("\\",$this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
             'message' => $this->message,
             'code_message' => $this->insert,

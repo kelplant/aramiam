@@ -35,7 +35,7 @@ class AjaxController extends Controller
     public function isExistGmailAccount($email)
     {
         try {
-            return new JsonResponse($this->get('core.google_api_service')->getInfosFromEmail($this->get('core.google_api_service')->innitApi($this->getParameter('google_api')), $email, $this->getParameter('google_api')));
+            return new JsonResponse($this->get('google.google_api_service')->getInfosFromEmail($this->get('google.google_api_service')->innitApi($this->getParameter('google_api')), $email, $this->getParameter('google_api')));
         } catch (Exception $e) {
             return new JsonResponse('nouser');
         }
@@ -58,7 +58,7 @@ class AjaxController extends Controller
      */
     public function getUserOnSalesforceByEmail($userMail)
     {
-        return new JsonResponse($this->get('core.salesforce_api_service')->getAccountByUsername($userMail, $this->getParameter('salesforce')));
+        return new JsonResponse($this->get('salesforce.salesforce_api_service')->getAccountByUsername($userMail, $this->getParameter('salesforce')));
     }
 
     /**
@@ -69,7 +69,7 @@ class AjaxController extends Controller
     {
         $finalTab = array();
         $i = 0;
-        foreach ($this->get('core.salesforceprofile_manager')->getStandardProfileListe() as $item) {
+        foreach ($this->get('salesforce.salesforceprofile_manager')->getStandardProfileListe() as $item) {
             $finalTab[$i] = array('id' => $item->getId(), 'profileId' => $item->getProfileId(), 'profileName' => $item->getProfileName(), 'userLicenseId' => $item->getUserLicenseId(), 'userType' => $item->getUserType());
             $i++;
         }

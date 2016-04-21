@@ -21,6 +21,12 @@ class AppKernel extends Kernel
             new LightSaml\SymfonyBridgeBundle\LightSamlSymfonyBridgeBundle(),
             new LightSaml\SpBundle\LightSamlSpBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new GoogleApiBundle\GoogleApiBundle(),
+            new ZendeskApiBundle\ZendeskApiBundle(),
+            new OdigoApiBundle\OdigoApiBundle(),
+            new ActiveDirectoryApiBundle\ActiveDirectoryApiBundle(),
+            new SalesforceApiBundle\SalesforceApiBundle(),
+            new AramisApiBundle\AramisApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

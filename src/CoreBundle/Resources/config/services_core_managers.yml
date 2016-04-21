@@ -25,7 +25,7 @@ parameters:
     core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
 
-    core.parameters_calls.class: CoreBundle\Services\Manager\ParametersManager
+
     core.mouv_history.class: CoreBundle\Services\Manager\MouvHistoryManager
 
 services:
@@ -71,10 +71,6 @@ services:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
 
-
-    core.parameters_calls:
-        class: %core.parameters_calls.class%
-        arguments: ['@doctrine']
 
     core.mouv_history_manager:
         class: %core.mouv_history.class%

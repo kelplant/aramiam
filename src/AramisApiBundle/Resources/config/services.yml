@@ -1,0 +1,18 @@
+parameters:
+    aramis.agency_manager.class: AramisApiBundle\Services\Manager\AramisAgencyManager
+    aramis.entity.agency_manager.class: AramisApiBundle\Entity\AramisAgency
+    aramis.entityname.agency_manager.class: 'AramisApiBundle\Entity\AramisAgency'
+
+    aramis.factory.aramis_agency.class: AramisApiBundle\Factory\AramisAgencyFactory
+
+services:
+    aramis.aramisagency_manager:
+        class: %aramis.agency_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%aramis.entity.agency_manager.class%"]]
+        - [setEntityName, ["%aramis.entityname.agency_manager.class%"]]
+
+    aramis.factory.aramis_agency:
+        class: %aramis.factory.aramis_agency.class%
+        parent: core.factory.abstract

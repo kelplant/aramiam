@@ -1,17 +1,9 @@
 parameters:
     core.factory.abstract.class: CoreBundle\Factory\AbstractFactory
-    core.factory.apps.salesforce.salesforce_user.class: CoreBundle\Factory\Applications\Salesforce\SalesforceUserFactory
-    core.factory.apps.aramis.aramis_agency.class: CoreBundle\Factory\Applications\Aramis\AramisAgencyFactory
 
 services:
     core.factory.abstract:
         class: %core.factory.abstract.class%
         abstract: true
 
-    core.factory.apps.salesforce.Salesforce_user:
-        class: %core.factory.apps.salesforce.salesforce_user.class%
-        parent: odigo.factory.abstract
 
-    core.factory.apps.aramis.aramis_agency:
-        class: %core.factory.apps.aramis.aramis_agency.class%
-        parent: odigo.factory.abstract

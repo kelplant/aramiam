@@ -29,6 +29,7 @@ class UtilisateurController extends Controller
         $this->get('core.'.$service.'.controller_service')->setAlertText('cet utilisateur');
         $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
     }
 
     /**

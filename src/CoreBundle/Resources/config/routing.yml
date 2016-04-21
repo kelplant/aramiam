@@ -1,4 +1,8 @@
-core_homepage:
-    path:     /
-    defaults: { _controller: AppBundle:Default:index }
+core_admin_annot:
+    resource: "@CoreBundle/Controller/Admin/"
+    type:     annotation
+
+core_annot:
+    resource: "@CoreBundle/Controller/"
+    type:     annotation
 

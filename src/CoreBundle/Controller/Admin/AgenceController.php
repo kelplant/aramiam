@@ -30,6 +30,7 @@ class AgenceController extends Controller
         $this->get('core.'.$service.'.controller_service')->setAlertText('cette agence');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
     }
 
     /**

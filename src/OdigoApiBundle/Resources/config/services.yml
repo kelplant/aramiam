@@ -1,0 +1,42 @@
+parameters:
+    odigo.prosodie_odigo_manager.class: OdigoApiBundle\Services\Manager\ProsodieOdigoManager
+    odigo.entity.prosodie_odigo.class: OdigoApiBundle\Entity\ProsodieOdigo
+    odigo.entityname.prosodie_odigo.class: 'OdigoApiBundle\Entity\ProsodieOdigo'
+
+    odigo.odigo_num_tel_liste_manager.class: OdigoApiBundle\Services\Manager\OdigoTelListeManager
+    odigo.entity.odigo_num_tel_liste_manager.class: OdigoApiBundle\Entity\OdigoTelListe
+    odigo.entityname.odigo_num_tel_liste_manager.class: 'OdigoApiBundle\Entity\OdigoTelListe'
+
+    odigo.orange_num_tel_liste_manager.class: OdigoApiBundle\Services\Manager\OrangeTelListeManager
+    odigo.entity.orange_num_tel_liste_manager.class: OdigoApiBundle\Entity\OrangeTelListe
+    odigo.entityname.orange_num_tel_liste_manager.class: 'OdigoApiBundle\Entity\OrangeTelListe'
+
+
+    odigo.odigo_api_service.class: OdigoApiBundle\Services\OdigoApiService
+
+services:
+    odigo.prosodie_odigo_manager:
+        class: %odigo.prosodie_odigo_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%odigo.entity.prosodie_odigo.class%"]]
+        - [setEntityName, ["%odigo.entityname.prosodie_odigo.class%"]]
+
+    odigo.odigotelliste_manager:
+        class: %odigo.odigo_num_tel_liste_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%odigo.entity.odigo_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%odigo.entityname.odigo_num_tel_liste_manager.class%"]]
+
+    odigo.orangetelliste_manager:
+        class: %odigo.orange_num_tel_liste_manager.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%odigo.entity.orange_num_tel_liste_manager.class%"]]
+        - [setEntityName, ["%odigo.entityname.orange_num_tel_liste_manager.class%"]]
+
+
+    odigo.odigo_api_service:
+        class: %odigo.odigo_api_service.class%
+        arguments: [ '@core.utilisateur_manager', '@odigo.odigotelliste_manager', '@odigo.orangetelliste_manager', '@odigo.prosodie_odigo_manager', '@core.service_manager', '@core.fonction_manager', '@odigo.service.client' ]

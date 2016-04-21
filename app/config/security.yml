@@ -3,7 +3,7 @@ security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
     providers:
-        db_provider:
+        app.db_provider:
             entity:
                 class: AppBundle:User
                 property: username
@@ -13,8 +13,8 @@ security:
     firewalls:
         main:
             light_saml_sp:
-                provider: db_provider       # user provider name configured in step 9
-                user_creator: user_creator  # name of the user creator service created in step 10
+                provider: app.db_provider       # user provider name configured in step 9
+                user_creator: app.user_creator  # name of the user creator service created in step 10
                 login_path: /saml/login
                 check_path: /saml/login_check
             logout:

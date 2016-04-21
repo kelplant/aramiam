@@ -29,6 +29,7 @@ class EntiteHoldingController extends Controller
         $this->get('core.'.$service.'.controller_service')->setAlertText('cette entité');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
     }
 
     /**

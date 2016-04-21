@@ -21,9 +21,9 @@ class BatchController extends Controller
         if ($this->get('security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('core.salesforceprofile_manager')->truncateTable();
-            $response = $this->get('core.salesforce_api_service')->getListOfProfiles($this->getParameter('salesforce'));
-            foreach ((array)$response['records'] as $record) {
-                $this->get('core.salesforceprofile_manager')->add(array('profileId' => $record['Id'], 'profileName' => $record['Name'], 'userLicenseId' => $record['UserLicenseId'], 'userType' => $record['UserType']));
+            $response = json_decode($this->get('core.salesforce_api_service')->getListOfProfiles($this->getParameter('salesforce'))["error"])->records;
+            foreach ((array)$response as $record) {
+                $this->get('core.salesforceprofile_manager')->add(array('profileId' => $record->Id, 'profileName' => $record->Name, 'userLicenseId' => $record->UserLicenseId, 'userType' => $record->UserType));
             }
             return $this->render("@Core/Default/Batch/succes.html.twig");
         } else {
@@ -40,9 +40,10 @@ class BatchController extends Controller
         if ($this->get('security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('core.salesforcegroupe_manager')->truncateTable();
-            $response = $this->get('core.salesforce_api_service')->getListOfGroupes($this->getParameter('salesforce'));
-            foreach ((array)$response['records'] as $record) {
-                $this->get('core.salesforcegroupe_manager')->add(array('groupeId' => $record['Id'], 'groupeName' => $record['Name']));
+            $response = json_decode($this->get('core.salesforce_api_service')->getListOfGroupes($this->getParameter('salesforce'))["error"])->records;
+            foreach ((array)$response as $record) {
+                var_dump($record);
+                $this->get('core.salesforcegroupe_manager')->add(array('groupeId' => $record->Id, 'groupeName' => $record->Name));
             }
             return $this->render("@Core/Default/Batch/succes.html.twig");
         } else {

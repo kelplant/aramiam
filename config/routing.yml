@@ -1,0 +1,16 @@
+salesforce_api:
+    resource: "@SalesforceApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+odigo_api:
+    resource: "@OdigoApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+core:
+    resource: "@CoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+

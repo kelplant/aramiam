@@ -1328,16 +1328,16 @@
         },
         {
             "name": "lightsaml/symfony-bridge",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightSAML/SymfonyBridgeBundle.git",
-                "reference": "75d0811a5c2e3f4732c5a646d54be04a9bfb3df6"
+                "reference": "5034e0e781a0c096b92188a8eb636911654bfed9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightSAML/SymfonyBridgeBundle/zipball/75d0811a5c2e3f4732c5a646d54be04a9bfb3df6",
-                "reference": "75d0811a5c2e3f4732c5a646d54be04a9bfb3df6",
+                "url": "https://api.github.com/repos/lightSAML/SymfonyBridgeBundle/zipball/5034e0e781a0c096b92188a8eb636911654bfed9",
+                "reference": "5034e0e781a0c096b92188a8eb636911654bfed9",
                 "shasum": ""
             },
             "require": {
@@ -1375,7 +1375,7 @@
             ],
             "description": "Light SAML Symfony bridge bundle",
             "homepage": "http://www.lightsaml.com",
-            "time": "2016-02-11 14:02:14"
+            "time": "2016-04-20 05:01:39"
         },
         {
             "name": "monolog/monolog",

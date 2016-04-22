@@ -54,16 +54,14 @@
             <script>
                 $(document).keyup(function(e) {
                     if (e.keyCode == 27) { // escape key maps to keycode `27`
-                        sessionStorage.setItem("currentEditItem", null);
+                        localStorage.setItem("currentEditItem", null);
                     }
                 });
             </script>
             <script>
                 $(document).ready(function(){
-                    var currentEditItem = sessionStorage.getItem("currentEditItem");
-                    console.log(currentEditItem);
-                    if (currentEditItem != 'null' && typeof currentEditItem != 'undefined')
-                    {
+                    var currentEditItem = localStorage.getItem("currentEditItem");
+                    if (!!currentEditItem && currentEditItem != 'null' && currentEditItem != null) {
                         $(window).load(function(){
                             $('#modalEdit').modal('show');
                             ajaxCoreEdit('{{ entity }}', currentEditItem);

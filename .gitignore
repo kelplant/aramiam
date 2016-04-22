@@ -3,7 +3,6 @@
 /vendor/
 /bin/
 /web/config.php
-/app/config/config.yml
 /app/config/saml.crt
 /app/config/saml.pem
 /app/config/federationmetadata-9.xml

@@ -61,12 +61,11 @@
             <script>
                 $(document).ready(function(){
                     var currentEditItem = sessionStorage.getItem("currentEditItem");
-                    if (currentEditItem != 'null')
+                    if (currentEditItem != 'null' && typeof currentEditItem != 'undefined')
                     {
-
                         $(window).load(function(){
                             $('#modalEdit').modal('show');
-                            ajaxUtilisateurEdit(currentEditItem);
+                            ajaxCoreEdit('{{ entity }}', currentEditItem);
                         });
                     }
                 });

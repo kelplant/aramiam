@@ -61,6 +61,7 @@
             <script>
                 $(document).ready(function(){
                     var currentEditItem = sessionStorage.getItem("currentEditItem");
+                    console.log(currentEditItem);
                     if (currentEditItem != 'null' && typeof currentEditItem != 'undefined')
                     {
                         $(window).load(function(){
@@ -70,6 +71,4 @@
                     }
                 });
             </script>
-
-
         {% endblock %}

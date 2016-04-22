@@ -1,4 +1,4 @@
-# app/config/security.yml
+# app/config/security_prod.yml
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt

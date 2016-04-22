@@ -1,2 +1,50 @@
-# app/config/security_dev.yml
+# app/config/security_prod.yml
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+    providers:
+        app.db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        main:
+            light_saml_sp:
+                provider: app.db_provider       # user provider name configured in step 9
+                user_creator: app.user_creator  # name of the user creator service created in step 10
+                login_path: /saml/login
+                check_path: /saml/login_check
+            logout:
+                path: /logout
+                target: https://adfs.clphoto.fr:3890/adfs/ls/?wa=wsignout1.0
+            anonymous: ~
+        fos:
+            pattern: ^/
+            form_login:
+                login_path: fos_user_security_login
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                # if you are using Symfony < 2.8, use the following config instead:
+                # csrf_provider: form.csrf_provider
+            logout:
+                path: fos_user_security_logout
+                target: fos_user_security_login
+            anonymous:    true
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+        - { path: ^/manual/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ajax/$, role: ROLE_ADMIN }
+        - { path: ^/admin/agences/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/app/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/fonctions/$, role: ROLE_ADMIN }
+        - { path: ^/admin/services/$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/candidats/$, role: ROLE_ADMIN }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/$, role: ROLE_USER }

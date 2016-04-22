@@ -4,7 +4,7 @@ namespace SalesforceApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_salesforce_tokenStore")
+ * @ORM\Table(name="core_app_salesforce_tokenstore")
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceTokenStoreRepository")
  */
 class SalesforceTokenStore

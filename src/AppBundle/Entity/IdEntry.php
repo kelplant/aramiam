@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity ()
- * @ORM\Table(name="app_auth_IdEntry")
+ * @ORM\Table(name="app_auth_identry")
  */
 class IdEntry
 {

@@ -39,7 +39,7 @@ light_saml_symfony_bridge:
     party:
         idp:
             files:
-                - "%kernel.root_dir%/config/federationmetadata_clphoto.xml"
+                - "%kernel.root_dir%/config/federationmetadata-9.xml"
 
     store:
         id_state: app.id_store  # name of id store service created in step 6

@@ -30,7 +30,7 @@ monolog:
 
 light_saml_symfony_bridge:
     own:
-        entity_id: https://adfs.aramisauto.com:3389
+        entity_id: https://aramiam.aramisauto.com
         credentials:
                     -
                         certificate: "%kernel.root_dir%/config/saml.crt"

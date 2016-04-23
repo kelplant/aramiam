@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * Class AjaxController
- * @package CoreBundle\Controller
+ * @package AppBundle\Controller
  */
 class AjaxController extends Controller
 {

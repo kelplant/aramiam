@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class AbstractManager
- * @package CoreBundle\Services\Manager
+ * @package AppBundle\Services\Manager
  */
 abstract class AbstractManager
 {
@@ -73,7 +73,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
-     * @return bool|int
+     * @return array
      */
     public function remove($itemId) {
         $items = $this->getRepository()->findById($itemId);
@@ -91,7 +91,8 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
-     * @return bool|int
+     * @param $isArchived
+     * @return array
      */
     public function removeCandidat($itemId, $isArchived) {
         $itemToSet = $this->getRepository()->findOneById($itemId);
@@ -111,7 +112,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
-     * @return bool|int
+     * @return array
      */
     public function retablir($itemId) {
         $itemToSet = $this->getRepository()->findOneById($itemId);
@@ -128,7 +129,7 @@ abstract class AbstractManager
     /**
      * @param $itemId
      * @param $itemEditLoad
-     * @return bool|int
+     * @return array
      */
     public function edit($itemId, $itemEditLoad) {
         try {
@@ -143,7 +144,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemLoad
-     * @return bool|int
+     * @return array
      */
     public function add($itemLoad)
     {
@@ -184,7 +185,7 @@ abstract class AbstractManager
     }
 
     /**
-     * @return mixed
+     *
      */
     public function truncateTable()
     {

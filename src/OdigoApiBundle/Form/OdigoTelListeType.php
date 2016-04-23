@@ -10,6 +10,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
+/**
+ * Class OdigoTelListeType
+ * @package OdigoApiBundle\Form
+ */
 class OdigoTelListeType extends AbstractType
 {
     /**

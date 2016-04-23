@@ -8,7 +8,7 @@ use GuzzleHttp;
 
 /**
  * Class BatchController
- * @package CoreBundle\Controller
+ * @package AppBundle\Controller
  */
 class BatchController extends Controller
 {

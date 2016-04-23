@@ -6,7 +6,7 @@ use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 
 /**
  * Class ActiveDirectoryApiService
- * @package CoreBundle\Services
+ * @package ActiveDirectoryApiBundle\Services
  */
 class ActiveDirectoryApiService
 {

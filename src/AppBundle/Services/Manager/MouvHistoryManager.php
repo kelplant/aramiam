@@ -32,7 +32,7 @@ class MouvHistoryManager Extends AbstractManager
      * @param $itemLoad
      * @param $adminId
      * @param $type
-     * @return string
+     * @return array
      */
     public function add($itemLoad, $adminId, $type)
     {

@@ -6,7 +6,7 @@ use CoreBundle\Services\Manager\ParametersManager;
 
 /**
  * Class ZendeskService
- * @package CoreBundle\Services
+ * @package ZendeskApiBundle\Services
  */
 class ZendeskService
 {

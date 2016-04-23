@@ -3,7 +3,7 @@ namespace ZendeskApiBundle\Services;
 
 /**
  * Class CurlWrap
- * @package CoreBundle\Services
+ * @package ZendeskApiBundle\Services
  */
 class CurlWrap
 {

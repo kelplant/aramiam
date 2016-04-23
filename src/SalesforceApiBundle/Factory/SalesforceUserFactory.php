@@ -7,7 +7,7 @@ use Doctrine\Common\Util\Inflector;
 
 /**
  * Class SalesforceUserFactory
- * @package CoreBundle\Factory\Applications\Salesforce
+ * @package SalesforceApiBundle\Factory
  */
 class SalesforceUserFactory extends AbstractFactory
 {

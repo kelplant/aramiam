@@ -24,7 +24,7 @@ class IndexControllerService extends AbstractControllerService
     private function ifFilterConvertFonction($fonction, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
-      //      return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
+            return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
         }
         return null;
     }

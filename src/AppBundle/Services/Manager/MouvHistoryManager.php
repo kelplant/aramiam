@@ -42,9 +42,9 @@ class MouvHistoryManager Extends AbstractManager
         $this->globalSetItem($itemToSet, $itemLoad);
         try {
             $this->save($itemToSet);
-            return $itemLoad['id'];
+            return array('item' => $itemLoad['id']);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return array('item' => $e->getMessage());
         }
     }
 }

@@ -20,6 +20,9 @@ abstract class AbstractManager
     protected $argname;
 
     protected $repository;
+
+    protected $session ;
+
     /**
      * @var ManagerRegistry
      */

@@ -52,7 +52,6 @@ class EditControllerService extends AbstractControllerService
     {
         $this->initBothForms();
         $this->formEdit->handleRequest($request);
-        $return = null;
         if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
             if ($request->request->get('formAction') == 'edit') {
                 $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);

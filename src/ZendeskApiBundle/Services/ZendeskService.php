@@ -2,7 +2,7 @@
 namespace ZendeskApiBundle\Services;
 
 use ZendeskApiBundle\Services\Manager\ZendeskTicketLinkManager;
-use CoreBundle\Services\Manager\ParametersManager;
+use AppBundle\Services\Manager\ParametersManager;
 
 /**
  * Class ZendeskService

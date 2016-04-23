@@ -23,6 +23,11 @@ class SalesforceServiceCloudAccesManager extends AbstractManager
         return $itemToSet;
     }
 
+    /**
+     * @param $itemToEdit
+     * @param $value
+     * @return bool|int
+     */
     public function setFonctionAcces($itemToEdit, $value)
     {
         if ($value == 'on') {

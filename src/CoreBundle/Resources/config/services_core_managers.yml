@@ -4,27 +4,32 @@ parameters:
     core.agence_manager.class: CoreBundle\Services\Manager\Admin\AgenceManager
     core.entity.agence.class: CoreBundle\Entity\Admin\Agence
     core.entityname.agence.class: 'CoreBundle\Entity\Admin\Agence'
+    core.argname.agence.class: 'L''agence'
 
     core.service_manager.class: CoreBundle\Services\Manager\Admin\ServiceManager
     core.entity.service.class: CoreBundle\Entity\Admin\Service
     core.entityname.service.class: 'CoreBundle\Entity\Admin\Service'
+    core.argname.service.class: 'Le service'
 
     core.entite_holding_manager.class: CoreBundle\Services\Manager\Admin\EntiteHoldingManager
     core.entity.entite_holding.class: CoreBundle\Entity\Admin\EntiteHolding
     core.entityname.entite_holding.class: 'CoreBundle\Entity\Admin\EntiteHolding'
+    core.argname.entite_holding.class: 'L''entité'
 
     core.utilisateur_manager.class: CoreBundle\Services\Manager\Admin\UtilisateurManager
     core.entity.utilisateur.class: CoreBundle\Entity\Admin\Utilisateur
     core.entityname.utilisateur.class: 'CoreBundle\Entity\Admin\Utilisateur'
+    core.argname.utilisateur.class: 'L''utilisateur'
 
     core.fonction_manager.class: CoreBundle\Services\Manager\Admin\FonctionManager
     core.entity.fonction.class: CoreBundle\Entity\Admin\Fonction
     core.entityname.fonction.class: 'CoreBundle\Entity\Admin\Fonction'
+    core.argname.fonction.class: 'La fonction'
 
     core.candidat_manager.class: CoreBundle\Services\Manager\Admin\CandidatManager
     core.entity.candidat.class: CoreBundle\Entity\Admin\Candidat
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
-
+    core.argname.candidat.class: 'Le candidat'
 
     core.mouv_history.class: CoreBundle\Services\Manager\MouvHistoryManager
 
@@ -32,7 +37,7 @@ services:
     core.abstract_manager:
         class: %core.agence_manager.class%
         abstract: true
-        arguments: ['@doctrine']
+        arguments: ['@doctrine', '@session']
 
     core.agence_manager:
         class: %core.agence_manager.class%
@@ -40,37 +45,47 @@ services:
         calls:
         - [setEntity, ["%core.entity.agence.class%"]]
         - [setEntityName, ["%core.entityname.agence.class%"]]
+        - [setArgname, ["%core.argname.agence.class%"]]
+
     core.utilisateur_manager:
         class: %core.utilisateur_manager.class%
         parent: core.abstract_manager
         calls:
         - [setEntity, ["%core.entity.utilisateur.class%"]]
         - [setEntityName, ["%core.entityname.utilisateur.class%"]]
+        - [setArgname, ["%core.argname.utilisateur.class%"]]
+
     core.fonction_manager:
         class: %core.fonction_manager.class%
         parent: core.abstract_manager
         calls:
         - [setEntity, ["%core.entity.fonction.class%"]]
         - [setEntityName, ["%core.entityname.fonction.class%"]]
+        - [setArgname, ["%core.argname.fonction.class%"]]
+
     core.service_manager:
         class: %core.service_manager.class%
         parent: core.abstract_manager
         calls:
         - [setEntity, ["%core.entity.service.class%"]]
         - [setEntityName, ["%core.entityname.service.class%"]]
+        - [setArgname, ["%core.argname.service.class%"]]
+
     core.entite_holding_manager:
         class: %core.entite_holding_manager.class%
         parent: core.abstract_manager
         calls:
         - [setEntity, ["%core.entity.entite_holding.class%"]]
         - [setEntityName, ["%core.entityname.entite_holding.class%"]]
+        - [setArgname, ["%core.argname.entite_holding.class%"]]
+
     core.candidat_manager:
         class: %core.candidat_manager.class%
         parent: core.abstract_manager
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
-
+        - [setArgname, ["%core.argname.candidat.class%"]]
 
     core.mouv_history_manager:
         class: %core.mouv_history.class%

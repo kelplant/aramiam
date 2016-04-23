@@ -36,24 +36,24 @@
                                   <i class="fa fa-plus"></i> Reload From Sf</button>
                           {% endif %}
                       </div>
-                    {% if message is defined %}
-                        {% if message is not null %}
-                            <div class="form-group">
+                    {% if session_messaging is defined %}
+                        <div class="form-group">
+                            {% for message in session_messaging %}
                                 <div class="col-sm-2"></div>
                                 <div class=" col-sm-8 corp-message-3">
-                                    {% if (code_message != 1) and (code_message != "") %}
+                                    {% if (message.errorCode == 0) %}
                                         <div class="form-group alert-success corp-message-1">
-                                            {{ message }}
+                                            {{ message.message }}
                                         </div>
                                     {% endif %}
-                                    {% if (code_message == 1) and (code_message != "") and (code_message != 6669) and (code_message != 6667) %}
+                                    {% if (message.errorCode == 1) %}
                                         <div class="form-group alert-danger corp-message-1">
-                                            {{ message }}
+                                            {{ message.message }}
                                         </div>
                                     {% endif %}
                                 </div>
-                            </div>
-                        {% endif %}
+                            {% endfor %}
+                        </div>
                     {% endif %}
                     <table class="table table-striped" id="bootstrap-todo">
                         <thead>

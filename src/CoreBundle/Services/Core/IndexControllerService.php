@@ -10,7 +10,7 @@ class IndexControllerService extends AbstractControllerService
      */
     private function ifFilterConvertService($service, $entity)
     {
-            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
+        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
             return $service->setService($this->getConvertion('service', $service->getService())->getName());
         } else {
             return null;
@@ -77,24 +77,21 @@ class IndexControllerService extends AbstractControllerService
      * @param $formEdit
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFullList($isArchived, $formAdd, $formEdit, $optionMessage)
+    public function getFullList($isArchived, $formAdd, $formEdit)
     {
         $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
-        if (!is_null($optionMessage)) {
-            $this->message = $optionMessage['error'];
-            $this->insert = $optionMessage['errorCode'];
-        }
+        $session_messaging = $this->get('session')->get('messaging');
+        $this->get('session')->set('messaging', []);
 
         return $this->render(explode("\\",$this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
-            'message' => $this->message,
-            'code_message' => $this->insert,
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
             'entity' => strtolower($this->checkFormEntity($this->entity)),
             'formAdd' => $formAdd->createView(),
             'formEdit' => $formEdit->createView(),
+            'session_messaging'=> $session_messaging,
         ));
     }
 
@@ -106,6 +103,6 @@ class IndexControllerService extends AbstractControllerService
     {
         $this->initBothForms();
 
-        return $this->getFullList($isArchived, $this->formAdd, $this->formEdit, null);
+        return $this->getFullList($isArchived, $this->formAdd, $this->formEdit);
     }
 }

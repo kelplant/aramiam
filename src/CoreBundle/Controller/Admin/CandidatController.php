@@ -22,9 +22,6 @@ class CandidatController extends Controller
     private function initData($service)
     {
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
-
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('Candidat');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(Candidat::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(CandidatType::class);
@@ -73,7 +70,7 @@ class CandidatController extends Controller
     {
         $this->initData('delete');
         $this->initData('index');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        $this->get('core.candidat_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived'));
         $this->deleteOrArchive($request->query->get('isArchived'), $request);
 
         return $this->get('core.delete.controller_service')->generateDeleteAction();

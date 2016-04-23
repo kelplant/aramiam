@@ -22,8 +22,6 @@ class AgenceController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('Agence');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(Agence::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(Agencetype::class);
@@ -53,7 +51,7 @@ class AgenceController extends Controller
         $this->initData('delete');
         $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.agence_manager')->remove($this->itemToTemove));
+        $this->get('core.agence_manager')->remove($this->itemToTemove);
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

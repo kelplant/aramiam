@@ -2,6 +2,7 @@ parameters:
     aramis.agency_manager.class: AramisApiBundle\Services\Manager\AramisAgencyManager
     aramis.entity.agency_manager.class: AramisApiBundle\Entity\AramisAgency
     aramis.entityname.agency_manager.class: 'AramisApiBundle\Entity\AramisAgency'
+    aramis.argname.agency_manager.class: 'L''agence AramisAuto'
 
     aramis.factory.aramis_agency.class: AramisApiBundle\Factory\AramisAgencyFactory
 
@@ -12,6 +13,7 @@ services:
         calls:
         - [setEntity, ["%aramis.entity.agency_manager.class%"]]
         - [setEntityName, ["%aramis.entityname.agency_manager.class%"]]
+        - [setArgname, ["%aramis.argname.agency_manager.class%"]]
 
     aramis.factory.aramis_agency:
         class: %aramis.factory.aramis_agency.class%

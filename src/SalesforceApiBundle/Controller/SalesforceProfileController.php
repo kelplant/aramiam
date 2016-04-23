@@ -20,8 +20,6 @@ class SalesforceProfileController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('SalesforceProfile');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(SalesforceProfile::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(SalesforceProfileType::class);
@@ -51,7 +49,7 @@ class SalesforceProfileController extends Controller
         $this->initData('delete');
         $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('salesforce.salesforceprofile_manager')->remove($this->itemToTemove));
+        $this->get('salesforce.salesforceprofile_manager')->remove($this->itemToTemove);
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

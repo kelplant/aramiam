@@ -21,8 +21,6 @@ class ServiceController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('Service');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(Service::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(ServiceType::class);
@@ -52,7 +50,7 @@ class ServiceController extends Controller
         $this->initData('delete');
         $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.service_manager')->remove($this->itemToTemove));
+        $this->get('core.service_manager')->remove($this->itemToTemove);
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

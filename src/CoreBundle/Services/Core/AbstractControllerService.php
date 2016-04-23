@@ -9,10 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 abstract class AbstractControllerService extends Controller
 {
-    protected $message;
-
-    protected $insert;
-
     protected $entity;
 
     protected $newEntity;
@@ -31,30 +27,6 @@ abstract class AbstractControllerService extends Controller
 
     protected $servicePrefix;
 
-    /**
-     * @param $item
-     * @return mixed
-     */
-    protected function generateMessage($item)
-    {
-        $this->message = $this->getParameter(strtolower($this->entity).'_insert_exceptions');
-        return $this->message = $this->message[$item];
-    }
-
-    /**
-     * @param $return
-     * @return array
-     */
-    protected function checkErrorCode($return)
-    {
-        if ($return['errorCode'] === true) {
-            return array('errorCode' => $return['errorCode'], 'error' => $return['error'], 'item' => $return['item']);
-        } elseif ($return['errorCode'] == 6669 || $return['errorCode'] == 6667) {
-            return array('errorCode' => $return['errorCode'], 'error' => $this->generateMessage($return['errorCode']), 'item' => $return['item']);
-        } else {
-            return array('errorCode' => null, 'error' => null, 'item' => null);
-        }
-    }
 
     /**
      * @return \Symfony\Component\Form\Form
@@ -108,26 +80,6 @@ abstract class AbstractControllerService extends Controller
         $listeChoices['listeEntites'] = $this->get("core.entite_holding_manager")->createList();
 
         return $listeChoices;
-    }
-
-    /**
-     * @param $message
-     * @return $this
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-        return $this;
-    }
-
-    /**
-     * @param $insert
-     * @return $this
-     */
-    public function setInsert($insert)
-    {
-        $this->insert = $insert;
-        return $this;
     }
 
     /**

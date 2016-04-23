@@ -21,8 +21,6 @@ class UtilisateurController extends Controller
     private function initData($service)
     {
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('Utilisateur');
         $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Utilisateur');
         $this->get('core.'.$service.'.controller_service')->setFormType(UtilisateurType::class);
@@ -51,7 +49,7 @@ class UtilisateurController extends Controller
     {
         $this->initData('delete');
         $this->initData('index');
-        $this->get('core.delete.controller_service')->setRemove($this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived')));
+        $this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived'));
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

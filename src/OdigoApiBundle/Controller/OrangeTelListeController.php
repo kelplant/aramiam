@@ -22,8 +22,6 @@ class OrangeTelListeController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('OrangeTelListe');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(OrangeTelListe::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(OrangeTelListeType::class);
@@ -53,7 +51,7 @@ class OrangeTelListeController extends Controller
         $this->initData('delete');
         $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('odigo.orangetelliste_manager')->remove($this->itemToTemove));
+        $this->get('odigo.orangetelliste_manager')->remove($this->itemToTemove);
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

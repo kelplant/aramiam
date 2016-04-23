@@ -20,8 +20,6 @@ class SalesforceGroupeController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setMessage('');
-        $this->get('core.'.$service.'.controller_service')->setInsert('');
         $this->get('core.'.$service.'.controller_service')->setEntity('SalesforceGroupe');
         $this->get('core.'.$service.'.controller_service')->setNewEntity(SalesforceGroupe::class);
         $this->get('core.'.$service.'.controller_service')->setFormType(SalesforceGroupeType::class);
@@ -51,7 +49,7 @@ class SalesforceGroupeController extends Controller
         $this->initData('delete');
         $this->initData('index');
         $this->itemToTemove = $request->get('itemDelete');
-        $this->get('core.delete.controller_service')->setRemove($this->get('salesforce.salesforcegroupe_manager')->remove($this->itemToTemove));
+        $this->get('salesforce.salesforcegroupe_manager')->remove($this->itemToTemove);
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

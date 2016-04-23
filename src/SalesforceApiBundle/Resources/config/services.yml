@@ -2,18 +2,22 @@ parameters:
     salesforce.profile_manager.class: SalesforceApiBundle\Services\Manager\SalesforceProfileManager
     salesforce.entity.profile_manager.class: SalesforceApiBundle\Entity\SalesforceProfile
     salesforce.entityname.profile_manager.class: 'SalesforceApiBundle\Entity\SalesforceProfile'
+    salesforce.argname.profile_manager.class: 'Le Profil Salesforce'
 
     salesforce.groupe_manager.class: SalesforceApiBundle\Services\Manager\SalesforceGroupeManager
     salesforce.entity.groupe_manager.class: SalesforceApiBundle\Entity\SalesforceGroupe
     salesforce.entityname.groupe_manager.class: 'SalesforceApiBundle\Entity\SalesforceGroupe'
+    salesforce.argname.groupe_manager.class: 'Le groupe Salesforce'
 
     salesforce.token_store.class: SalesforceApiBundle\Services\Manager\SalesforceTokenStoreManager
     salesforce.entity.token_store.class: SalesforceApiBundle\Entity\SalesforceTokenStore
     salesforce.entityname.token_store.class: 'SalesforceApiBundle\Entity\SalesforceTokenStore'
+    salesforce.argname.token_store.class: 'Le token de connexion Salesforce'
 
     salesforce.service_cloud_acces.class: SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager
     salesforce.entity.service_cloud_acces.class: SalesforceApiBundle\Entity\SalesforceServiceCloudAcces
     salesforce.entityname.service_cloud_acces.class: 'SalesforceApiBundle\Entity\SalesforceServiceCloudAcces'
+    salesforce.argname.service_cloud_acces.class: 'L''accès Service Cloud'
 
     salesforce.salesforce_api_service.class: SalesforceApiBundle\Services\SalesforceApiService
 
@@ -26,6 +30,7 @@ services:
         calls:
         - [setEntity, ["%salesforce.entity.profile_manager.class%"]]
         - [setEntityName, ["%salesforce.entityname.profile_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.profile_manager.class%"]]
 
     salesforce.salesforcegroupe_manager:
         class: %salesforce.groupe_manager.class%
@@ -33,6 +38,7 @@ services:
         calls:
         - [setEntity, ["%salesforce.entity.groupe_manager.class%"]]
         - [setEntityName, ["%salesforce.entityname.groupe_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.groupe_manager.class%"]]
 
     salesforce.salesforcetoken_store:
         class: %salesforce.token_store.class%
@@ -40,6 +46,7 @@ services:
         calls:
         - [setEntity, ["%salesforce.entity.token_store.class%"]]
         - [setEntityName, ["%salesforce.entityname.token_store.class%"]]
+        - [setArgname, ["%salesforce.argname.token_store.class%"]]
 
     salesforce.service_cloud_acces_manager:
         class: %salesforce.service_cloud_acces.class%
@@ -47,6 +54,7 @@ services:
         calls:
         - [setEntity, ["%salesforce.entity.service_cloud_acces.class%"]]
         - [setEntityName, ["%salesforce.entityname.service_cloud_acces.class%"]]
+        - [setArgname, ["%salesforce.argname.service_cloud_acces.class%"]]
 
     salesforce.salesforce_api_service:
         class: %salesforce.salesforce_api_service.class%

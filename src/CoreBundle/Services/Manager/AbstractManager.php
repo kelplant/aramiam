@@ -2,6 +2,7 @@
 namespace CoreBundle\Services\Manager;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class AbstractManager
@@ -16,6 +17,8 @@ abstract class AbstractManager
 
     protected $entityName;
 
+    protected $argname;
+
     protected $repository;
     /**
      * @var ManagerRegistry
@@ -25,9 +28,21 @@ abstract class AbstractManager
     /**
      * AbstractManager constructor.
      * @param ManagerRegistry $managerRegistry
+     * @param Session $session
      */
-    public function __construct(ManagerRegistry $managerRegistry) {
+    public function __construct(ManagerRegistry $managerRegistry, Session $session) {
         $this->managerRegistry = $managerRegistry;
+        $this->session = $session;
+    }
+
+    /**
+     * @param $message
+     */
+    protected function appendSessionMessaging($message)
+    {
+        $actualMessage = $this->session->get('messaging');
+        $actualMessage[] = $message;
+        $this->session->set('messaging', $actualMessage);
     }
 
     /**
@@ -64,10 +79,11 @@ abstract class AbstractManager
                 $this->em->remove($item);
                 $this->em->flush();
             }
-            return 6668;
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Suprrimé(e)'));
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemId);
     }
 
     /**
@@ -83,10 +99,11 @@ abstract class AbstractManager
                 $itemToSet->setIsArchived('0');
             }
             $this->em->flush();
-            return 6668;
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Archivé(e)'));
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemId);
     }
 
     /**
@@ -98,10 +115,11 @@ abstract class AbstractManager
         try {
             $itemToSet->setIsArchived('0');
             $this->em->flush();
-            return 6668;
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Rétabli(e)'));
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemId);
     }
 
     /**
@@ -113,10 +131,11 @@ abstract class AbstractManager
         try {
             $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
             $this->em->flush();
-            return array('errorCode' => 6667, 'item' => $itemId);
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
         } catch (\Exception $e) {
-            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => $itemId);
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemId);
     }
 
     /**
@@ -128,10 +147,11 @@ abstract class AbstractManager
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return array('errorCode' => 6669, 'item' => $itemToSend);
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
         } catch (\Exception $e) {
-            return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => null);
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemToSend);
     }
 
     /**
@@ -167,9 +187,10 @@ abstract class AbstractManager
     {
         $connection = $this->managerRegistry->getConnection();
         try {
-            return $connection->executeUpdate($connection->getDatabasePlatform()->getTruncateTableSQL($this->managerRegistry->getManager()->getClassMetadata($this->entityName)->getTableName(), true));
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Vidée'));
+            $connection->executeUpdate($connection->getDatabasePlatform()->getTruncateTableSQL($this->managerRegistry->getManager()->getClassMetadata($this->entityName)->getTableName(), true));
         } catch (\Exception $e) {
-            return $e->getMessage();
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
     }
 
@@ -235,5 +256,35 @@ abstract class AbstractManager
     public function getRepository()
     {
         return $this->managerRegistry->getManager()->getRepository($this->entityName);
+    }
+
+    /**
+     * @param mixed $em
+     * @return AbstractManager
+     */
+    public function setEm($em)
+    {
+        $this->em = $em;
+        return $this;
+    }
+
+    /**
+     * @param mixed $argname
+     * @return AbstractManager
+     */
+    public function setArgname($argname)
+    {
+        $this->argname = $argname;
+        return $this;
+    }
+
+    /**
+     * @param ManagerRegistry $managerRegistry
+     * @return AbstractManager
+     */
+    public function setManagerRegistry($managerRegistry)
+    {
+        $this->managerRegistry = $managerRegistry;
+        return $this;
     }
 }

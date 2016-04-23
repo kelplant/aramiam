@@ -93,6 +93,7 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
         $jsonDecoded = json_decode(curl_exec($curl));
 
+        $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
         return $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
     }
 
@@ -127,8 +128,9 @@ class SalesforceApiService
      */
     public function executeQuery($query, $params, $json, $action)
     {
+        $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
         try {
-            $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
+
             if (isset(json_decode($queryResult["error"])->message) == "Session expired or invalid") {
                 $this->connnect($params);
                 try {

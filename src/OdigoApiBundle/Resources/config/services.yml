@@ -19,7 +19,7 @@ parameters:
 services:
     odigo.prosodie_odigo_manager:
         class: %odigo.prosodie_odigo_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.prosodie_odigo.class%"]]
         - [setEntityName, ["%odigo.entityname.prosodie_odigo.class%"]]
@@ -27,7 +27,7 @@ services:
 
     odigo.odigotelliste_manager:
         class: %odigo.odigo_num_tel_liste_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.odigo_num_tel_liste_manager.class%"]]
         - [setEntityName, ["%odigo.entityname.odigo_num_tel_liste_manager.class%"]]
@@ -35,7 +35,7 @@ services:
 
     odigo.orangetelliste_manager:
         class: %odigo.orange_num_tel_liste_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.orange_num_tel_liste_manager.class%"]]
         - [setEntityName, ["%odigo.entityname.orange_num_tel_liste_manager.class%"]]

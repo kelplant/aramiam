@@ -2,7 +2,7 @@
 namespace SalesforceApiBundle\Services\Manager;
 
 use SalesforceApiBundle\Entity\SalesforceTokenStore;
-use CoreBundle\Services\Manager\AbstractManager;
+use AppBundle\Services\Manager\AbstractManager;
 
 /**
  * Class SalesforceTokenStoreManager
@@ -46,15 +46,17 @@ class SalesforceTokenStoreManager extends AbstractManager
      */
     public function updateOrAdd($itemLoad)
     {
-        if (!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username'])) == true)) {
-            return $this->editByUsername($itemLoad);
+        var_dump($this->getRepository()->findOneBy(array('username' => $itemLoad['username'])));
+
+        if (!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username'])))) {
+        return $this->editByUsername($itemLoad);
         } else {
             $itemToSet = $itemToSend = new $this->entity;
             try {
                 $this->save($this->globalSetItem($itemToSet, $itemLoad));
                 return array('errorCode' => 6669, 'item' => $itemToSend);
             } catch (\Exception $e) {
-                return array('errorCode' => error_log($e->getMessage()), 'error' => $e->getMessage(), 'item' => null);
+                return array('item' => null);
             }
         }
     }

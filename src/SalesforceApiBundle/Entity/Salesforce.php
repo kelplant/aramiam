@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Salesforce
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceRepository")
- * @ORM\Table(name="core_app_salesforce")
+ * @ORM\Table(name="salesforce_user_link")
  */
 class Salesforce
 {

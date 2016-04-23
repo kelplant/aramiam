@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Services\Manager;
 
 use OdigoApiBundle\Entity\OrangeTelListe;
-use CoreBundle\Services\Manager\AbstractManager;
+use AppBundle\Services\Manager\AbstractManager;
 
 /**
  * Class OrangeTelListeManager

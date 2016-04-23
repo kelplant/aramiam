@@ -4,7 +4,7 @@ namespace OdigoApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_odigo_numodigo")
+ * @ORM\Table(name="odigo_numodigo")
  * @ORM\Entity(repositoryClass="OdigoApiBundle\Repository\OdigoTelListeRepository")
  */
 class OdigoTelListe extends AbstractNumListe

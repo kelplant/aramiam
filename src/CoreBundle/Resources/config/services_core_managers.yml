@@ -1,6 +1,4 @@
 parameters:
-    core.abstract_manager.class: CoreBundle\Services\Manager\AbstractManager
-
     core.agence_manager.class: CoreBundle\Services\Manager\Admin\AgenceManager
     core.entity.agence.class: CoreBundle\Entity\Admin\Agence
     core.entityname.agence.class: 'CoreBundle\Entity\Admin\Agence'
@@ -31,17 +29,10 @@ parameters:
     core.entityname.candidat.class: 'CoreBundle\Entity\Admin\Candidat'
     core.argname.candidat.class: 'Le candidat'
 
-    core.mouv_history.class: CoreBundle\Services\Manager\MouvHistoryManager
-
 services:
-    core.abstract_manager:
-        class: %core.agence_manager.class%
-        abstract: true
-        arguments: ['@doctrine', '@session']
-
     core.agence_manager:
         class: %core.agence_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.agence.class%"]]
         - [setEntityName, ["%core.entityname.agence.class%"]]
@@ -49,7 +40,7 @@ services:
 
     core.utilisateur_manager:
         class: %core.utilisateur_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.utilisateur.class%"]]
         - [setEntityName, ["%core.entityname.utilisateur.class%"]]
@@ -57,7 +48,7 @@ services:
 
     core.fonction_manager:
         class: %core.fonction_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.fonction.class%"]]
         - [setEntityName, ["%core.entityname.fonction.class%"]]
@@ -65,7 +56,7 @@ services:
 
     core.service_manager:
         class: %core.service_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.service.class%"]]
         - [setEntityName, ["%core.entityname.service.class%"]]
@@ -73,7 +64,7 @@ services:
 
     core.entite_holding_manager:
         class: %core.entite_holding_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.entite_holding.class%"]]
         - [setEntityName, ["%core.entityname.entite_holding.class%"]]
@@ -81,12 +72,8 @@ services:
 
     core.candidat_manager:
         class: %core.candidat_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]
         - [setEntityName, ["%core.entityname.candidat.class%"]]
         - [setArgname, ["%core.argname.candidat.class%"]]
-
-    core.mouv_history_manager:
-        class: %core.mouv_history.class%
-        arguments: ['@doctrine']

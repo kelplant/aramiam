@@ -9,7 +9,7 @@ parameters:
 services:
     aramis.aramisagency_manager:
         class: %aramis.agency_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%aramis.entity.agency_manager.class%"]]
         - [setEntityName, ["%aramis.entityname.agency_manager.class%"]]

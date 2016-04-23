@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class AramisRobusto
  * @ORM\Entity(repositoryClass="AramisApiBundle\Repository\ApplicationRepository")
- * @ORM\Table(name="core_app_robusto")
+ * @ORM\Table(name="aramis_robusto_user_link")
  */
 class AramisRobusto
 {

@@ -12,9 +12,8 @@ class IndexControllerService extends AbstractControllerService
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
             return $service->setService($this->getConvertion('service', $service->getService())->getName());
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -25,10 +24,9 @@ class IndexControllerService extends AbstractControllerService
     private function ifFilterConvertFonction($fonction, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
-            return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
-        } else {
-            return null;
+      //      return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
         }
+        return null;
     }
 
     /**
@@ -41,6 +39,7 @@ class IndexControllerService extends AbstractControllerService
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
             $agence->setAgence($this->getConvertion('agence', $agence->getAgence())->getName());
         }
+        return null;
     }
 
     /**

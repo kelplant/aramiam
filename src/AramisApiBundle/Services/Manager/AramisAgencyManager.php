@@ -2,7 +2,7 @@
 namespace AramisApiBundle\Services\Manager;
 
 use AramisApiBundle\Entity\AramisAgency;
-use CoreBundle\Services\Manager\AbstractManager;
+use AppBundle\Services\Manager\AbstractManager;
 
 /**
  * Class AramisAgencyManager

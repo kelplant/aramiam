@@ -4,7 +4,7 @@ namespace SalesforceApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_salesforce_profile")
+ * @ORM\Table(name="salesforce_profile")
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceProfileRepository")
  */
 class SalesforceProfile

@@ -4,7 +4,7 @@ namespace SalesforceApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_salesforce_scloud_acces")
+ * @ORM\Table(name="salesforce_scloud_acces")
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceServiceCloudAccesRepository")
  */
 class SalesforceServiceCloudAcces

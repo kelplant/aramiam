@@ -26,7 +26,7 @@ parameters:
 services:
     salesforce.salesforceprofile_manager:
         class: %salesforce.profile_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%salesforce.entity.profile_manager.class%"]]
         - [setEntityName, ["%salesforce.entityname.profile_manager.class%"]]
@@ -34,7 +34,7 @@ services:
 
     salesforce.salesforcegroupe_manager:
         class: %salesforce.groupe_manager.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%salesforce.entity.groupe_manager.class%"]]
         - [setEntityName, ["%salesforce.entityname.groupe_manager.class%"]]
@@ -42,7 +42,7 @@ services:
 
     salesforce.salesforcetoken_store:
         class: %salesforce.token_store.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%salesforce.entity.token_store.class%"]]
         - [setEntityName, ["%salesforce.entityname.token_store.class%"]]
@@ -50,7 +50,7 @@ services:
 
     salesforce.service_cloud_acces_manager:
         class: %salesforce.service_cloud_acces.class%
-        parent: core.abstract_manager
+        parent: app.abstract_manager
         calls:
         - [setEntity, ["%salesforce.entity.service_cloud_acces.class%"]]
         - [setEntityName, ["%salesforce.entityname.service_cloud_acces.class%"]]

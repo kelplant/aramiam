@@ -38,21 +38,22 @@
                       </div>
                     {% if session_messaging is defined %}
                         <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class=" col-sm-8 corp-message-3">
                             {% for message in session_messaging %}
-                                <div class="col-sm-2"></div>
-                                <div class=" col-sm-8 corp-message-3">
                                     {% if (message.errorCode == 0) %}
-                                        <div class="form-group alert-success corp-message-1">
+                                        <div class="form-group alert-success corp-message-1 font_exo_2">
                                             {{ message.message }}
                                         </div>
                                     {% endif %}
                                     {% if (message.errorCode == 1) %}
-                                        <div class="form-group alert-danger corp-message-1">
+                                        <div class="form-group alert-danger corp-message-1 font_exo_2">
                                             {{ message.message }}
                                         </div>
                                     {% endif %}
-                                </div>
+
                             {% endfor %}
+                            </div>
                         </div>
                     {% endif %}
                     <table class="table table-striped" id="bootstrap-todo">

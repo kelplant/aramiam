@@ -4,7 +4,7 @@ namespace SalesforceApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_salesforce_groupe")
+ * @ORM\Table(name="salesforce_groupe")
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceGroupeRepository")
  */
 class SalesforceGroupe

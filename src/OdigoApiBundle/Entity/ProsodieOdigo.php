@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ProsodieOdigo
  * @ORM\Entity(repositoryClass="OdigoApiBundle\Repository\ProsodieOdigoRepository")
- * @ORM\Table(name="core_app_odigo")
+ * @ORM\Table(name="odigo_link_user")
  */
 class ProsodieOdigo
 {

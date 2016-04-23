@@ -1,12 +1,12 @@
 <?php
-namespace CoreBundle\Entity\Admin;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 /**
  * Class MouvHistory
  * @ORM\Entity()
- * @ORM\Table(name="core_admin_mouvhistory")
+ * @ORM\Table(name="app_mouvhistory")
  */
 class MouvHistory
 {

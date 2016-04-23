@@ -4,7 +4,7 @@ namespace AramisApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="core_app_aramis_agency_data")
+ * @ORM\Table(name="aramis_agencies_data")
  * @ORM\Entity(repositoryClass="AramisApiBundle\Repository\AramisAgencyRepository")
  */
 class AramisAgency

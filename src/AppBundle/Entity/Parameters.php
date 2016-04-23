@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity ()
- * @ORM\Table(name="core_parameters")
+ * @ORM\Table(name="app_parameters")
  */
 class Parameters
 {

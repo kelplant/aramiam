@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ZendeskTicketLink
  * @ORM\Entity(repositoryClass="ZendeskApiBundle\Repository\ZendeskTicketLinkRepository")
- * @ORM\Table(name="core_app_zendeskticketlink")
+ * @ORM\Table(name="zendesk_candidat_link")
  */
 class ZendeskTicketLink
 {

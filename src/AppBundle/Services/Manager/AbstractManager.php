@@ -1,5 +1,5 @@
 <?php
-namespace CoreBundle\Services\Manager;
+namespace AppBundle\Services\Manager;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Session\Session;

@@ -2,7 +2,7 @@
 namespace SalesforceApiBundle\Services\Manager;
 
 use SalesforceApiBundle\Entity\SalesforceServiceCloudAcces;
-use CoreBundle\Services\Manager\AbstractManager;
+use AppBundle\Services\Manager\AbstractManager;
 
 /**
  * Class SalesforceServiceCloudAccesManager

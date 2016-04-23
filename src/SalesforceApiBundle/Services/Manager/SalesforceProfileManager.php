@@ -2,7 +2,7 @@
 namespace SalesforceApiBundle\Services\Manager;
 
 use SalesforceApiBundle\Entity\SalesforceProfile;
-use CoreBundle\Services\Manager\AbstractManager;
+use AppBundle\Services\Manager\AbstractManager;
 
 /**
  * Class SalesforceProfileManager

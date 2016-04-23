@@ -11,6 +11,10 @@ parameters:
     salesforce.entity.token_store.class: SalesforceApiBundle\Entity\SalesforceTokenStore
     salesforce.entityname.token_store.class: 'SalesforceApiBundle\Entity\SalesforceTokenStore'
 
+    salesforce.service_cloud_acces.class: SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager
+    salesforce.entity.service_cloud_acces.class: SalesforceApiBundle\Entity\SalesforceServiceCloudAcces
+    salesforce.entityname.service_cloud_acces.class: 'SalesforceApiBundle\Entity\SalesforceServiceCloudAcces'
+
     salesforce.salesforce_api_service.class: SalesforceApiBundle\Services\SalesforceApiService
 
     salesforce.factory.salesforce_user.class: SalesforceApiBundle\Factory\SalesforceUserFactory
@@ -37,9 +41,16 @@ services:
         - [setEntity, ["%salesforce.entity.token_store.class%"]]
         - [setEntityName, ["%salesforce.entityname.token_store.class%"]]
 
+    salesforce.service_cloud_acces_manager:
+        class: %salesforce.service_cloud_acces.class%
+        parent: core.abstract_manager
+        calls:
+        - [setEntity, ["%salesforce.entity.service_cloud_acces.class%"]]
+        - [setEntityName, ["%salesforce.entityname.service_cloud_acces.class%"]]
+
     salesforce.salesforce_api_service:
         class: %salesforce.salesforce_api_service.class%
-        arguments: [ '@salesforce.salesforcetoken_store', '@security.token_storage', '@salesforce.factory.salesforce_user', '@odigo.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager' ]
+        arguments: [ '@salesforce.salesforcetoken_store', '@security.token_storage', '@salesforce.factory.salesforce_user', '@odigo.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager', '@salesforce.service_cloud_acces_manager' ]
 
     salesforce.factory.salesforce_user:
         class: %salesforce.factory.salesforce_user.class%

@@ -112,7 +112,6 @@ abstract class AbstractManager
     public function edit($itemId, $itemEditLoad) {
         try {
             $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
-
             $this->em->flush();
             return array('errorCode' => 6667, 'item' => $itemId);
         } catch (\Exception $e) {

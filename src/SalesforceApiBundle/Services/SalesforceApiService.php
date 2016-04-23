@@ -1,13 +1,14 @@
 <?php
 namespace SalesforceApiBundle\Services;
 
+use SalesforceApiBundle\Entity\SalesforceServiceCloudAcces;
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
-use CoreBundle\Services\Manager\Applications\Aramis\AramisAgencyManager;
-use CoreBundle\Services\Manager\Applications\ProsodieOdigoManager;
-use CoreBundle\Services\Manager\ParametersManager;
+use AramisApiBundle\Services\Manager\AramisAgencyManager;
+use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
+use AppBundle\Services\Manager\ParametersManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use SalesforceApiBundle\Services\Manager\SalesforceTokenStoreManager as SalesforceTokenStore;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,8 @@ class SalesforceApiService
 
     protected $aramisAgencyManager;
 
+    protected $serviceCloudAccesManager;
+
     /**
      * SalesforceApiService constructor.
      * @param SalesforceTokenStore $tokenManager
@@ -46,8 +49,9 @@ class SalesforceApiService
      * @param FonctionManager $fonctionManager
      * @param ParametersManager $parametersManager
      * @param AramisAgencyManager $aramisAgencyManager
+     * @param SalesforceServiceCloudAcces $serviceCloudAccesManager
      */
-    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager, $parametersManager, $aramisAgencyManager)
+    public function __construct($tokenManager, $securityContext, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager, $parametersManager, $aramisAgencyManager, $serviceCloudAccesManager)
     {
         $this->tokenManager = $tokenManager;
         $this->securityContext = $securityContext;
@@ -58,6 +62,7 @@ class SalesforceApiService
         $this->fonctionManager = $fonctionManager;
         $this->parametersManager = $parametersManager;
         $this->aramisAgencyManager = $aramisAgencyManager;
+        $this->serviceCloudAccesManager = $serviceCloudAccesManager;
     }
 
     /**
@@ -249,6 +254,7 @@ class SalesforceApiService
                     'Title' => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
                     'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
+                    'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
                 )
             );
             return $this->createNewUser($params, json_encode($newSalesforceUser));

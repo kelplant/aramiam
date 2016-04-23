@@ -10,7 +10,7 @@ class IndexControllerService extends AbstractControllerService
      */
     private function ifFilterConvertService($service, $entity)
     {
-        if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
+            if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
             return $service->setService($this->getConvertion('service', $service->getService())->getName());
         } else {
             return null;
@@ -79,9 +79,7 @@ class IndexControllerService extends AbstractControllerService
      */
     public function getFullList($isArchived, $formAdd, $formEdit, $optionMessage)
     {
-
         $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
-
         if (!is_null($optionMessage)) {
             $this->message = $optionMessage['error'];
             $this->insert = $optionMessage['errorCode'];

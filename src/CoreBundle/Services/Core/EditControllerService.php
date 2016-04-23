@@ -15,6 +15,9 @@ class EditControllerService extends AbstractControllerService
     private function saveEditIfSaveOrTransform($sendaction, $request)
     {
         if ($sendaction == "Sauvegarder" || $sendaction == "Sauver et Transformer") {
+            if ($this->entity == 'Fonction') {
+                $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('service_cloud_acces'));
+            }
             return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->checkFormEntity($this->entity)))['id'], $request->request->get(strtolower($this->checkFormEntity($this->entity))));
         } else {
             return null;

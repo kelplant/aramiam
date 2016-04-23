@@ -13,19 +13,48 @@ class SalesforceServiceCloudAcces
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @var string
-     * @ORM\Column(type="integer", unique=true)
-     */
-    protected $fonctionId;
 
     /**
      * @var string
      * @ORM\Column(type="boolean")
      */
     protected $status;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return SalesforceServiceCloudAcces
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return SalesforceServiceCloudAcces
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
 }

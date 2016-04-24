@@ -14,6 +14,8 @@
                     </div>
                     <div class="main_container hide" id="mainEditForm">
                         <input type="hidden" name="formAction" value="edit">
+                        {{ form_row(formEdit.id) }}
+                        {{ form_widget(formEdit._token) }}
                         {{ form_errors(formEdit) }}
                         <div class="form-group">
                             {{ form_label(formEdit.name) }}
@@ -58,18 +60,14 @@
                                     {{ form_widget(formEdit.nameInZendesk) }}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label align_right font_exo_2" for="salesforce_service_cloud_acces">Service Cloud</label>
-                                <div class="col-sm-8">
-                                    <input type="checkbox" class="form-control font_exo_2" name="salesforce[service_cloud_acces]" id="salesforce_service_cloud_acces">
-                                </div>
-                            </div>
                         {% endif %}
                     </div>
-                    <div class="main_container hide" id="BottomEditForm">
-                        {{ form_row(formEdit.id) }}
-                        {{ form_widget(formEdit._token) }}
-                    </div>
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <div class="main_container hide" id="midEditForm">
+                        </div>
+                        <div class="main_container hide" id="bottomEditForm">
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>

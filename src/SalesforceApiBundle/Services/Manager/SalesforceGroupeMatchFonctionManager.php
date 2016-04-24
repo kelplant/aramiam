@@ -23,6 +23,14 @@ class SalesforceGroupeMatchFonctionManager extends AbstractManager
         return $itemToSet;
     }
 
+    public function purge($fonctionId)
+    {
+        $itemToTransform = $this->getRepository()->findBy(array('fonctionId' => $fonctionId));
+        foreach ($itemToTransform as $item) {
+            $this->remove($item->getId());
+        }
+    }
+
     /**
      * @param $itemLoad
      * @return mixed

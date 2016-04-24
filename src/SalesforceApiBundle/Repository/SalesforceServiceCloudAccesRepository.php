@@ -4,7 +4,7 @@ namespace SalesforceApiBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class ApplicationRepository
+ * Class SalesforceServiceCloudAccesRepository
  * @package SalesforceApiBundle\Repository
  */
 class SalesforceServiceCloudAccesRepository extends EntityRepository

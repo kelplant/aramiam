@@ -15,9 +15,16 @@ class EditControllerService extends AbstractControllerService
     private function saveEditIfSaveOrTransform($sendaction, $request)
     {
         if ($sendaction == "Sauvegarder" || $sendaction == "Sauver et Transformer") {
-            $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
-            foreach ($request->request->get('salesforce') as $groupe) {
-                $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $groupe, 'fonctionId' => $request->request->get('fonction')['id']));
+            if (isset($request->request->get('salesforce')['service_cloud_acces'])) {
+                $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
+            }
+            $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
+            if ($request->request->get('salesforce') != '') {
+                foreach ($request->request->get('salesforce') as $key => $value) {
+                    if (substr($key, 0, 6) == 'groupe') {
+                        $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
+                    }
+                }
             }
             return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->checkFormEntity($this->entity)))['id'], $request->request->get(strtolower($this->checkFormEntity($this->entity))));
         } else {

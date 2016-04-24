@@ -75,4 +75,46 @@ class AjaxController extends Controller
         }
         return new JsonResponse($finalTab);
     }
+
+    /**
+     * @Route(path="/ajax/get/salesforce/groupes",name="ajax_get_salesforce_groupes")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getSalesforceGroupeListe()
+    {
+        $finalTab = array();
+        $i = 0;
+        foreach ($this->get('salesforce.salesforcegroupe_manager')->getStandardProfileListe() as $item) {
+            $finalTab[$i] = array('id' => $item->getId(), 'groupeId' => $item->getGroupeId(), 'groupeName' => $item->getGroupeName());
+            $i++;
+        }
+        return new JsonResponse($finalTab);
+    }
+
+    /**
+     * @param $fonctionId
+     * @Route(path="/ajax/get/salesforce/service_cloud/{fonctionId}",name="ajax_get_salesforce_service_cloud")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getSalesforceServiceCloudForUser($fonctionId)
+    {
+        return new JsonResponse($this->get('salesforce.service_cloud_acces_manager')->createArray($fonctionId));
+    }
+
+    /**
+     * @param $fonctionId
+     * @Route(path="/ajax/get/salesforce/groupe_fonction/{fonctionId}",name="ajax_get_salesforce_groupe_fonction")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getSalesforceGroupeForFonction($fonctionId)
+    {
+        $groupesIds = $this->get('salesforce.groupe_to_fonction_manager')->createArray($fonctionId);
+        $groupes = [];
+        foreach ($groupesIds as $groupe)
+        {
+            $groupe = $this->get('salesforce.salesforcegroupe_manager')->load($groupe);
+            $groupes[] = array('id' => $groupe->getId(), 'groupeName' => $groupe->getGroupeName());
+        }
+        return new JsonResponse($groupes);
+    }
 }

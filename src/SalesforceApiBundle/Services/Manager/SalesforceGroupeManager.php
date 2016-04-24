@@ -35,4 +35,12 @@ class SalesforceGroupeManager extends AbstractManager
 
         return $itemArray;
     }
+
+    /**
+     * @return array
+     */
+    public function getStandardProfileListe()
+    {
+        return $this->getRepository()->findBy(array(), array('groupeName' => 'ASC'));
+    }
 }

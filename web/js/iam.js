@@ -394,7 +394,6 @@ function reloadProfilesFromSf()
     });
 }
 
-
 //Fonction de rechargement des groupes Sf
 function reloadGroupesFromSf()
 {

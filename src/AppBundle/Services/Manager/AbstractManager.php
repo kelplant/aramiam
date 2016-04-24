@@ -41,7 +41,7 @@ abstract class AbstractManager
     /**
      * @param $message
      */
-    protected function appendSessionMessaging($message)
+    public function appendSessionMessaging($message)
     {
         $actualMessage = $this->session->get('messaging');
         $actualMessage[] = $message;

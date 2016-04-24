@@ -91,7 +91,7 @@ class SalesforceApiService
         $curl = $this->curlInitAndHeader($params['urlAauth2']);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
-        var_dump($jsonDecoded = json_decode(curl_exec($curl)));
+        $jsonDecoded = json_decode(curl_exec($curl));
 
         $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
         return $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
@@ -128,19 +128,23 @@ class SalesforceApiService
      */
     public function executeQuery($query, $params, $json, $action)
     {
-        $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
-        if (isset($queryResult['errorCode']) && $queryResult['errorCode'] == '200') {
+        try {
+            $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
             return $queryResult;
-        }
-        if (isset($queryResult["error"]) && json_decode($queryResult["error"])[0]->message == "Session expired or invalid") {
+        } catch (Exception $e) {
+            $this->serviceManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            if (isset($queryResult['errorCode']) && $queryResult['errorCode'] == '200') {
+                return $queryResult;
+            }
+            if (isset($queryResult["error"]) && json_decode($queryResult["error"])[0]->message == "Session expired or invalid") {
                 $this->connnect($params);
                 try {
                     return $this->initExcecuteQuery($query, $params, $json, $action);
                 } catch (Exception $e) {
-                    return $e->getMessage();
+                    $this->serviceManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
                 }
             }
-        return $queryResult;
+        }
     }
 
     /**

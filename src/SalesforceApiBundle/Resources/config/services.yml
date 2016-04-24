@@ -40,6 +40,8 @@ parameters:
     salesforce.salesforce_api_territories_services.class: SalesforceApiBundle\Services\SalesforceApiTerritoriesServices
 
     salesforce.factory.salesforce_user.class: SalesforceApiBundle\Factory\SalesforceUserFactory
+    salesforce.factory.salesforce_group_member.class: SalesforceApiBundle\Factory\SalesforceGroupMemberFactory
+    salesforce.factory.salesforce_user_territory.class: SalesforceApiBundle\Factory\SalesforceUserTerritoryFactory
 
 services:
     salesforce.salesforceprofile_manager:
@@ -108,12 +110,20 @@ services:
 
     salesforce.salesforce_api_groupes_services:
         class: %salesforce.salesforce_api_groupes_services.class%
-        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.groupe_to_fonction_manager', '@salesforce.salesforcegroupe_manager' ]
+        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.factory.salesforce_group_member', '@salesforce.groupe_to_fonction_manager', '@salesforce.salesforcegroupe_manager' ]
 
     salesforce.salesforce_api_territories_services:
         class: %salesforce.salesforce_api_territories_services.class%
-        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.territory_to_service_manager', '@salesforce.salesforceterritory_manager' ]
+        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.factory.salesforce_user_territory', '@salesforce.territory_to_service_manager', '@salesforce.salesforceterritory_manager' ]
 
     salesforce.factory.salesforce_user:
         class: %salesforce.factory.salesforce_user.class%
+        parent: core.factory.abstract
+
+    salesforce.factory.salesforce_group_member:
+        class: %salesforce.factory.salesforce_group_member.class%
+        parent: core.factory.abstract
+
+    salesforce.factory.salesforce_user_territory:
+        class: %salesforce.factory.salesforce_user_territory.class%
         parent: core.factory.abstract

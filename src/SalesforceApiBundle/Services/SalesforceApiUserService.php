@@ -1,7 +1,7 @@
 <?php
 namespace SalesforceApiBundle\Services;
 
-use SalesforceApiBundle\Entity\SalesforceServiceCloudAcces;
+
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
@@ -9,6 +9,7 @@ use CoreBundle\Services\Manager\Admin\ServiceManager;
 use AramisApiBundle\Services\Manager\AramisAgencyManager;
 use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
 use AppBundle\Services\Manager\ParametersManager;
+use SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,6 +48,7 @@ class SalesforceApiUserService
      * @param FonctionManager $fonctionManager
      * @param ParametersManager $parametersManager
      * @param AramisAgencyManager $aramisAgencyManager
+     * @param SalesforceServiceCloudAccesManager $serviceCloudAccesManager
      * @param SalesforceApiGroupesServices $salesforceApiGroupesService
      * @param SalesforceApiTerritoriesServices $salesforceApiTerritoriesService
      */
@@ -126,7 +128,7 @@ class SalesforceApiUserService
                     'City' => $agenceCompany->getCity(),
                     'PostalCode' => $agenceCompany->getZipCode(),
                     'State ' => 'France',
-                    'ExternalID__c' => '5456', #Id from Robusto
+                    'ExternalID__c' => rand(1, 9999), #Id from Robusto
                     'Fax' => '0606060606', //Fax from Robusto Agence
                     'Extension' => $odigoInfos['odigoExtension'],
                     'OdigoCti__Odigo_login__c' => $odigoInfos['odigoExtension'],
@@ -135,18 +137,13 @@ class SalesforceApiUserService
                     'Title' => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
                     'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
-                    //  'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
+                    'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
                 )
             );
             $this->salesforceApiService->createNewUser($params, json_encode($newSalesforceUser));
-
             $salesforceUserId = json_decode($this->salesforceApiService->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
-
-            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction']);
-            die();
-            // Then need to add groupes
-            // Then need to add teritories
-
+            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
+            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
             return "User created";
         } else {
             return null;

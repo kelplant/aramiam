@@ -6,7 +6,7 @@ use SalesforceApiBundle\Entity\ApiObjects\SalesforceGroupMember;
 use Doctrine\Common\Util\Inflector;
 
 /**
- * Class SalesforceUserFactory
+ * Class SalesforceGroupMemberFactory
  * @package SalesforceApiBundle\Factory
  */
 class SalesforceGroupMemberFactory extends AbstractFactory

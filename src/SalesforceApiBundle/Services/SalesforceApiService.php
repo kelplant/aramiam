@@ -97,20 +97,12 @@ class SalesforceApiService
      */
     public function executeQuery($query, $params, $json, $action)
     {
-        $queryResult = $this->initExcecuteQuery($query, $params, $json, $action);
-        if (isset($queryResult['errorCode']) && $queryResult['errorCode'] == '200') {
-            return $queryResult;
-        } elseif (isset($queryResult["error"]) && json_decode($queryResult["error"])[0]->message == "Session expired or invalid") {
+        try {
             $this->connnect($params);
-            try {
-                return $this->initExcecuteQuery($query, $params, $json, $action);
-            } catch (Exception $e) {
-                $this->tokenManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
-        } else {
-            return $queryResult;
+            return $this->initExcecuteQuery($query, $params, $json, $action);
+        } catch (Exception $e) {
+            $this->tokenManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
     }
 
     /**
@@ -121,6 +113,26 @@ class SalesforceApiService
     public function createNewUser($params, $newSalesforceUser)
     {
         return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+    }
+
+    /**
+     * @param $params
+     * @param $userInGroupeToAdd
+     * @return array|string
+     */
+    public function addUserToGroupe($params, $userInGroupeToAdd)
+    {
+        return $this->executeQuery('/sobjects/GroupMember/', $params, $userInGroupeToAdd, "POST");
+    }
+
+    /**
+     * @param $params
+     * @param $userInTerritoryToAdd
+     * @return array|string
+     */
+    public function addUserToTerritory($params, $userInTerritoryToAdd)
+    {
+        return $this->executeQuery('/sobjects/UserTerritory', $params, $userInTerritoryToAdd, "POST");
     }
 
     /**

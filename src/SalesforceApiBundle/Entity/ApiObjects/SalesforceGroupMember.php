@@ -3,7 +3,7 @@ namespace SalesforceApiBundle\Entity\ApiObjects;
 
 /**
  * Class SalesforceGroupMember
- * @package SalesforceApiBundle\Entity
+ * @package SalesforceApiBundle\Entity\ApiObjects
  */
 class SalesforceGroupMember
 {

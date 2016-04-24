@@ -1,9 +1,9 @@
 <?php
-namespace SalesforceApiBundle\Entity;
+namespace SalesforceApiBundle\Entity\ApiObjects;
 
 /**
  * Class SalesforceUser
- * @package SalesforceApiBundle\Entity
+ * @package SalesforceApiBundle\Entity\ApiObjects
  */
 class SalesforceUser
 {

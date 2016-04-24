@@ -2,7 +2,7 @@
 namespace SalesforceApiBundle\Factory;
 
 use CoreBundle\Factory\AbstractFactory;
-use SalesforceApiBundle\Entity\SalesforceUser;
+use SalesforceApiBundle\Entity\ApiObjects\SalesforceUser;
 use Doctrine\Common\Util\Inflector;
 
 /**

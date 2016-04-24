@@ -12,8 +12,8 @@ parameters:
     app.parameters_calls.class: AppBundle\Services\Manager\ParametersManager
 
     app.mouv_history.class: AppBundle\Services\Manager\MouvHistoryManager
-    app.entity.mouv_history.class: CoreBundle\Entity\Admin\Candidat
-    app.entityname.mouv_history.class: 'CoreBundle\Entity\Admin\Candidat'
+    app.entity.mouv_history.class: AppBundle\Entity\MouvHistory
+    app.entityname.mouv_history.class: 'AppBundle\Entity\MouvHistory'
     app.argname.mouv_history.class: 'Le candidat'
 
 

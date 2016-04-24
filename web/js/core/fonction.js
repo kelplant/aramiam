@@ -6,14 +6,26 @@ function addGroupeField()
     var newIteration = parseInt(currentIteration) + parseInt('1');
     var addfield = '<div class="form-group" id="salesforceGroupes_'+newIteration+'">';
     addfield += '<label class="col-sm-3 control-label align_right font_exo_2" for="salesforce_groupe'+newIteration+'">Groupe SF '+newIteration+'</label>';
-    addfield += '<div class="col-sm-8">';
+    addfield += '<div class="col-sm-7">';
     addfield += '<select name="salesforce[groupe'+newIteration+']" id="salesforce_groupe'+newIteration+'" class="form-control">';
     addfield += listeOfOptions;
     addfield += '</select>';
     addfield += '</div>';
+    addfield += '<div class="col-sm-1" style="padding-top: 0.5%">';
+    addfield += '<button type="button" class="btn btn-default btn-xs" onclick="unsetField('+newIteration+');" aria-label="Left Align">';
+    addfield += '<span class="glyphicon glyphicon-remove btn-xs" aria-hidden="true"></span>';
+    addfield += '</button>';
+    addfield += '</div>';
     addfield += '</div>';
     localStorage.setItem("currentIteration", newIteration);
     $('#midEditForm').append(addfield)
+}
+
+
+// Fonction Unset territoire
+function unsetField(fieldId)
+{
+    document.getElementById('salesforceGroupes_'+fieldId).innerHTML = '';
 }
 
 // Fonction de chargement Standard Edit
@@ -61,7 +73,7 @@ function ajaxFonctionEdit(editItem)
                 $('#bottomEditForm').append(button).addClass('show').removeClass('hide');
                 $('#midEditForm').addClass('show').removeClass('hide');
                 $('#mainEditForm').addClass('show').removeClass('hide');
-                localStorage.setItem("currentIteration", '0');
+                localStorage.setItem("currentIteration", result.length);
             }});
         }});
     }});

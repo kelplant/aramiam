@@ -44,4 +44,19 @@ class SalesforceGroupeMatchFonctionManager extends AbstractManager
         }
         return $itemArray;
     }
+
+    /**
+     * @param $fonctionId
+     */
+    public function deleteForFonctionId($fonctionId)
+    {
+        try {
+            $this->em->createQuery(
+                'DELETE
+    FROM SalesforceApiBundle:SalesforceGroupeMatchFonction p
+    WHERE p.fonctionId = :fonctionId')->setParameter('fonctionId', $fonctionId);
+                    } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
 }

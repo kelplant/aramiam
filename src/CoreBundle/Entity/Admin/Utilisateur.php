@@ -30,13 +30,13 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=10, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=10, unique=true, nullable=true, options={"default":0})
      */
     protected $idCandidat;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":0})
      */
     protected $isCreateInOdigo;
 
@@ -60,7 +60,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":0})
      */
     protected $isCreateInWindows;
 

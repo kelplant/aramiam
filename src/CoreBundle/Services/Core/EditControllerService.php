@@ -12,7 +12,7 @@ class EditControllerService extends AbstractControllerService
      */
     private function ifSfServiceCloudInFonctionAdd($request)
     {
-        if (isset($request->request->get('salesforce')['service_cloud_acces'])) {
+        if ($this->entity == 'Fonction' && isset($request->request->get('salesforce')['service_cloud_acces'])) {
             $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
         }
     }
@@ -22,10 +22,24 @@ class EditControllerService extends AbstractControllerService
      */
     private function ifSfGroupePresentInFonctionAdd($request)
     {
-        if ($request->request->get('salesforce') != '') {
+        if ($this->entity == 'Fonction' && $request->request->get('salesforce') != '') {
             foreach ($request->request->get('salesforce') as $key => $value) {
                 if (substr($key, 0, 6) == 'groupe') {
                     $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifSfTerritoryPresentInServiceAdd($request)
+    {
+        if ($this->entity == 'Service' && $request->request->get('salesforce') != '') {
+            foreach ($request->request->get('salesforce') as $key => $value) {
+                if (substr($key, 0, 9) == 'territory') {
+                    $this->get('salesforce.territory_to_service_manager')->add(array('salesforceTerritoryId' => $value, 'serviceId' => $request->request->get('service')['id']));
                 }
             }
         }
@@ -40,6 +54,7 @@ class EditControllerService extends AbstractControllerService
     {
         if ($sendaction == "Sauvegarder" || $sendaction == "Sauver et Transformer") {
             $this->ifSfServiceCloudInFonctionAdd($request);
+            $this->ifSfTerritoryPresentInServiceAdd($request);
             $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
             $this->ifSfGroupePresentInFonctionAdd($request);
             return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->checkFormEntity($this->entity)))['id'], $request->request->get(strtolower($this->checkFormEntity($this->entity))));

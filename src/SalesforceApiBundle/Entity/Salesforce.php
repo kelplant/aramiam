@@ -17,7 +17,7 @@ class Salesforce
 
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     protected $user;
 

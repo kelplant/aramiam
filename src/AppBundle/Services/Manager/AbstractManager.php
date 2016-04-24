@@ -150,7 +150,7 @@ abstract class AbstractManager
     {
         $itemToSet = $itemToSend = new $this->entity;
         try {
-            $this->save($this->globalSetItem($itemToSet, $itemLoad));
+            var_dump($this->save($this->globalSetItem($itemToSet, $itemLoad)));
             $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

@@ -7,7 +7,14 @@
                     <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un service</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="main_container">
+                    <div class="main_container col-sm-12 text-center show" id="loading">
+                        <br><br><br>
+                        <button type="button" class="btn btn-lg btn-warning">
+                            <span class="glyphicon glyphicon-refresh spinning"></span>
+                            Loading...</button>
+                        <br><br><br>
+                    </div>
+                    <div class="main_container hide" id="mainEditForm">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_errors(formEdit) }}
                         <div class="form-group">
@@ -66,9 +73,13 @@
                                 {{ form_widget(formEdit.activeDirectoryDn) }}
                             </div>
                         </div>
-                        {{ form_row(formEdit.id) }}
-                        {{ form_rest(formEdit) }}
                     </div>
+                    <div class="main_container hide" id="midEditForm">
+                    </div>
+                    <div class="main_container hide" id="bottomEditForm">
+                    </div>
+                    {{ form_row(formEdit.id) }}
+                    {{ form_rest(formEdit) }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>

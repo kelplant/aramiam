@@ -413,3 +413,23 @@ function reloadGroupesFromSf()
         }
     });
 }
+
+//Fonction de rechargement des groupes Sf
+function reloadTerritoriesFromSf()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadSfTerritories").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/salesforce/territory/reload/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadSfTerritories").removeClass("hide").addClass("show");
+                    window.location = "/app/salesforce/territory_liste";
+                }
+            });
+        }
+    });
+}

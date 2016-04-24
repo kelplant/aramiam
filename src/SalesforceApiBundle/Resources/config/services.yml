@@ -4,15 +4,20 @@ parameters:
     salesforce.entityname.profile_manager.class: 'SalesforceApiBundle\Entity\SalesforceProfile'
     salesforce.argname.profile_manager.class: 'Le Profil Salesforce'
 
+    salesforce.territory_manager.class: SalesforceApiBundle\Services\Manager\SalesforceTerritoryManager
+    salesforce.entity.territory_manager.class: SalesforceApiBundle\Entity\SalesforceTerritory
+    salesforce.entityname.territory_manager.class: 'SalesforceApiBundle\Entity\SalesforceTerritory'
+    salesforce.argname.territory_manager.class: 'Le Territoire Salesforce'
+
     salesforce.groupe_manager.class: SalesforceApiBundle\Services\Manager\SalesforceGroupeManager
     salesforce.entity.groupe_manager.class: SalesforceApiBundle\Entity\SalesforceGroupe
     salesforce.entityname.groupe_manager.class: 'SalesforceApiBundle\Entity\SalesforceGroupe'
     salesforce.argname.groupe_manager.class: 'Le groupe Salesforce'
 
-    salesforce.token_store.class: SalesforceApiBundle\Services\Manager\SalesforceTokenStoreManager
-    salesforce.entity.token_store.class: SalesforceApiBundle\Entity\SalesforceTokenStore
-    salesforce.entityname.token_store.class: 'SalesforceApiBundle\Entity\SalesforceTokenStore'
-    salesforce.argname.token_store.class: 'Le token de connexion Salesforce'
+    salesforce.token_store_manager.class: SalesforceApiBundle\Services\Manager\SalesforceTokenStoreManager
+    salesforce.entity.token_store_manager.class: SalesforceApiBundle\Entity\SalesforceTokenStore
+    salesforce.entityname.token_store_manager.class: 'SalesforceApiBundle\Entity\SalesforceTokenStore'
+    salesforce.argname.token_store_manager.class: 'Le token de connexion Salesforce'
 
     salesforce.service_cloud_acces.class: SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager
     salesforce.entity.service_cloud_acces.class: SalesforceApiBundle\Entity\SalesforceServiceCloudAcces
@@ -23,6 +28,11 @@ parameters:
     salesforce.entity.groupe_to_fonction_manager.class: SalesforceApiBundle\Entity\SalesforceGroupeMatchFonction
     salesforce.entityname.groupe_to_fonction_manager.class: 'SalesforceApiBundle\Entity\SalesforceGroupeMatchFonction'
     salesforce.argname.groupe_to_fonction_manager.class: 'Le groupe Salesforce'
+
+    salesforce.territory_to_service_manager.class: SalesforceApiBundle\Services\Manager\SalesforceTerritoryMatchServiceManager
+    salesforce.entity.territory_to_service_manager.class: SalesforceApiBundle\Entity\SalesforceTerritoryMatchService
+    salesforce.entityname.territory_to_service_manager.class: 'SalesforceApiBundle\Entity\SalesforceTerritoryMatchService'
+    salesforce.argname.territory_to_service_manager.class: 'Le territoire Salesforce'
 
     salesforce.salesforce_api_service.class: SalesforceApiBundle\Services\SalesforceApiService
 
@@ -37,6 +47,14 @@ services:
         - [setEntityName, ["%salesforce.entityname.profile_manager.class%"]]
         - [setArgname, ["%salesforce.argname.profile_manager.class%"]]
 
+    salesforce.salesforceterritory_manager:
+        class: %salesforce.territory_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%salesforce.entity.territory_manager.class%"]]
+        - [setEntityName, ["%salesforce.entityname.territory_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.territory_manager.class%"]]
+
     salesforce.salesforcegroupe_manager:
         class: %salesforce.groupe_manager.class%
         parent: app.abstract_manager
@@ -46,12 +64,12 @@ services:
         - [setArgname, ["%salesforce.argname.groupe_manager.class%"]]
 
     salesforce.salesforcetoken_store:
-        class: %salesforce.token_store.class%
+        class: %salesforce.token_store_manager.class%
         parent: app.abstract_manager
         calls:
-        - [setEntity, ["%salesforce.entity.token_store.class%"]]
-        - [setEntityName, ["%salesforce.entityname.token_store.class%"]]
-        - [setArgname, ["%salesforce.argname.token_store.class%"]]
+        - [setEntity, ["%salesforce.entity.token_store_manager.class%"]]
+        - [setEntityName, ["%salesforce.entityname.token_store_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.token_store_manager.class%"]]
 
     salesforce.service_cloud_acces_manager:
         class: %salesforce.service_cloud_acces.class%
@@ -68,6 +86,14 @@ services:
         - [setEntity, ["%salesforce.entity.groupe_to_fonction_manager.class%"]]
         - [setEntityName, ["%salesforce.entityname.groupe_to_fonction_manager.class%"]]
         - [setArgname, ["%salesforce.argname.groupe_to_fonction_manager.class%"]]
+
+    salesforce.territory_to_service_manager:
+        class: %salesforce.territory_to_service_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%salesforce.entity.territory_to_service_manager.class%"]]
+        - [setEntityName, ["%salesforce.entityname.territory_to_service_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.territory_to_service_manager.class%"]]
 
     salesforce.salesforce_api_service:
         class: %salesforce.salesforce_api_service.class%

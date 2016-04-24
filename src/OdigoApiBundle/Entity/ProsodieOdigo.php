@@ -23,19 +23,19 @@ class ProsodieOdigo
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", unique=true, length=10, nullable=true)
      */
     protected $odigoPhoneNumber;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", unique=true, length=10, nullable=true)
      */
     protected $redirectPhoneNumber;
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", unique=true, nullable=true)
      */
     protected $odigoExtension;
 

@@ -58,7 +58,7 @@ function ajaxFonctionEdit(editItem)
                     document.getElementById("salesforce_groupe"+z).value = result[i].id;
                 }
                 $('#loading').addClass('hide').removeClass('show');
-                $('#bottomEditForm').append(button).addClass('show').removeClass('hide')
+                $('#bottomEditForm').append(button).addClass('show').removeClass('hide');
                 $('#midEditForm').addClass('show').removeClass('hide');
                 $('#mainEditForm').addClass('show').removeClass('hide');
                 localStorage.setItem("currentIteration", '0');

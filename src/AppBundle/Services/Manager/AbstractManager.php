@@ -111,11 +111,11 @@ abstract class AbstractManager
     }
 
     /**
-     * @param $itemId
+     * @param $archivedItemId
      * @return array
      */
-    public function retablir($itemId) {
-        $itemToSet = $this->getRepository()->findOneById($itemId);
+    public function retablir($archivedItemId) {
+        $itemToSet = $this->getRepository()->findOneById($archivedItemId);
         try {
             $itemToSet->setIsArchived('0');
             $this->em->flush();
@@ -123,23 +123,23 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        return array('item' => $itemId);
+        return array('item' => $archivedItemId);
     }
 
     /**
-     * @param $itemId
-     * @param $itemEditLoad
+     * @param $itemToEditId
+     * @param $ContentToAddToEditedItem
      * @return array
      */
-    public function edit($itemId, $itemEditLoad) {
+    public function edit($itemToEditId, $ContentToAddToEditedItem) {
         try {
-            $this->globalSetItem($this->getRepository()->findOneById($itemId), $itemEditLoad);
+            $this->globalSetItem($this->getRepository()->findOneById($itemToEditId), $ContentToAddToEditedItem);
             $this->em->flush();
             $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        return array('item' => $itemId);
+        return array('item' => $itemToEditId);
     }
 
     /**
@@ -150,7 +150,7 @@ abstract class AbstractManager
     {
         $itemToSet = $itemToSend = new $this->entity;
         try {
-            var_dump($this->save($this->globalSetItem($itemToSet, $itemLoad)));
+            $this->save($this->globalSetItem($itemToSet, $itemLoad));
             $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

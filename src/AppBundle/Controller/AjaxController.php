@@ -96,7 +96,7 @@ class AjaxController extends Controller
      * @Route(path="/ajax/get/salesforce/service_cloud/{fonctionId}",name="ajax_get_salesforce_service_cloud")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getSalesforceServiceCloudForUser($fonctionId)
+    public function getSalesforceServiceCloudForFonction($fonctionId)
     {
         return new JsonResponse($this->get('salesforce.service_cloud_acces_manager')->createArray($fonctionId));
     }

@@ -48,7 +48,7 @@ class SalesforceGroupeMatchFonction
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getFonctionId()
     {
@@ -56,7 +56,7 @@ class SalesforceGroupeMatchFonction
     }
 
     /**
-     * @param int $fonctionId
+     * @param string $fonctionId
      * @return SalesforceGroupeMatchFonction
      */
     public function setFonctionId($fonctionId)

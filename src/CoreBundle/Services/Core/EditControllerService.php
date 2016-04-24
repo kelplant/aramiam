@@ -22,10 +22,12 @@ class EditControllerService extends AbstractControllerService
      */
     private function ifSfGroupePresentInFonctionAdd($request)
     {
-        if ($this->entity == 'Fonction' && $request->request->get('salesforce') != '') {
-            foreach ($request->request->get('salesforce') as $key => $value) {
-                if (substr($key, 0, 6) == 'groupe') {
-                    $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
+        if ($this->entity == 'Fonction') {
+            if ($request->request->get('salesforce') != '') {
+                foreach ($request->request->get('salesforce') as $key => $value) {
+                    if (substr($key, 0, 6) == 'groupe') {
+                        $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
+                    }
                 }
             }
         }
@@ -36,10 +38,12 @@ class EditControllerService extends AbstractControllerService
      */
     private function ifSfTerritoryPresentInServiceAdd($request)
     {
-        if ($this->entity == 'Service' && $request->request->get('salesforce') != '') {
-            foreach ($request->request->get('salesforce') as $key => $value) {
-                if (substr($key, 0, 9) == 'territory') {
-                    $this->get('salesforce.territory_to_service_manager')->add(array('salesforceTerritoryId' => $value, 'serviceId' => $request->request->get('service')['id']));
+        if ($this->entity == 'Service') {
+            if ($request->request->get('salesforce') != '') {
+                foreach ($request->request->get('salesforce') as $key => $value) {
+                    if (substr($key, 0, 9) == 'territory') {
+                        $this->get('salesforce.territory_to_service_manager')->add(array('salesforceTerritoryId' => $value, 'serviceId' => $request->request->get('service')['id']));
+                    }
                 }
             }
         }

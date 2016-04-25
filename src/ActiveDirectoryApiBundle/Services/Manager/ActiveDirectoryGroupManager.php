@@ -36,4 +36,12 @@ class ActiveDirectoryGroupManager extends AbstractManager
         $itemArray['dn'] = $itemToTransform->getDn();
         return $itemArray;
     }
+
+    /**
+     * @return array
+     */
+    public function getStandardProfileListe()
+    {
+        return $this->getRepository()->findBy(array(), array('name' => 'ASC'));
+    }
 }

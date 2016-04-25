@@ -3,7 +3,7 @@ namespace CoreBundle\Controller\Admin;
 
 use CoreBundle\Form\Admin\FonctionType;
 use CoreBundle\Entity\Admin\Fonction;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CoreBundle\Services\Core\AbstractControllerService;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,22 +12,50 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * Class FonctionController
  * @package CoreBundle\Controller
  */
-class FonctionController extends Controller
+class FonctionController extends AbstractControllerService
 {
     private $itemToTemove;
 
     /**
      *
      */
+    private function selfInit()
+    {
+        $this->entity = 'Fonction';
+        $this->servicePrefix = 'core';
+        $this->newEntity = Fonction::class;
+        $this->formType = FonctionType::class;
+        $this->createFormArguments = array();
+    }
+
+    /**
+     *
+     */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setEntity('Fonction');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity(Fonction::class);
-        $this->get('core.'.$service.'.controller_service')->setFormType(FonctionType::class);
+        $this->selfInit();
+        $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
+        $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);
+        $this->get('core.'.$service.'.controller_service')->setFormType($this->formType);
         $this->get('core.'.$service.'.controller_service')->setAlertText('cette fonction');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
-        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments($this->createFormArguments);
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix($this->servicePrefix);
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifSfGroupePresentInFonctionAdd($request)
+    {
+        if ($request->request->get('salesforce') != '') {
+            $this->get('salesforce.groupe_to_fonction_manager')->deleteForFonctionId($request->request->get('fonction')['id']);
+            foreach ($request->request->get('salesforce') as $key => $value) {
+                if (substr($key, 0, 6) == 'groupe') {
+                    $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
+                }
+            }
+        }
     }
 
     /**
@@ -73,9 +101,19 @@ class FonctionController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData('edit');
         $this->initData('index');
-        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+        $this->formAdd = $this->generateForm();
+        $this->formEdit = $this->generateForm();
+        $this->formEdit->handleRequest($request);
+        if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
+            if ($request->request->get('formAction') == 'edit') {
+                $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
+                $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
+                $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
+                $this->ifSfGroupePresentInFonctionAdd($request);
+            }
+        }
+        return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);
     }
 
     /**

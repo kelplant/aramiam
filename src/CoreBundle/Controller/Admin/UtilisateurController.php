@@ -1,8 +1,9 @@
 <?php
 namespace CoreBundle\Controller\Admin;
 
+use CoreBundle\Entity\Admin\Utilisateur;
 use CoreBundle\Form\Admin\UtilisateurType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CoreBundle\Services\Core\AbstractControllerService;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,23 +12,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class UtilisateurController
  * @package CoreBundle\Controller
  */
-class UtilisateurController extends Controller
+class UtilisateurController extends AbstractControllerService
 {
-    private $isArchived;
+    /**
+     *
+     */
+    private function selfInit()
+    {
+        $this->entity = 'Utilisateur';
+        $this->servicePrefix = 'core';
+        $this->newEntity = Utilisateur::class;
+        $this->formType = UtilisateurType::class;
+        $this->createFormArguments = array('allow_extra_fields' => $this->generateListeChoices());
+    }
 
     /**
      *
      */
     private function initData($service)
     {
+        $this->selfInit();
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
-        $this->get('core.'.$service.'.controller_service')->setEntity('Utilisateur');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity('CoreBundle\Entity\Admin\Utilisateur');
-        $this->get('core.'.$service.'.controller_service')->setFormType(UtilisateurType::class);
+        $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
+        $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);
+        $this->get('core.'.$service.'.controller_service')->setFormType($this->formType);
         $this->get('core.'.$service.'.controller_service')->setAlertText('cet utilisateur');
         $this->get('core.'.$service.'.controller_service')->setIsArchived($this->isArchived);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
-        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments($this->createFormArguments);
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix($this->servicePrefix);
     }
 
     /**
@@ -72,9 +84,21 @@ class UtilisateurController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData('edit');
         $this->initData('index');
-        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+        $this->formAdd = $this->generateForm();
+        $this->formEdit = $this->generateForm();
+        $this->formEdit->handleRequest($request);
+        if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
+            if ($request->request->get('formAction') == 'edit') {
+                $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
+                $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
+                $this->get('google.google_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
+                $this->get('odigo.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request, $this->getParameter('odigo'), $this->getParameter('odigo_wsdl_error_creatuserwithtemplate_codes'));
+                $this->get('ad.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
+                $this->get('salesforce.salesforce_api_user_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request, $this->getParameter('salesforce'));
+            }
+        }
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
     }
 
     /**

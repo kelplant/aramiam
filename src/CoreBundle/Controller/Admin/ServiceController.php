@@ -3,6 +3,7 @@ namespace CoreBundle\Controller\Admin;
 
 use CoreBundle\Form\Admin\ServiceType;
 use CoreBundle\Entity\Admin\Service;
+use CoreBundle\Services\Core\AbstractControllerService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,22 +13,60 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class ServiceController
  * @package CoreBundle\Controller
  */
-class ServiceController extends Controller
+class ServiceController extends AbstractControllerService
 {
     private $itemToTemove;
 
     /**
      *
      */
+    private function selfInit()
+    {
+        $this->entity = 'Service';
+        $this->servicePrefix = 'core';
+        $this->newEntity = Service::class;
+        $this->formType = ServiceType::class;
+        $this->createFormArguments = array('allow_extra_fields' => $this->generateListeChoices());
+    }
+
+    /**
+     *
+     */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setEntity('Service');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity(Service::class);
-        $this->get('core.'.$service.'.controller_service')->setFormType(ServiceType::class);
+        $this->selfInit();
+        $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
+        $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);
+        $this->get('core.'.$service.'.controller_service')->setFormType($this->formType);
         $this->get('core.'.$service.'.controller_service')->setAlertText('ce service');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
-        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array('allow_extra_fields' => $this->get('core.'.$service.'.controller_service')->generateListeChoices()));
-        $this->get('core.'.$service.'.controller_service')->setServicePrefix('core');
+        $this->get('core.'.$service.'.controller_service')->setCreateFormArguments($this->createFormArguments);
+        $this->get('core.'.$service.'.controller_service')->setServicePrefix($this->servicePrefix);
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifSfServiceCloudInFonctionAdd($request)
+    {
+        if ($this->entity == 'Fonction' && isset($request->request->get('salesforce')['service_cloud_acces'])) {
+            $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
+        }
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifSfTerritoryPresentInServiceAdd($request)
+    {
+        if ($this->entity == 'Service' && $request->request->get('salesforce') != '') {
+            $this->get('salesforce.territory_to_service_manager')->deleteForServiceId($request->request->get('service')['id']);
+            foreach ($request->request->get('salesforce') as $key => $value) {
+                if (substr($key, 0, 9) == 'territory') {
+                    $this->get('salesforce.territory_to_service_manager')->add(array('salesforceTerritoryId' => $value, 'serviceId' => $request->request->get('service')['id']));
+                }
+            }
+        }
     }
 
     /**
@@ -73,9 +112,20 @@ class ServiceController extends Controller
      */
     public function form_exec_editAction(Request $request)
     {
-        $this->initData('edit');
         $this->initData('index');
-        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+        $this->formAdd = $this->generateForm();
+        $this->formEdit = $this->generateForm();
+        $this->formEdit->handleRequest($request);
+        if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
+            if ($request->request->get('formAction') == 'edit') {
+                $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
+                $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
+                $this->get('salesforce.territory_to_service_manager')->purge($request->request->get('service')['id']);
+                $this->ifSfTerritoryPresentInServiceAdd($request);
+                $this->ifSfServiceCloudInFonctionAdd($request);
+            }
+        }
+        return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);
     }
 
     /**

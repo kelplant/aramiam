@@ -17,6 +17,7 @@ class SalesforceProfileManager extends AbstractManager
      */
     public function globalSetItem($itemToSet, $itemLoad)
     {
+        $itemToSet->setId($itemLoad['profileId']);
         $itemToSet->setProfileId($itemLoad['profileId']);
         $itemToSet->setProfileName($itemLoad['profileName']);
         $itemToSet->setUserLicenseId($itemLoad['userLicenseId']);
@@ -32,6 +33,7 @@ class SalesforceProfileManager extends AbstractManager
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
+        $itemArray['id'] = $itemToTransform->getId();
         $itemArray['profileId'] = $itemToTransform->getProfileId();
         $itemArray['profileName'] = $itemToTransform->getProfileName();
         $itemArray['userLicenseId'] = $itemToTransform->getUserLicenseId();

@@ -10,10 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class SalesforceTerritory
 {
     /**
-     * @var int
+     * @var string
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string", unique=true)
      */
     protected $id;
 

@@ -1,3 +1,60 @@
+// Fonction de chargement Standard Edit
+function ajaxUtilisateurEdit(url, editItem)
+{
+    $('#mainEditForm').addClass('hide').removeClass('show');
+    $('#loadingMain').addClass('show').removeClass('hide');
+    $('#gmailToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePartNew').addClass('hide').removeClass('show');
+    localStorage.setItem("emailState", null);
+    localStorage.setItem("ableToShowOdigo", null);
+    urlajax ="/ajax/"+url+"/get/"+editItem;
+    $.ajax({url:urlajax,success:function(result){
+        var frm = $("#form-edit");
+        var i;
+        for (i in result) {
+            if (i == 'id') {
+                localStorage.setItem("currentEditItem", result[i])
+            }
+            if (i == 'name') {
+                localStorage.setItem("currentName", result[i])
+            }
+            if (i == 'surname') {
+                localStorage.setItem("currentSurname", result[i])
+            }
+            if (i == 'service') {
+                localStorage.setItem("service", result[i])
+            }
+            if (i == 'fonction') {
+                localStorage.setItem("fonction", result[i])
+            }
+            if (i == 'isCreateInGmail') {
+                localStorage.setItem("isCreateInGmail", result[i])
+            }
+            if (i == 'isCreateInOdigo') {
+                localStorage.setItem("isCreateInOdigo", result[i])
+            }
+            if (i == 'isCreateInWindows') {
+                localStorage.setItem("isCreateInWindows", result[i])
+            }
+            if (i == 'email') {
+                localStorage.setItem("email", result[i])
+            }
+            frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
+        }
+        $('#mainEditForm').addClass('show').removeClass('hide');
+        $('#loadingMain').addClass('hide').removeClass('show');
+    }});
+}
 
 // Fonction de chargement du bloc Windows
 function ajaxGenerateWindows()

@@ -17,6 +17,7 @@ class SalesforceGroupeManager extends AbstractManager
      */
     public function globalSetItem($itemToSet, $itemLoad)
     {
+        $itemToSet->setId($itemLoad['groupeId']);
         $itemToSet->setGroupeId($itemLoad['groupeId']);
         $itemToSet->setGroupeName($itemLoad['groupeName']);
         return $itemToSet;
@@ -30,6 +31,7 @@ class SalesforceGroupeManager extends AbstractManager
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
+        $itemArray['id'] = $itemToTransform->getId();
         $itemArray['groupeId'] = $itemToTransform->getGroupeId();
         $itemArray['groupeName'] = $itemToTransform->getGroupeName();
 

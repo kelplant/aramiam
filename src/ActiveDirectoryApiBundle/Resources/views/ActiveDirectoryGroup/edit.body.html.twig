@@ -1,27 +1,27 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ path('form_exec_edit_salesforce_groupe') }}" method="post" class="form-horizontal" id="form-edit">
+            <form action="{{ path('form_exec_edit_active_directory_groupe') }}" method="post" class="form-horizontal" id="form-edit">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un Groupe Salesforce</h4>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un Groupe Active Directory</h4>
                 </div>
                 <div class="modal-body">
                     <div class="main_container">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_errors(formEdit) }}
                         <div class="form-group">
-                            {{ form_label(formEdit.groupeId) }}
-                            {{ form_errors(formEdit.groupeId) }}
+                            {{ form_label(formEdit.name) }}
+                            {{ form_errors(formEdit.name) }}
                             <div class="col-sm-8">
-                                {{ form_widget(formEdit.groupeId) }}
+                                {{ form_widget(formEdit.name) }}
                             </div>
                         </div>
                         <div class="form-group">
-                            {{ form_label(formEdit.groupeName) }}
-                            {{ form_errors(formEdit.groupeName) }}
+                            {{ form_label(formEdit.dn) }}
+                            {{ form_errors(formEdit.dn) }}
                             <div class="col-sm-8">
-                                {{ form_widget(formEdit.groupeName) }}
+                                {{ form_widget(formEdit.dn) }}
                             </div>
                         </div>
                         {{ form_row(formEdit.id) }}

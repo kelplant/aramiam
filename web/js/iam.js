@@ -196,7 +196,7 @@ function reloadGroupesFromSf()
     });
 }
 
-//Fonction de rechargement des groupes Sf
+//Fonction de rechargement des territoires Sf
 function reloadTerritoriesFromSf()
 {
     $("#waiting").removeClass("hide").addClass("show");
@@ -210,6 +210,26 @@ function reloadTerritoriesFromSf()
                     $("#waiting").removeClass("show").addClass("hide");
                     $("#reloadSfTerritories").removeClass("hide").addClass("show");
                     window.location = "/app/salesforce/territory_liste";
+                }
+            });
+        }
+    });
+}
+
+//Fonction de rechargement des groupes Ad
+function reloadGroupFromAd()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadADGroup").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/active_directory/groupe/reload/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadADGroup").removeClass("hide").addClass("show");
+                    window.location = "/app/active_directory/groupe_liste";
                 }
             });
         }

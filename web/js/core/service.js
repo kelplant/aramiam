@@ -5,7 +5,7 @@ function addGroupeField()
     var listeOfOptions = localStorage.getItem("listeOfOptions");
     var newIteration = parseInt(currentIteration) + parseInt('1');
     var addfield = '<div class="form-group" id="salesforceTerritories_'+newIteration+'">';
-    addfield += '<label class="col-sm-3 control-label align_right font_exo_2" for="salesforce_territory'+newIteration+'">Terrirore SF '+newIteration+'</label>';
+    addfield += '<label class="col-sm-4 control-label align_right font_exo_2" for="salesforce_territory'+newIteration+'">Terrirore SF '+newIteration+'</label>';
     addfield += '<div class="col-sm-7">';
     addfield += '<select name="salesforce[territory'+newIteration+']" id="salesforce_territory'+newIteration+'" class="form-control">';
     addfield += listeOfOptions;
@@ -35,6 +35,9 @@ function ajaxServiceEdit(editItem)
     $('#midEditForm').addClass('hide').removeClass('show');
     $('#bottomEditForm').addClass('hide').removeClass('show');
     $('#loading').addClass('show').removeClass('hide');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
     document.getElementById("midEditForm").innerHTML = '';
     document.getElementById("bottomEditForm").innerHTML = '';
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addGroupeField();">Ajouter un Territoire Salesforce</button></div>';
@@ -45,22 +48,44 @@ function ajaxServiceEdit(editItem)
         for (i in result) {
             frm.find('[name="service[' + i + ']"]').val(result[i]);
         }
-        urlajax ="/ajax/get/salesforce/territory_service/"+editItem;
-        $.ajax({url:urlajax,success:function(result){
-            var i = 0;
-            for (i in result) {
-                addGroupeField();
-                var z = parseInt(i) + parseInt('1');
-                document.getElementById("salesforce_territory"+z).value = result[i].id;
-            }
-            $('#loading').addClass('hide').removeClass('show');
-            $('#bottomEditForm').append(button).addClass('show').removeClass('hide');
-            $('#midEditForm').addClass('show').removeClass('hide');
-            $('#mainEditForm').addClass('show').removeClass('hide');
-            localStorage.setItem("currentIteration", result.length);
-        }});
+        $('#loading').addClass('hide').removeClass('show');
+        $('#mainEditForm').addClass('show').removeClass('hide');
+        localStorage.setItem("currentServiceEdit", editItem);
     }});
 }
 
+// Fonction de chargement du bloc salesforce
+function ajaxGenerateSalesforce()
+{
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#midEditForm').addClass('hide').removeClass('show');
+    $('#bottomEditForm').addClass('hide').removeClass('show');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').addClass('active');
+    $('#loadingRight').removeClass('hide').addClass('show');
+    document.getElementById("midEditForm").innerHTML = '';
+    document.getElementById("bottomEditForm").innerHTML = '';
+    var editItem = localStorage.getItem("currentServiceEdit");
+    var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addGroupeField();">Ajouter un Territoire Salesforce</button></div>';
+
+    urlajax ="/ajax/get/salesforce/territory_service/"+editItem;
+    $.ajax({url:urlajax,success:function(result){
+        var i = 0;
+        for (i in result) {
+            addGroupeField();
+            var z = parseInt(i) + parseInt('1');
+            document.getElementById("salesforce_territory"+z).value = result[i].id;
+        }
+        $('#loadingRight').addClass('hide').removeClass('show');
+        $('#bottomEditForm').append(button).addClass('show').removeClass('hide');
+        $('#midEditForm').addClass('show').removeClass('hide');
+        $('#mainEditForm').addClass('show').removeClass('hide');
+        $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+        localStorage.setItem("currentIteration", result.length);
+    }});
+}
 
 

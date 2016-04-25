@@ -27,7 +27,7 @@ class FonctionType extends BaseType
             ->add('name', TextType::class, array(
                 'label' => 'Nom de la fonction',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -36,7 +36,7 @@ class FonctionType extends BaseType
             ->add('shortName', TextType::class, array(
                 'label' => 'Nom raccourci',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -45,7 +45,7 @@ class FonctionType extends BaseType
             ->add('nameInCompany', TextType::class, array(
                 'label' => 'Dans Company',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -55,7 +55,7 @@ class FonctionType extends BaseType
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -65,7 +65,7 @@ class FonctionType extends BaseType
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -75,7 +75,7 @@ class FonctionType extends BaseType
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

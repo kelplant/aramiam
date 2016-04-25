@@ -40,6 +40,11 @@
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadSfTerritories" onclick="reloadTerritoriesFromSf();">
                                   <i class="fa fa-plus"></i> Reload From Sf</button>
                           {% endif %}
+                          {% if entity == 'active_directory_group' %}
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadGroupFromAd();">
+                                  <i class="fa fa-plus"></i> Reload From Ad</button>
+                          {% endif %}
                       </div>
                     {% if session_messaging is defined %}
                         <div class="form-group">

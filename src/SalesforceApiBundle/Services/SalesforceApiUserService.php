@@ -98,7 +98,6 @@ class SalesforceApiUserService
      * @param $isCreateInSalesforce
      * @param Request $request
      * @param $params
-     * @return array|null|string
      */
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
@@ -144,9 +143,6 @@ class SalesforceApiUserService
             $salesforceUserId = json_decode($this->salesforceApiService->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
             $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
-            return "User created";
-        } else {
-            return null;
         }
     }
 }

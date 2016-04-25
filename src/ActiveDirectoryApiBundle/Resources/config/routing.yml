@@ -1,0 +1,3 @@
+active_directory_api_annot:
+    resource: "@ActiveDirectoryApiBundle/Controller/"
+    type:     annotation

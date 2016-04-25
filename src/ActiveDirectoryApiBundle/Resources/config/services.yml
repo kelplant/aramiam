@@ -1,7 +1,22 @@
 parameters:
+    ad.active_directory_group_manager.class: ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupManager
+    ad.entity.active_directory_group_manager.class: ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup
+    ad.entityname.active_directory_group_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup'
+    ad.argname.active_directory_group_manager.class: 'Ce groupe Active Directory'
+
+
     ad.active_directory_api_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiService
 
 services:
+    ad.active_directory_group_manager:
+        class: %ad.active_directory_group_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%ad.entity.active_directory_group_manager.class%"]]
+        - [setEntityName, ["%ad.entityname.active_directory_group_manager.class%"]]
+        - [setArgname, ["%ad.argname.active_directory_group_manager.class%"]]
+
+
     ad.active_directory_api_service:
         class: %ad.active_directory_api_service.class%
         arguments: [ '@core.service_manager', '@core.utilisateur_manager' ]

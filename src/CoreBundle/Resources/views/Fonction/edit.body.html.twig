@@ -1,12 +1,12 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ path('form_exec_edit_fonction') }}" method="post" class="form-horizontal" id="form-edit">
-                <div class="modal-header">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+    <form action="{{ path('form_exec_edit_fonction') }}" method="post" class="form-horizontal" id="form-edit">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modal-header modal-lg">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'une fonction</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body modal-lg">
                     <div class="main_container col-sm-12 text-center show" id="loading">
                         <br><br><br>
                         <button type="button" class="btn btn-lg btn-warning">
@@ -14,68 +14,105 @@
                             Loading...</button>
                         <br><br><br>
                     </div>
-                    <div class="main_container hide" id="mainEditForm">
+                    <div class="container-fluid marginNegABitABitLeft" xmlns="http://www.w3.org/1999/html" id="mainEditForm">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_row(formEdit.id) }}
                         {{ form_widget(formEdit._token) }}
                         {{ form_errors(formEdit) }}
-                        <div class="form-group">
-                            {{ form_label(formEdit.name) }}
-                            {{ form_errors(formEdit.name) }}
-                            <div class="col-sm-8">
-                                {{ form_widget(formEdit.name) }}
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form_label(formEdit.name) }}
+                                {{ form_errors(formEdit.name) }}
+                                <div class="col-sm-7">
+                                    {{ form_widget(formEdit.name) }}
+                                </div>
                             </div>
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <div class="form-group">
+                                    {{ form_label(formEdit.shortName) }}
+                                    {{ form_errors(formEdit.shortName) }}
+                                    <div class="col-sm-7">
+                                        {{ form_widget(formEdit.shortName) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.nameInCompany) }}
+                                    {{ form_errors(formEdit.nameInCompany) }}
+                                    <div class="col-sm-7">
+                                        {{ form_widget(formEdit.nameInCompany) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.nameInOdigo) }}
+                                    {{ form_errors(formEdit.nameInOdigo) }}
+                                    <div class="col-sm-7">
+                                        {{ form_widget(formEdit.nameInOdigo) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.nameInSalesforce) }}
+                                    {{ form_errors(formEdit.nameInSalesforce) }}
+                                    <div class="col-sm-7">
+                                        {{ form_widget(formEdit.nameInSalesforce) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.nameInZendesk) }}
+                                    {{ form_errors(formEdit.nameInZendesk) }}
+                                    <div class="col-sm-7">
+                                        {{ form_widget(formEdit.nameInZendesk) }}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
-                        {% if is_granted("ROLE_SUPER_ADMIN") %}
-                            <div class="form-group">
-                                {{ form_label(formEdit.shortName) }}
-                                {{ form_errors(formEdit.shortName) }}
-                                <div class="col-sm-8">
-                                    {{ form_widget(formEdit.shortName) }}
+                        <div class="col-sm-6 font_exo_2">
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" id="windowsToggle" onclick="ajaxGenerateWindows();">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Windows
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="salesforceToggle" onclick="ajaxGenerateSalesforce();">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Salesf.
+                                        </a>
+                                    </li>
+                                    <li role="presentation" id="aramisToggle" onclick="ajaxGenerateAramis();">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Aramis
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="container-fluid actionPartFonction">
+                                    <div class="container hide col-sm-4 text-center" id="loadingRight">
+                                        <button type="button" class="btn btn-lg btn-warning">
+                                            <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
+                                        </button>
+                                    </div>
+                                    <div class="hide" id="createActionSalesforcePart">
+                                        <div class="hide" id="midEditForm">
+                                        </div>
+                                        <div class="hide" id="bottomEditForm">
+                                        </div>
+                                    </div>
+                                    <div class="hide" id="createActionWindowsPart">
+                                        <div class="hide" id="midEditForm">
+                                        </div>
+                                        <div class="hide" id="bottomEditForm">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.nameInCompany) }}
-                                {{ form_errors(formEdit.nameInCompany) }}
-                                <div class="col-sm-8">
-                                    {{ form_widget(formEdit.nameInCompany) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.nameInOdigo) }}
-                                {{ form_errors(formEdit.nameInOdigo) }}
-                                <div class="col-sm-8">
-                                    {{ form_widget(formEdit.nameInOdigo) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.nameInSalesforce) }}
-                                {{ form_errors(formEdit.nameInSalesforce) }}
-                                <div class="col-sm-8">
-                                    {{ form_widget(formEdit.nameInSalesforce) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.nameInZendesk) }}
-                                {{ form_errors(formEdit.nameInZendesk) }}
-                                <div class="col-sm-8">
-                                    {{ form_widget(formEdit.nameInZendesk) }}
-                                </div>
-                            </div>
-                        {% endif %}
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if is_granted("ROLE_SUPER_ADMIN") %}
-                        <div class="main_container hide" id="midEditForm">
-                        </div>
-                        <div class="main_container hide" id="bottomEditForm">
-                        </div>
-                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
                     <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
                 </div>
-            </form>
+
+            </div>
         </div>
-    </div>
+    </form>
 </div>

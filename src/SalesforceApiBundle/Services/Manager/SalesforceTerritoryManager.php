@@ -17,6 +17,7 @@ class SalesforceTerritoryManager extends AbstractManager
      */
     public function globalSetItem($itemToSet, $itemLoad)
     {
+        $itemToSet->setId($itemLoad['territoryId']);
         $itemToSet->setTerritoryId($itemLoad['territoryId']);
         $itemToSet->setTerritoryName($itemLoad['territoryName']);
         $itemToSet->setParentTerritoryId($itemLoad['parentTerritoryId']);
@@ -31,6 +32,7 @@ class SalesforceTerritoryManager extends AbstractManager
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
         $itemArray = [];
+        $itemArray['id'] = $itemToTransform->getId();
         $itemArray['territoryId'] = $itemToTransform->getTerritoryId();
         $itemArray['territoryName'] = $itemToTransform->getTerritoryName();
         $itemArray['parentTerritoryId'] = $itemToTransform->getParentTerritoryId();

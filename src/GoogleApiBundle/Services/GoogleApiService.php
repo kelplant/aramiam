@@ -52,17 +52,19 @@ class GoogleApiService
     }
 
     /**
-     * @param $test
-     * @param $yes
-     * @param $no
-     * @return mixed
+     * @param $f
+     * @param $userToCreate
+     * @param $service
      */
-    private function isEgalOne($test, $yes, $no)
+    private function ifUserNotExist($f, $userToCreate, $service)
     {
-        if ($test == 1) {
-            return $yes;
-        } else {
-            return $no;
+        if ($f == 0) {
+            try {
+                $return = $this->createNewUserAccount($service, $userToCreate);
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
+            } catch (Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
         }
     }
 
@@ -130,18 +132,18 @@ class GoogleApiService
     /**
      * @param $userToCreate
      * @param $params
-     * @return mixed
      */
     private function ifEmailNotExistCreateUser($userToCreate, $params)
     {
         $service = $this->innitApi($params);
-        $e = '0';
+        $f = 0;
         try {
             $this->getInfosFromEmail($service, $userToCreate['email'], $params);
         } catch (Exception $e) {
-            $e = error_log($e->getMessage());
+            $f = error_log($e->getMessage());
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $f, 'message' => $e->getMessage()));
         }
-        return $this->isEgalOne($e, $this->createNewUserAccount($service, $userToCreate), 'User Already exist');
+        $this->ifUserNotExist($f, $userToCreate, $service);
     }
 
     /**

@@ -6,6 +6,10 @@ odigo_api:
     resource: "@OdigoApiBundle/Resources/config/routing.yml"
     prefix:   /
 
+active_directory_api:
+    resource: "@ActiveDirectoryApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 aramis_api:
     resource: "@AramisApiBundle/Resources/config/routing.yml"
     prefix:   /

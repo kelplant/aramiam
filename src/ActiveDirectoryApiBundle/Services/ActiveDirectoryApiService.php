@@ -42,7 +42,6 @@ class ActiveDirectoryApiService
      * @param $connectionADparams
      * @param $userToCreateDn
      * @param $userToCreate
-     * @return bool|\Exception|string
      */
     public function createUser($connectionADparams, $userToCreateDn, $userToCreate)
     {
@@ -50,12 +49,24 @@ class ActiveDirectoryApiService
 
         try {
             $e = ldap_add($ds, $userToCreateDn, $userToCreate);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur créé dans l\'Active Directory '.$e));
         } catch (\Exception $e) {
-            $e = $e->getMessage();
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
         ldap_unbind($ds);
+    }
 
-        return $e;
+    public function getListeofGroupes($connectionADparams)
+    {
+        $ds = $this->connectAD($connectionADparams);
+        $filter = '(objectCategory=group)';
+        $elemsToReturn = array("objectSid", "dn", "name");
+        try {
+            $sr = ldap_search($ds, $connectionADparams['ldapBaseDN'], $filter, $elemsToReturn);
+            return ldap_get_entries($ds, $sr);
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
     }
 
     /**
@@ -76,7 +87,7 @@ class ActiveDirectoryApiService
      * @param $sendaction
      * @param $isCreateInWindows
      * @param $request
-     * @return bool|\Exception|string
+     * @param $paramsAD
      */
     public function ifWindowsCreate($sendaction, $isCreateInWindows, $request, $paramsAD)
     {
@@ -84,9 +95,7 @@ class ActiveDirectoryApiService
             $dn_user = 'CN='.$request->request->get('utilisateur')['viewName'].','.$this->serviceManager->load($request->request->get('utilisateur')['service'])->getActiveDirectoryDn();
             $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id']);
-            return $this->createUser($paramsAD, $dn_user, $ldaprecord);
-        } else {
-            return null;
+            $this->createUser($paramsAD, $dn_user, $ldaprecord);
         }
     }
 }

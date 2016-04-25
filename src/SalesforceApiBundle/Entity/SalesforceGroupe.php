@@ -29,7 +29,7 @@ class SalesforceGroupe
     protected $groupeName;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -37,8 +37,8 @@ class SalesforceGroupe
     }
 
     /**
-     * @param int $id
-     * @return SalesforceProfile
+     * @param string $id
+     * @return SalesforceGroupe
      */
     public function setId($id)
     {
@@ -56,7 +56,7 @@ class SalesforceGroupe
 
     /**
      * @param string $groupeId
-     * @return SalesforceProfile
+     * @return SalesforceGroupe
      */
     public function setGroupeId($groupeId)
     {
@@ -74,7 +74,7 @@ class SalesforceGroupe
 
     /**
      * @param string $groupeName
-     * @return SalesforceProfile
+     * @return SalesforceGroupe
      */
     public function setGroupeName($groupeName)
     {

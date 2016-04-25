@@ -41,7 +41,7 @@ class SalesforceProfile
     protected $userType;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -49,7 +49,7 @@ class SalesforceProfile
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return SalesforceProfile
      */
     public function setId($id)

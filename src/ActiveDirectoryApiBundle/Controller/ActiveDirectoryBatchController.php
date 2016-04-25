@@ -16,9 +16,9 @@ class ActiveDirectoryBatchController extends Controller
         $sidinhex = str_split(bin2hex($hashAndCryptedSid), 2);
         $sid = 'S-'.hexdec($sidinhex[0])."-".hexdec($sidinhex[6].$sidinhex[5].$sidinhex[4].$sidinhex[3].$sidinhex[2].$sidinhex[1]);
         $subauths = hexdec($sidinhex[7]);
-        for($i = 0; $i < $subauths; $i++) {
+        for ($i = 0; $i < $subauths; $i++) {
             $start = 8 + (4 * $i);
-            $sid = $sid."-".hexdec($sidinhex[$start+3].$sidinhex[$start+2].$sidinhex[$start+1].$sidinhex[$start]);
+            $sid = $sid."-".hexdec($sidinhex[$start + 3].$sidinhex[$start + 2].$sidinhex[$start + 1].$sidinhex[$start]);
         }
         return $sid;
     }

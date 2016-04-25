@@ -32,7 +32,6 @@ class MouvHistoryManager Extends AbstractManager
      * @param $itemLoad
      * @param $adminId
      * @param $type
-     * @return array
      */
     public function add($itemLoad, $adminId, $type)
     {
@@ -42,9 +41,9 @@ class MouvHistoryManager Extends AbstractManager
         $this->globalSetItem($itemToSet, $itemLoad);
         try {
             $this->save($itemToSet);
-            return array('item' => $itemLoad['id']);
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
         } catch (\Exception $e) {
-            return array('item' => $e->getMessage());
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
     }
 }

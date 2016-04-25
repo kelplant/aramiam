@@ -35,7 +35,7 @@ class SalesforceTerritory
     protected $parentTerritoryId;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -43,8 +43,8 @@ class SalesforceTerritory
     }
 
     /**
-     * @param int $id
-     * @return SalesforceProfile
+     * @param string $id
+     * @return SalesforceTerritory
      */
     public function setId($id)
     {
@@ -62,7 +62,7 @@ class SalesforceTerritory
 
     /**
      * @param string $territoryId
-     * @return SalesforceProfile
+     * @return SalesforceTerritory
      */
     public function setTerritoryId($territoryId)
     {
@@ -80,7 +80,7 @@ class SalesforceTerritory
 
     /**
      * @param string $territoryName
-     * @return SalesforceProfile
+     * @return SalesforceTerritory
      */
     public function setTerritoryName($territoryName)
     {
@@ -98,7 +98,7 @@ class SalesforceTerritory
 
     /**
      * @param string $parentTerritoryId
-     * @return SalesforceProfile
+     * @return SalesforceTerritory
      */
     public function setParentTerritoryId($parentTerritoryId)
     {

@@ -144,6 +144,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemLoad
+     * @return array
      */
     public function add($itemLoad)
     {
@@ -154,6 +155,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemToSend);
     }
 
     /**

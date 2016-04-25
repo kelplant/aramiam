@@ -32,12 +32,13 @@ class MouvHistoryManager Extends AbstractManager
      * @param $itemLoad
      * @param $adminId
      * @param $type
+     * @return array
      */
     public function add($itemLoad, $adminId, $type)
     {
         $itemLoad['adminId'] = $adminId;
         $itemLoad['type'] = $type;
-        $itemToSet = new MouvHistory();
+        $itemToSet = $itemToSend = new MouvHistory();
         $this->globalSetItem($itemToSet, $itemLoad);
         try {
             $this->save($itemToSet);
@@ -45,5 +46,6 @@ class MouvHistoryManager Extends AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        return array('item' => $itemToSend);
     }
 }

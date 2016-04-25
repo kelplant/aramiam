@@ -47,19 +47,9 @@ class ServiceController extends AbstractControllerService
     /**
      * @param $request
      */
-    private function ifSfServiceCloudInFonctionAdd($request)
-    {
-        if ($this->entity == 'Fonction' && isset($request->request->get('salesforce')['service_cloud_acces'])) {
-            $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
-        }
-    }
-
-    /**
-     * @param $request
-     */
     private function ifSfTerritoryPresentInServiceAdd($request)
     {
-        if ($this->entity == 'Service' && $request->request->get('salesforce') != '') {
+        if ($request->request->get('salesforce') != '') {
             $this->get('salesforce.territory_to_service_manager')->deleteForServiceId($request->request->get('service')['id']);
             foreach ($request->request->get('salesforce') as $key => $value) {
                 if (substr($key, 0, 9) == 'territory') {
@@ -122,7 +112,6 @@ class ServiceController extends AbstractControllerService
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
                 $this->get('salesforce.territory_to_service_manager')->purge($request->request->get('service')['id']);
                 $this->ifSfTerritoryPresentInServiceAdd($request);
-                $this->ifSfServiceCloudInFonctionAdd($request);
             }
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);

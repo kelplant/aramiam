@@ -59,6 +59,16 @@ class FonctionController extends AbstractControllerService
     }
 
     /**
+     * @param $request
+     */
+    private function ifSfServiceCloudInFonctionAdd($request)
+    {
+        if (isset($request->request->get('salesforce')['service_cloud_acces'])) {
+            $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
+        }
+    }
+
+    /**
      * @Route(path="/admin/fonctions", name="liste_des_fonctions")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -111,6 +121,7 @@ class FonctionController extends AbstractControllerService
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
                 $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
                 $this->ifSfGroupePresentInFonctionAdd($request);
+                $this->ifSfServiceCloudInFonctionAdd($request);
             }
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);

@@ -61,6 +61,18 @@ abstract class AbstractControllerService extends Controller
     /**
      *
      */
+    protected function selfInit($entity, $servicePrefix, $newEntity, $formType, $createFormArguments)
+    {
+        $this->entity = $entity;
+        $this->servicePrefix = $servicePrefix;
+        $this->newEntity = $newEntity;
+        $this->formType = $formType;
+        $this->createFormArguments = $createFormArguments;
+    }
+
+    /**
+     *
+     */
     public function initBothForms()
     {
         $this->formAdd = $this->generateForm();

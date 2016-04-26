@@ -19,21 +19,9 @@ class FonctionController extends AbstractControllerService
     /**
      *
      */
-    private function selfInit()
-    {
-        $this->entity = 'Fonction';
-        $this->servicePrefix = 'core';
-        $this->newEntity = Fonction::class;
-        $this->formType = FonctionType::class;
-        $this->createFormArguments = array();
-    }
-
-    /**
-     *
-     */
     private function initData($service)
     {
-        $this->selfInit();
+        $this->selfInit('Fonction','core', Fonction::class, FonctionType::class, array());
         $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
         $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);
         $this->get('core.'.$service.'.controller_service')->setFormType($this->formType);

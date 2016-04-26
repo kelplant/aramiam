@@ -17,21 +17,9 @@ class UtilisateurController extends AbstractControllerService
     /**
      *
      */
-    private function selfInit()
-    {
-        $this->entity = 'Utilisateur';
-        $this->servicePrefix = 'core';
-        $this->newEntity = Utilisateur::class;
-        $this->formType = UtilisateurType::class;
-        $this->createFormArguments = array('allow_extra_fields' => $this->generateListeChoices());
-    }
-
-    /**
-     *
-     */
     private function initData($service)
     {
-        $this->selfInit();
+        $this->selfInit('Utilisateur', 'core', Utilisateur::class, UtilisateurType::class, array('allow_extra_fields' => $this->generateListeChoices()));
         $this->isArchived = Request::createFromGlobals()->query->get('isArchived', 0);
         $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
         $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);

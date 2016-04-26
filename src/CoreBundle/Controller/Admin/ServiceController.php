@@ -20,21 +20,9 @@ class ServiceController extends AbstractControllerService
     /**
      *
      */
-    private function selfInit()
-    {
-        $this->entity = 'Service';
-        $this->servicePrefix = 'core';
-        $this->newEntity = Service::class;
-        $this->formType = ServiceType::class;
-        $this->createFormArguments = array('allow_extra_fields' => $this->generateListeChoices());
-    }
-
-    /**
-     *
-     */
     private function initData($service)
     {
-        $this->selfInit();
+        $this->selfInit('Service', 'core', Service::class, ServiceType::class, array('allow_extra_fields' => $this->generateListeChoices()));
         $this->get('core.'.$service.'.controller_service')->setEntity($this->entity);
         $this->get('core.'.$service.'.controller_service')->setNewEntity($this->newEntity);
         $this->get('core.'.$service.'.controller_service')->setFormType($this->formType);

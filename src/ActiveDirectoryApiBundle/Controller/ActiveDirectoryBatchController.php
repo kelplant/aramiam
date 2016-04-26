@@ -32,7 +32,7 @@ class ActiveDirectoryBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('ad.active_directory_group_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_service')->getListeofGroupes($this->getParameter('active_directory'));
+            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectSid", "dn", "name"));
             foreach ((array)$response as $record) {
                 if (!is_null($record['dn'])) {
                     $explodeSid = explode('-', $this->transcodeSid($record['objectsid'][0]));

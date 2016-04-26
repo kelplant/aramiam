@@ -76,37 +76,17 @@ class ActiveDirectoryApiService
      * @param $connectionADparams
      * @return array
      */
-    public function getListeofGroupes($connectionADparams)
+    public function executeQueryWithFilter($connectionADparams, $filter, $elemsToReturn)
     {
         $ds = $this->connectAD($connectionADparams);
-        $filter = '(objectCategory=group)';
-        $elemsToReturn = array("objectSid", "dn", "name");
         try {
-            $sr = ldap_search($ds, $connectionADparams['ldapBaseDN'], $filter, $elemsToReturn);
-            return ldap_get_entries($ds, $sr);
+            $entries = ldap_get_entries($ds, ldap_search($ds, $connectionADparams['ldapBaseDN'], $filter, $elemsToReturn));
+            ldap_unbind($ds);
+            return $entries;
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            return array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage());
         }
-        ldap_unbind($ds);
-    }
-
-    /**
-     * @param $connectionADparams
-     * @param $accountName
-     * @return array
-     */
-    public function getOneUserByAccountName($connectionADparams, $accountName)
-    {
-        $ds = $this->connectAD($connectionADparams);
-        $filter = '(sAMAccountName='.$accountName.')';
-        $elemsToReturn = array("objectSid", "dn", "name");
-        try {
-            $sr = ldap_search($ds, $connectionADparams['ldapBaseDN'], $filter, $elemsToReturn);
-            return ldap_get_entries($ds, $sr);
-        } catch (\Exception $e) {
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-        }
-        ldap_unbind($ds);
     }
 
     /**
@@ -122,7 +102,7 @@ class ActiveDirectoryApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-é    }
+    }
 
     /**
      * @param $newPassword
@@ -146,7 +126,7 @@ class ActiveDirectoryApiService
     {
         $memberOf = [];
         $group_info = [];
-        $group_info['member'] = $this->getOneUserByAccountName($paramsAD, $request->request->get('windows')['identifiant'])[0]['dn'];
+        $group_info['member'] = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "dn", "name"))[0]['dn'];
         foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array ('id' => 'ASC')) as $fonction) {
             $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
         }
@@ -159,6 +139,7 @@ class ActiveDirectoryApiService
         }
         ldap_unbind($ds);
     }
+
     /**
      * @param $sendaction
      * @param $isCreateInWindows

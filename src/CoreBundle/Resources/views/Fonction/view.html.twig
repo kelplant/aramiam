@@ -47,6 +47,8 @@
 {% block javascriptsEndofEnd %}
     <script>
         $(document).ready(function() {
+            localStorage.setItem("currentADIteration", '0');
+            localStorage.setItem("currentIteration", '0');
             var listeOfOptions = '<option value="">Groupe Salesforce</option>';
             urlajax = "/ajax/get/salesforce/groupes";
             $.ajax({
@@ -56,7 +58,6 @@
                         listeOfOptions += '<option value="'+result[i].id+'">'+result[i].groupeName+'</option>';
                     }
                     localStorage.setItem("listeOfOptions", listeOfOptions);
-                    localStorage.setItem("currentIteration", '0');
                 }
             });
             var listeOfADOptions = '<option value="">Groupe Active Directory</option>';
@@ -68,7 +69,6 @@
                         listeOfADOptions += '<option value="'+result[i].id+'">'+result[i].name+'</option>';
                     }
                     localStorage.setItem("listeOfADOptions", listeOfADOptions);
-                    localStorage.setItem("currentADIteration", '0');
                 }
             });
         });

@@ -44,12 +44,12 @@ function ajaxGenerateSalesforce()
             addGroupeField();
             var z = parseInt(i) + parseInt('1');
             document.getElementById("salesforce_territory"+z).value = result[i].id;
+            localStorage.setItem("currentIteration", z);
         }
         $('#loadingRight').addClass('hide').removeClass('show');
         $('#bottomSFEditForm').append(button).addClass('show').removeClass('hide');
         $('#midSFEditForm').addClass('show').removeClass('hide');
         $('#createActionSalesforcePart').addClass('show').removeClass('hide');
-        localStorage.setItem("currentIteration", result.length);
     }});
 }
 
@@ -107,11 +107,11 @@ function ajaxGenerateWindows() {
                 addADGroupeField();
                 var z = parseInt(i) + parseInt('1');
                 document.getElementById("activedirectory_groupe" + z).value = parseInt(result[i].id);
+                localStorage.setItem("currentADIteration", z);
             }
             $('#loadingRight').addClass('hide').removeClass('show');
             $('#midADEditForm').addClass('show').removeClass('hide');
             $('#bottomADEditForm').append(button).addClass('show').removeClass('hide');
-            localStorage.setItem("currentADIteration", 0);
             $('#createActionWindowsPart').addClass('show').removeClass('hide');
         }
     });

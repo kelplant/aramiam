@@ -11,19 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class OrangeTelListeManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return OrangeTelListe
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setNumero($itemLoad['numero']);
-        $itemToSet->setService($itemLoad['service']);
-        $itemToSet->setInUse($itemLoad['inUse']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

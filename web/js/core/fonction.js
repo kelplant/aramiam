@@ -81,7 +81,6 @@ function addADGroupeField()
     var currentADIteration = localStorage.getItem("currentADIteration");
     var listeOfADOptions = localStorage.getItem("listeOfADOptions");
     var newADIteration = parseInt(currentADIteration) + parseInt('1');
-    console.log(newADIteration);
     var addfield = '<div class="form-group" id="activedirectoryGroupes_'+newADIteration+'">';
     addfield += '<label class="col-sm-4 control-label align_right font_exo_2" for="activedirectory_groupe'+newADIteration+'">Groupe AD '+newADIteration+'</label>';
     addfield += '<div class="col-sm-7">';
@@ -99,7 +98,7 @@ function addADGroupeField()
     $('#midADEditForm').append(addfield);
 }
 
-// Fonction de chargement du bloc salesforce
+// Fonction de chargement du bloc active directory
 function ajaxGenerateWindows() {
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
@@ -114,24 +113,22 @@ function ajaxGenerateWindows() {
     document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
     var editItem = localStorage.getItem("currentFonctionEdit");
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addADGroupeField();">Ajouter un Groupe Active Directory</button></div>';
-    //urlajax = "/ajax/get/salesforce/groupe_fonction/" + editItem;
-    //$.ajax({
-    //    url: urlajax, success: function (result) {
-    //        var i = 0;
-    //        for (i in result) {
-    //            addSfGroupeField();
-    //            var z = parseInt(i) + parseInt('1');
-    //            document.getElementById("salesforce_groupe" + z).value = result[i].id;
-    //        }
-    //
-    //        localStorage.setItem("currentIteration", result.length);
-    //    }
-    //});
-    $('#loadingRight').addClass('hide').removeClass('show');
-    $('#midADEditForm').addClass('show').removeClass('hide');
-    $('#bottomADEditForm').append(button).addClass('show').removeClass('hide');
-    localStorage.setItem("currentADIteration", 0);
-    $('#createActionWindowsPart').addClass('show').removeClass('hide');
+    urlajax = "/ajax/get/active_directory/group_fonction/" + editItem;
+    $.ajax({
+        url: urlajax, success: function (result) {
+            var i = 0;
+            for (i in result) {
+                addADGroupeField();
+                var z = parseInt(i) + parseInt('1');
+                document.getElementById("activedirectory_groupe" + z).value = parseInt(result[i].id);
+            }
+            $('#loadingRight').addClass('hide').removeClass('show');
+            $('#midADEditForm').addClass('show').removeClass('hide');
+            $('#bottomADEditForm').append(button).addClass('show').removeClass('hide');
+            localStorage.setItem("currentADIteration", 0);
+            $('#createActionWindowsPart').addClass('show').removeClass('hide');
+        }
+    });
 }
 
 // Fonction Unset territoire

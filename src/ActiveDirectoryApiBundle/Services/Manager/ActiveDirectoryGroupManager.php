@@ -11,19 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class ActiveDirectoryGroupManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return ActiveDirectoryGroup
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setId($itemLoad['id']);
-        $itemToSet->setName($itemLoad['name']);
-        $itemToSet->setDn($itemLoad['dn']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

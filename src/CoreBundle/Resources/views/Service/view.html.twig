@@ -61,7 +61,18 @@
                     localStorage.setItem("currentIteration", '0');
                 }
             });
-
+            var listeOfADOptions = '<option value="">Groupe Active Directory</option>';
+            urlajax = "/ajax/get/active_directory/groupes";
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    var i;
+                    for (i in result) {
+                        listeOfADOptions += '<option value="'+result[i].id+'">'+result[i].name+'</option>';
+                    }
+                    localStorage.setItem("listeOfADOptions", listeOfADOptions);
+                    localStorage.setItem("currentADIteration", '0');
+                }
+            });
         });
     </script>
 {% endblock %}

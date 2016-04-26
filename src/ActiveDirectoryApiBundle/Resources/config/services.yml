@@ -4,6 +4,15 @@ parameters:
     ad.entityname.active_directory_group_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup'
     ad.argname.active_directory_group_manager.class: 'Ce groupe Active Directory'
 
+    ad.active_directory_group_match_fonction_manager.class: ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupMatchFonctionManager
+    ad.entity.active_directory_group_match_fonction_manager.class: ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchFonction
+    ad.entityname.active_directory_group_match_fonction_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchFonction'
+    ad.argname.active_directory_group_match_fonction_manager.class: 'Ce groupe Active Directory match Fonction'
+
+    ad.active_directory_group_match_service_manager.class: ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupMatchServiceManager
+    ad.entity.active_directory_group_match_service_manager.class: ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchService
+    ad.entityname.active_directory_group_match_service_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchService'
+    ad.argname.active_directory_group_match_service_manager.class: 'Ce groupe Active Directory match service'
 
     ad.active_directory_api_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiService
 
@@ -15,6 +24,22 @@ services:
         - [setEntity, ["%ad.entity.active_directory_group_manager.class%"]]
         - [setEntityName, ["%ad.entityname.active_directory_group_manager.class%"]]
         - [setArgname, ["%ad.argname.active_directory_group_manager.class%"]]
+
+    ad.active_directory_group_match_fonction_manager:
+        class: %ad.active_directory_group_match_fonction_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%ad.entity.active_directory_group_match_fonction_manager.class%"]]
+        - [setEntityName, ["%ad.entityname.active_directory_group_match_fonction_manager.class%"]]
+        - [setArgname, ["%ad.argname.active_directory_group_match_fonction_manager.class%"]]
+
+    ad.active_directory_group_match_service_manager:
+        class: %ad.active_directory_group_match_service_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%ad.entity.active_directory_group_match_service_manager.class%"]]
+        - [setEntityName, ["%ad.entityname.active_directory_group_match_service_manager.class%"]]
+        - [setArgname, ["%ad.argname.active_directory_group_match_service_manager.class%"]]
 
 
     ad.active_directory_api_service:

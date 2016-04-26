@@ -11,18 +11,6 @@ use CoreBundle\Entity\Admin\EntiteHolding;
 class EntiteHoldingManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return EntiteHolding
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setName($itemLoad['name']);
-        $itemToSet->setShortName($itemLoad['shortName']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

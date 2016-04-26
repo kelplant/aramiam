@@ -11,20 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class ProsodieOdigoManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return ProsodieOdigo
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setUser($itemLoad['user']);
-        $itemToSet->setOdigoPhoneNumber($itemLoad['odigoPhoneNumber']);
-        $itemToSet->setRedirectPhoneNumber($itemLoad['redirectPhoneNumber']);
-        $itemToSet->setOdigoExtension($itemLoad['odigoExtension']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

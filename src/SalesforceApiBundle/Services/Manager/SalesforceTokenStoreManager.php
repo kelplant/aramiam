@@ -11,20 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class SalesforceTokenStoreManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return SalesforceTokenStore
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setUsername($itemLoad['username']);
-        $itemToSet->setAccessToken($itemLoad['access_token']);
-        $itemToSet->setInstanceUrl($itemLoad['instance_url']);
-        $itemToSet->setIssuedAt($itemLoad['issued_at']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

@@ -3,6 +3,7 @@ namespace AppBundle\Services\Manager;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\Common\Util\Inflector;
 
 /**
  * Class AbstractManager
@@ -124,6 +125,22 @@ abstract class AbstractManager
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
         return array('item' => $archivedItemId);
+    }
+
+    /**
+     * @param $itemToSet
+     * @param $itemLoad
+     * @return object
+     */
+    public function globalSetItem($itemToSet, $itemLoad)
+    {
+        foreach ($itemLoad as  $key => $value) {
+            if (Inflector::camelize($key) != "token")
+            {
+                $itemToSet->{"set" . Inflector::camelize($key)}($value);
+            }
+        }
+        return $itemToSet;
     }
 
     /**

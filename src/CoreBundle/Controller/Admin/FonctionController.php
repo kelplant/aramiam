@@ -49,7 +49,7 @@ class FonctionController extends AbstractControllerService
     private function ifSfGroupePresentInFonctionAdd($request)
     {
         if ($request->request->get('salesforce') != '') {
-            $this->get('salesforce.groupe_to_fonction_manager')->deleteForFonctionId($request->request->get('fonction')['id']);
+            $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
             foreach ($request->request->get('salesforce') as $key => $value) {
                 if (substr($key, 0, 6) == 'groupe') {
                     $this->get('salesforce.groupe_to_fonction_manager')->add(array('salesforceGroupe' => $value, 'fonctionId' => $request->request->get('fonction')['id']));
@@ -65,6 +65,21 @@ class FonctionController extends AbstractControllerService
     {
         if (isset($request->request->get('salesforce')['service_cloud_acces'])) {
             $this->get('salesforce.service_cloud_acces_manager')->setFonctionAcces($request->request->get('fonction')['id'], $request->request->get('salesforce')['service_cloud_acces']);
+        }
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifADGroupPresentInFonctionAdd($request)
+    {
+        if ($request->request->get('activedirectory') != "") {
+            $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
+            foreach ($request->request->get('activedirectory') as $key => $value) {
+                if (substr($key, 0, 6) == 'groupe') {
+                    $this->get('ad.active_directory_group_match_fonction_manager')->add(array('fonctionId' => $request->request->get('fonction')['id'], 'activeDirectoryGroupId' => $value));
+                }
+            }
         }
     }
 
@@ -119,9 +134,9 @@ class FonctionController extends AbstractControllerService
             if ($request->request->get('formAction') == 'edit') {
                 $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
-                $this->get('salesforce.groupe_to_fonction_manager')->purge($request->request->get('fonction')['id']);
                 $this->ifSfGroupePresentInFonctionAdd($request);
                 $this->ifSfServiceCloudInFonctionAdd($request);
+                $this->ifADGroupPresentInFonctionAdd($request);
             }
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);

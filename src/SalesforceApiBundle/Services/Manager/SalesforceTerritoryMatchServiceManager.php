@@ -10,19 +10,6 @@ use AppBundle\Services\Manager\AbstractManager;
  */
 class SalesforceTerritoryMatchServiceManager extends AbstractManager
 {
-    /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return SalesforceTerritoryMatchService
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setServiceId($itemLoad['serviceId']);
-        $itemToSet->setSalesforceTerritoryId($itemLoad['salesforceTerritoryId']);
-
-        return $itemToSet;
-    }
-
     public function purge($serviceId)
     {
         $itemToTransform = $this->getRepository()->findBy(array('serviceId' => $serviceId));

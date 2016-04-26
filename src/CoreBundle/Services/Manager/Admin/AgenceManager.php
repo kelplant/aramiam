@@ -11,21 +11,6 @@ use CoreBundle\Entity\Admin\Agence;
 class AgenceManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return Agence
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setName($itemLoad['name']);
-        $itemToSet->setNameInCompany($itemLoad['nameInCompany']);
-        $itemToSet->setNameInOdigo($itemLoad['nameInOdigo']);
-        $itemToSet->setNameInSalesforce($itemLoad['nameInSalesforce']);
-        $itemToSet->setNameInZendesk($itemLoad['nameInZendesk']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

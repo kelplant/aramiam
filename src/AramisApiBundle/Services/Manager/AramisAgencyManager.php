@@ -11,36 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class AramisAgencyManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return AramisAgency
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setId($itemLoad['id']);
-        $itemToSet->setCetelemCode($itemLoad['cetelemCode']);
-        $itemToSet->setLizautoCode($itemLoad['lizautoCode']);
-        $itemToSet->setLabel($itemLoad['label']);
-        $itemToSet->setAddress1($itemLoad['address1']);
-        $itemToSet->setZipCode($itemLoad['zipCode']);
-        $itemToSet->setCity($itemLoad['city']);
-        $itemToSet->setPhone($itemLoad['phone']);
-        $itemToSet->setEmail($itemLoad['email']);
-        $itemToSet->setPointOfSale($itemLoad['pointOfSale']);
-        $itemToSet->setCoordonnees($itemLoad['coordonnees']);
-        $itemToSet->setCargarantieId($itemLoad['cargarantieId']);
-        $itemToSet->setSlug($itemLoad['slug']);
-        $itemToSet->setShortUrl($itemLoad['shortUrl']);
-        $itemToSet->setFullUrl($itemLoad['fullUrl']);
-        $itemToSet->setDetailPageTitle($itemLoad['detailPageTitle']);
-        $itemToSet->setIsSaleAppointmentsEligible($itemLoad['isSaleAppointmentsEligible']);
-        $itemToSet->setIsPurchaseAppointmentsEligible($itemLoad['isPurchaseAppointmentsEligible']);
-        $itemToSet->setIsPurchaseSaleAppointmentsEligible($itemLoad['isPurchaseSaleAppointmentsEligible']);
-
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

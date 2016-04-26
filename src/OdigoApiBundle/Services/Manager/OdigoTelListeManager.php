@@ -11,20 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class OdigoTelListeManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return OdigoTelListe
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setNumero($itemLoad['numero']);
-        $itemToSet->setService($itemLoad['service']);
-        $itemToSet->setInUse($itemLoad['inUse']);
-        $itemToSet->setFonction($itemLoad['fonction']);
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

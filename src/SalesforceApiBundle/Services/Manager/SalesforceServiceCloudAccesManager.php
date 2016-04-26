@@ -11,19 +11,6 @@ use AppBundle\Services\Manager\AbstractManager;
 class SalesforceServiceCloudAccesManager extends AbstractManager
 {
     /**
-     * @param $itemToSet
-     * @param $itemLoad
-     * @return SalesforceServiceCloudAcces
-     */
-    public function globalSetItem($itemToSet, $itemLoad)
-    {
-        $itemToSet->setId($itemLoad['id']);
-        $itemToSet->setStatus($itemLoad['status']);
-
-        return $itemToSet;
-    }
-
-    /**
      * @param $itemLoad
      * @return mixed
      */

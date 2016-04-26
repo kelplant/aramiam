@@ -1,16 +1,16 @@
 <?php
-namespace SalesforceApiBundle\Services\Manager;
+namespace ActiveDirectoryApiBundle\Services\Manager;
 
-use SalesforceApiBundle\Entity\SalesforceGroupeMatchFonction;
 use AppBundle\Services\Manager\AbstractManager;
+use Doctrine\Common\Util\Inflector;
 
 /**
- * Class SalesforceGroupeMatchFonctionManager
- * @package SalesforceApiBundle\Services\Manager
+ * Class ActiveDirectoryGroupMatchFonctionManager
+ * @package ActiveDirectoryApiBundle\Services\Manager
  */
-class SalesforceGroupeMatchFonctionManager extends AbstractManager
+class ActiveDirectoryGroupMatchFonctionManager extends AbstractManager
 {
-    /**
+        /**
      * @param $fonctionId
      */
     public function purge($fonctionId)
@@ -30,7 +30,7 @@ class SalesforceGroupeMatchFonctionManager extends AbstractManager
         $itemToTransform = $this->getRepository()->findBy(array('fonctionId' => $itemLoad));
         $itemArray = [];
         foreach ($itemToTransform as $item) {
-            $itemArray[] = $item->getSalesforceGroupe();
+            $itemArray[] = $item->getActiveDirectoryGroupId();
         }
         return $itemArray;
     }

@@ -53,7 +53,7 @@ abstract class AbstractControllerService extends Controller
     protected function checkFormEntity($entity)
     {
         for ($i = 1; $i <= preg_match_all('/[A-Z]/', $entity, $matches, PREG_OFFSET_CAPTURE) - 1; $i++) {
-            $entity = str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], $entity);
+            $entity = substr($entity, 0, 1).str_replace($matches[0][$i][0], '_'.$matches[0][$i][0], substr($entity, 1));
         }
         return $entity;
     }

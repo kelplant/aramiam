@@ -52,7 +52,7 @@ class GoogleGroupController extends Controller
 
     /**
      * @param $googleGroupEdit
-     * @Route(path="/ajax/_google_group/get/{googleGroupEdit}",name="ajax_get_google_group")
+     * @Route(path="/ajax/google_group/get/{googleGroupEdit}",name="ajax_get_google_group")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function salesforceGroupGetInfosIndex($googleGroupEdit)

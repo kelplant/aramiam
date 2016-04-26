@@ -29,7 +29,7 @@ class GoogleGroup
     protected $email;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -37,7 +37,7 @@ class GoogleGroup
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return GoogleGroup
      */
     public function setId($id)

@@ -24,23 +24,6 @@ class ActiveDirectoryBatchController extends Controller
     private $agence;
 
     /**
-     * @param $hashAndCryptedSid
-     * @return string
-     */
-    private function transcodeSid($hashAndCryptedSid)
-    {
-        $sidinhex = str_split(bin2hex($hashAndCryptedSid), 2);
-        $sid = 'S-'.hexdec($sidinhex[0])."-".hexdec($sidinhex[6].$sidinhex[5].$sidinhex[4].$sidinhex[3].$sidinhex[2].$sidinhex[1]);
-        $subauths = hexdec($sidinhex[7]);
-        for ($i = 0; $i < $subauths; $i++) {
-            $start = 8 + (4 * $i);
-            $sid = $sid."-".hexdec($sidinhex[$start + 3].$sidinhex[$start + 2].$sidinhex[$start + 1].$sidinhex[$start]);
-        }
-        return $sid;
-    }
-
-
-    /**
      * @param $toTest
      * @param $array
      * @param $setUp
@@ -88,7 +71,7 @@ class ActiveDirectoryBatchController extends Controller
             $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
             foreach ((array)$response as $record) {
                 if (!is_null($record['dn'])) {
-                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
+                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
                 }
             }
             return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");

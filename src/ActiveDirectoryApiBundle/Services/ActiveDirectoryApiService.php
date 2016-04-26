@@ -64,7 +64,7 @@ class ActiveDirectoryApiService
      * @param $guidFromAd
      * @return string
      */
-    public function _to_p_guid($guidFromAd)
+    public function toReadableGuid($guidFromAd)
     {
         $hex = unpack("H*hex", $guidFromAd)["hex"];
         return substr($hex, -26, 2).substr($hex, -28, 2).substr($hex, -30, 2).substr($hex, -32, 2)."-".substr($hex, -22, 2).substr($hex, -24, 2)."-".substr($hex, -18, 2).substr($hex, -20, 2)."-".substr($hex, -16, 4)."-".substr($hex, -12, 12);
@@ -168,7 +168,7 @@ class ActiveDirectoryApiService
             $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->createUser($paramsAD, $dn_user, $ldaprecord);
             $newUser = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "objectGUID", "dn", "name"));
-            $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->_to_p_guid($newUser[0]['objectguid']));
+            $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->toReadableGuid($newUser[0]['objectguid']));
             $this->addNewUserToGroups($paramsAD, $request, $newUser);
         }
     }

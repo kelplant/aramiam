@@ -29,7 +29,7 @@ class ServiceType extends BaseType
             ->add('name', TextType::class, array(
                 'label' => 'Nom du service',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -38,7 +38,7 @@ class ServiceType extends BaseType
             ->add('shortName', TextType::class, array(
                 'label' => 'Nom raccourci',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -47,7 +47,7 @@ class ServiceType extends BaseType
             ->add('nameInCompany', TextType::class, array(
                 'label' => 'Dans Company',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -57,7 +57,7 @@ class ServiceType extends BaseType
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -67,7 +67,7 @@ class ServiceType extends BaseType
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -77,7 +77,7 @@ class ServiceType extends BaseType
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -89,27 +89,17 @@ class ServiceType extends BaseType
                 'multiple' => false,
                 'label' => 'Agence Parente',
                 'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => true,
             ))
-            ->add('activeDirectoryDn', TextType::class, array(
-                'label' => 'Dn Active Directory',
-                'label_attr' => array(
-                    'class' => 'col-sm-4 control-label align_right font_exo_2',
-                ),
-                'attr' => array(
-                    'class' => 'form-control font_exo_2',
-                ),
-                'required' => false,
-            ))
             ->add('nameInActiveDirectory', TextType::class, array(
                 'label' => 'Dans l\'AD Windows',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

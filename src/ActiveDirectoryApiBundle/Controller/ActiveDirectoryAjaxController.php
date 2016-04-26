@@ -28,6 +28,21 @@ class ActiveDirectoryAjaxController extends Controller
     }
 
     /**
+     * @Route(path="/ajax/get/active_directory/organisation_units",name="ajax_get_active_directory_organisation_units")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getActiveDirectoryOrganisationUnitsListe()
+    {
+        $finalTab = array();
+        $i = 0;
+        foreach ($this->get('ad.active_directory_organisation_unit_manager')->getStandardProfileListe() as $item) {
+            $finalTab[$i] = array('id' => $item->getId(), 'name' => $item->getDn());
+            $i++;
+        }
+        return new JsonResponse($finalTab);
+    }
+
+    /**
      * @param $fonctionId
      * @Route(path="/ajax/get/active_directory/group_fonction/{fonctionId}",name="ajax_get_active_directory_group_fonction")
      * @return \Symfony\Component\HttpFoundation\Response

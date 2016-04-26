@@ -85,7 +85,7 @@ class FonctionType extends BaseType
             ->add('nameInActiveDirectory', TextType::class, array(
                 'label' => 'Dans l\'AD Windows',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

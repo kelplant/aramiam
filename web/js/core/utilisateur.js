@@ -71,11 +71,31 @@ function ajaxGenerateWindows()
     $('#salesforceToggle').removeClass('active');
     if (localStorage.getItem("isCreateInWindows") == 0) {
         $('#loading').removeClass('hide').addClass('show');
-        var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-        var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-        document.getElementById("windows_identifiant").value = prenom+nom;
-        $('#loading').addClass('hide').removeClass('show');
-        $('#createActionWindowsPart').addClass('show').removeClass('hide');
+        urlajax ="/ajax/get/active_directory/organisation_units";
+        $.ajax({
+            url:urlajax,success:function(result) {
+                var i;
+                var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+                var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+                var orgaUnitsListe = '<div class="form-group font_exo_2">' +
+                    '<label class="font_exo_2 col-sm-4">Identifiant :' +
+                    '<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+prenom+nom+'">' +
+                    '</label>' +
+                    '</div>';
+                orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                    '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:' +
+                    '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                for (i in result) {
+                    orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                }
+                orgaUnitsListe += '</select>' +
+                    '</label>' +
+                    '</div>';
+                document.getElementById("InsertWindowsField").innerHTML = orgaUnitsListe;
+                $('#loading').addClass('hide').removeClass('show');
+                $('#createActionWindowsPart').addClass('show').removeClass('hide');
+            }
+        });
     }
 }
 
@@ -183,7 +203,7 @@ function ajaxGenerateEmail()
     });
 }
 
-// Fonction de chargement du bloc de gestion gmail
+// Fonction de chargement du bloc de gestion odigo
 function ajaxGenerateOdigo()
 {
     $('#createActionGmailPart').addClass('hide').removeClass('show');

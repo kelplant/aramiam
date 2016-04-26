@@ -35,6 +35,8 @@ function ajaxGenerateSalesforce()
     $('#loadingRight').removeClass('hide').addClass('show');
     document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
     document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     var editItem = localStorage.getItem("currentFonctionEdit");
     var checkBoxServiceCloud = '<div class="form-group">';
     checkBoxServiceCloud += '<label class="col-sm-4 control-label align_right font_exo_2" for="salesforce_service_cloud_acces">Service Cloud</label>';
@@ -111,6 +113,8 @@ function ajaxGenerateWindows() {
     $('#loadingRight').removeClass('hide').addClass('show');
     document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
     document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     var editItem = localStorage.getItem("currentFonctionEdit");
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addADGroupeField();">Ajouter un Groupe Active Directory</button></div>';
     urlajax = "/ajax/get/active_directory/group_fonction/" + editItem;
@@ -120,7 +124,7 @@ function ajaxGenerateWindows() {
             for (i in result) {
                 addADGroupeField();
                 var z = parseInt(i) + parseInt('1');
-                document.getElementById("activedirectory_groupe" + z).value = parseInt(result[i].id);
+                document.getElementById("activedirectory_groupe" + z).value = result[i].id;
                 localStorage.setItem("currentADIteration", z);
             }
             $('#loadingRight').addClass('hide').removeClass('show');
@@ -147,6 +151,20 @@ function ajaxFonctionEdit(editItem)
     $('#windowsToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
+    $('#mainEditForm').addClass('hide').removeClass('show');
+    $('#midEditForm').addClass('hide').removeClass('show');
+    $('#bottomEditForm').addClass('hide').removeClass('show');
+    $('#loading').addClass('show').removeClass('hide');
+    $('#windowsToggle').removeClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
+    document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     urlajax ="/ajax/fonction/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var frm = $("#form-edit");

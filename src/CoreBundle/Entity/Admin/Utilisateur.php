@@ -42,25 +42,25 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInGmail;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInSalesforce;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInRobusto;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":0})
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true, options={"default":0})
      */
     protected $isCreateInWindows;
 

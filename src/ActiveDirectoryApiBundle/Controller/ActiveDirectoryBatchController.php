@@ -77,16 +77,6 @@ class ActiveDirectoryBatchController extends Controller
     }
 
     /**
-     * @param $guidFromAd
-     * @return string
-     */
-    private function _to_p_guid($guidFromAd)
-    {
-        $hex = unpack("H*hex", $guidFromAd)["hex"];
-        return substr($hex, -26, 2).substr($hex, -28, 2).substr($hex, -30, 2).substr($hex, -32, 2)."-".substr($hex, -22, 2).substr($hex, -24, 2)."-".substr($hex, -18, 2).substr($hex, -20, 2)."-".substr($hex, -16, 4)."-".substr($hex, -12, 12);
-    }
-
-    /**
      * @Route(path="/batch/active_directory/groupe/reload/{login}/{password}",name="batch_active_directory_profile")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -98,7 +88,7 @@ class ActiveDirectoryBatchController extends Controller
             $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
             foreach ((array)$response as $record) {
                 if (!is_null($record['dn'])) {
-                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
+                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
                 }
             }
             return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
@@ -108,7 +98,7 @@ class ActiveDirectoryBatchController extends Controller
     }
 
     /**
-     * @Route(path="/batch/active_directory/organisations_units/reload/{login}/{password}",name="batch_active_directory_profile")
+     * @Route(path="/batch/active_directory/organisations_units/reload/{login}/{password}",name="batch_active_directory_organisations_units")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function reloadActiveDirectoryOrganisationUnitsTable($login, $password)

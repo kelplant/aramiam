@@ -35,17 +35,20 @@ function ajaxGenerateSalesforce()
     $('#loadingRight').removeClass('hide').addClass('show');
     document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
     document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     var editItem = localStorage.getItem("currentServiceEdit");
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addSfGroupeField();">Ajouter un Territoire Salesforce</button></div>';
     urlajax ="/ajax/get/salesforce/territory_service/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var i = 0;
         for (i in result) {
-            addGroupeField();
+            addSfGroupeField();
             var z = parseInt(i) + parseInt('1');
             document.getElementById("salesforce_territory"+z).value = result[i].id;
             localStorage.setItem("currentIteration", z);
         }
+        console.log('test');
         $('#loadingRight').addClass('hide').removeClass('show');
         $('#bottomSFEditForm').append(button).addClass('show').removeClass('hide');
         $('#midSFEditForm').addClass('show').removeClass('hide');
@@ -96,6 +99,8 @@ function ajaxGenerateWindows() {
     $('#loadingRight').removeClass('hide').addClass('show');
     document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
     document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     var editItem = localStorage.getItem("currentServiceEdit");
     console.log(editItem);
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addADGroupeField();">Ajouter un Groupe Active Directory</button></div>';
@@ -106,7 +111,7 @@ function ajaxGenerateWindows() {
             for (i in result) {
                 addADGroupeField();
                 var z = parseInt(i) + parseInt('1');
-                document.getElementById("activedirectory_groupe" + z).value = parseInt(result[i].id);
+                document.getElementById("activedirectory_groupe" + z).value = result[i].id;
                 localStorage.setItem("currentADIteration", z);
             }
             $('#loadingRight').addClass('hide').removeClass('show');
@@ -135,6 +140,13 @@ function ajaxServiceEdit(editItem)
     $('#windowsToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionAramisPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    document.getElementById("createActionSalesforcePart").innerHTML = '<div class="hide" id="midSFEditForm"></div><div class="hide" id="bottomSFEditForm"></div>';
+    document.getElementById("createActionWindowsPart").innerHTML = '<div class="hide" id="midADEditForm"></div><div class="hide" id="bottomADEditForm"></div>';
+    localStorage.setItem("currentADIteration", 0);
+    localStorage.setItem("currentIteration", 0);
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addGroupeField();">Ajouter un Territoire Salesforce</button></div>';
     urlajax ="/ajax/service/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){

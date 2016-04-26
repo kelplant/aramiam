@@ -57,4 +57,4 @@ services:
 
     ad.active_directory_api_service:
         class: %ad.active_directory_api_service.class%
-        arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager' ]
+        arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager', '@ad.active_directory_organisation_unit_manager' ]

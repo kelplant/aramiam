@@ -11,7 +11,6 @@ use Doctrine\Common\Util\Inflector;
  */
 abstract class AbstractManager
 {
-
     protected $em;
 
     protected $entity;
@@ -225,14 +224,6 @@ abstract class AbstractManager
     }
 
     /**
-     * @return mixed
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
      * @param mixed $entity
      * @return AbstractManager
      */
@@ -251,14 +242,6 @@ abstract class AbstractManager
     {
         $this->repository = $repository;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntityName()
-    {
-        return $this->entityName;
     }
 
     /**

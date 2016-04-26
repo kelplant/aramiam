@@ -45,11 +45,14 @@ class ActiveDirectoryApiService
      */
     private function connectAD($connectionADparams)
     {
-        $ds = ldap_connect($connectionADparams['ldaphost']);
-        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_bind($ds, $connectionADparams['ldapUsername'], $connectionADparams['ldapPassword']);
-
-        return $ds;
+        try {
+            $ds = ldap_connect($connectionADparams['ldaphost']);
+            ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+            ldap_bind($ds, $connectionADparams['ldapUsername'], $connectionADparams['ldapPassword']);
+            return $ds;
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
     }
 
     /**
@@ -60,10 +63,9 @@ class ActiveDirectoryApiService
     public function createUser($connectionADparams, $userToCreateDn, $userToCreate)
     {
         $ds = $this->connectAD($connectionADparams);
-
         try {
-            $e = ldap_add($ds, $userToCreateDn, $userToCreate);
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur créé dans l\'Active Directory '.$e));
+            ldap_add($ds, $userToCreateDn, $userToCreate);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur créé dans l\'Active Directory '.$userToCreateDn));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
@@ -85,6 +87,7 @@ class ActiveDirectoryApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        ldap_unbind($ds);
     }
 
     /**
@@ -103,23 +106,23 @@ class ActiveDirectoryApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+        ldap_unbind($ds);
     }
 
     /**
-     * @param $connectionADparams
+     * @param $ds
      * @param $groupDn
      * @param $userDn
      */
-    public function addToADGroup($connectionADparams, $groupDn, $userDn)
+    public function addToADGroup($ds, $groupDn, $userDn)
     {
-        $ds = $this->connectAD($connectionADparams);
         try {
             ldap_mod_add($ds,$groupDn,$userDn);
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur ajouté au group dans l\'Active Directory '.$groupDn));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-    }
+é    }
 
     /**
      * @param $newPassword
@@ -150,9 +153,11 @@ class ActiveDirectoryApiService
         foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array ('id' => 'ASC')) as $service) {
             $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
         }
+        $ds = $this->connectAD($paramsAD);
         foreach (array_unique($memberOf) as $uniqueGroup) {
-            $this->addToADGroup($paramsAD, $uniqueGroup, $group_info);
+            $this->addToADGroup($ds , $uniqueGroup, $group_info);
         }
+        ldap_unbind($ds);
     }
     /**
      * @param $sendaction

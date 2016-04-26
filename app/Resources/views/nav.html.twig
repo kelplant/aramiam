@@ -99,6 +99,16 @@
                         </ul>
                     </li>
                 {% endif %}
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle font_exo_2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Google <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <li class="font_exo_2"><a href="{{ path('google_groupe_liste') }}"><img src="{{ asset('images/salesforce_logo_detail.png') }}" class="mini_logo_image_size"> Groupes Google</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
             {#{% endif %}#}
             <ul class="nav navbar-nav navbar-right">

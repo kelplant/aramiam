@@ -2,8 +2,8 @@
     {% block title %} Liste des Unités d'Organisation Active Directory {% endblock %}
     {% block breadcrumb %} Liste des Unités d'Organisation Active Directory {% endblock %}
     {% block corps_table_title %}
-        <th class="admin_cat_table_title">Nom du Groupe</th>
-        <th class="admin_cat_table_title">Dn du Groupe</th>
+        <th class="admin_cat_table_title">Nom de l'OU</th>
+        <th class="admin_cat_table_title">Dn de l'OU</th>
     {% endblock %}
     {% block corps_table_cells %}
         {% for item in all %}
@@ -11,14 +11,9 @@
                 <td class="admin_cat_table_cell">{{ item.name }}</td>
                 <td class="admin_cat_table_cell">{{ item.dn }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
-                        <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Voir {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                        <span class="glyphicon glyphicon-eye-open  btn-xs" aria-hidden="true"></span>
                     </button>
-                    <a href="{{ path( 'remove_active_directoryorganisation_unit' , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir supprimer {{ alert_text }} ?">
-                        <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
-                        </button>
-                    </a>
                 </td>
             </tr>
         {% endfor %}
@@ -26,10 +21,7 @@
 
     {% block modal_form %}
 
-        {% embed "ActiveDirectoryApiBundle:ActiveDirectoryOrganisationUnit:add.body.html.twig"  %}
-        {% endembed %}
-
-        {% embed "ActiveDirectoryApiBundle:ActiveDirectoryOrganisationUnit:edit.body.html.twig"  %}
+        {% embed "ActiveDirectoryApiBundle:ActiveDirectoryOrganisationUnit:view.body.html.twig"  %}
         {% endembed %}
 
     {% endblock %}

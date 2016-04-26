@@ -1,20 +1,18 @@
 {% extends 'AppBundle:Default:items.view.html.twig' %}
-    {% block title %} Liste des Territoires Salesforce {% endblock %}
-    {% block breadcrumb %} Liste Territoires Salesforce {% endblock %}
+    {% block title %} Liste des Groupes Google Gmail {% endblock %}
+    {% block breadcrumb %} Liste Groupes Google Gmail {% endblock %}
     {% block corps_table_title %}
-        <th class="admin_cat_table_title">Nom du Territoire</th>
-        <th class="admin_cat_table_title">Id du Territoire</th>
-        <th class="admin_cat_table_title">Territoire Parent</th>
+        <th class="admin_cat_table_title">Nom du Groupe</th>
+        <th class="admin_cat_table_title">Email du Groupe</th>
     {% endblock %}
     {% block corps_table_cells %}
         {% for item in all %}
             <tr id="generalBtr" data-href="">
-                <td class="admin_cat_table_cell">{{ item.territoryId }}</td>
-                <td class="admin_cat_table_cell">{{ item.territoryName }}</td>
-                <td class="admin_cat_table_cell">{{ item.parentTerritoryId }}</td>
+                <td class="admin_cat_table_cell">{{ item.name }}</td>
+                <td class="admin_cat_table_cell">{{ item.email }}</td>
                 <td class="admin_cat_table_cell_action">
                     <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
-                        <span class="glyphicon glyphicon-eye-open  btn-xs" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                 </td>
             </tr>
@@ -23,7 +21,7 @@
 
     {% block modal_form %}
 
-        {% embed "SalesforceApiBundle:SalesforceTerritory:view.body.html.twig"  %}
+        {% embed "GoogleApiBundle:GoogleGroup:edit.body.html.twig"  %}
         {% endembed %}
 
     {% endblock %}

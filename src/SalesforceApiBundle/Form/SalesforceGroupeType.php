@@ -31,6 +31,7 @@ class SalesforceGroupeType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
             ->add('groupeName', TextType::class, array(
@@ -40,6 +41,7 @@ class SalesforceGroupeType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
         ;

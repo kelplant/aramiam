@@ -147,6 +147,16 @@ class GoogleApiService
     }
 
     /**
+     * @param $params
+     * @return \Google_Service_Directory_Groups
+     */
+    public function getListeOfGroupes($params)
+    {
+        $service = $this->innitApi($params);
+        return $service->groups->listGroups(array('domain' => 'aramisauto.com'));
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInGmail
      * @param $request

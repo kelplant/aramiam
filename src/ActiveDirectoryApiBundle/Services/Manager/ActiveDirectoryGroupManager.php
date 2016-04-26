@@ -21,9 +21,6 @@ class ActiveDirectoryGroupManager extends AbstractManager
         $itemArray['id'] = $itemToTransform->getId();
         $itemArray['name'] = $itemToTransform->getName();
         $itemArray['dn'] = $itemToTransform->getDn();
-        $itemArray['agence'] = $itemToTransform->getAgence();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['fonction'] = $itemToTransform->getFonction();
         return $itemArray;
     }
 

@@ -1,27 +1,34 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ path('form_exec_edit_active_directory_groupe') }}" method="post" class="form-horizontal" id="form-edit">
+            <form action="#" method="post" class="form-horizontal" id="form-edit">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un Groupe Active Directory</h4>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Voir un Territoire Salesforce</h4>
                 </div>
                 <div class="modal-body">
                     <div class="main_container">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_errors(formEdit) }}
                         <div class="form-group">
-                            {{ form_label(formEdit.name) }}
-                            {{ form_errors(formEdit.name) }}
-                            <div class="col-sm-8">
-                                {{ form_widget(formEdit.name) }}
+                            {{ form_label(formEdit.territoryId) }}
+                            {{ form_errors(formEdit.territoryId) }}
+                            <div class="col-sm-7">
+                                {{ form_widget(formEdit.territoryId) }}
                             </div>
                         </div>
                         <div class="form-group">
-                            {{ form_label(formEdit.dn) }}
-                            {{ form_errors(formEdit.dn) }}
-                            <div class="col-sm-8">
-                                {{ form_widget(formEdit.dn) }}
+                            {{ form_label(formEdit.territoryName) }}
+                            {{ form_errors(formEdit.territoryName) }}
+                            <div class="col-sm-7">
+                                {{ form_widget(formEdit.territoryName) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.parentTerritoryId) }}
+                            {{ form_errors(formEdit.parentTerritoryId) }}
+                            <div class="col-sm-7">
+                                {{ form_widget(formEdit.parentTerritoryId) }}
                             </div>
                         </div>
                         {{ form_row(formEdit.id) }}
@@ -30,7 +37,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-                    <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
                 </div>
             </form>
         </div>

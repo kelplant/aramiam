@@ -31,6 +31,7 @@ class ActiveDirectoryOrganisationUnitType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
             ->add('dn', TextType::class, array(
@@ -40,6 +41,7 @@ class ActiveDirectoryOrganisationUnitType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
         ;

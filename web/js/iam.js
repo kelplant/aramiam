@@ -255,3 +255,23 @@ function reloadOrganisationUnitFromAd()
         }
     });
 }
+
+//Fonction de rechargement des groupes google
+function reloadGroupFromGoogle()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadADGroup").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/google/groupe/reload/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadADGroup").removeClass("hide").addClass("show");
+                    window.location = "/app/google/groupe_liste";
+                }
+            });
+        }
+    });
+}

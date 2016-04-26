@@ -10,6 +10,10 @@ active_directory_api:
     resource: "@ActiveDirectoryApiBundle/Resources/config/routing.yml"
     prefix:   /
 
+google_api:
+    resource: "@GoogleApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 aramis_api:
     resource: "@AramisApiBundle/Resources/config/routing.yml"
     prefix:   /

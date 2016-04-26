@@ -6,6 +6,7 @@ use SalesforceApiBundle\Form\SalesforceGroupeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class SalesforceGroupeController
@@ -13,8 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class SalesforceGroupeController extends Controller
 {
-    private $itemToTemove;
-
     /**
      *
      */
@@ -40,40 +39,12 @@ class SalesforceGroupeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @Route(path="/app/salesforce/salesforce_groupe/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_salesforcegroupe")
+     * @param $salesforceGroupEdit
+     * @Route(path="/ajax/salesforce_groupe/get/{salesforceGroupEdit}",name="ajax_get_salesforce_groupe")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Request $request)
+    public function salesforceGroupGetInfosIndex($salesforceGroupEdit)
     {
-        $this->initData('delete');
-        $this->initData('index');
-        $this->itemToTemove = $request->get('itemDelete');
-        $this->get('salesforce.salesforcegroupe_manager')->remove($this->itemToTemove);
-        return $this->get('core.delete.controller_service')->generateDeleteAction();
-    }
-
-    /**
-     * @param Request $request
-     * @Route(path="/app/salesforce/salesforce_groupe/add", name="form_exec_add_salesforce_groupe")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function form_exec_addAction(Request $request)
-    {
-        $this->initData('add');
-        $this->initData('index');
-        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
-    }
-
-    /**
-     * @param Request $request
-     * @Route(path="/app/salesforce/salesforce_groupe/edit", name="form_exec_edit_salesforce_groupe")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function form_exec_editAction(Request $request)
-    {
-        $this->initData('edit');
-        $this->initData('index');
-        return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
+        return new JsonResponse($this->get('salesforce.salesforcegroupe_manager')->createArray($salesforceGroupEdit));
     }
 }

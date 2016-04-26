@@ -27,28 +27,31 @@ class SalesforceTerritoryType extends AbstractType
             ->add('territoryId', TextType::class, array(
                 'label' => 'Territoire Id',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
             ->add('territoryName', TextType::class, array(
                 'label' => 'Nom du Territoire',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
             ->add('parentTerritoryId', TextType::class, array(
                 'label' => 'Territoire Parent Id',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
+                    'readonly' => true,
                 ),
             ))
         ;

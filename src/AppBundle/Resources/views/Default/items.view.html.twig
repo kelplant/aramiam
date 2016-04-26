@@ -18,9 +18,11 @@
                 <div class="col-md-12">
                       <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">
                           {% block title %}{% endblock %}
-                          <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
-                              <i class="fa fa-plus"></i> Nouveau
-                          </button>
+                          {% if entity != 'salesforce_profile' and entity != 'salesforce_groupe' and entity != 'salesforce_territory' and entity != 'active_directory_group' and entity != 'active_directory_organisation_unit' and entity != '_google_group' %}
+                              <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
+                                  <i class="fa fa-plus"></i> Nouveau
+                              </button>
+                          {% endif %}
                           {% if entity == 'odigo_tel_liste' or entity == 'orange_tel_liste' %}
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
                                   <i class="fa fa-plus"></i> Add Batch</button>
@@ -50,6 +52,11 @@
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadOrganisationUnitFromAd();">
                                   <i class="fa fa-plus"></i> Reload From Ad</button>
                           {% endif %}
+                          {% if entity == '_google_group' %}
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadGroupFromGoogle();">
+                                  <i class="fa fa-plus"></i> Reload From Gmail</button>
+                          {% endif %}
                       </div>
                     {% if session_messaging is defined %}
                         <div class="form-group">
@@ -61,7 +68,7 @@
                                             {{ message.message }}
                                         </div>
                                     {% endif %}
-                                    {% if (message.errorCode == 1) %}
+                                    {% if (message.errorCode != 0) %}
                                         <div class="form-group alert-danger corp-message-1 font_exo_2">
                                             {{ message.message }}
                                         </div>

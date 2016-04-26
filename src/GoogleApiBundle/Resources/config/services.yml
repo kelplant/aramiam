@@ -1,7 +1,20 @@
 parameters:
+    google.google_group_manager.class: GoogleApiBundle\Services\Manager\GoogleGroupManager
+    google.entity.google_group_manager.class: GoogleApiBundle\Entity\GoogleGroup
+    google.entityname.google_group_manager.class: 'GoogleApiBundle\Entity\GoogleGroup'
+    google.argname.google_group_manager.class: 'Ce groupe Gmail'
+
     google.google_api_service.class: GoogleApiBundle\Services\GoogleApiService
 
 services:
+    google.google_group_manager:
+        class: %google.google_group_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%google.entity.google_group_manager.class%"]]
+        - [setEntityName, ["%google.entityname.google_group_manager.class%"]]
+        - [setArgname, ["%google.argname.google_group_manager.class%"]]
+
     google.google_api_service:
         class: %google.google_api_service.class%
         arguments: [ '@core.utilisateur_manager' ]

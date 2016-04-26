@@ -1,13 +1,14 @@
 <?php
-namespace ActiveDirectoryApiBundle\Services\Manager;
+namespace GoogleApiBundle\Services\Manager;
 
+use GoogleApiBundle\Entity\GoogleGroup;
 use AppBundle\Services\Manager\AbstractManager;
 
 /**
- * Class ActiveDirectoryOrganisationUnitManager
- * @package ActiveDirectoryApiBundle\Services\Manager
+ * Class GoogleGroupManager
+ * @package GoogleApiBundle\Services\Manager
  */
-class ActiveDirectoryOrganisationUnitManager extends AbstractManager
+class GoogleGroupManager extends AbstractManager
 {
     /**
      * @param $itemLoad
@@ -19,10 +20,8 @@ class ActiveDirectoryOrganisationUnitManager extends AbstractManager
         $itemArray = [];
         $itemArray['id'] = $itemToTransform->getId();
         $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['dn'] = $itemToTransform->getDn();
-        $itemArray['agence'] = $itemToTransform->getAgence();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['fonction'] = $itemToTransform->getFonction();
+        $itemArray['email'] = $itemToTransform->getEmail();
+
         return $itemArray;
     }
 
@@ -33,4 +32,4 @@ class ActiveDirectoryOrganisationUnitManager extends AbstractManager
     {
         return $this->getRepository()->findBy(array(), array('name' => 'ASC'));
     }
-    }
+}

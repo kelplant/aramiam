@@ -136,6 +136,25 @@ class ActiveDirectoryApiService
     }
 
     /**
+     * @param $paramsAD
+     * @param $request
+     */
+    private function addNewUserToGroups($paramsAD, $request)
+    {
+        $memberOf = [];
+        $group_info = [];
+        $group_info['member'] = $this->getOneUserByAccountName($paramsAD, $request->request->get('windows')['identifiant'])[0]['dn'];
+        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array ('id' => 'ASC')) as $fonction) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
+        }
+        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array ('id' => 'ASC')) as $service) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
+        }
+        foreach (array_unique($memberOf) as $uniqueGroup) {
+            $this->addToADGroup($paramsAD, $uniqueGroup, $group_info);
+        }
+    }
+    /**
      * @param $sendaction
      * @param $isCreateInWindows
      * @param $request
@@ -148,17 +167,7 @@ class ActiveDirectoryApiService
             $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id']);
             $this->createUser($paramsAD, $dn_user, $ldaprecord);
-            $group_info['member'] = $this->getOneUserByAccountName($paramsAD, $request->request->get('windows')['identifiant'])[0]['dn'];
-            $memberOf = [];
-            foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array ('id' => 'ASC')) as $fonction) {
-                $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
-            }
-            foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array ('id' => 'ASC')) as $service) {
-                $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
-            }
-            foreach (array_unique($memberOf) as $uniqueGroup) {
-                $this->addToADGroup($paramsAD, $uniqueGroup, $group_info);
-            }
+            $this->addNewUserToGroups($paramsAD, $request);
         }
     }
 }

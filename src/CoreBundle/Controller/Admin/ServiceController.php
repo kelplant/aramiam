@@ -38,10 +38,25 @@ class ServiceController extends AbstractControllerService
     private function ifSfTerritoryPresentInServiceAdd($request)
     {
         if ($request->request->get('salesforce') != '') {
-            $this->get('salesforce.territory_to_service_manager')->deleteForServiceId($request->request->get('service')['id']);
+            $this->get('salesforce.territory_to_service_manager')->purge($request->request->get('service')['id']);
             foreach ($request->request->get('salesforce') as $key => $value) {
                 if (substr($key, 0, 9) == 'territory') {
                     $this->get('salesforce.territory_to_service_manager')->add(array('salesforceTerritoryId' => $value, 'serviceId' => $request->request->get('service')['id']));
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $request
+     */
+    private function ifADGroupPresentInFonctionAdd($request)
+    {
+        if ($request->request->get('activedirectory') != "") {
+            $this->get('ad.active_directory_group_match_service_manager')->purge($request->request->get('service')['id']);
+            foreach ($request->request->get('activedirectory') as $key => $value) {
+                if (substr($key, 0, 6) == 'groupe') {
+                    $this->get('ad.active_directory_group_match_service_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'activeDirectoryGroupId' => $value));
                 }
             }
         }
@@ -98,8 +113,8 @@ class ServiceController extends AbstractControllerService
             if ($request->request->get('formAction') == 'edit') {
                 $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
-                $this->get('salesforce.territory_to_service_manager')->purge($request->request->get('service')['id']);
                 $this->ifSfTerritoryPresentInServiceAdd($request);
+                $this->ifADGroupPresentInFonctionAdd($request);
             }
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);

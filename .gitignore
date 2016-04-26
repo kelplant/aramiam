@@ -4,6 +4,10 @@
 /bin/
 /web/config.php
 /web/app.php
+/app/config/config.yml
+/app/config/config_prod.yml
+/app/config/config_dev.yml
+/app/config/security.yml
 /app/config/saml.crt
 /app/config/saml.pem
 /app/config/federationmetadata-9.xml

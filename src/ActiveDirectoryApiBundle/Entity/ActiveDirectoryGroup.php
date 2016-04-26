@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ActiveDirectoryGroup
 {
     /**
-     * @var int
+     * @var string
      * @ORM\Id
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $id;
 

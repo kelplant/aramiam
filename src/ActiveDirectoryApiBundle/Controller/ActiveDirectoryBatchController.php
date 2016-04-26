@@ -11,6 +11,22 @@ use GuzzleHttp;
  */
 class ActiveDirectoryBatchController extends Controller
 {
+    private $fonctionArray;
+
+    private $serviceArray;
+
+    private $agenceArray;
+
+    private $fonction;
+
+    private $service;
+
+    private $agence;
+
+    /**
+     * @param $hashAndCryptedSid
+     * @return string
+     */
     private function transcodeSid($hashAndCryptedSid)
     {
         $sidinhex = str_split(bin2hex($hashAndCryptedSid), 2);
@@ -23,6 +39,53 @@ class ActiveDirectoryBatchController extends Controller
         return $sid;
     }
 
+
+    /**
+     * @param $toTest
+     * @param $array
+     * @param $setUp
+     * @return string
+     */
+    private function ifIsInArray($toTest, $array, $setUp)
+    {
+        if (in_array(substr($toTest, 3), $array))
+        {
+            $this->$setUp = substr($toTest, 3);
+        }
+    }
+
+    /**
+     * @param $record
+     */
+    private function ifRecordDnNotemptyAndUtilisateurOU($record)
+    {
+        if (!is_null($record['dn']) && strpos($record['dn'], 'Utilisateurs') !== false) {
+            $this->agence = null;
+            $this->service = null;
+            $this->fonction = null;
+            $explodeDn = explode(",", $record['dn']);
+            $nbCells = count($explodeDn);
+            for ($i = 0; $i < $nbCells; $i++) {
+                if (substr($explodeDn[$i], 0, 3) == "OU=") {
+                    $this->ifIsInArray($explodeDn[$i], $this->fonctionArray, 'fonction');
+                    $this->ifIsInArray($explodeDn[$i], $this->serviceArray, 'service');
+                    $this->ifIsInArray($explodeDn[$i], $this->agenceArray, 'agence');
+                }
+            }
+            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
+        }
+    }
+
+    /**
+     * @param $guidFromAd
+     * @return string
+     */
+    private function _to_p_guid($guidFromAd)
+    {
+        $hex = unpack("H*hex", $guidFromAd)["hex"];
+        return substr($hex, -26, 2).substr($hex, -28, 2).substr($hex, -30, 2).substr($hex, -32, 2)."-".substr($hex, -22, 2).substr($hex, -24, 2)."-".substr($hex, -18, 2).substr($hex, -20, 2)."-".substr($hex, -16, 4)."-".substr($hex, -12, 12);
+    }
+
     /**
      * @Route(path="/batch/active_directory/groupe/reload/{login}/{password}",name="batch_active_directory_profile")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -32,12 +95,33 @@ class ActiveDirectoryBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('ad.active_directory_group_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectSid", "dn", "name"));
+            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
             foreach ((array)$response as $record) {
                 if (!is_null($record['dn'])) {
-                    $explodeSid = explode('-', $this->transcodeSid($record['objectsid'][0]));
-                    $this->get('ad.active_directory_group_manager')->add(array('id' => $explodeSid[7], 'name' => $record['name'][0], 'dn' => $record['dn']));
+                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
                 }
+            }
+            return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
+        } else {
+            return $this->render("ActiveDirectoryApiBundle:Batch:failed.html.twig");
+        }
+    }
+
+    /**
+     * @Route(path="/batch/active_directory/organisations_units/reload/{login}/{password}",name="batch_active_directory_profile")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reloadActiveDirectoryOrganisationUnitsTable($login, $password)
+    {
+        if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
+        {
+            $this->fonctionArray = $this->get('core.fonction_manager')->customSelectNameInActiveDirectoryNotNull();
+            $this->serviceArray = $this->get('core.service_manager')->customSelectNameInActiveDirectoryNotNull();
+            $this->agenceArray = $this->get('core.agence_manager')->customSelectNameInActiveDirectoryNotNull();
+            $this->get('ad.active_directory_organisation_unit_manager')->truncateTable();
+            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=organizationalUnit)', array("objectGUID", "dn", "name"));
+            foreach ((array)$response as $record) {
+                $this->ifRecordDnNotemptyAndUtilisateurOU($record);
             }
             return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
         } else {

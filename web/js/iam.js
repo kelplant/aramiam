@@ -235,3 +235,23 @@ function reloadGroupFromAd()
         }
     });
 }
+
+//Fonction de rechargement des unités d'organisation Ad
+function reloadOrganisationUnitFromAd()
+{
+    $("#waiting").removeClass("hide").addClass("show");
+    $("#reloadADGroup").removeClass("show").addClass("hide");
+    urlajax = "/ajax/get/credentials";
+    $.ajax({
+        url: urlajax, success: function (result) {
+            urlajax = "/batch/active_directory/organisations_units/reload/"+result['user']+"/"+result['password'];
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    $("#waiting").removeClass("show").addClass("hide");
+                    $("#reloadADGroup").removeClass("hide").addClass("show");
+                    window.location = "/app/active_directory/organisation_unit_liste";
+                }
+            });
+        }
+    });
+}

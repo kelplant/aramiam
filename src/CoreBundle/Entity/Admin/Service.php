@@ -46,9 +46,9 @@ class Service
     protected $nameInZendesk;
 
     /** @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    protected $activeDirectoryDn;
+    protected $nameInActiveDirectory;
 
     /** @var string
      * @ORM\Column(type="integer")
@@ -202,18 +202,18 @@ class Service
     /**
      * @return string
      */
-    public function getActiveDirectoryDn()
+    public function getNameInActiveDirectory()
     {
-        return $this->activeDirectoryDn;
+        return $this->nameInActiveDirectory;
     }
 
     /**
-     * @param string $activeDirectoryDn
+     * @param string $nameInActiveDirectory
      * @return Service
      */
-    public function setActiveDirectoryDn($activeDirectoryDn)
+    public function setNameInActiveDirectory($nameInActiveDirectory)
     {
-        $this->activeDirectoryDn = $activeDirectoryDn;
+        $this->nameInActiveDirectory = $nameInActiveDirectory;
         return $this;
     }
 }

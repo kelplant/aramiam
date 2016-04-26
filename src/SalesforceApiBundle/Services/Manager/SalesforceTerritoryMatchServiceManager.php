@@ -31,20 +31,4 @@ class SalesforceTerritoryMatchServiceManager extends AbstractManager
         }
         return $itemArray;
     }
-
-
-    /**
-     * @param $serviceId
-     */
-    public function deleteForServiceId($serviceId)
-    {
-        try {
-            $this->em->createQuery(
-                'DELETE
-    FROM SalesforceApiBundle:SalesforceTerritoryMatchService p
-    WHERE p.serviceId = :serviceId')->setParameter('serviceId', $serviceId);
-        } catch (\Exception $e) {
-            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-        }
-    }
 }

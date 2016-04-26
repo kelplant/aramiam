@@ -4,6 +4,11 @@ parameters:
     ad.entityname.active_directory_group_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup'
     ad.argname.active_directory_group_manager.class: 'Ce groupe Active Directory'
 
+    ad.active_directory_organisation_unit_manager.class: ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryOrganisationUnitManager
+    ad.entity.active_directory_organisation_unit_manager.class: ActiveDirectoryApiBundle\Entity\ActiveDirectoryOrganisationUnit
+    ad.entityname.active_directory_organisation_unit_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryOrganisationUnit'
+    ad.argname.active_directory_organisation_unit_manager.class: 'Cette unité d''organisation Active Directory'
+
     ad.active_directory_group_match_fonction_manager.class: ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupMatchFonctionManager
     ad.entity.active_directory_group_match_fonction_manager.class: ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchFonction
     ad.entityname.active_directory_group_match_fonction_manager.class: 'ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroupMatchFonction'
@@ -24,6 +29,14 @@ services:
         - [setEntity, ["%ad.entity.active_directory_group_manager.class%"]]
         - [setEntityName, ["%ad.entityname.active_directory_group_manager.class%"]]
         - [setArgname, ["%ad.argname.active_directory_group_manager.class%"]]
+
+    ad.active_directory_organisation_unit_manager:
+        class: %ad.active_directory_organisation_unit_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%ad.entity.active_directory_organisation_unit_manager.class%"]]
+        - [setEntityName, ["%ad.entityname.active_directory_organisation_unit_manager.class%"]]
+        - [setArgname, ["%ad.argname.active_directory_organisation_unit_manager.class%"]]
 
     ad.active_directory_group_match_fonction_manager:
         class: %ad.active_directory_group_match_fonction_manager.class%

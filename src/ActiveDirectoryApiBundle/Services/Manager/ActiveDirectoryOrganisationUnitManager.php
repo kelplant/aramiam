@@ -1,14 +1,13 @@
 <?php
 namespace ActiveDirectoryApiBundle\Services\Manager;
 
-use ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup;
 use AppBundle\Services\Manager\AbstractManager;
 
 /**
- * Class ActiveDirectoryGroupManager
+ * Class ActiveDirectoryOrganisationUnitManager
  * @package ActiveDirectoryApiBundle\Services\Manager
  */
-class ActiveDirectoryGroupManager extends AbstractManager
+class ActiveDirectoryOrganisationUnitManager extends AbstractManager
 {
     /**
      * @param $itemLoad
@@ -21,9 +20,6 @@ class ActiveDirectoryGroupManager extends AbstractManager
         $itemArray['id'] = $itemToTransform->getId();
         $itemArray['name'] = $itemToTransform->getName();
         $itemArray['dn'] = $itemToTransform->getDn();
-        $itemArray['agence'] = $itemToTransform->getAgence();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['fonction'] = $itemToTransform->getFonction();
         return $itemArray;
     }
 
@@ -34,4 +30,4 @@ class ActiveDirectoryGroupManager extends AbstractManager
     {
         return $this->getRepository()->findBy(array(), array('name' => 'ASC'));
     }
-}
+    }

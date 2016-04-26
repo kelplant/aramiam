@@ -24,7 +24,24 @@ class AgenceManager extends AbstractManager
         $itemArray['nameInOdigo'] = $itemToTransform->getNameInOdigo();
         $itemArray['nameInSalesforce'] = $itemToTransform->getNameInSalesforce();
         $itemArray['nameInZendesk'] = $itemToTransform->getNameInZendesk();
+        $itemArray['nameInActiveDirectory'] = $itemToTransform->getNameInActiveDirectory();
 
         return $itemArray;
+    }
+
+    /**
+     *
+     */
+    public function customSelectNameInActiveDirectoryNotNull() {
+
+        $queryResult = $this->em->createQuery(
+            'SELECT p.nameInActiveDirectory
+    FROM CoreBundle:Admin\Agence p
+    WHERE p.nameInActiveDirectory IS NOT NULL')->getResult();
+        $finalTab = [];
+        foreach ($queryResult as $result) {
+            $finalTab[] = $result['nameInActiveDirectory'];
+        }
+        return $finalTab;
     }
 }

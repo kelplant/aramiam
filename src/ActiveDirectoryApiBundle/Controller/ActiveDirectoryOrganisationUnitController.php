@@ -1,8 +1,8 @@
 <?php
 namespace ActiveDirectoryApiBundle\Controller;
 
-use ActiveDirectoryApiBundle\Entity\ActiveDirectoryGroup;
-use ActiveDirectoryApiBundle\Form\ActiveDirectoryGroupType;
+use ActiveDirectoryApiBundle\Entity\ActiveDirectoryOrganisationUnit;
+use ActiveDirectoryApiBundle\Form\ActiveDirectoryOrganisationUnitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class ActiveDirectoryGroupController
  * @package ActiveDirectoryApiBundle\Controller
  */
-class ActiveDirectoryGroupController extends Controller
+class ActiveDirectoryOrganisationUnitController extends Controller
 {
     private $itemToTemove;
 
@@ -20,17 +20,17 @@ class ActiveDirectoryGroupController extends Controller
      */
     private function initData($service)
     {
-        $this->get('core.'.$service.'.controller_service')->setEntity('ActiveDirectoryGroup');
-        $this->get('core.'.$service.'.controller_service')->setNewEntity(ActiveDirectoryGroup::class);
-        $this->get('core.'.$service.'.controller_service')->setFormType(ActiveDirectoryGroupType::class);
-        $this->get('core.'.$service.'.controller_service')->setAlertText('ce groupe Active Directory');
+        $this->get('core.'.$service.'.controller_service')->setEntity('ActiveDirectoryOrganisationUnit');
+        $this->get('core.'.$service.'.controller_service')->setNewEntity(ActiveDirectoryOrganisationUnit::class);
+        $this->get('core.'.$service.'.controller_service')->setFormType(ActiveDirectoryOrganisationUnitType::class);
+        $this->get('core.'.$service.'.controller_service')->setAlertText('cette unité d\'organisation Active Directory');
         $this->get('core.'.$service.'.controller_service')->setIsArchived(NULL);
         $this->get('core.'.$service.'.controller_service')->setCreateFormArguments(array());
         $this->get('core.'.$service.'.controller_service')->setServicePrefix('ad');
     }
 
     /**
-     * @Route(path="/app/active_directory/groupe_liste", name="active_directory_groupe_liste")
+     * @Route(path="/app/active_directory/organisation_unit_liste", name="active_directory_organisation_unit_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
@@ -41,7 +41,7 @@ class ActiveDirectoryGroupController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/app/active_directory/groupe/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_active_directorygroupe")
+     * @Route(path="/app/active_directory/organisation_unit/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_active_directoryorganisation_unit")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
@@ -55,7 +55,7 @@ class ActiveDirectoryGroupController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/app/active_directory/groupe/add", name="form_exec_add_active_directory_groupe")
+     * @Route(path="/app/active_directory/organisation_unit/add", name="form_exec_add_active_directory_organisation_unit")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_addAction(Request $request)
@@ -67,7 +67,7 @@ class ActiveDirectoryGroupController extends Controller
 
     /**
      * @param Request $request
-     * @Route(path="/app/active_directory/groupe/edit", name="form_exec_edit_active_directory_groupe")
+     * @Route(path="/app/active_directory/organisation_unit/edit", name="form_exec_edit_active_directory_organisation_unit")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_editAction(Request $request)

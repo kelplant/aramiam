@@ -45,6 +45,11 @@ class Fonction
      */
     protected $nameInZendesk;
 
+    /** @var string
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $nameInActiveDirectory;
+
     /**
      * @return mixed
      */
@@ -62,8 +67,6 @@ class Fonction
         $this->id = $id;
         return $this;
     }
-
-
 
     /**
      * @return mixed
@@ -170,6 +173,24 @@ class Fonction
     public function setNameInZendesk($nameInZendesk)
     {
         $this->nameInZendesk = $nameInZendesk;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameInActiveDirectory()
+    {
+        return $this->nameInActiveDirectory;
+    }
+
+    /**
+     * @param string $nameInActiveDirectory
+     * @return Fonction
+     */
+    public function setNameInActiveDirectory($nameInActiveDirectory)
+    {
+        $this->nameInActiveDirectory = $nameInActiveDirectory;
         return $this;
     }
 }

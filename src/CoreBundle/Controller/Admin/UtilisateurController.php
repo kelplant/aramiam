@@ -88,24 +88,4 @@ class UtilisateurController extends AbstractControllerService
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
     }
-
-    /**
-     * @param $utilisateurEdit
-     * @Route(path="/ajax/utilisateur/get/{utilisateurEdit}",name="ajax_get_utilisateur")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function utilisateurGetInfosIndex($utilisateurEdit)
-    {
-        return new JsonResponse($this->get('core.utilisateur_manager')->createArray($utilisateurEdit));
-    }
-
-    /**
-     * @param $utilisateurId
-     * @Route(path="/ajax/generate/email/{utilisateurId}",name="ajax_generate_email")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function generateListPossibleEmailIndex($utilisateurId)
-    {
-        return new JsonResponse($this->get('core.utilisateur_manager')->generateListPossibleEmail($utilisateurId));
-    }
 }

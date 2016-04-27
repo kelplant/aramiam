@@ -2,7 +2,12 @@ parameters:
     google.google_group_manager.class: GoogleApiBundle\Services\Manager\GoogleGroupManager
     google.entity.google_group_manager.class: GoogleApiBundle\Entity\GoogleGroup
     google.entityname.google_group_manager.class: 'GoogleApiBundle\Entity\GoogleGroup'
-    google.argname.google_group_manager.class: 'Ce groupe Gmail'
+    google.argname.google_group_manager.class: 'Ce groupe Google Gmail'
+
+    google.google_group_match_fonction_and_service_manager.class: GoogleApiBundle\Services\Manager\GoogleGroupMatchFonctionAndServiceManager
+    google.entity.google_group_match_fonction_and_service_manager.class: GoogleApiBundle\Entity\GoogleGroupMatchFonctionAndService
+    google.entityname.google_group_match_fonction_and_service_manager.class: 'GoogleApiBundle\Entity\GoogleGroupMatchFonctionAndService'
+    google.argname.google_group_match_fonction_and_service_manager.class: 'Ce maching Google Gmail'
 
     google.google_api_service.class: GoogleApiBundle\Services\GoogleApiService
 
@@ -14,6 +19,14 @@ services:
         - [setEntity, ["%google.entity.google_group_manager.class%"]]
         - [setEntityName, ["%google.entityname.google_group_manager.class%"]]
         - [setArgname, ["%google.argname.google_group_manager.class%"]]
+
+    google.google_group_match_fonction_and_service_manager:
+        class: %google.google_group_match_fonction_and_service_manager.class%
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%google.entity.google_group_match_fonction_and_service_manager.class%"]]
+        - [setEntityName, ["%google.entityname.google_group_match_fonction_and_service_manager.class%"]]
+        - [setArgname, ["%google.argname.google_group_match_fonction_and_service_manager.class%"]]
 
     google.google_api_service:
         class: %google.google_api_service.class%

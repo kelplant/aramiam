@@ -30,6 +30,17 @@ class ServiceManager extends AbstractManager
         return $itemArray;
     }
 
+    /**
+     * @return array
+     */
+    public function getStandardServiceListe()
+    {
+        $finalTab = [];
+        foreach($this->getRepository()->findBy(array(), array('name' => 'ASC')) as $enreg) {
+            $finalTab[] = array('id' => $enreg->getId(), 'name' => $enreg->getName());
+        }
+        return $finalTab;
+    }
 
     /**
      *

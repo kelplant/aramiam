@@ -27,7 +27,7 @@ class GoogleGroupType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Groupe Windows',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -37,7 +37,7 @@ class GoogleGroupType extends AbstractType
             ->add('email', TextType::class, array(
                 'label' => 'Email du groupe',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

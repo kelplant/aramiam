@@ -129,14 +129,4 @@ class FonctionController extends AbstractControllerService
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);
     }
-
-    /**
-     * @param $fonctionEdit
-     * @Route(path="/ajax/fonction/get/{fonctionEdit}",name="ajax_get_fonction")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function fonctionGetInfosIndex($fonctionEdit)
-    {
-        return new JsonResponse($this->get('core.fonction_manager')->createArray($fonctionEdit));
-    }
 }

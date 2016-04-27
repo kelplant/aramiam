@@ -119,14 +119,4 @@ class ServiceController extends AbstractControllerService
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);
     }
-
-    /**
-     * @param $serviceEdit
-     * @Route(path="/ajax/service/get/{serviceEdit}",name="ajax_get_service")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function serviceGetInfosIndex($serviceEdit)
-    {
-        return new JsonResponse($this->get('core.service_manager')->createArray($serviceEdit));
-    }
 }

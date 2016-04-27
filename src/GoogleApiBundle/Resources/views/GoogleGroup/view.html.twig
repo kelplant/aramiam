@@ -11,7 +11,7 @@
                 <td class="admin_cat_table_cell">{{ item.name }}</td>
                 <td class="admin_cat_table_cell">{{ item.email }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxGoogleGroupEdit(this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -27,5 +27,36 @@
     {% endblock %}
 
     {% block javascripts %}
-
+        <script src="{{ asset('js/google/group.js') }}"></script>
     {% endblock %}
+{% block javascriptsEndofEnd %}
+    <script>
+        $(document).ready(function() {
+            localStorage.setItem("currentFonctionIteration", '0');
+            localStorage.setItem("currentServiceIteration", '0');
+            localStorage.setItem("currentGlobalIteration", '0');
+            var listeOfServicesOptions = '<option value="">Ajouter un Service</option>';
+            urlajax = "/ajax/service/load/full_liste";
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    var i;
+                    for (i in result) {
+                        listeOfServicesOptions += '<option value="'+result[i].id+'">'+result[i].name+'</option>';
+                    }
+                    localStorage.setItem("listeOfServicesOptions", listeOfServicesOptions);
+                }
+            });
+            var listeOfFonctionsOptions = '<option value="">Ajouter une fonction</option>';
+            urlajax = "/ajax/fonction/load/full_liste";
+            $.ajax({
+                url: urlajax, success: function (result) {
+                    var i;
+                    for (i in result) {
+                        listeOfFonctionsOptions += '<option value="'+result[i].id+'">'+result[i].name+'</option>';
+                    }
+                    localStorage.setItem("listeOfFonctionsOptions", listeOfFonctionsOptions);
+                }
+            });
+        });
+    </script>
+{% endblock %}

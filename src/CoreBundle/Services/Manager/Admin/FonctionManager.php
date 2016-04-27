@@ -31,6 +31,18 @@ class FonctionManager extends AbstractManager
     }
 
     /**
+     * @return array
+     */
+    public function getStandardFonctionListe()
+    {
+        $finalTab = [];
+        foreach($this->getRepository()->findBy(array(), array('name' => 'ASC')) as $enreg) {
+            $finalTab[] = array('id' => $enreg->getId(), 'name' => $enreg->getName());
+        }
+        return $finalTab;
+    }
+
+    /**
      *
      */
     public function customSelectNameInActiveDirectoryNotNull() {

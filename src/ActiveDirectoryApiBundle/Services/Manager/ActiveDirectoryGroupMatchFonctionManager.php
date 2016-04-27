@@ -10,7 +10,7 @@ use Doctrine\Common\Util\Inflector;
  */
 class ActiveDirectoryGroupMatchFonctionManager extends AbstractManager
 {
-        /**
+    /**
      * @param $fonctionId
      */
     public function purge($fonctionId)

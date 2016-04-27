@@ -77,14 +77,4 @@ class EntiteHoldingController extends Controller
         $this->initData('index');
         return $this->get('core.edit.controller_service')->executeRequestEditAction($request);
     }
-
-    /**
-     * @param $entiteHoldingEdit
-     * @Route(path="/ajax/entite_holding/get/{entiteHoldingEdit}",name="ajax_get_entite_holding")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function entiteHoldingGetInfosIndex($entiteHoldingEdit)
-    {
-        return new JsonResponse($this->get('core.entite_holding_manager')->createArray($entiteHoldingEdit));
-    }
 }

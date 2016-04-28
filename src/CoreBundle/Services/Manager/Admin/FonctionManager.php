@@ -36,7 +36,7 @@ class FonctionManager extends AbstractManager
     public function getStandardFonctionListe()
     {
         $finalTab = [];
-        foreach($this->getRepository()->findBy(array(), array('name' => 'ASC')) as $enreg) {
+        foreach ($this->getRepository()->findBy(array(), array('name' => 'ASC')) as $enreg) {
             $finalTab[] = array('id' => $enreg->getId(), 'name' => $enreg->getName());
         }
         return $finalTab;

@@ -55,7 +55,7 @@ class ActiveDirectoryBatchController extends Controller
                     $this->ifIsInArray($explodeDn[$i], $this->agenceArray, 'agence');
                 }
             }
-            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->_to_p_guid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
+            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
         }
     }
 

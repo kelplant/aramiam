@@ -13,7 +13,6 @@ use GuzzleHttp;
 class AramisBatchController extends Controller
 {
     /**
-
      * @Route(path="/batch/insert/agencies",name="ajax_insert_agencies")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -27,7 +26,7 @@ class AramisBatchController extends Controller
                 'Content-type' => 'application/json',
             ]
         ]);
-        foreach(json_decode($res->getBody()) as $agence) {
+        foreach (json_decode($res->getBody()) as $agence) {
             $addAgency = $this->get('aramis.factory.aramis_agency')->createFromEntity($agence);
             if (!is_null($addAgency->getId()) && $addAgency->getId() != "00") {
                 $this->get('core.agence_manager')->save($addAgency);

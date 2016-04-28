@@ -29,7 +29,7 @@ class ActiveDirectoryGroup
     protected $dn;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -37,7 +37,7 @@ class ActiveDirectoryGroup
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return ActiveDirectoryGroup
      */
     public function setId($id)

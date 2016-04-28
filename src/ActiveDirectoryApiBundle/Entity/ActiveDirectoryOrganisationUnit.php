@@ -47,7 +47,7 @@ class ActiveDirectoryOrganisationUnit
     protected $fonction;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -55,7 +55,7 @@ class ActiveDirectoryOrganisationUnit
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return ActiveDirectoryOrganisationUnit
      */
     public function setId($id)

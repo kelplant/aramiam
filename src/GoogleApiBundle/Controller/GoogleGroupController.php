@@ -36,7 +36,7 @@ class GoogleGroupController extends AbstractControllerService
     {
         if (isset($request->request->get('match')['count'])) {
             $this->get('google.google_group_match_fonction_and_service_manager')->purge($request->request->get('google_group')['id']);
-            for ($i = 1; $i <= $request->request->get('match')['count']; $i ++) {
+            for ($i = 1; $i <= $request->request->get('match')['count']; $i++) {
                 $this->get('google.google_group_match_fonction_and_service_manager')->add(array('gmailGroupId' => $request->request->get('google_group')['id'], 'fonctionId' => $request->request->get('match')['fonction'.$i], 'serviceId' => $request->request->get('match')['service'.$i]));
             }
         }

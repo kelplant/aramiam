@@ -34,6 +34,11 @@ class UtilisateurManager extends AbstractManager
         }
     }
 
+    private function tranformTheItem($item, $byWhat)
+    {
+        return str_replace(' ', $byWhat, strtolower($item->getSurname())).'.'.str_replace(' ', $byWhat, strtolower($item->getName())).'@aramisauto.com';
+    }
+
     /**
      * @param $utilisateurId
      * @return array
@@ -42,9 +47,18 @@ class UtilisateurManager extends AbstractManager
     {
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
         $possibleEmail = [];
-        $possibleEmail[] = str_replace(' ', '-', strtolower($itemToTransform->getSurname())).'.'.str_replace(' ', '-', strtolower($itemToTransform->getName())).'@aramisauto.com';
-        if (stripos($itemToTransform->getSurname(), '-') != 0 || stripos($itemToTransform->getName(), '-') != 0 || stripos($itemToTransform->getSurname(), ' ') != 0 || stripos($itemToTransform->getName(), ' ') != 0) {
-            $possibleEmail[] = str_replace(' ', '', strtolower($itemToTransform->getSurname())).'.'.str_replace(' ', '', strtolower($itemToTransform->getName())).'@aramisauto.com';
+        $possibleEmail[] = $this->tranformTheItem($itemToTransform, '-');
+        if (stripos($itemToTransform->getSurname(), '-') != 0) {
+            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
+        }
+        if (stripos($itemToTransform->getName(), '-') != 0) {
+            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
+        }
+        if (stripos($itemToTransform->getSurname(), ' ') != 0) {
+            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
+        }
+        if (stripos($itemToTransform->getName(), ' ') != 0) {
+            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
         }
         return $possibleEmail;
     }

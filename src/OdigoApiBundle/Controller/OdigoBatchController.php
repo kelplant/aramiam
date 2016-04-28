@@ -12,7 +12,7 @@ use GuzzleHttp;
  */
 class OdigoBatchController extends Controller
 {
-     /**
+    /**
      * @param $lineToInsert
      * @Route(path="/ajax/insert/odigo/{lineToInsert}",name="ajax_insert_odigo_number")
      * @return \Symfony\Component\HttpFoundation\Response

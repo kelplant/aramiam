@@ -112,7 +112,7 @@ class ActiveDirectoryApiService
     public function addToADGroup($ds, $groupDn, $userDn)
     {
         try {
-            ldap_mod_add($ds,$groupDn,$userDn);
+            ldap_mod_add($ds, $groupDn, $userDn);
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur ajouté au group dans l\'Active Directory '.$groupDn));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

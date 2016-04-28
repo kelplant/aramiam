@@ -20,7 +20,7 @@ class SalesforceGroupMemberFactory extends AbstractFactory
         $newSalesforceGroupMember = new SalesforceGroupMember();
         foreach ($groupMemberInfos as  $key => $value) {
             if ($value != "") {
-                $newSalesforceGroupMember->{"set" . Inflector::camelize($key)}($value);
+                $newSalesforceGroupMember->{"set".Inflector::camelize($key)}($value);
             }
         }
 

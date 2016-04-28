@@ -43,7 +43,7 @@ class SalesforceApiGroupesServices
     public function addGroupesForNewUser($userId, $fonctionId, $params)
     {
         foreach ($this->SalesforceGroupeMatchFonction->getRepository()->findBy(array('fonctionId' => $fonctionId), array('fonctionId' => 'ASC')) as $groupe) {
-            $itemToAdd = $this->salesforceGroupMemberFactory->createFromEntity(array ('GroupId' => $this->salesforceGroupesManager->load($groupe->getSalesforceGroupe())->getGroupeId(), 'UserOrGroupId' => $userId));
+            $itemToAdd = $this->salesforceGroupMemberFactory->createFromEntity(array('GroupId' => $this->salesforceGroupesManager->load($groupe->getSalesforceGroupe())->getGroupeId(), 'UserOrGroupId' => $userId));
             return $this->salesforceApiService->addUserToGroupe($params, json_encode($itemToAdd));
         }
     }

@@ -20,7 +20,7 @@ class SalesforceUserTerritoryFactory extends AbstractFactory
         $newSalesforceUserTerritory = new SalesforceUserTerritory();
         foreach ($userTerritoryInfos as  $key => $value) {
             if ($value != "") {
-                $newSalesforceUserTerritory->{"set" . Inflector::camelize($key)}($value);
+                $newSalesforceUserTerritory->{"set".Inflector::camelize($key)}($value);
             }
         }
 

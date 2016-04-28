@@ -20,7 +20,7 @@ class SalesforceUserFactory extends AbstractFactory
         $newSalesforceUser = new SalesforceUser();
         foreach ($userInfos as  $key => $value) {
             if ($value != "") {
-                $newSalesforceUser->{"set" . Inflector::camelize($key)}($value);
+                $newSalesforceUser->{"set".Inflector::camelize($key)}($value);
             }
         }
 

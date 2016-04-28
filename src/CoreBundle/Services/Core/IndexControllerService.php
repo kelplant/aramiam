@@ -64,7 +64,7 @@ class IndexControllerService extends AbstractControllerService
     private function ifCandidatOUtilisateurList($entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived ));
+            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived));
         } else {
             return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
         }
@@ -82,7 +82,7 @@ class IndexControllerService extends AbstractControllerService
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
 
-        return $this->render(explode("\\",$this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
+        return $this->render(explode("\\", $this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
             'remove_path' => 'remove_'.strtolower($this->entity),
             'alert_text' => $this->alertText,

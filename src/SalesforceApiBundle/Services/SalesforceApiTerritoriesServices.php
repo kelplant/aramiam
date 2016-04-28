@@ -43,7 +43,7 @@ class SalesforceApiTerritoriesServices
     public function addTerritoriesForNewUser($userId, $fonctionId, $params)
     {
         foreach ($this->SalesforceTerritoryMatchService->getRepository()->findBy(array('serviceId' => $fonctionId), array('serviceId' => 'ASC')) as $groupe) {
-            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array ('TerritoryId' => $this->salesforceTerritoriesManager->load($groupe->getSalesforceTerritory())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
+            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $this->salesforceTerritoriesManager->load($groupe->getSalesforceTerritory())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
             return $this->salesforceApiService->addUserToTerritory($params, json_encode($itemToAdd));
         }
     }

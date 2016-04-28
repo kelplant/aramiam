@@ -17,7 +17,7 @@ class SalesforceServiceCloudAccesManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-        if($itemToTransform != null) {
+        if ($itemToTransform != null) {
             $itemArray = [];
             $itemArray['id'] = $itemToTransform->getId();
             $itemArray['status'] = $itemToTransform->getStatus();

@@ -34,11 +34,53 @@ class UtilisateurManager extends AbstractManager
         }
     }
 
+    /**
+     * @param $item
+     * @param $byWhat
+     * @return string
+     */
     private function tranformTheItem($item, $byWhat)
     {
         return str_replace(' ', $byWhat, strtolower($item->getSurname())).'.'.str_replace(' ', $byWhat, strtolower($item->getName())).'@aramisauto.com';
     }
 
+    /**
+     * @param $prenom
+     * @param $actualNom
+     * @param $tabNom
+     * @param $i
+     * @param $possibleEmail
+     * @return array
+     */
+    private function testEachName($prenom, $actualNom, $tabNom, $i, $possibleEmail)
+    {
+        if ($i < count($tabNom)) {
+            $name = $actualNom.'-'.$tabNom[$i];
+            $possibleEmail[] = $prenom.'.'.$name.'@aramisauto.com';
+            return $this->testEachName($prenom, $name, $tabNom, $i + 1, $possibleEmail);
+        } else {
+            return $possibleEmail;
+        }
+    }
+
+    /**
+     * @param $name
+     * @param $actualSurname
+     * @param $tabSurname
+     * @param $i
+     * @param $possibleEmail
+     * @return array
+     */
+    private function testEachSurname($name, $actualSurname, $tabSurname, $i, $possibleEmail)
+    {
+        if ($i < count($tabSurname)) {
+            $surname = $actualSurname.'-'.$tabSurname[$i];
+            $possibleEmail[] = $surname.'.'.$name.'@aramisauto.com';
+            return $this->testEachName($surname, $name, $tabSurname, $i + 1, $possibleEmail);
+        } else {
+            return $possibleEmail;
+        }
+    }
     /**
      * @param $utilisateurId
      * @return array
@@ -48,18 +90,11 @@ class UtilisateurManager extends AbstractManager
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
         $possibleEmail = [];
         $possibleEmail[] = $this->tranformTheItem($itemToTransform, '-');
-        if (stripos($itemToTransform->getSurname(), '-') != 0) {
-            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
-        }
-        if (stripos($itemToTransform->getName(), '-') != 0) {
-            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
-        }
-        if (stripos($itemToTransform->getSurname(), ' ') != 0) {
-            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
-        }
-        if (stripos($itemToTransform->getName(), ' ') != 0) {
-            $possibleEmail[] = $this->tranformTheItem($itemToTransform, '');
-        }
+        $individualSurname = explode(' ', strtolower($itemToTransform->getSurname()));
+        $individualName = explode(' ', strtolower($itemToTransform->getName()));
+        $possibleEmail = $this->testEachName($individualSurname[0], $individualName[0], $individualName, '1', $possibleEmail);
+        $possibleEmail = $this->testEachSurname($individualName[0], $individualSurname[0], $individualSurname,  '1', $possibleEmail);
+
         return $possibleEmail;
     }
 

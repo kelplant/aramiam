@@ -87,9 +87,9 @@ class SalesforceApiUserService
         if ($isCreatedInOdigo != 0) {
             $odigoInfos = $this->prosodieOdigo->load($isCreatedInOdigo);
 
-            return array('callcenterId' => "04va0000000TR5QAAW", 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getRedirectPhoneNumber(), 'callCenterId' => $callCenterId);
+            return array('callCenterId' => $callCenterId, 'odigoExtension' => $odigoInfos->getOdigoExtension(), 'odigoPhoneNumber' => $odigoInfos->getOdigoPhoneNumber(), 'redirectPhoneNumber' => $odigoInfos->getRedirectPhoneNumber());
         } else {
-            return array('callcenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null, 'callCenterId' => null);
+            return array('callCenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null);
         }
     }
 

@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <table class="table table-striped" id="bootstrap-todo">
+                    <table class="table table-striped display" id="bootstrap-todo">
                         <thead>
                             <tr>
                                 {% block corps_table_title %}
@@ -102,43 +102,13 @@
 
     {% endblock %}
 {% block javascripts %}
-    {#Fonction de chargement Ajax Form#}
-        <script>
-            function postForm( $form, callback ){
-                var values = {};
-                $.each( $form.serializeArray(), function(i, field) {
-                    values[field.name] = field.value;
-                });
-                $.ajax({
-                    type        : $form.attr( 'method' ),
-                    url         : $form.attr( 'action' ),
-                    data        : values,
-                    success     : function(data) {
-                        callback( data );
-                    }
-                });
-            }
-        </script>
-    {#Appel à la fonction de chargement Ajax Form#}
-        <script>
-            $(document).ready(function(){
-                var forms = [
-                    '[ name="{{ formAdd.vars.full_name }}"]'
-                ];
-                $( forms.join(',') ).submit( function( e ){
-                    e.preventDefault();
-                    postForm( $(this), function( response ){
-                    });
-                    return false;
-                });
-            });
-        </script>
+
 {% endblock %}
 {% block javascriptsEnd %}
 <script>
     $(document).ready(function(){
         $('#bootstrap-todo').DataTable({
-            bFilter: false,
+            bFilter: true,
             bInfo: false,
             bLengthChange:false,
             "pageLength": 13,
@@ -146,7 +116,9 @@
                 "paginate": {
                     "previous": "Préc.",
                     "next": "Suiv."
-                }
+                },
+                "zeroRecords": "Pas de données à Afficher",
+                "search": ""
             }
         });
     });
@@ -154,11 +126,27 @@
     {#Fonction de confirmation personalisée bootstrap#}
     <script>
         $(function() {
-            $('a[data-confirm]').click(function(ev) {
+            $('a[data-confirm]').click(function() {
                 var href = $(this).attr('href');
 
                 if (!$('#dataConfirmModal').length) {
-                    $('body').append('<div id="dataConfirmModal" class="modal font_exo_2" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog font_exo_2"><div class="modal-content font_exo_2"><div class="modal-header font_exo_2"><button type="button" class="close font_exo_2" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div><div class="modal-body font_exo_2"></div><div class="modal-footer font_exo_2"><button class="btn btn-success font_exo_2" data-dismiss="modal" aria-hidden="true">Non</button><a class="btn btn-danger font_exo_2" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                    var confirmBox = '' +
+                            '<div id="dataConfirmModal" class="modal font_exo_2" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">' +
+                                '<div class="modal-dialog font_exo_2">' +
+                                    '<div class="modal-content font_exo_2">' +
+                                        '<div class="modal-header font_exo_2">' +
+                                            '<button type="button" class="close font_exo_2" data-dismiss="modal" aria-hidden="true">×</button>' +
+                                            '<h3 id="dataConfirmLabel">Merci de confirmer</h3>' +
+                                        '</div>' +
+                                        '<div class="modal-body font_exo_2"></div>' +
+                                        '<div class="modal-footer font_exo_2">' +
+                                            '<button class="btn btn-success font_exo_2" data-dismiss="modal" aria-hidden="true">Non</button>' +
+                                            '<a class="btn btn-danger font_exo_2" id="dataConfirmOK">Oui</a>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+                    $('body').append(confirmBox);
                 }
                 $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
                 $('#dataConfirmOK').attr('href', href);

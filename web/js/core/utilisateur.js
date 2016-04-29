@@ -1,5 +1,5 @@
 // Fonction de chargement Standard Edit
-function ajaxUtilisateurEdit(url, editItem)
+function ajaxUtilisateurEdit(editItem)
 {
     $('#mainEditForm').addClass('hide').removeClass('show');
     $('#loadingMain').addClass('show').removeClass('hide');
@@ -17,7 +17,7 @@ function ajaxUtilisateurEdit(url, editItem)
     $('#createActionSalesforcePartNew').addClass('hide').removeClass('show');
     localStorage.setItem("emailState", null);
     localStorage.setItem("ableToShowOdigo", null);
-    urlajax ="/ajax/"+url+"/get/"+editItem;
+    urlajax ="/ajax/utilisateur/get/"+editItem;
     $.ajax({url:urlajax,success:function(result){
         var frm = $("#form-edit");
         var i;
@@ -49,7 +49,7 @@ function ajaxUtilisateurEdit(url, editItem)
             if (i == 'email') {
                 localStorage.setItem("email", result[i])
             }
-            frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
+            frm.find('[name="utilisateur[' + i + ']"]').val(result[i]);
         }
         $('#mainEditForm').addClass('show').removeClass('hide');
         $('#loadingMain').addClass('hide').removeClass('show');

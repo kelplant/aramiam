@@ -40,18 +40,14 @@ class UserCreator implements UserCreatorInterface
         $email = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[1]->getAllAttributeValues()[0];
         $dn = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[2]->getAllAttributeValues()[0];
         $displayName = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[3]->getAllAttributeValues()[0];
-        if (isset($response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]))
-        {
+        if (isset($response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4])) {
             $role = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0];
         }
-        if ($role == "GRP-Aramiam-SUPER_ADMIN")
-        {
+        if ($role == "GRP-Aramiam-SUPER_ADMIN") {
             $role = ['ROLE_SUPER_ADMIN'];
-        } elseif ($role == "GRP-Aramiam-ADMIN")
-        {
+        } elseif ($role == "GRP-Aramiam-ADMIN") {
             $role = ['ROLE_ADMIN'];
-        } else
-        {
+        } else {
             $role = ['ROLE_USER'];
         }
 
@@ -63,7 +59,6 @@ class UserCreator implements UserCreatorInterface
             ->setDn($dn)
             ->setDisplayName($displayName)
         ;
-
         $this->objectManager->persist($user);
         $this->objectManager->flush();
 

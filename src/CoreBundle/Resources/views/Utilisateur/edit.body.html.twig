@@ -80,8 +80,7 @@
                                 {{ form_label(formEdit.startDate) }}
                                 {{ form_errors(formEdit.startDate) }}
                                 <div class="col-sm-8">
-                                    {% if is_archived == "0" %}{{ form_widget(formEdit.startDate) }}{% endif %}
-                                    {% if is_archived != "0" %}{{ form_widget(formEdit.startDate, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                    {{ form_widget(formEdit.startDate, {'attr': {'class' : 'form-control date font_exo_2', 'readonly': true }}) }}
                                 </div>
                             </div>
                             <div class="form-group">

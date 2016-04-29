@@ -45,42 +45,25 @@ class UtilisateurManager extends AbstractManager
     }
 
     /**
-     * @param $prenom
-     * @param $actualNom
-     * @param $tabNom
+     * @param $surname
+     * @param $name
+     * @param $tab
      * @param $i
      * @param $possibleEmail
+     * @param $what
      * @return array
      */
-    private function testEachName($prenom, $actualNom, $tabNom, $i, $possibleEmail)
+    private function testEachPossibleUniqueCase($surname, $name, $tab, $i, $possibleEmail, $what)
     {
-        if ($i < count($tabNom)) {
-            $name = $actualNom.'-'.$tabNom[$i];
-            $possibleEmail[] = $prenom.'.'.$name.'@aramisauto.com';
-            return $this->testEachName($prenom, $name, $tabNom, $i + 1, $possibleEmail);
+        if ($i < count($tab)) {
+            $$what = $$what.'-'.$tab[$i];
+            $possibleEmail[] = $surname.'.'.$name.'@aramisauto.com';
+            return $this->testEachPossibleUniqueCase($surname, $name, $tab, $i + 1, $possibleEmail, $what);
         } else {
             return $possibleEmail;
         }
     }
 
-    /**
-     * @param $name
-     * @param $actualSurname
-     * @param $tabSurname
-     * @param $i
-     * @param $possibleEmail
-     * @return array
-     */
-    private function testEachSurname($name, $actualSurname, $tabSurname, $i, $possibleEmail)
-    {
-        if ($i < count($tabSurname)) {
-            $surname = $actualSurname.'-'.$tabSurname[$i];
-            $possibleEmail[] = $surname.'.'.$name.'@aramisauto.com';
-            return $this->testEachName($surname, $name, $tabSurname, $i + 1, $possibleEmail);
-        } else {
-            return $possibleEmail;
-        }
-    }
     /**
      * @param $utilisateurId
      * @return array
@@ -92,8 +75,8 @@ class UtilisateurManager extends AbstractManager
         $possibleEmail[] = $this->tranformTheItem($itemToTransform, '-');
         $individualSurname = explode(' ', strtolower($itemToTransform->getSurname()));
         $individualName = explode(' ', strtolower($itemToTransform->getName()));
-        $possibleEmail = $this->testEachName($individualSurname[0], $individualName[0], $individualName, '1', $possibleEmail);
-        $possibleEmail = $this->testEachSurname($individualName[0], $individualSurname[0], $individualSurname,  '1', $possibleEmail);
+        $possibleEmail = $this->testEachPossibleUniqueCase($individualSurname[0], $individualName[0], $individualName, '1', $possibleEmail, 'name');
+        $possibleEmail = $this->testEachPossibleUniqueCase($individualSurname[0], $individualName[0], $individualSurname,  '1', $possibleEmail, 'surname');
 
         return $possibleEmail;
     }

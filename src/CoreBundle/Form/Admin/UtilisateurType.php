@@ -37,7 +37,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Civilité',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -46,7 +46,7 @@ class UtilisateurType extends BaseType
             ->add('name', TextType::class, array(
                 'label' => 'Nom',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -55,7 +55,7 @@ class UtilisateurType extends BaseType
             ->add('surname', TextType::class, array(
                 'label' => 'Prénom',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -64,7 +64,7 @@ class UtilisateurType extends BaseType
             ->add('viewName', TextType::class, array(
                 'label' => 'Affiché',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -73,7 +73,7 @@ class UtilisateurType extends BaseType
             ->add('email', EmailType::class, array(
                 'label' => 'Email',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -83,7 +83,7 @@ class UtilisateurType extends BaseType
             ->add('mainPassword', PasswordType::class, array(
                 'label' => 'Password',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -93,7 +93,7 @@ class UtilisateurType extends BaseType
             ->add('startDate', TextType::class, array(
                 'label' => 'Date d\'arrivée',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control date font_exo_2 datepicker',
@@ -104,7 +104,7 @@ class UtilisateurType extends BaseType
                 'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -113,7 +113,7 @@ class UtilisateurType extends BaseType
             ->add('matriculeRH', TextType::class, array(
                 'label' => 'Matricule RH',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -125,7 +125,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Entité',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -136,7 +136,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Agence',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -147,7 +147,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Service',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -158,7 +158,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Fonction',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -172,7 +172,7 @@ class UtilisateurType extends BaseType
                 'label' => 'Status Poste',
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -183,7 +183,7 @@ class UtilisateurType extends BaseType
                 'choices' => $options["allow_extra_fields"]["listeUtilisateurs"],
                 'multiple' => false,
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -193,7 +193,7 @@ class UtilisateurType extends BaseType
             ->add('commentaire', TextareaType::class, array(
                 'label' => 'Commentaire',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

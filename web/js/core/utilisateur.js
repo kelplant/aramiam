@@ -191,7 +191,7 @@ function ajaxGenerateEmail()
                         var i;
                         var textToAppend = '';
                         for (i in result) {
-                            textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-3"><input class="font_exo_2 col-sm-2" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                            textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-8"><input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
                         }
                         document.getElementById("actionGmailList").innerHTML = textToAppend;
                         $('#loading').addClass('hide').removeClass('show');

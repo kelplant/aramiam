@@ -36,31 +36,24 @@ class UtilisateurManager extends AbstractManager
 
     /**
      * @param $item
-     * @param $byWhat
-     * @return string
-     */
-    private function tranformTheItem($item, $byWhat)
-    {
-        return str_replace(' ', $byWhat, strtolower($item->getSurname())).'.'.str_replace(' ', $byWhat, strtolower($item->getName())).'@aramisauto.com';
-    }
-
-    /**
-     * @param $surname
-     * @param $name
-     * @param $tab
      * @param $i
-     * @param $possibleEmail
-     * @param $what
+     * @param $lastIfExist
+     * @param $possibleItems
      * @return array
      */
-    private function testEachPossibleUniqueCase($surname, $name, $tab, $i, $possibleEmail, $what)
+    private function recursiveListe($item, $i, $lastIfExist, $possibleItems)
     {
-        if ($i < count($tab)) {
-            $$what = $$what.'-'.$tab[$i];
-            $possibleEmail[] = $surname.'.'.$name.'@aramisauto.com';
-            return $this->testEachPossibleUniqueCase($surname, $name, $tab, $i + 1, $possibleEmail, $what);
+        $items = explode(' ', str_replace('-', ' ', strtolower($item)));
+        if ($i == 0) {
+            $possibleItems[] = $newItem = $items[0];
+            return $this->recursiveListe($item, $i + 1, $newItem, $possibleItems);
         } else {
-            return $possibleEmail;
+            while ($i < count($items)) {
+                $newItem = $lastIfExist;
+                $possibleItems[] = $newItem.'-'.$items[$i];
+                return $this->recursiveListe($item, $i + 1, $newItem.'-'.$items[$i], $possibleItems);
+            }
+            return $possibleItems;
         }
     }
 
@@ -71,14 +64,15 @@ class UtilisateurManager extends AbstractManager
     public function generateListPossibleEmail($utilisateurId)
     {
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
-        $possibleEmail = [];
-        $possibleEmail[] = $this->tranformTheItem($itemToTransform, '-');
-        $individualSurname = explode(' ', strtolower($itemToTransform->getSurname()));
-        $individualName = explode(' ', strtolower($itemToTransform->getName()));
-        $possibleEmail = $this->testEachPossibleUniqueCase($individualSurname[0], $individualName[0], $individualName, '1', $possibleEmail, 'name');
-        $possibleEmail = $this->testEachPossibleUniqueCase($individualSurname[0], $individualName[0], $individualSurname,  '1', $possibleEmail, 'surname');
-
-        return $possibleEmail;
+        $possibleEmails = [];
+        $possibleSurnames = $this->recursiveListe($itemToTransform->getSurname(), 0, null, array());
+        $possibleNames = $this->recursiveListe($itemToTransform->getName(), 0, null, array());
+        foreach ($possibleSurnames as $surname) {
+            foreach ($possibleNames as $name) {
+                $possibleEmails[] = $surname.'.'.$name.'@aramisauto.com';
+            }
+        }
+        return $possibleEmails;
     }
 
     /**

@@ -21,7 +21,7 @@ abstract class AbstractManager
 
     protected $repository;
 
-    protected $session ;
+    protected $session;
 
     /**
      * @var ManagerRegistry
@@ -136,7 +136,7 @@ abstract class AbstractManager
         foreach ($itemLoad as  $key => $value) {
             if (Inflector::camelize($key) != "token")
             {
-                $itemToSet->{"set" . Inflector::camelize($key)}($value);
+                $itemToSet->{"set".Inflector::camelize($key)}($value);
             }
         }
         return $itemToSet;

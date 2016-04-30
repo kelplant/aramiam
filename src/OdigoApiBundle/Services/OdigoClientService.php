@@ -68,13 +68,13 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function create($parameters, $userBeanInfos)
     {
-        $client = new SoapClient($parameters['url'], array('classmap',array(
+        $client = new SoapClient($parameters['url'], array('classmap', array(
             'createAgent' => 'CreateAgentStruct',
             'CreateUserBean' => 'UserBean',
             'CreateUserSkillBean' => 'UserSkillBean',
         )));
         try {
-            $response = $client->createAgent($this->createAgentStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBean($userBeanInfos))));
+            $response = $client->createAgent($this->createAgentStructFactory->createFromEntity(array('wsLogin' => $parameters['login'], 'wsPassword' => $parameters['password'], 'userBean' => $this->generateUserBean($userBeanInfos))));
         }
         catch (SoapFault $e) {
             $response = $e;
@@ -98,13 +98,13 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function createwithtemplate($parameters, $userBeanWithTemplateInfos)
     {
-        $client = new SoapClient($parameters['url'],array('classmap', array(
+        $client = new SoapClient($parameters['url'], array('classmap', array(
             'createUserUsingTemplate' => 'CreateWithTemplateStruct',
             'UserBean' => 'UserBeanWithTemplate',
             'CreateUserSkillBean' => 'UserSkillBeanWithTemplate',
         )));
         try {
-            $response = $client->createUserUsingTemplate($this->createWithTemplateStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBeanWithTemplate($userBeanWithTemplateInfos))));
+            $response = $client->createUserUsingTemplate($this->createWithTemplateStructFactory->createFromEntity(array('wsLogin' => $parameters['login'], 'wsPassword' => $parameters['password'], 'userBean' => $this->generateUserBeanWithTemplate($userBeanWithTemplateInfos))));
         }
         catch (SoapFault $e) {
             $response = $e;
@@ -119,11 +119,11 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function delete($parameters, $userId)
     {
-        $client = new SoapClient($parameters['url'], array('classmap',array(
+        $client = new SoapClient($parameters['url'], array('classmap', array(
             'deleteUser' => 'DeleteUserStruct',
         )));
         try {
-            $response = $client->deleteUser($this->deleteUserStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $response = $client->deleteUser($this->deleteUserStructFactory->createFromEntity(array('wsLogin' => $parameters['login'], 'wsPassword' => $parameters['password'], 'userId' => $userId)));
         }
         catch (SoapFault $e) {
             $response = $e;
@@ -138,11 +138,11 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function export($parameters, $userId)
     {
-        $client = new SoapClient($parameters['url'],array('classmap', array(
+        $client = new SoapClient($parameters['url'], array('classmap', array(
             'Export' => 'ExportStruct',
         )));
         try {
-            $response = $client->export($this->exportStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $response = $client->export($this->exportStructFactory->createFromEntity(array('wsLogin' => $parameters['login'], 'wsPassword' => $parameters['password'], 'userId' => $userId)));
         }
         catch (SoapFault $e) {
             $response = $e;

@@ -142,15 +142,15 @@ class ActiveDirectoryApiService
         $memberOf = [];
         $group_info = [];
         $group_info['member'] = $newUser[0]['dn'];
-        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array ('id' => 'ASC')) as $fonction) {
+        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array('id' => 'ASC')) as $fonction) {
             $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
         }
-        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array ('id' => 'ASC')) as $service) {
+        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array('id' => 'ASC')) as $service) {
             $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
         }
         $ds = $this->connectAD($paramsAD);
         foreach (array_unique($memberOf) as $uniqueGroup) {
-            $this->addToADGroup($ds , $uniqueGroup, $group_info);
+            $this->addToADGroup($ds, $uniqueGroup, $group_info);
         }
         ldap_unbind($ds);
     }

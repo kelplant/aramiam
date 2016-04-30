@@ -8,7 +8,7 @@ parameters:
 
 services:
     aramis.aramisagency_manager:
-        class: %aramis.agency_manager.class%
+        class: '%aramis.agency_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%aramis.entity.agency_manager.class%"]]
@@ -16,5 +16,5 @@ services:
         - [setArgname, ["%aramis.argname.agency_manager.class%"]]
 
     aramis.factory.aramis_agency:
-        class: %aramis.factory.aramis_agency.class%
-        parent: core.factory.abstract
+        class: '%aramis.factory.aramis_agency.class%'
+        parent: app.factory.abstract

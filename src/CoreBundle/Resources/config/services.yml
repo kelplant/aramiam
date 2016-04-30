@@ -1,4 +1,3 @@
 imports:
     - { resource: "@CoreBundle/Resources/config/services_core_managers.yml" }
     - { resource: "@CoreBundle/Resources/config/services_core_controllers.yml" }
-    - { resource: "@CoreBundle/Resources/config/services_factorys.yml" }

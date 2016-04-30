@@ -23,7 +23,7 @@ parameters:
 
 services:
     ad.active_directory_group_manager:
-        class: %ad.active_directory_group_manager.class%
+        class: '%ad.active_directory_group_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%ad.entity.active_directory_group_manager.class%"]]
@@ -31,7 +31,7 @@ services:
         - [setArgname, ["%ad.argname.active_directory_group_manager.class%"]]
 
     ad.active_directory_organisation_unit_manager:
-        class: %ad.active_directory_organisation_unit_manager.class%
+        class: '%ad.active_directory_organisation_unit_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%ad.entity.active_directory_organisation_unit_manager.class%"]]
@@ -39,7 +39,7 @@ services:
         - [setArgname, ["%ad.argname.active_directory_organisation_unit_manager.class%"]]
 
     ad.active_directory_group_match_fonction_manager:
-        class: %ad.active_directory_group_match_fonction_manager.class%
+        class: '%ad.active_directory_group_match_fonction_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%ad.entity.active_directory_group_match_fonction_manager.class%"]]
@@ -47,7 +47,7 @@ services:
         - [setArgname, ["%ad.argname.active_directory_group_match_fonction_manager.class%"]]
 
     ad.active_directory_group_match_service_manager:
-        class: %ad.active_directory_group_match_service_manager.class%
+        class: '%ad.active_directory_group_match_service_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%ad.entity.active_directory_group_match_service_manager.class%"]]
@@ -56,5 +56,5 @@ services:
 
 
     ad.active_directory_api_service:
-        class: %ad.active_directory_api_service.class%
+        class: '%ad.active_directory_api_service.class%'
         arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager', '@ad.active_directory_organisation_unit_manager' ]

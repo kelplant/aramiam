@@ -1,9 +1,0 @@
-parameters:
-    core.factory.abstract.class: CoreBundle\Factory\AbstractFactory
-
-services:
-    core.factory.abstract:
-        class: %core.factory.abstract.class%
-        abstract: true
-
-

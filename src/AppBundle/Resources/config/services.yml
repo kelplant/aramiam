@@ -16,42 +16,47 @@ parameters:
     app.entityname.mouv_history.class: 'AppBundle\Entity\MouvHistory'
     app.argname.mouv_history.class: 'Le candidat'
 
+    app.factory.abstract.class: AppBundle\Factory\AbstractFactory
 
 services:
     app.id_store:
-        class: %app.id_store.class%
+        class: '%app.id_store.class%'
         arguments:
             - "@=service('doctrine').getManager()"
             - "@lightsaml.system.time_provider"
 
     app.user_creator:
-        class: %app.user_creator.class%
+        class: '%app.user_creator.class%'
         arguments:
             - "@=service('doctrine').getManager()"
             - "@lightsaml_sp.username_mapper.simple"
 
     app.user_manager:
-        class: %app.user_manager.class%
+        class: '%app.user_manager.class%'
         arguments: ['@doctrine']
 
     app.security.acces_service:
-        class: %app.security.acces_service.class%
+        class: '%app.security.acces_service.class%'
         calls:
         - [ setContainer , [ "@service_container" ]]
 
     app.parameters_calls:
-        class: %app.parameters_calls.class%
+        class: '%app.parameters_calls.class%'
         arguments: ['@doctrine']
 
     app.abstract_manager:
-        class: %app.abstract_manager.class%
+        class: '%app.abstract_manager.class%'
         abstract: true
         arguments: ['@doctrine', '@session']
 
     app.mouv_history_manager:
-        class: %app.mouv_history.class%
+        class: '%app.mouv_history.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%app.entity.mouv_history.class%"]]
         - [setEntityName, ["%app.entityname.mouv_history.class%"]]
         - [setArgname, ["%app.argname.mouv_history.class%"]]
+
+    app.factory.abstract:
+        class: '%app.factory.abstract.class%'
+        abstract: true

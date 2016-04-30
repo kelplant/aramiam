@@ -1,6 +1,5 @@
 <?php
-namespace CoreBundle\Factory;
-
+namespace AppBundle\Factory;
 
 abstract class AbstractFactory
 {

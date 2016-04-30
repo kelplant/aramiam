@@ -13,7 +13,7 @@ parameters:
 
 services:
     google.google_group_manager:
-        class: %google.google_group_manager.class%
+        class: '%google.google_group_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%google.entity.google_group_manager.class%"]]
@@ -21,7 +21,7 @@ services:
         - [setArgname, ["%google.argname.google_group_manager.class%"]]
 
     google.google_group_match_fonction_and_service_manager:
-        class: %google.google_group_match_fonction_and_service_manager.class%
+        class: '%google.google_group_match_fonction_and_service_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%google.entity.google_group_match_fonction_and_service_manager.class%"]]
@@ -29,6 +29,6 @@ services:
         - [setArgname, ["%google.argname.google_group_match_fonction_and_service_manager.class%"]]
 
     google.google_api_service:
-        class: %google.google_api_service.class%
+        class: '%google.google_api_service.class%'
         arguments: [ '@core.utilisateur_manager' ]
 

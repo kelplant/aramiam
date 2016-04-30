@@ -52,8 +52,7 @@ class Mailer
             ->setSubject($subject)
             ->setBody($body)
             ->setContentType('text/html');
-
-        var_dump($this->mailer->send($mail));
+        $this->mailer->send($mail);
         die();
     }
 
@@ -63,14 +62,12 @@ class Mailer
     public function sendInfosMessage($numUser)
     {
         $userInfos = $this->utilisateurManager->createArray($numUser);
-        $OdigoUserInfos = $this->odigoManager->createArrayByUser($numUser);
         $subject = 'Identidiants pour '.$userInfos['viewName'];
         $to = 'kelplant@gmail.com';
-        var_dump($body = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
+        $body = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
             'userInfos' => $userInfos,
-            'odigoUserInfos' => $OdigoUserInfos,
-            )));
-        die();
+            'odigoUserInfos' => $this->odigoManager->createArrayByUser($numUser),
+            ));
         $this->sendMessage($to, $subject, $body);
     }
 }

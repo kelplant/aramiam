@@ -7,32 +7,32 @@ parameters:
 
 services:
     core.abstract.controller_service:
-        class: %core.abstract.controller_service.class%
+        class: '%core.abstract.controller_service.class%'
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
 
     core.delete.controller_service:
-        class: %core.delete.controller_service.class%
+        class: '%core.delete.controller_service.class%'
         parent: core.abstract.controller_service
         arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
     core.edit.controller_service:
-        class: %core.edit.controller_service.class%
+        class: '%core.edit.controller_service.class%'
         parent: core.abstract.controller_service
         arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
     core.add.controller_service:
-        class: %core.add.controller_service.class%
+        class: '%core.add.controller_service.class%'
         parent: core.abstract.controller_service
         arguments: ['@doctrine.orm.entity_manager']
         calls:
         - [ setContainer , [ "@service_container" ]]
     core.index.controller_service:
-        class: %core.index.controller_service.class%
+        class: '%core.index.controller_service.class%'
         parent: core.abstract.controller_service
         arguments: ['@doctrine.orm.entity_manager']
         calls:

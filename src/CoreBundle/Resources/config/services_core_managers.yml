@@ -31,7 +31,7 @@ parameters:
 
 services:
     core.agence_manager:
-        class: %core.agence_manager.class%
+        class: '%core.agence_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.agence.class%"]]
@@ -39,7 +39,7 @@ services:
         - [setArgname, ["%core.argname.agence.class%"]]
 
     core.utilisateur_manager:
-        class: %core.utilisateur_manager.class%
+        class: '%core.utilisateur_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.utilisateur.class%"]]
@@ -47,7 +47,7 @@ services:
         - [setArgname, ["%core.argname.utilisateur.class%"]]
 
     core.fonction_manager:
-        class: %core.fonction_manager.class%
+        class: '%core.fonction_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.fonction.class%"]]
@@ -55,7 +55,7 @@ services:
         - [setArgname, ["%core.argname.fonction.class%"]]
 
     core.service_manager:
-        class: %core.service_manager.class%
+        class: '%core.service_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.service.class%"]]
@@ -63,7 +63,7 @@ services:
         - [setArgname, ["%core.argname.service.class%"]]
 
     core.entite_holding_manager:
-        class: %core.entite_holding_manager.class%
+        class: '%core.entite_holding_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.entite_holding.class%"]]
@@ -71,7 +71,7 @@ services:
         - [setArgname, ["%core.argname.entite_holding.class%"]]
 
     core.candidat_manager:
-        class: %core.candidat_manager.class%
+        class: '%core.candidat_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%core.entity.candidat.class%"]]

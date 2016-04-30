@@ -50,7 +50,6 @@ class OdigoApiService
         $this->odigoServiceClient = $odigoServiceClient;
     }
 
-
     /**
      * @param $odigoTel
      * @param $redirectTel

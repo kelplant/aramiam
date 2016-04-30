@@ -16,11 +16,6 @@ class DeleteUserStructFactory extends AbstractFactory
      */
     public function createFromEntity($deleteUserStruct)
     {
-        $deleteUserStruct = new DeleteUserStruct(
-            $deleteUserStruct['wsLogin'],
-            $deleteUserStruct['wsPassword'],
-            $deleteUserStruct['userId']
-        );
-        return $deleteUserStruct;
+        return new DeleteUserStruct($deleteUserStruct['wsLogin'], $deleteUserStruct['wsPassword'], $deleteUserStruct['userId']);
     }
 }

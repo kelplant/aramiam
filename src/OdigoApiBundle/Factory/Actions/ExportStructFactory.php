@@ -16,10 +16,6 @@ class ExportStructFactory extends AbstractFactory
      */
     public function createFromEntity($exportStruct)
     {
-        return new ExportStruct(
-            $exportStruct['wsLogin'],
-            $exportStruct['wsPassword'],
-            $exportStruct['userId']
-        );
+        return new ExportStruct($exportStruct['wsLogin'], $exportStruct['wsPassword'], $exportStruct['userId']);
     }
 }

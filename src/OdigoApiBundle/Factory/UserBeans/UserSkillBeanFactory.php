@@ -16,12 +16,6 @@ class UserSkillBeanFactory extends AbstractFactory
      */
     public function createFromEntity($UserBeanSkillsInfos)
     {
-        $UserSkillBean = new UserSkillBean(
-            $UserBeanSkillsInfos['level'],
-            $UserBeanSkillsInfos['skillKeyword'],
-            $UserBeanSkillsInfos['specialty']
-        );
-
-        return $UserSkillBean;
+        return new UserSkillBean($UserBeanSkillsInfos['level'], $UserBeanSkillsInfos['skillKeyword'], $UserBeanSkillsInfos['specialty']);;
     }
 }

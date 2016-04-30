@@ -16,12 +16,6 @@ class CreateWithTemplateStructFactory extends AbstractFactory
      */
     public function createFromEntity($CreateWithTemplateStruct)
     {
-        $CreateWithTemplateStruct = new CreateWithTemplateStruct(
-            $CreateWithTemplateStruct['wsLogin'],
-            $CreateWithTemplateStruct['wsPassword'],
-            $CreateWithTemplateStruct['userBean']
-        );
-
-        return $CreateWithTemplateStruct;
+        return new CreateWithTemplateStruct($CreateWithTemplateStruct['wsLogin'], $CreateWithTemplateStruct['wsPassword'], $CreateWithTemplateStruct['userBean']);
     }
 }

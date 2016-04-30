@@ -16,9 +16,6 @@ class UserSkillBeanWithTemplateFactory extends AbstractFactory
      */
     public function createFromEntity($UserSkillBeanWithTemplate)
     {
-        return new UserSkillBeanWithTemplate(
-            $UserSkillBeanWithTemplate['id'],
-            $UserSkillBeanWithTemplate['level']
-        );
+        return new UserSkillBeanWithTemplate($UserSkillBeanWithTemplate['id'], $UserSkillBeanWithTemplate['level']);
     }
 }

@@ -96,6 +96,4 @@ class UserSkillBean
         $this->specialty = $specialty;
         return $this;
     }
-
-
 }

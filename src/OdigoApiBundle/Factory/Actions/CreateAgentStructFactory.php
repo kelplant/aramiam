@@ -16,12 +16,6 @@ class CreateAgentStructFactory extends AbstractFactory
      */
     public function createFromEntity($createAgentStruct)
     {
-        $createAgentStruct = new CreateAgentStruct(
-            $createAgentStruct['wsLogin'],
-            $createAgentStruct['wsPassword'],
-            $createAgentStruct['userBean']
-        );
-
-        return $createAgentStruct;
+        return new CreateAgentStruct($createAgentStruct['wsLogin'], $createAgentStruct['wsPassword'], $createAgentStruct['userBean']);
     }
 }

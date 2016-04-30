@@ -16,9 +16,20 @@ parameters:
 
     odigo.odigo_api_service.class: OdigoApiBundle\Services\OdigoApiService
 
+    odigo.factory.abstract.class: OdigoApiBundle\Factory\AbstractFactory
+    odigo.factory.userbean.class: OdigoApiBundle\Factory\UserBeans\UserBeanFactory
+    odigo.factory.userskillbean.class: OdigoApiBundle\Factory\UserBeans\UserSkillBeanFactory
+    odigo.factory.userbeanwithtemplate.class: OdigoApiBundle\Factory\UserBeansWithTemplate\UserBeanWithTemplateFactory
+    odigo.factory.userskillbeanwithtemplate.class: OdigoApiBundle\Factory\UserBeansWithTemplate\UserSkillBeanWithTemplateFactory
+    odigo.factory.createagent.class: OdigoApiBundle\Factory\Actions\CreateAgentStructFactory
+    odigo.factory.createwithtemplate.class: OdigoApiBundle\Factory\Actions\CreateWithTemplateStructFactory
+    odigo.factory.export.class: OdigoApiBundle\Factory\Actions\ExportStructFactory
+    odigo.factory.deleteuser.class: OdigoApiBundle\Factory\Actions\DeleteUserStructFactory
+    odigo.service.client.class: OdigoApiBundle\Services\OdigoClientService
+
 services:
     odigo.prosodie_odigo_manager:
-        class: %odigo.prosodie_odigo_manager.class%
+        class: '%odigo.prosodie_odigo_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.prosodie_odigo.class%"]]
@@ -26,7 +37,7 @@ services:
         - [setArgname, ["%odigo.argname.prosodie_odigo.class%"]]
 
     odigo.odigotelliste_manager:
-        class: %odigo.odigo_num_tel_liste_manager.class%
+        class: '%odigo.odigo_num_tel_liste_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.odigo_num_tel_liste_manager.class%"]]
@@ -34,7 +45,7 @@ services:
         - [setArgname, ["%odigo.argname.odigo_num_tel_liste_manager.class%"]]
 
     odigo.orangetelliste_manager:
-        class: %odigo.orange_num_tel_liste_manager.class%
+        class: '%odigo.orange_num_tel_liste_manager.class%'
         parent: app.abstract_manager
         calls:
         - [setEntity, ["%odigo.entity.orange_num_tel_liste_manager.class%"]]
@@ -43,5 +54,38 @@ services:
 
 
     odigo.odigo_api_service:
-        class: %odigo.odigo_api_service.class%
+        class: '%odigo.odigo_api_service.class%'
         arguments: [ '@core.utilisateur_manager', '@odigo.odigotelliste_manager', '@odigo.orangetelliste_manager', '@odigo.prosodie_odigo_manager', '@core.service_manager', '@core.fonction_manager', '@odigo.service.client' ]
+
+    odigo.factory.abstract:
+        class: '%odigo.factory.abstract.class%'
+        abstract: true
+    odigo.factory.userbeanwithtemplate:
+        class: '%odigo.factory.userbeanwithtemplate.class%'
+        parent: odigo.factory.abstract
+        arguments: [ "@odigo.factory.userskillbeanwithtemplate" ]
+    odigo.factory.userskillbeanwithtemplate:
+        class: '%odigo.factory.userskillbeanwithtemplate.class%'
+        parent: odigo.factory.abstract
+    odigo.factory.userbean:
+        class: '%odigo.factory.userbean.class%'
+        parent: odigo.factory.abstract
+        arguments: [ "@odigo.factory.userskillbean" ]
+    odigo.factory.userskillbean:
+        class: '%odigo.factory.userskillbean.class%'
+        parent: odigo.factory.abstract
+    odigo.factory.createagent:
+        class: '%odigo.factory.createagent.class%'
+        parent: odigo.factory.abstract
+    odigo.factory.deleteuser:
+        class: '%odigo.factory.deleteuser.class%'
+        parent: odigo.factory.abstract
+    odigo.factory.createwithtemplate:
+        class: '%odigo.factory.createwithtemplate.class%'
+        parent: odigo.factory.abstract
+    odigo.factory.export:
+        class: '%odigo.factory.export.class%'
+        parent: odigo.factory.abstract
+    odigo.service.client:
+        class: '%odigo.service.client.class%'
+        arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , "@odigo.factory.deleteuser", "@odigo.factory.export" ]

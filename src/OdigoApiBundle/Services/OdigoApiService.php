@@ -1,7 +1,7 @@
 <?php
 namespace OdigoApiBundle\Services;
 
-use Aramis\OdigoServiceBundle\Services\OdigoClientService;
+use OdigoApiBundle\Services\OdigoClientService;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;

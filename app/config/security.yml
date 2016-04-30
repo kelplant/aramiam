@@ -19,7 +19,7 @@ security:
                 check_path: /saml/login_check
             logout:
                 path: /logout
-                target: https://adfs.clphoto.fr:3890/adfs/ls/?wa=wsignout1.0
+                target: "%adfs_logout_url%"
             anonymous: ~
         fos:
             pattern: ^/

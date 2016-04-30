@@ -16,7 +16,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            new Aramis\OdigoServiceBundle\AramisOdigoServiceBundle(),
             new CoreBundle\CoreBundle(),
             new LightSaml\SymfonyBridgeBundle\LightSamlSymfonyBridgeBundle(),
             new LightSaml\SpBundle\LightSamlSpBundle(),
@@ -27,6 +26,7 @@ class AppKernel extends Kernel
             new ActiveDirectoryApiBundle\ActiveDirectoryApiBundle(),
             new SalesforceApiBundle\SalesforceApiBundle(),
             new AramisApiBundle\AramisApiBundle(),
+            new MailerBundle\MailerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -10,19 +10,32 @@ use AppBundle\Services\Manager\AbstractManager;
  */
 class ProsodieOdigoManager extends AbstractManager
 {
+
+    private function setArray($itemToTransform)
+    {
+        $itemArray = [];
+        $itemArray['user'] = $itemToTransform->getUser();
+        $itemArray['odigoPhoneNumber'] = $itemToTransform->getOdigoPhoneNumber();
+        $itemArray['redirectPhoneNumber'] = $itemToTransform->getRedirectPhoneNumber();
+        $itemArray['odigoExtension'] = $itemToTransform->getOdigoExtension();
+        return $itemArray;
+    }
+
     /**
      * @param $itemLoad
      * @return mixed
      */
     public function createArray($itemLoad)
     {
-        $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-        $itemArray = [];
-        $itemArray['user'] = $itemToTransform->getUser();
-        $itemArray['odigoPhoneNumber'] = $itemToTransform->getOdigoPhoneNumber();
-        $itemArray['redirectPhoneNumber'] = $itemToTransform->getRedirectPhoneNumber();
-        $itemArray['odigoExtension'] = $itemToTransform->getOdigoExtension();
+        return $this->setArray($this->getRepository()->findOneById($itemLoad));
+    }
 
-        return $itemArray;
+    /**
+     * @param $user
+     * @return array
+     */
+    public function createArrayByUser($user)
+    {
+        return $this->setArray($this->getRepository()->findOneByUser($user));
     }
 }

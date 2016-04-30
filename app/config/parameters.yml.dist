@@ -15,6 +15,10 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    light_saml_entity_id:        ~
+    federation_metadata_file:    ~
+    adfs_logout_url:             ~
+
     zendesk_api:
         key:           ~
         user:          ~

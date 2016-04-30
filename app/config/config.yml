@@ -10,6 +10,7 @@ imports:
     - { resource: "@ActiveDirectoryApiBundle/Resources/config/services.yml" }
     - { resource: "@SalesforceApiBundle/Resources/config/services.yml" }
     - { resource: "@AramisApiBundle/Resources/config/services.yml" }
+    - { resource: "@MailerBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -77,7 +78,7 @@ swiftmailer:
 
 light_saml_symfony_bridge:
     own:
-        entity_id: https://nasxa02.clphoto.fr:8080
+        entity_id: "%light_saml_entity_id%"
         credentials:
                     -
                         certificate: "%kernel.root_dir%/config/saml.crt"
@@ -86,7 +87,7 @@ light_saml_symfony_bridge:
     party:
         idp:
             files:
-                - "%kernel.root_dir%/config/federationmetadata_clphoto.xml"
+                - "%kernel.root_dir%/config/%federation_metadata_file%"
 
     store:
         id_state: app.id_store  # name of id store service created in step 6

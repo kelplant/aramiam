@@ -152,3 +152,31 @@
 .paddingRight10pc {
     padding-right: 10%;
 }
+.todofilter{
+    border: rgba(247, 17, 8, 0.33)
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+    position: absolute !important;
+    bottom: 8px!important;
+    right: 8px!important;
+    display: block!important;
+    font-family: '' !important;
+    opacity: 0.5!important;
+}
+
+table.dataTable thead .sorting:after {
+    opacity: 0.2!important;
+    content: ""!important;
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: ""!important;
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: ""!important;
+}
+
+.dataTables_filter {
+    float: right!important;
+}

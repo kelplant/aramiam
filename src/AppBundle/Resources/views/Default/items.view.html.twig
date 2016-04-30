@@ -13,7 +13,6 @@
                 <li><a href="#">Home</a></li>
                 <li class="active">{% block breadcrumb %} {% endblock %}</li>
            </ol>
-
             <div class="row">
                 <div class="col-md-12">
                       <div class="home-gauche list-group-item disabled admin_cat_title " data-href="#">
@@ -24,36 +23,36 @@
                               </button>
                           {% endif %}
                           {% if entity == 'odigo_tel_liste' or entity == 'orange_tel_liste' %}
-                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
+                              <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
                                   <i class="fa fa-plus"></i> Add Batch</button>
                           {% endif %}
                           {% if entity == 'salesforce_profile' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadSfProfiles" onclick="reloadProfilesFromSf();">
                                   <i class="fa fa-plus"></i> Reload From Sf</button>
                           {% endif %}
                           {% if entity == 'salesforce_groupe' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadSfGroupes" onclick="reloadGroupesFromSf();">
                                   <i class="fa fa-plus"></i> Reload From Sf</button>
                           {% endif %}
                           {% if entity == 'salesforce_territory' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadSfTerritories" onclick="reloadTerritoriesFromSf();">
                                   <i class="fa fa-plus"></i> Reload From Sf</button>
                           {% endif %}
                           {% if entity == 'active_directory_group' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadGroupFromAd();">
                                   <i class="fa fa-plus"></i> Reload From Ad</button>
                           {% endif %}
                           {% if entity == 'active_directory_organisation_unit' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadOrganisationUnitFromAd();">
                                   <i class="fa fa-plus"></i> Reload From Ad</button>
                           {% endif %}
                           {% if entity == 'google_group' %}
-                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
+                              <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
                               <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadGroupFromGoogle();">
                                   <i class="fa fa-plus"></i> Reload From Gmail</button>
                           {% endif %}
@@ -108,6 +107,7 @@
 <script>
     $(document).ready(function(){
         $('#bootstrap-todo').DataTable({
+            "dom": '<".todofilter"f>rt<"bottom"p><"clear">',
             bFilter: true,
             bInfo: false,
             bLengthChange:false,

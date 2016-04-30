@@ -1,7 +1,7 @@
 <?php
 namespace SalesforceApiBundle\Factory;
 
-use CoreBundle\Factory\AbstractFactory;
+use AppBundle\Factory\AbstractFactory;
 use SalesforceApiBundle\Entity\ApiObjects\SalesforceUserTerritory;
 use Doctrine\Common\Util\Inflector;
 

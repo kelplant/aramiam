@@ -1,7 +1,7 @@
 <?php
 namespace OdigoApiBundle\Factory\Actions;
 
-use OdigoApiBundle\Factory\AbstractFactory;
+use AppBundle\Factory\AbstractFactory;
 use OdigoApiBundle\Entity\Actions\ExportStruct;
 
 /**

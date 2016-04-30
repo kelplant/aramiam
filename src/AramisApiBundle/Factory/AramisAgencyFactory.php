@@ -1,7 +1,7 @@
 <?php
 namespace AramisApiBundle\Factory;
 
-use CoreBundle\Factory\AbstractFactory;
+use AppBundle\Factory\AbstractFactory;
 use AramisApiBundle\Entity\AramisAgency;
 use Doctrine\Common\Util\Inflector;
 

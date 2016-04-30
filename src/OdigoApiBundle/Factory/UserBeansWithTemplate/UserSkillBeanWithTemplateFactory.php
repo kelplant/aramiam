@@ -1,7 +1,7 @@
 <?php
 namespace OdigoApiBundle\Factory\UserBeansWithTemplate;
 
-use OdigoApiBundle\Factory\AbstractFactory;
+use AppBundle\Factory\AbstractFactory;
 use OdigoApiBundle\Entity\UserBeansWithTemplate\UserSkillBeanWithTemplate;
 
 /**

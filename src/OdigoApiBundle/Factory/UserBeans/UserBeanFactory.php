@@ -1,7 +1,7 @@
 <?php
 namespace OdigoApiBundle\Factory\UserBeans;
 
-use OdigoApiBundle\Factory\AbstractFactory;
+use AppBundle\Factory\AbstractFactory;
 use OdigoApiBundle\Entity\UserBeans\UserBean;
 
 class UserBeanFactory extends AbstractFactory

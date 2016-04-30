@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\UserBeans;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\UserBeans\UserBean;
+use OdigoApiBundle\Entity\ApiObjects\UserBeans\UserBean;
 
 class UserBeanFactory extends AbstractFactory
 {

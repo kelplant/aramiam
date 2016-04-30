@@ -1,9 +1,9 @@
 <?php
-namespace OdigoApiBundle\Entity\UserBeans;
+namespace OdigoApiBundle\Entity\ApiObjects\UserBeans;
 
 /**
  * Class UserBean
- * @package OdigoApiBundle\Entity\UserBeans
+ * @package OdigoApiBundle\Entity\ApiObjects\UserBeans
  */
 class UserBean
 {

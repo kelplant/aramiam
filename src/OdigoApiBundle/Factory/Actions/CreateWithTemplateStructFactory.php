@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\Actions\CreateWithTemplateStruct;
+use OdigoApiBundle\Entity\ApiObjects\Actions\CreateWithTemplateStruct;
 
 /**
  * Class CreateWithTemplateStructFactory

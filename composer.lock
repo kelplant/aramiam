@@ -4,60 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1e3d93505ec5559f7a397b0cb0d49717",
-    "content-hash": "fd40e44202ce6c9f50044d6e889603db",
+    "hash": "345ac8c2747c1692cfb78de8694a0d52",
+    "content-hash": "6d83c942591bc1b52919255595eb7fa1",
     "packages": [
-        {
-            "name": "aramis/odigo-service-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ARAMISAUTO/odigo-service-bundle.git",
-                "reference": "5ece639dad80be196754448b9838b5d7581c175d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ARAMISAUTO/odigo-service-bundle/zipball/5ece639dad80be196754448b9838b5d7581c175d",
-                "reference": "5ece639dad80be196754448b9838b5d7581c175d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Aramis\\OdigoServiceBundle\\": ""
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "": "spec/"
-                }
-            },
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Aramis i-team",
-                    "homepage": "https://github.com/ARAMISAUTO/odigo-service-bundle"
-                }
-            ],
-            "description": "Aramis Odigo Service Bundle",
-            "homepage": "https://github.com/ARAMISAUTO/odigo-service-bundle",
-            "keywords": [
-                "aramis",
-                "bundle",
-                "odigo",
-                "service"
-            ],
-            "support": {
-                "source": "https://github.com/ARAMISAUTO/odigo-service-bundle/tree/master",
-                "issues": "https://github.com/ARAMISAUTO/odigo-service-bundle/issues"
-            },
-            "time": "2016-03-25 17:33:08"
-        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.7",
@@ -830,12 +779,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "16b04c49af05dd3fb381e4abe04f0e5e231ac76d"
+                "reference": "def27463609e24af410b2606f0062de46fab5662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
-                "reference": "16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/def27463609e24af410b2606f0062de46fab5662",
+                "reference": "def27463609e24af410b2606f0062de46fab5662",
                 "shasum": ""
             },
             "require": {
@@ -891,7 +840,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-03-08 11:05:28"
+            "time": "2016-04-28 10:51:07"
         },
         {
             "name": "google/apiclient",
@@ -2543,7 +2492,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "aramis/odigo-service-bundle": 20,
         "google/apiclient": 10,
         "friendsofsymfony/user-bundle": 20
     },

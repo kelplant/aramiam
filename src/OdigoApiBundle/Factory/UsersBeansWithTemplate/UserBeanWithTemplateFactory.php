@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\UserBeansWithTemplate;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\UserBeansWithTemplate\UserBeanWithTemplate;
+use OdigoApiBundle\Entity\ApiObjects\UserBeansWithTemplate\UserBeanWithTemplate;
 
 /**
  * Class UserBeanWithTemplateFactory

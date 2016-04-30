@@ -1,8 +1,8 @@
 <?php
 namespace OdigoApiBundle\Services;
 
-use OdigoApiBundle\Entity\UserBeans\UserBean;
-use OdigoApiBundle\Entity\UserBeansWithTemplate\UserBeanWithTemplate;
+use OdigoApiBundle\Entity\ApiObjects\UserBeans\UserBean;
+use OdigoApiBundle\Entity\ApiObjects\UserBeansWithTemplate\UserBeanWithTemplate;
 use OdigoApiBundle\Factory\Actions\CreateAgentStructFactory;
 use OdigoApiBundle\Factory\Actions\CreateWithTemplateStructFactory;
 use OdigoApiBundle\Factory\Actions\DeleteUserStructFactory;

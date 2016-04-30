@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\Actions\DeleteUserStruct;
+use OdigoApiBundle\Entity\ApiObjects\Actions\DeleteUserStruct;
 
 /**
  * Class DeleteUserStructFactory

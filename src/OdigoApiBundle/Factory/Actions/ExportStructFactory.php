@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\Actions\ExportStruct;
+use OdigoApiBundle\Entity\ApiObjects\Actions\ExportStruct;
 
 /**
  * Class ExportStructFactory

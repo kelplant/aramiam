@@ -1,13 +1,11 @@
 <?php
-namespace OdigoApiBundle\Entity\Actions;
-
-use OdigoApiBundle\Entity\UserBeans\UserBean;
+namespace OdigoApiBundle\Entity\ApiObjects\Actions;
 
 /**
- * Class CreateAgentStruct
- * @package OdigoApiBundle\Entity\Actions
+ * Class ExportStruct
+ * @package OdigoApiBundle\Entity\ApiObjects\Actions
  */
-class CreateAgentStruct
+class ExportStruct
 {
     /**
      * The wsLogin
@@ -26,25 +24,25 @@ class CreateAgentStruct
      */
     public $wsPassword;
     /**
-     * The userBean
+     * The userId
      * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
-     * @var UserBean
+     * @var string
      */
-    public $userBean;
+    public $userId;
 
     /**
-     * CreateAgentStruct constructor.
+     * DeleteUserStruct constructor.
      * @param string $wsLogin
      * @param string $wsPassword
-     * @param UserBean $userBean
+     * @param string $userId
      */
-    public function __construct($wsLogin, $wsPassword, UserBean $userBean)
+    public function __construct($wsLogin, $wsPassword, $userId)
     {
         $this->wsLogin = $wsLogin;
         $this->wsPassword = $wsPassword;
-        $this->userBean = $userBean;
+        $this->userId = $userId;
     }
 
     /**
@@ -57,7 +55,7 @@ class CreateAgentStruct
 
     /**
      * @param string $wsLogin
-     * @return CreateAgentStruct
+     * @return ExportStruct
      */
     public function setWsLogin($wsLogin)
     {
@@ -75,7 +73,7 @@ class CreateAgentStruct
 
     /**
      * @param string $wsPassword
-     * @return CreateAgentStruct
+     * @return ExportStruct
      */
     public function setWsPassword($wsPassword)
     {
@@ -84,20 +82,21 @@ class CreateAgentStruct
     }
 
     /**
-     * @return UserBean
+     * @return string
      */
-    public function getUserBean()
+    public function getUserId()
     {
-        return $this->userBean;
+        return $this->userId;
     }
 
     /**
-     * @param UserBean $userBean
-     * @return CreateAgentStruct
+     * @param string $userId
+     * @return ExportStruct
      */
-    public function setUserBean($userBean)
+    public function setUserId($userId)
     {
-        $this->userBean = $userBean;
+        $this->userId = $userId;
         return $this;
     }
+
 }

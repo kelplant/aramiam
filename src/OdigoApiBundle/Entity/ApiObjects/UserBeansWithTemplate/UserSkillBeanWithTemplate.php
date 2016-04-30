@@ -1,9 +1,9 @@
 <?php
-namespace OdigoApiBundle\Entity\UserBeansWithTemplate;
+namespace OdigoApiBundle\Entity\ApiObjects\UserBeansWithTemplate;
 
 /**
  * Class UserSkillBeanWithTemplate
- * @package OdigoApiBundle\Entity\UserBeansWithTemplate
+ * @package OdigoApiBundle\Entity\ApiObjects\UserBeansWithTemplate
  */
 class UserSkillBeanWithTemplate
 {

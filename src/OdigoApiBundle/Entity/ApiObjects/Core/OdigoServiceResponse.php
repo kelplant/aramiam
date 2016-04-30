@@ -1,9 +1,9 @@
 <?php
-namespace OdigoApiBundle\Entity\Core;
+namespace OdigoApiBundle\Entity\ApiObjects\Core;
 
 /**
  * Class OdigoServiceResponse
- * @package OdigoApiBundle\Entity\Core
+ * @package OdigoApiBundle\Entity\ApiObjects\Core
  */
 class OdigoServiceResponse
 {

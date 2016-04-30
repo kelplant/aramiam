@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\Actions\CreateAgentStruct;
+use OdigoApiBundle\Entity\ApiObjects\Actions\CreateAgentStruct;
 
 /**
  * Class CreateAgentStructFactory

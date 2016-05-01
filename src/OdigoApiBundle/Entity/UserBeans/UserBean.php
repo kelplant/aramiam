@@ -1,19 +1,23 @@
 <?php
-namespace OdigoApiBundle\Entity\ApiObjects\UserBeans;
+namespace OdigoApiBundle\Entity\UserBeans;
 
 /**
  * Class UserBean
- * @package OdigoApiBundle\Entity\ApiObjects\UserBeans
+ * @package OdigoApiBundle\Entity\UserBeans
  */
 class UserBean
 {
     /**
+     * The activeState
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $activeState;
     /**
+     * The agentGroups
+     * Meta informations extracted from the WSDL
      * - maxOccurs : unbounded
      * - minOccurs : 0
      * - nillable : true
@@ -21,6 +25,8 @@ class UserBean
      */
     public $agentGroups;
     /**
+     * The breaks
+     * Meta informations extracted from the WSDL
      * - maxOccurs : unbounded
      * - minOccurs : 0
      * - nillable : true
@@ -28,83 +34,113 @@ class UserBean
      */
     public $breaks;
     /**
+     * The calendarId
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $calendarId;
     /**
+     * The ddiNumber
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $ddiNumber;
     /**
+     * The disruptionDuration
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var int
      */
     public $disruptionDuration;
     /**
+     * The email
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $email;
     /**
+     * The enable2WaysSwitch
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
     public $enable2WaysSwitch;
     /**
+     * The enableCallBack
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
     public $enableCallBack;
     /**
+     * The enableConference
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
     public $enableConference;
     /**
+     * The enableOutCall
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
     public $enableOutCall;
     /**
+     * The enableRecording
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
     public $enableRecording;
     /**
+     * The firstName
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $firstName;
     /**
+     * The languageId
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var int
      */
     public $languageId;
     /**
+     * The loginTel
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $loginTel;
     /**
+     * The name
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $name;
     /**
+     * The password
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
      * @var string
      */
     public $password;
     /**
+     * The skills
+     * Meta informations extracted from the WSDL
      * - maxOccurs : unbounded
      * - minOccurs : 0
      * - nillable : true
@@ -112,6 +148,8 @@ class UserBean
      */
     public $skills;
     /**
+     * The transfertDDIAuthorized
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var boolean
      */
@@ -125,6 +163,8 @@ class UserBean
      */
     public $userId;
     /**
+     * The wrapupTime
+     * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * @var int
      */

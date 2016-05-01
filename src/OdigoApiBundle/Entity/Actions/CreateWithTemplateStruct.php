@@ -1,11 +1,13 @@
 <?php
-namespace OdigoApiBundle\Entity\ApiObjects\Actions;
+namespace OdigoApiBundle\Entity\Actions;
+
+use OdigoApiBundle\Entity\UserBeansWithTemplate\UserBeanWithTemplate;
 
 /**
- * Class DeleteUserStruct
- * @package OdigoApiBundle\Entity\ApiObjects\Actions
+ * Class CreateWithTemplateStruct
+ * @package OdigoApiBundle\Entity\Actions
  */
-class DeleteUserStruct
+class CreateWithTemplateStruct
 {
     /**
      * The wsLogin
@@ -24,25 +26,25 @@ class DeleteUserStruct
      */
     public $wsPassword;
     /**
-     * The userId
+     * The userBean
      * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
-     * @var string
+     * @var UserBeanWithTemplate
      */
-    public $userId;
+    public $userBean;
 
     /**
-     * DeleteUserStruct constructor.
+     * CreateAgentStruct constructor.
      * @param string $wsLogin
      * @param string $wsPassword
-     * @param string $userId
+     * @param UserBeanWithTemplate $userBean
      */
-    public function __construct($wsLogin, $wsPassword, $userId)
+    public function __construct($wsLogin, $wsPassword, UserBeanWithTemplate $userBean)
     {
         $this->wsLogin = $wsLogin;
         $this->wsPassword = $wsPassword;
-        $this->userId = $userId;
+        $this->userBean = $userBean;
     }
 
     /**
@@ -55,7 +57,7 @@ class DeleteUserStruct
 
     /**
      * @param string $wsLogin
-     * @return DeleteUserStruct
+     * @return CreateWithTemplateStruct
      */
     public function setWsLogin($wsLogin)
     {
@@ -73,7 +75,7 @@ class DeleteUserStruct
 
     /**
      * @param string $wsPassword
-     * @return DeleteUserStruct
+     * @return CreateAgentStruct
      */
     public function setWsPassword($wsPassword)
     {
@@ -82,20 +84,20 @@ class DeleteUserStruct
     }
 
     /**
-     * @return string
+     * @return UserBeanWithTemplate
      */
-    public function getUserId()
+    public function getUserBean()
     {
-        return $this->userId;
+        return $this->userBean;
     }
 
     /**
-     * @param string $userId
-     * @return DeleteUserStruct
+     * @param UserBeanWithTemplate $userBean
+     * @return CreateAgentStruct
      */
-    public function setUserId($userId)
+    public function setUserBean($userBean)
     {
-        $this->userId = $userId;
+        $this->userBean = $userBean;
         return $this;
     }
 }

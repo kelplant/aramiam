@@ -1,11 +1,13 @@
 <?php
-namespace OdigoApiBundle\Entity\ApiObjects\Actions;
+namespace OdigoApiBundle\Entity\Actions;
+
+use OdigoApiBundle\Entity\UserBeans\UserBean;
 
 /**
- * Class ExportStruct
- * @package OdigoApiBundle\Entity\ApiObjects\Actions
+ * Class CreateAgentStruct
+ * @package OdigoApiBundle\Entity\Actions
  */
-class ExportStruct
+class CreateAgentStruct
 {
     /**
      * The wsLogin
@@ -24,25 +26,25 @@ class ExportStruct
      */
     public $wsPassword;
     /**
-     * The userId
+     * The userBean
      * Meta informations extracted from the WSDL
      * - minOccurs : 0
      * - nillable : true
-     * @var string
+     * @var UserBean
      */
-    public $userId;
+    public $userBean;
 
     /**
-     * DeleteUserStruct constructor.
+     * CreateAgentStruct constructor.
      * @param string $wsLogin
      * @param string $wsPassword
-     * @param string $userId
+     * @param UserBean $userBean
      */
-    public function __construct($wsLogin, $wsPassword, $userId)
+    public function __construct($wsLogin, $wsPassword, UserBean $userBean)
     {
         $this->wsLogin = $wsLogin;
         $this->wsPassword = $wsPassword;
-        $this->userId = $userId;
+        $this->userBean = $userBean;
     }
 
     /**
@@ -55,7 +57,7 @@ class ExportStruct
 
     /**
      * @param string $wsLogin
-     * @return ExportStruct
+     * @return CreateAgentStruct
      */
     public function setWsLogin($wsLogin)
     {
@@ -73,7 +75,7 @@ class ExportStruct
 
     /**
      * @param string $wsPassword
-     * @return ExportStruct
+     * @return CreateAgentStruct
      */
     public function setWsPassword($wsPassword)
     {
@@ -82,21 +84,20 @@ class ExportStruct
     }
 
     /**
-     * @return string
+     * @return UserBean
      */
-    public function getUserId()
+    public function getUserBean()
     {
-        return $this->userId;
+        return $this->userBean;
     }
 
     /**
-     * @param string $userId
-     * @return ExportStruct
+     * @param UserBean $userBean
+     * @return CreateAgentStruct
      */
-    public function setUserId($userId)
+    public function setUserBean($userBean)
     {
-        $this->userId = $userId;
+        $this->userBean = $userBean;
         return $this;
     }
-
 }

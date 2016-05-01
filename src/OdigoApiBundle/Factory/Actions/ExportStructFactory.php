@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\Actions\ExportStruct;
+use OdigoApiBundle\Entity\Actions\ExportStruct;
 
 /**
  * Class ExportStructFactory
@@ -16,6 +16,10 @@ class ExportStructFactory extends AbstractFactory
      */
     public function createFromEntity($exportStruct)
     {
-        return new ExportStruct($exportStruct['wsLogin'], $exportStruct['wsPassword'], $exportStruct['userId']);
+        return new ExportStruct(
+            $exportStruct['wsLogin'],
+            $exportStruct['wsPassword'],
+            $exportStruct['userId']
+        );
     }
 }

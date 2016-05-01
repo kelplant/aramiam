@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\Actions\CreateAgentStruct;
+use OdigoApiBundle\Entity\Actions\CreateAgentStruct;
 
 /**
  * Class CreateAgentStructFactory
@@ -16,6 +16,10 @@ class CreateAgentStructFactory extends AbstractFactory
      */
     public function createFromEntity($createAgentStruct)
     {
-        return new CreateAgentStruct($createAgentStruct['wsLogin'], $createAgentStruct['wsPassword'], $createAgentStruct['userBean']);
+        return new CreateAgentStruct(
+            $createAgentStruct['wsLogin'],
+            $createAgentStruct['wsPassword'],
+            $createAgentStruct['userBean']
+        );
     }
 }

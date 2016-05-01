@@ -1,9 +1,9 @@
 <?php
-namespace OdigoApiBundle\Entity\ApiObjects\UserBeans;
+namespace OdigoApiBundle\Entity\UserBeans;
 
 /**
  * Class UserSkillBean
- * @package OdigoApiBundle\Entity\ApiObjects\UserBeans
+ * @package OdigoApiBundle\Entity\UserBeans
  */
 class UserSkillBean
 {
@@ -96,4 +96,6 @@ class UserSkillBean
         $this->specialty = $specialty;
         return $this;
     }
+
+
 }

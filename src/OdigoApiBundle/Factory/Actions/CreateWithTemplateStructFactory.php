@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\Actions\CreateWithTemplateStruct;
+use OdigoApiBundle\Entity\Actions\CreateWithTemplateStruct;
 
 /**
  * Class CreateWithTemplateStructFactory
@@ -16,6 +16,10 @@ class CreateWithTemplateStructFactory extends AbstractFactory
      */
     public function createFromEntity($CreateWithTemplateStruct)
     {
-        return new CreateWithTemplateStruct($CreateWithTemplateStruct['wsLogin'], $CreateWithTemplateStruct['wsPassword'], $CreateWithTemplateStruct['userBean']);
+        return new CreateWithTemplateStruct(
+            $CreateWithTemplateStruct['wsLogin'],
+            $CreateWithTemplateStruct['wsPassword'],
+            $CreateWithTemplateStruct['userBean']
+        );
     }
 }

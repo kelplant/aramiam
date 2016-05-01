@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\UserBeansWithTemplate;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\UserBeansWithTemplate\UserSkillBeanWithTemplate;
+use OdigoApiBundle\Entity\UserBeansWithTemplate\UserSkillBeanWithTemplate;
 
 /**
  * Class UserSkillBeanWithTemplateFactory
@@ -16,6 +16,9 @@ class UserSkillBeanWithTemplateFactory extends AbstractFactory
      */
     public function createFromEntity($UserSkillBeanWithTemplate)
     {
-        return new UserSkillBeanWithTemplate($UserSkillBeanWithTemplate['id'], $UserSkillBeanWithTemplate['level']);
+        return new UserSkillBeanWithTemplate(
+            $UserSkillBeanWithTemplate['id'],
+            $UserSkillBeanWithTemplate['level']
+        );
     }
 }

@@ -84,7 +84,7 @@ class OdigoApiService
     private function createOdigoUser($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant, $paramsOdigo, $paramsOdigoWsdl)
     {
         $createWithTemplate = $this->odigoServiceClient->createwithtemplate($paramsOdigo, $this->createWithTemplateArrayForRequest($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant));
-        return $paramsOdigoWsdl[$createWithTemplate];
+        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $createWithTemplate->return, 'message' => $paramsOdigoWsdl[$createWithTemplate->return]));
     }
 
     /**
@@ -96,7 +96,7 @@ class OdigoApiService
     public function deleteOdigoUser($odigoUserId, $paramsOdigo, $paramsOdigoWsdl)
     {
         $delete = $this->odigoServiceClient->delete($paramsOdigo, $odigoUserId);
-        return $paramsOdigoWsdl[$delete];
+        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $delete->return, 'message' => $paramsOdigoWsdl[$delete->return]));
     }
 
     /**
@@ -107,7 +107,7 @@ class OdigoApiService
     public function exportOdigoModifications($paramsOdigo, $paramsOdigoWsdl)
     {
         $export = $this->odigoServiceClient->export($paramsOdigo, $paramsOdigo['login']);
-        return $paramsOdigoWsdl[$export];
+        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $export->return, 'message' => $paramsOdigoWsdl[$export->return]));
     }
 
     /**

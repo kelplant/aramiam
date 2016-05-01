@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\UserBeans;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\UserBeans\UserSkillBean;
+use OdigoApiBundle\Entity\UserBeans\UserSkillBean;
 
 /**
  * Class UserSkillBeanFactory
@@ -16,6 +16,10 @@ class UserSkillBeanFactory extends AbstractFactory
      */
     public function createFromEntity($UserBeanSkillsInfos)
     {
-        return new UserSkillBean($UserBeanSkillsInfos['level'], $UserBeanSkillsInfos['skillKeyword'], $UserBeanSkillsInfos['specialty']);
+        return new UserSkillBean(
+            $UserBeanSkillsInfos['level'],
+            $UserBeanSkillsInfos['skillKeyword'],
+            $UserBeanSkillsInfos['specialty']
+        );
     }
 }

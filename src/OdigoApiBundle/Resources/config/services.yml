@@ -82,6 +82,8 @@ services:
     odigo.factory.export:
         class: '%odigo.factory.export.class%'
         parent: app.factory.abstract
+
+
     odigo.service.client:
         class: '%odigo.service.client.class%'
         arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , "@odigo.factory.deleteuser", "@odigo.factory.export" ]

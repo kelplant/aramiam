@@ -2,7 +2,7 @@
 namespace OdigoApiBundle\Factory\Actions;
 
 use AppBundle\Factory\AbstractFactory;
-use OdigoApiBundle\Entity\ApiObjects\Actions\DeleteUserStruct;
+use OdigoApiBundle\Entity\Actions\DeleteUserStruct;
 
 /**
  * Class DeleteUserStructFactory
@@ -16,6 +16,10 @@ class DeleteUserStructFactory extends AbstractFactory
      */
     public function createFromEntity($deleteUserStruct)
     {
-        return new DeleteUserStruct($deleteUserStruct['wsLogin'], $deleteUserStruct['wsPassword'], $deleteUserStruct['userId']);
+        return new DeleteUserStruct(
+            $deleteUserStruct['wsLogin'],
+            $deleteUserStruct['wsPassword'],
+            $deleteUserStruct['userId']
+        );
     }
 }

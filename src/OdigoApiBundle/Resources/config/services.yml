@@ -86,4 +86,4 @@ services:
 
     odigo.service.client:
         class: '%odigo.service.client.class%'
-        arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , "@odigo.factory.deleteuser", "@odigo.factory.export" ]
+        arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , "@odigo.factory.deleteuser", "@odigo.factory.export", "@core.utilisateur_manager" ]

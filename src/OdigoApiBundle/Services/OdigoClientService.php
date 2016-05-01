@@ -1,6 +1,7 @@
 <?php
 namespace OdigoApiBundle\Services;
 
+use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use OdigoApiBundle\Entity\UserBeans\UserBean;
 use OdigoApiBundle\Entity\UserBeansWithTemplate\UserBeanWithTemplate;
 use OdigoApiBundle\Factory\Actions\CreateAgentStructFactory;
@@ -32,6 +33,9 @@ class OdigoClientService implements OdigoClientServiceInterface
     /** @var ExportStructFactory $exportStructFactory*/
     protected $exportStructFactory;
 
+    /** @var UtilisateurManager $utilisateurManager*/
+    protected $utilisateurManager;
+
     /**
      * OdigoClientService constructor.
      * @param UserBeanFactory $userBeanFactory
@@ -40,8 +44,9 @@ class OdigoClientService implements OdigoClientServiceInterface
      * @param CreateWithTemplateStructFactory $createWithTemplateStructFactory
      * @param DeleteUserStructFactory $deleteUserStructFactory
      * @param ExportStructFactory $exportStructFactory
+     * @param UtilisateurManager $utilisateurManager
      */
-    public function __construct(UserBeanFactory $userBeanFactory, UserBeanWithTemplateFactory $userBeanWithTemplateFactory, CreateAgentStructFactory $createAgentStructFactory, CreateWithTemplateStructFactory $createWithTemplateStructFactory, DeleteUserStructFactory $deleteUserStructFactory, ExportStructFactory $exportStructFactory)
+    public function __construct(UserBeanFactory $userBeanFactory, UserBeanWithTemplateFactory $userBeanWithTemplateFactory, CreateAgentStructFactory $createAgentStructFactory, CreateWithTemplateStructFactory $createWithTemplateStructFactory, DeleteUserStructFactory $deleteUserStructFactory, ExportStructFactory $exportStructFactory, UtilisateurManager $utilisateurManager)
     {
         $this->userBeanFactory = $userBeanFactory;
         $this->userBeanWithTemplateFactory = $userBeanWithTemplateFactory;
@@ -49,6 +54,7 @@ class OdigoClientService implements OdigoClientServiceInterface
         $this->createWithTemplateStructFactory = $createWithTemplateStructFactory;
         $this->deleteUserStructFactory = $deleteUserStructFactory;
         $this->exportStructFactory = $exportStructFactory;
+        $this->utilisateurManager = $utilisateurManager;
     }
 
 
@@ -68,18 +74,13 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function create($parameters, $userBeanInfos)
     {
-        $client = new SoapClient($parameters['url'], array('classmap',array(
-            'createAgent' => 'CreateAgentStruct',
-            'CreateUserBean' => 'UserBean',
-            'CreateUserSkillBean' => 'UserSkillBean',
-        )));
+        $client = new SoapClient($parameters['url'], array('classmap',array('createAgent' => 'CreateAgentStruct', 'CreateUserBean' => 'UserBean', 'CreateUserSkillBean' => 'UserSkillBean')));
         try {
-            $response = $client->createAgent($this->createAgentStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBean($userBeanInfos))));
+            $client->createAgent($this->createAgentStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBean($userBeanInfos))));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur créé correctement dans Odigo'));
+        } catch (SoapFault $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        catch (SoapFault $e) {
-            $response = $e;
-        }
-        return $response;
     }
 
     /**
@@ -98,18 +99,13 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function createwithtemplate($parameters, $userBeanWithTemplateInfos)
     {
-        $client = new SoapClient($parameters['url'],array('classmap', array(
-            'createUserUsingTemplate' => 'CreateWithTemplateStruct',
-            'UserBean' => 'UserBeanWithTemplate',
-            'CreateUserSkillBean' => 'UserSkillBeanWithTemplate',
-        )));
+        $client = new SoapClient($parameters['url'],array('classmap', array('createUserUsingTemplate' => 'CreateWithTemplateStruct', 'UserBean' => 'UserBeanWithTemplate', 'CreateUserSkillBean' => 'UserSkillBeanWithTemplate')));
         try {
-            $response = $client->createUserUsingTemplate($this->createWithTemplateStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBeanWithTemplate($userBeanWithTemplateInfos))));
+            $client->createUserUsingTemplate($this->createWithTemplateStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userBean' => $this->generateUserBeanWithTemplate($userBeanWithTemplateInfos))));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur créé correctement dans Odigo'));
+        } catch (SoapFault $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        catch (SoapFault $e) {
-            $response = $e;
-        }
-        return $response;
     }
 
     /**
@@ -119,16 +115,13 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function delete($parameters, $userId)
     {
-        $client = new SoapClient($parameters['url'], array('classmap',array(
-            'deleteUser' => 'DeleteUserStruct',
-        )));
+        $client = new SoapClient($parameters['url'], array('classmap',array('deleteUser' => 'DeleteUserStruct')));
         try {
-            $response = $client->deleteUser($this->deleteUserStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $client->deleteUser($this->deleteUserStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur '.$userId.' supprimé correctement dans Odigo'));
+        } catch (SoapFault $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        catch (SoapFault $e) {
-            $response = $e;
-        }
-        return $response;
     }
 
     /**
@@ -138,15 +131,12 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function export($parameters, $userId)
     {
-        $client = new SoapClient($parameters['url'],array('classmap', array(
-            'Export' => 'ExportStruct',
-        )));
+        $client = new SoapClient($parameters['url'],array('classmap', array('Export' => 'ExportStruct')));
         try {
-            $response = $client->export($this->exportStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $client->export($this->exportStructFactory->createFromEntity(array('wsLogin' => $parameters['login'],'wsPassword' => $parameters['password'],'userId' => $userId)));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Export Odigo Ok'));
+        } catch (SoapFault $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        catch (SoapFault $e) {
-            $response = $e;
-        }
-        return $response;
     }
 }

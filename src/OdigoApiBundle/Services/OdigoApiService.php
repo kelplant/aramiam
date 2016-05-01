@@ -2,7 +2,6 @@
 namespace OdigoApiBundle\Services;
 
 use GoogleApiBundle\Services\GoogleApiService;
-use OdigoApiBundle\Services\OdigoClientService;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
@@ -83,36 +82,30 @@ class OdigoApiService
      * @param $odigoFonction
      * @param $odigoIdentfiant
      * @param $paramsOdigo
-     * @param $paramsOdigoWsdl
      * @return mixed
      */
-    private function createOdigoUser($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant, $paramsOdigo, $paramsOdigoWsdl)
+    private function createOdigoUser($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant, $paramsOdigo)
     {
-        $createWithTemplate = $this->odigoServiceClient->createwithtemplate($paramsOdigo, $this->createWithTemplateArrayForRequest($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant));
-        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $createWithTemplate->return, 'message' => $paramsOdigoWsdl[$createWithTemplate->return]));
+        $this->odigoServiceClient->createwithtemplate($paramsOdigo, $this->createWithTemplateArrayForRequest($odigoTel, $redirectTel, $prenom, $email, $nom, $generalPassword, $odigoService, $odigoFonction, $odigoIdentfiant));
     }
 
     /**
      * @param $odigoUserId
      * @param $paramsOdigo
-     * @param $paramsOdigoWsdl
      * @return mixed
      */
-    public function deleteOdigoUser($odigoUserId, $paramsOdigo, $paramsOdigoWsdl)
+    public function deleteOdigoUser($odigoUserId, $paramsOdigo)
     {
-        $delete = $this->odigoServiceClient->delete($paramsOdigo, $odigoUserId);
-        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $delete->return, 'message' => $paramsOdigoWsdl[$delete->return]));
+        $this->odigoServiceClient->delete($paramsOdigo, $odigoUserId);
     }
 
     /**
      * @param $paramsOdigo
-     * @param $paramsOdigoWsdl
      * @return mixed
      */
-    public function exportOdigoModifications($paramsOdigo, $paramsOdigoWsdl)
+    public function exportOdigoModifications($paramsOdigo)
     {
-        $export = $this->odigoServiceClient->export($paramsOdigo, $paramsOdigo['login']);
-        $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $export->return, 'message' => $paramsOdigoWsdl[$export->return]));
+        $this->odigoServiceClient->export($paramsOdigo, $paramsOdigo['login']);
     }
 
     /**
@@ -135,13 +128,12 @@ class OdigoApiService
      * @param $isCreateInOdigo
      * @param $request
      * @param $paramsOdigo
-     * @param $paramsOdigoWsdl
      */
-    public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsOdigoWsdl, $paramsGoogle)
+    public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsGoogle)
     {
         if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
-            $this->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant'], $paramsOdigo, $paramsOdigoWsdl);
-            $this->exportOdigoModifications($paramsOdigo, $paramsOdigoWsdl);
+            $this->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant'], $paramsOdigo);
+            $this->exportOdigoModifications($paramsOdigo);
             $return = $this->prosodieOdigoManager->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));
             $this->utilisateurManager->setIsCreateInOdigo($request->request->get('utilisateur')['id'], $return['item']->getId());
             $this->odigoTelListeManager->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);

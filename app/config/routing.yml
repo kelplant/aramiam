@@ -26,6 +26,6 @@ app_bundle:
     resource: "@AppBundle/Resources/config/routing.yml"
     prefix:   /
 
-mailer_bundel:
+mailer_bundle:
     resource: "@MailerBundle/Resources/config/routing.yml"
     prefix:   /

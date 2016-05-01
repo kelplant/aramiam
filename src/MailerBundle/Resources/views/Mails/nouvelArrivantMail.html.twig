@@ -11,9 +11,13 @@ Bonjour {{ userInfos.viewName }}<br>
     <br>
     Vous trouverez ci dessous les logins d'accès à nos différents applicatifs
 </p>
-- Votre numéro de contact client Prosodie : {{ odigoUserInfos.odigo_phone_number }}<br>
-- Votre numéro de poste fixe : {{ odigoUserInfos.redirect_phone_number }}
-
+{% if odigoUserInfos.odigoPhoneNumber is defined %}
+- Votre numéro de contact client Prosodie : {{ odigoUserInfos.odigoPhoneNumber }}<br>
+{% endif %}
+{% if odigoUserInfos.redirectPhoneNumber is defined %}
+- Votre numéro de poste fixe : {{ odigoUserInfos.redirectPhoneNumber }}
+{% endif %}
+{% if userInfos.isCreateInWindows != 0 %}
 <p>
     <b>Votre Sessions Windows (Ouverture du pc):</b><br>
     <br>
@@ -22,6 +26,8 @@ Bonjour {{ userInfos.viewName }}<br>
     <br>
     <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
 </p>
+{% endif %}
+{% if userInfos.isCreateInGmail != 0 %}
 <p>
     <b>Accès gmail :</b><br>
     <br>
@@ -31,6 +37,8 @@ Bonjour {{ userInfos.viewName }}<br>
     <br>
     <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
 </p>
+{% endif %}
+{% if userInfos.isCreateInRobusto != 0 %}
 <p>
     <b>Accès ROBUSTO :</b><br>
     <br>
@@ -40,6 +48,8 @@ Bonjour {{ userInfos.viewName }}<br>
     <br>
     <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
 </p>
+{% endif %}
+{% if userInfos.isCreateInSalesforce != 0 %}
 <p>
     <b>Accès Salesforce :</b><br>
     <br>
@@ -49,7 +59,8 @@ Bonjour {{ userInfos.viewName }}<br>
     <br>
     <i>Ce mot de passe est le même que Robusto. Si vous changez votre mot depasse via Robusto, il sera également automatiquement changé sur Salesforce</i>
 </p>
-<br>
+{% endif %}
+{% if userInfos.isCreateInOdigo != 0 %}
 <p>
     <b>Accès Odigo :</b><br>
     <br>
@@ -58,7 +69,7 @@ Bonjour {{ userInfos.viewName }}<br>
     - Adresse Internet : <a href="http://odigo5.prosodie.com/aramis-auto/">http://odigo5.prosodie.com/aramis-auto/</a><br>
     <br>
 </p>
-<br>
+{% endif %}
 <p>
     <b>Informations Complémentaires :</b><br>
     1) Inscription à Yammer (Il suffit de mettre votre adresse @aramisauto) : <a href ="https://www.yammer.com/aramisauto.com/?show_signup=true">Yammer</a><br>

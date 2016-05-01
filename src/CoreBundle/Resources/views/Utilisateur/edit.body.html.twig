@@ -61,16 +61,14 @@
                             <div class="form-group">
                                 {{ form_label(formEdit.mainPassword) }}
                                 {{ form_errors(formEdit.mainPassword) }}
-                                <div class="col-sm-5">
+                                <div class="col-sm-4">
                                     {% if is_archived == "0" %}{{ form_widget(formEdit.mainPassword) }}{% endif %}
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.mainPassword, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-4">
                                     <button type="button" onclick="replaceT('form-edit');" class="btn btn-default" title="Voir Password">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </button>
-                                </div>
-                                <div class="col-sm-1">
                                     <button type="button" onclick="generatePassword('form-edit');" class="btn btn-default" title="Générer un Password">
                                         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                                     </button>
@@ -256,7 +254,15 @@
                 </div>
                 <div class="modal-footer">
                     {% if is_archived != "2" %}
-                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">Fermer</button>
+                        <button type="button" class="btn btn-danger" onclick="ajaxSendEmailToSalarieAndInfoRecrut();">
+                            <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos aux Responsables
+                        </button>
+                        <button type="button" class="btn btn-info" onclick="ajaxSendEmailToSalarie();">
+                            <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos au Salarié
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Fermer
+                        </button>
                         {% if is_granted("ROLE_ADMIN") %}
                             {% if is_archived == "1" %}
                                 <input type="hidden" name="isArchived" value="1">
@@ -264,7 +270,9 @@
                             {% endif %}
                         {% endif %}
                         {% if is_archived == "0" %}
-                            <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                            <button type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                                <span class="glyphicon glyphicon-floppy-save"></span> Sauvegarder
+                            </button>
                         {% endif %}
                     {% endif %}
                 </div >

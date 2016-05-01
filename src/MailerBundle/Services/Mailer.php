@@ -42,6 +42,7 @@ class Mailer
      * @param $to
      * @param $subject
      * @param $body
+     * @return int
      */
     private function sendMessage($to, $subject, $body)
     {
@@ -52,22 +53,27 @@ class Mailer
             ->setSubject($subject)
             ->setBody($body)
             ->setContentType('text/html');
-        $this->mailer->send($mail);
-        die();
+        return $this->mailer->send($mail);
     }
 
     /**
      * @param $numUser
+     * @param $to
+     * @return int
      */
-    public function sendInfosMessage($numUser)
+    public function sendInfosMessage($numUser, $to)
     {
         $userInfos = $this->utilisateurManager->createArray($numUser);
+        if ($to == '1') {
+            $to = $userInfos['email'];
+        } else {
+            $to = '';
+        }
         $subject = 'Identidiants pour '.$userInfos['viewName'];
-        $to = 'kelplant@gmail.com';
         $body = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
             'userInfos' => $userInfos,
             'odigoUserInfos' => $this->odigoManager->createArrayByUser($numUser),
             ));
-        $this->sendMessage($to, $subject, $body);
+        return $this->sendMessage($to, $subject, $body);
     }
 }

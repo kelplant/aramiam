@@ -100,6 +100,25 @@ class GoogleApiService
     }
 
     /**
+     * @param $params
+     * @param $user
+     * @param $newAlias
+     * @return \Google_Service_Directory_Alias
+     */
+    public function addAliasToUser($params, $user, $newAlias)
+    {
+        $service = $this->innitApi($params);
+        $alias = new \Google_Service_Directory_Alias();
+        $alias->setAlias($newAlias);
+        try {
+            $service->users_aliases->insert($user, $alias);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\alias '.$newAlias.' a été ajouté correctement'));
+        } catch (Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+
+    /**
      * @param $service
      * @param $userToCreate
      * @return mixed

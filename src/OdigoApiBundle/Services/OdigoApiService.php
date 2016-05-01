@@ -1,6 +1,7 @@
 <?php
 namespace OdigoApiBundle\Services;
 
+use GoogleApiBundle\Services\GoogleApiService;
 use OdigoApiBundle\Services\OdigoClientService;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
@@ -29,6 +30,8 @@ class OdigoApiService
 
     protected $odigoServiceClient;
 
+    protected $googleApiService;
+
     /**
      * OdigoApiService constructor.
      * @param UtilisateurManager $utilisateurManager
@@ -38,8 +41,9 @@ class OdigoApiService
      * @param ServiceManager $serviceManager
      * @param FonctionManager $fonctionManager
      * @param OdigoClientService $odigoServiceClient
+     * @param GoogleApiService $googleApiService
      */
-    public function __construct($utilisateurManager, $odigoTelListeManager, $orangeTelListeManager, $prosodieOdigoManager, $serviceManager, $fonctionManager, $odigoServiceClient)
+    public function __construct($utilisateurManager, $odigoTelListeManager, $orangeTelListeManager, $prosodieOdigoManager, $serviceManager, $fonctionManager, $odigoServiceClient, $googleApiService)
     {
         $this->utilisateurManager = $utilisateurManager;
         $this->odigoTelListeManager = $odigoTelListeManager;
@@ -48,6 +52,7 @@ class OdigoApiService
         $this->serviceManager = $serviceManager;
         $this->fonctionManager = $fonctionManager;
         $this->odigoServiceClient = $odigoServiceClient;
+        $this->googleApiService = $googleApiService;
     }
 
     /**
@@ -132,7 +137,7 @@ class OdigoApiService
      * @param $paramsOdigo
      * @param $paramsOdigoWsdl
      */
-    public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsOdigoWsdl)
+    public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsOdigoWsdl, $paramsGoogle)
     {
         if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
             $this->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant'], $paramsOdigo, $paramsOdigoWsdl);
@@ -140,6 +145,7 @@ class OdigoApiService
             $return = $this->prosodieOdigoManager->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));
             $this->utilisateurManager->setIsCreateInOdigo($request->request->get('utilisateur')['id'], $return['item']->getId());
             $this->odigoTelListeManager->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);
+            $this->googleApiService->addAliasToUser($paramsGoogle, $request->request->get('utilisateur')['email'], $request->request->get('prosodie')['numProsodie'].'@aramisauto.com');
         }
     }
 }

@@ -25,31 +25,11 @@ class UserBeanFactory extends AbstractFactory
     public function createFromEntity($userBeanInfos)
     {
         return  (new UserBean(
-            $userBeanInfos['activeState'],
-            $userBeanInfos['agentGroups'],
-            $userBeanInfos['breaks'],
-            $userBeanInfos['calendarId'],
-            $userBeanInfos['ddiNumber'],
-            $userBeanInfos['disruptionDuration'],
-            $userBeanInfos['email'],
-            $userBeanInfos['enable2WaysSwitch'],
-            $userBeanInfos['enableCallBack'],
-            $userBeanInfos['enableConference'],
-            $userBeanInfos['enableOutCall'],
-            $userBeanInfos['enableRecording'],
-            $userBeanInfos['firstName'],
-            $userBeanInfos['languageId'],
-            $userBeanInfos['loginTel'],
-            $userBeanInfos['name'],
-            $userBeanInfos['password'],
-            $this->userSkillBeanFactory->createFromEntity(array(
-                'level' => $userBeanInfos['level'],
-                'skillKeyword' => $userBeanInfos['skillKeyword'],
-                'specialty' => $userBeanInfos['specialty'],
-            )),
-            $userBeanInfos['transfertDDIAuthorized'],
-            $userBeanInfos['userId'],
-            $userBeanInfos['wrapupTime']
+            $userBeanInfos['activeState'], $userBeanInfos['agentGroups'], $userBeanInfos['breaks'], $userBeanInfos['calendarId'], $userBeanInfos['ddiNumber'], $userBeanInfos['disruptionDuration'],
+            $userBeanInfos['email'], $userBeanInfos['enable2WaysSwitch'], $userBeanInfos['enableCallBack'], $userBeanInfos['enableConference'], $userBeanInfos['enableOutCall'], $userBeanInfos['enableRecording'],
+            $userBeanInfos['firstName'], $userBeanInfos['languageId'], $userBeanInfos['loginTel'], $userBeanInfos['name'], $userBeanInfos['password'],
+            $this->userSkillBeanFactory->createFromEntity(array('level' => $userBeanInfos['level'], 'skillKeyword' => $userBeanInfos['skillKeyword'], 'specialty' => $userBeanInfos['specialty'])),
+            $userBeanInfos['transfertDDIAuthorized'], $userBeanInfos['userId'], $userBeanInfos['wrapupTime']
         ));
     }
 }

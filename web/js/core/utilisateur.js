@@ -56,6 +56,15 @@ function ajaxUtilisateurEdit(editItem)
     }});
 }
 
+// Fonction d'envoi d'email au salarié
+function ajaxSendEmailToSalarie()
+{
+    urlajax ="/ajax/send/mail/to_user/"+localStorage.getItem("currentEditItem");
+    $.ajax({
+        url:urlajax,success:function(result) {
+        }});
+}
+
 // Fonction de chargement du bloc Windows
 function ajaxGenerateWindows()
 {
@@ -198,6 +207,21 @@ function ajaxGenerateEmail()
                         $('#createActionGmailPart').addClass('show').removeClass('hide');
                     }
                 });
+            }
+            else {
+                var i;
+                var textToAppend = 'L\'Utilisateur possède un compte Gmail<br>';
+                textToAppend += '<br>Compte Principal : '+result.primaryEmail+'<br>';
+                textToAppend += '<br>Alias :';
+                for (i in result.emails)
+                {
+                    console.log(result.emails[i]);
+                    textToAppend += '<br> - '+result.emails[i].address;
+                }
+                console.dir(result);
+                document.getElementById("createActionGmailPart").innerHTML = textToAppend;
+                $('#loading').addClass('hide').removeClass('show');
+                $('#createActionGmailPart').addClass('show').removeClass('hide');
             }
         }
     });

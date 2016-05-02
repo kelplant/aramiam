@@ -1,5 +1,7 @@
 {% extends 'AppBundle:Default:items.view.html.twig' %}
     {% block title %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
+    {% block title2 %} Candidats {% endblock %}
+    {% block title3 %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
     {% block breadcrumb %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
     {% block corps_table_title %}
         <th class="admin_cat_table_title">Nom Prénom</th>
@@ -59,5 +61,5 @@
     {% endblock %}
 
     {% block javascripts %}
-
+        <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     {% endblock %}

@@ -71,6 +71,20 @@ class IndexControllerService extends AbstractControllerService
     }
 
     /**
+     * @param $checkDate
+     * @return string
+     */
+    public function colorForCandidatSlider($checkDate)
+    {
+        if ($today = date("Y-m-d", time() + 604800 ) < $checkDate)
+        {
+            return 'green';
+        } else {
+            return 'red';
+        }
+    }
+
+    /**
      * @param $isArchived
      * @param $formAdd
      * @param $formEdit
@@ -81,6 +95,7 @@ class IndexControllerService extends AbstractControllerService
         $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
+        $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render(explode("\\", $this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
             'all' => $allItems,
@@ -88,9 +103,12 @@ class IndexControllerService extends AbstractControllerService
             'alert_text' => $this->alertText,
             'is_archived' => $isArchived,
             'entity' => strtolower($this->checkFormEntity($this->entity)),
+            'nb_candidat' => count($candidatListe),
+            'candidat_color' => $this->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'formAdd' => $formAdd->createView(),
             'formEdit' => $formEdit->createView(),
-            'session_messaging'=> $session_messaging,
+            'session_messaging' => $session_messaging,
+            'currentUserInfos' => $this->get('security.token_storage')->getToken()->getUser(),
         ));
     }
 

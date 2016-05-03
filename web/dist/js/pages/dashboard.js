@@ -1,12 +1,4 @@
-/*
- * Author: Abdullah A Almsaeed
- * Date: 4 Jan 2014
- * Description:
- *      This is a demo file used only for the main dashboard (index.html)
- **/
-
 $(function () {
-
   "use strict";
 
   //jQuery UI sortable for the todo list
@@ -15,75 +7,6 @@ $(function () {
     handle: ".handle",
     forcePlaceholderSize: true,
     zIndex: 999999
-  });
-
-  /* jQueryKnob */
-  $(".knob").knob();
-
-  //jvectormap data
-  var visitorsData = {
-    "US": 398, //USA
-    "SA": 400, //Saudi Arabia
-    "CA": 1000, //Canada
-    "DE": 500, //Germany
-    "FR": 760, //France
-    "CN": 300, //China
-    "AU": 700, //Australia
-    "BR": 600, //Brazil
-    "IN": 800, //India
-    "GB": 320, //Great Britain
-    "RU": 3000 //Russia
-  };
-  //World map by jvectormap
-  $('#world-map').vectorMap({
-    map: 'world_mill_en',
-    backgroundColor: "transparent",
-    regionStyle: {
-      initial: {
-        fill: '#e4e4e4',
-        "fill-opacity": 1,
-        stroke: 'none',
-        "stroke-width": 0,
-        "stroke-opacity": 1
-      }
-    },
-    series: {
-      regions: [{
-        values: visitorsData,
-        scale: ["#92c1dc", "#ebf4f9"],
-        normalizeFunction: 'polynomial'
-      }]
-    },
-    onRegionLabelShow: function (e, el, code) {
-      if (typeof visitorsData[code] != "undefined")
-        el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
-    }
-  });
-
-  //Sparkline charts
-  var myvalues = [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021];
-  $('#sparkline-1').sparkline(myvalues, {
-    type: 'line',
-    lineColor: '#92c1dc',
-    fillColor: "#ebf4f9",
-    height: '50',
-    width: '80'
-  });
-  myvalues = [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921];
-  $('#sparkline-2').sparkline(myvalues, {
-    type: 'line',
-    lineColor: '#92c1dc',
-    fillColor: "#ebf4f9",
-    height: '50',
-    width: '80'
-  });
-  myvalues = [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21];
-  $('#sparkline-3').sparkline(myvalues, {
-    type: 'line',
-    lineColor: '#92c1dc',
-    fillColor: "#ebf4f9",
-    height: '50',
-    width: '80'
   });
 
   //The Calender
@@ -95,76 +18,39 @@ $(function () {
       m = date.getMonth(),
       y = date.getFullYear();
 
-  $('#calendar').fullCalendar({
-    lang: 'fr',
-    weekNumbers: true,
-    aspectRatio: 1.4,
-    editable: false,
-    droppable: false,
-    fixedWeekCount: false,
-    eventMouseover: function( event, jsEvent, view ) {
-      alert('a day has been clicked!');
-    },
-    eventClick: function() {
-      alert('a day has been clicked!');
-    },
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-    },
-    buttonText: {
-      today: 'Aujourd\'hui',
-      month: 'Mois',
-      week: 'Année',
-      day: 'Jour'
-    },
-    //Random default events
-    events: [
-      {
-        title: 'All Day Event',
-        start: new Date(y, m, 1),
-        backgroundColor: "#f56954", //red
-        borderColor: "#f56954" //red
-      },
-      {
-        title: 'Long Event',
-        start: new Date(y, m, d - 5),
-        end: new Date(y, m, d - 2),
-        backgroundColor: "#f39c12", //yellow
-        borderColor: "#f39c12" //yellow
-      },
-      {
-        title: 'Meeting',
-        start: new Date(y, m, d, 10, 30),
-        allDay: false,
-        backgroundColor: "#0073b7", //Blue
-        borderColor: "#0073b7" //Blue
-      },
-      {
-        title: 'Lunch',
-        start: new Date(y, m, d, 12, 0),
-        end: new Date(y, m, d, 14, 0),
-        allDay: false,
-        backgroundColor: "#00c0ef", //Info (aqua)
-        borderColor: "#00c0ef" //Info (aqua)
-      },
-      {
-        title: 'Birthday Party',
-        start: new Date(y, m, d + 1, 19, 0),
-        end: new Date(y, m, d + 1, 22, 30),
-        allDay: false,
-        backgroundColor: "#00a65a", //Success (green)
-        borderColor: "#00a65a" //Success (green)
-      },
-      {
-        title: 'Click for Google',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        url: 'http://google.com/',
-        backgroundColor: "#3c8dbc", //Primary (light-blue)
-        borderColor: "#3c8dbc" //Primary (light-blue)
-      }
-    ]
+  var urlajax = "/ajax/dashboard/get/candidat_todo_liste";
+  $.ajax({
+    url: urlajax, success: function (result) {
+      $('#calendar').fullCalendar({
+        lang: 'fr',
+        weekends: false,
+        height: 750,
+        hiddenDays: [ 7 ],
+        weekNumbers: true,
+        aspectRatio: 1.4,
+        editable: false,
+        droppable: false,
+        fixedWeekCount: false,
+        eventMouseover: function( event, jsEvent, view ) {
+          this.style.cursor='pointer';
+        },
+        eventClick: function( event, jsEvent, view ) {
+          localStorage.setItem("currentCandidatToView", event.id)
+          window.location = "/admin/candidat?isArchived=0";
+        },
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+        },
+        buttonText: {
+          today: 'Aujourd\'hui',
+          month: 'Mois',
+          week: 'Année',
+          day: 'Jour'
+        },
+        events: result
+      });
+    }
   });
 
   /* ADDING EVENTS */
@@ -198,8 +84,6 @@ $(function () {
     //Remove event from text input
     $("#new-event").val("");
   });
-
-
 
   /* Morris.js Charts */
   // Sales chart
@@ -244,3 +128,11 @@ $(function () {
     }
   });
 });
+
+
+// Lastest Member link function
+function goToUserEdit(editItem)
+{
+    localStorage.setItem("currentEditItem", editItem);
+    window.location = "/admin/utilisateur?isArchived=0";
+}

@@ -12,19 +12,19 @@ abstract class AbstractPerson
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=100))
      */
-    protected $surname;
+    public $surname;
 
     /**
      * @var string
@@ -36,7 +36,7 @@ abstract class AbstractPerson
      * @var DateTime
      * @ORM\Column(type="date")
      */
-    protected $startDate;
+    public $startDate;
 
     /**
      * @var string
@@ -48,25 +48,25 @@ abstract class AbstractPerson
      * @var string
      * @ORM\Column(type="integer"), length=10))
      */
-    protected $agence;
+    public $agence;
 
     /**
      * @var string
      * @ORM\Column(type="integer", length=10))
      */
-    protected $service;
+    public $service;
 
     /**
      * @var string
      * @ORM\Column(type="integer", length=10))
      */
-    protected $fonction;
+    public $fonction;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=30))
      */
-    protected $statusPoste;
+    public $statusPoste;
 
     /**
      * @var string

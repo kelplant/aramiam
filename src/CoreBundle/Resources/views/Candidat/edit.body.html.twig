@@ -3,7 +3,7 @@
         <div class="modal-content">
             <form action="{{ path( 'form_exec_edit_candidat' ) }}" method="post" class="form-horizontal" id="form-edit">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" onclick="resetEditItem();" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title font_exo_2" id="myModalLabel">{% if is_archived != "2" %}Edition d'un candidat{% endif %}{% if is_archived == "2" %}Voir un Candidat Transformé{% endif %}</h4>
                 </div>
                 <div class="modal-body">
@@ -125,7 +125,7 @@
                 </div>
                 {% if is_archived != "2" %}
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="resetEditItem();">Fermer</button>
                         {% if is_granted("ROLE_SUPER_ADMIN") %}
                             {% if is_archived == "0" %}
                                 <input type="submit" class="btn btn-info" name="sendAction" value="Sauver et Transformer">

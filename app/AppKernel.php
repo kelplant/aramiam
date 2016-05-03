@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new SalesforceApiBundle\SalesforceApiBundle(),
             new AramisApiBundle\AramisApiBundle(),
             new MailerBundle\MailerBundle(),
+            new DashboardBundle\DashboardBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

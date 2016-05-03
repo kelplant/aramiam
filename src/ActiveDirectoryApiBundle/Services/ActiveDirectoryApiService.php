@@ -163,7 +163,7 @@ class ActiveDirectoryApiService
      */
     public function ifWindowsCreate($sendaction, $isCreateInWindows, $request, $paramsAD)
     {
-        if ($sendaction == "Créer Session Windows" && $isCreateInWindows == 0) {
+        if ($sendaction == "Créer Session Windows" && $isCreateInWindows == null) {
             $dn_user = 'CN='.$request->request->get('utilisateur')['viewName'].','.$this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
             $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->createUser($paramsAD, $dn_user, $ldaprecord);

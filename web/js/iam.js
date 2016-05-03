@@ -275,3 +275,10 @@ function reloadGroupFromGoogle()
         }
     });
 }
+
+// Recherche sur homepage
+function filterGlobal () {
+    $('#bootstrap-todo').DataTable().search(
+        $('#global_filter').val()
+    ).draw();
+}

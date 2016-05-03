@@ -4,13 +4,15 @@ namespace AppBundle\Security\User;
 
 use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
+use GoogleApiBundle\Services\GoogleApiService;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\User\UserCreatorInterface;
 use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class UserCreator implements UserCreatorInterface
+class UserCreator extends Controller implements UserCreatorInterface
 {
     /** @var ObjectManager */
     private $objectManager;
@@ -18,14 +20,19 @@ class UserCreator implements UserCreatorInterface
     /** @var UsernameMapperInterface */
     private $usernameMapper;
 
+    /** @var GoogleApiService */
+    private $googleApiService;
+
     /**
      * @param ObjectManager           $objectManager
      * @param UsernameMapperInterface $usernameMapper
+     * @param GoogleApiService        $googleApiService
      */
-    public function __construct($objectManager, $usernameMapper)
+    public function __construct($objectManager, $usernameMapper, $googleApiService)
     {
         $this->objectManager = $objectManager;
         $this->usernameMapper = $usernameMapper;
+        $this->googleApiService = $googleApiService;
     }
 
     /**
@@ -50,6 +57,7 @@ class UserCreator implements UserCreatorInterface
         } else {
             $role = ['ROLE_USER'];
         }
+        $googlePhotoUser = $this->googleApiService->getPhotoOfUser($this->getParameter('google_api'), 'xavier.arroues@aramisauto.com');
 
         $user = new User();
         $user
@@ -58,6 +66,8 @@ class UserCreator implements UserCreatorInterface
             ->setEmail($email)
             ->setDn($dn)
             ->setDisplayName($displayName)
+            ->setPhoto($googlePhotoUser->getPhotoData())
+            ->setPhotoMineType($googlePhotoUser->getMimeType())
         ;
         $this->objectManager->persist($user);
         $this->objectManager->flush();

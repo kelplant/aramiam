@@ -131,7 +131,7 @@ class OdigoApiService
      */
     public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsGoogle)
     {
-        if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == 0) {
+        if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == null) {
             $this->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant'], $paramsOdigo);
             $this->exportOdigoModifications($paramsOdigo);
             $return = $this->prosodieOdigoManager->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));

@@ -1,0 +1,23 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Derniers Comptes créés</h3>
+        <div class="box-tools pull-right">
+            <span class="label label-danger">{% if countNewUser != 0 %}{{ countNewUser }} Nouveaux{% endif %}</span>
+        </div>
+    </div>
+    <div class="box-body no-padding">
+        <ul class="users-list clearfix">
+            {% for user in lastest_members %}
+                <li>
+                    <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                    <a class="users-list-name" href="{{ path('form_exec_edit_utilisateur') }}">{{ user.viewName }}</a>
+                    <span class="users-list-date">{{ user.startDate }}</span>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <div class="box-footer text-center">
+        <a href="{{ path('liste_des_utilisateurs') }}" class="uppercase">Voir tous les Utilisateurs</a>
+    </div>
+</div>

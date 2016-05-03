@@ -101,7 +101,7 @@ class SalesforceApiUserService
      */
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
-        if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == 0) {
+        if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == null) {
             $paramsForSalesforceApi = $this->parametersManager->getAllAppParams('salesforce_api');
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
             $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'], $paramsForSalesforceApi["salesforce_odigo_cti_id"]);

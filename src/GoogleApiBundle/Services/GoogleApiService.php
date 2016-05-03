@@ -69,6 +69,14 @@ class GoogleApiService
     }
 
     /**
+     * @param $data
+     * @return string
+     */
+    public function base64safeToBase64($data) {
+        return str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT);
+    }
+
+    /**
      * @param $userToCreate
      * @return Google_Service_Directory_User
      */
@@ -149,6 +157,16 @@ class GoogleApiService
     }
 
     /**
+     * @param $params
+     * @param $email
+     * @return \Google_Service_Directory_UserPhoto
+     */
+    public function getPhotoOfUser($params, $email)
+    {
+        return $this->innitApi($params)->users_photos->get($email);
+    }
+
+    /**
      * @param $userToCreate
      * @param $params
      */
@@ -182,7 +200,7 @@ class GoogleApiService
      */
     public function ifGmailCreate($sendaction, $isCreateInGmail, $request, $params)
     {
-        if ($sendaction == "Créer sur Gmail" && $isCreateInGmail == 0) {
+        if ($sendaction == "Créer sur Gmail" && $isCreateInGmail == null) {
             $this->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']), $params);
             $this->utilisateurManager->setEmail($request->request->get('utilisateur')['id'], $request->request->get('genEmail'));
         }

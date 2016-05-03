@@ -2,9 +2,9 @@
     <section class="sidebar">
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <input type="text" name="q" id="global_filter" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
             </div>
@@ -12,7 +12,7 @@
         <ul class="sidebar-menu">
             {% if is_granted("ROLE_ADMIN") %}
                 <li class="header font_exo_2">MAIN NAVIGATION</li>
-                <li class="treeview" id="Candidats">
+                <li class="treeview {% if 'candidat' in app.request.get('_route') == true %} active {%  endif %}" id="Candidats">
                     <a href="#">
                         <i class="fa fa-user"></i>
                         <span class="font_exo_2">Candidats</span>
@@ -33,7 +33,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li class="treeview" id="Utilisateurs">
+                <li class="treeview {% if 'utilisateur' in app.request.get('_route') == true %} active {%  endif %}" id="Utilisateurs">
                     <a href="#">
                         <i class="fa fa-user"></i> <span class="font_exo_2">Utilisateurs</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -44,7 +44,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_ADMIN") %}
-                <li class="treeview" id="Divers">
+                <li class="treeview {% if app.request.get('_route') in ['form_exec_add_service', 'form_exec_add_fonction', 'form_exec_add_agence', 'form_exec_add_entiteholding', 'form_exec_edit_service', 'form_exec_edit_fonction', 'form_exec_edit_agence', 'form_exec_edit_entiteholding', 'liste_des_agences', 'liste_des_services', 'liste_des_fonctions', 'liste_des_entites_holding'] == true %} active {%  endif %}" id="Divers">
                     <a href="#">
                         <i class="fa fa-home"></i> <span class="font_exo_2">Divers</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -65,7 +65,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li class="treeview" id="Odigo">
+                <li class="treeview {% if 'orange' in app.request.get('_route') == true %} active {%  endif %} {% if 'odigo' in app.request.get('_route') == true %} active {%  endif %}" id="Odigo">
                     <a href="#">
                         <i class="fa fa-phone"></i> <span class="font_exo_2">Odigo</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -80,7 +80,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li class="treeview" id="Salesforce">
+                <li class="treeview {% if 'salesforce' in app.request.get('_route') == true %} active {%  endif %}" id="Salesforce">
                     <a href="#">
                         <i class="fa fa-sellsy"></i> <span class="font_exo_2">Salesforce</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -98,7 +98,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li class="treeview" id="ActiveDirectory">
+                <li class="treeview {% if 'active_directory' in app.request.get('_route') == true %} active {%  endif %}" id="ActiveDirectory">
                     <a href="#">
                         <i class="fa fa-windows"></i> <span class="font_exo_2">Active Directory</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -113,7 +113,7 @@
                 </li>
             {% endif %}
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <li class="treeview" id="Google">
+                <li class="treeview {% if 'google' in app.request.get('_route') == true %} active {%  endif %}" id="Google">
                     <a href="#">
                         <i class="fa fa-google"></i> <span class="font_exo_2">Google</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>

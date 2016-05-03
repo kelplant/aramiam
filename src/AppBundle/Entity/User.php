@@ -1,5 +1,4 @@
 <?php
-// AppBundle/Entity/User.php
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -37,6 +36,7 @@ class User implements UserInterface, \Serializable
     protected $email;
 
     /**
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $dn;
@@ -46,6 +46,18 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json_array")
      */
     protected $roles;
+
+    /**
+     * @var resource
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    protected $photo;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $photoMineType;
 
     /**
      * @return int
@@ -152,6 +164,42 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = $roles;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     * @return User
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoMineType()
+    {
+        return $this->photoMineType;
+    }
+
+    /**
+     * @param mixed $photoMineType
+     * @return User
+     */
+    public function setPhotoMineType($photoMineType)
+    {
+        $this->photoMineType = $photoMineType;
         return $this;
     }
 

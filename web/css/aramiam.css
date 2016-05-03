@@ -2,13 +2,13 @@
     font-size: large;
     font-weight: 700;
     padding-bottom: 2%;
-    color: rgba(53, 123, 184, 0.93);
+    color: rgba(56, 128, 170, 0.93);
     font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_title {
     font-size: medium;
     text-align: center;
-    color: rgba(53, 123, 184, 0.93);
+    color: rgba(56, 128, 170, 0.93);
     font-family: 'Exo 2', sans-serif;
 }
 .admin_cat_table_cell {
@@ -179,4 +179,24 @@ table.dataTable thead .sorting_desc:after {
 
 .dataTables_filter {
     float: right!important;
+}
+.bs-example-modal-lg {
+    width: 110%;
+}
+
+table.display tbody tr:hover td {
+    background-color: rgb(62, 142, 189) !important;
+    color: #FFFFFF !important;
+}
+
+th {
+    border-color: rgba(56, 128, 170, 0.93) !important;
+}
+
+table.display {
+    border-color: rgba(56, 128, 170, 0.93)   !important;
+}
+
+table.display tbody td {
+    border-top-color: rgba(51, 127, 184, 0.29) !important;
 }

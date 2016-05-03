@@ -30,31 +30,31 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=10, unique=true, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=10, unique=true, nullable=true, options={"default":null})
      */
     protected $idCandidat;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":null})
      */
     protected $isCreateInOdigo;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":null})
      */
     protected $isCreateInGmail;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":null})
      */
     protected $isCreateInSalesforce;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":null})
      */
     protected $isCreateInRobusto;
 

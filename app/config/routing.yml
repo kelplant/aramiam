@@ -1,3 +1,7 @@
+dashboard:
+    resource: "@DashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
 salesforce_api_bundle:
     resource: "@SalesforceApiBundle/Resources/config/routing.yml"
     prefix:   /

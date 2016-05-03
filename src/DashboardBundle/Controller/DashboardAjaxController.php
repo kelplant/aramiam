@@ -56,20 +56,31 @@ class DashboardAjaxController extends Controller
         return $finalDatas;
     }
 
+    /**
+     * @param $statusPoste
+     * @param $a
+     * @param $b
+     * @return mixed
+     */
+    private function testForStatusPoste($statusPoste, $a, $b)
+    {
+        if ($statusPoste == 'Création') {
+            return $a;
+        } else {
+            return $b;
+        }
+    }
+
+    /**
+     * @param $candidat
+     * @return string
+     */
     private function gimmeAColor($candidat)
     {
         if ($candidat['agence'] == 'Siège' && $candidat['service'] != 'Satisfaction Client') {
-            if ($candidat['statusPoste'] == 'Création') {
-                return '#ff9900';
-            } else {
-                return '#33cc33';
-            }
+            return $this->testForStatusPoste($candidat['statusPoste'], '#ff9900', '#33cc33');
         } else {
-            if ($candidat['statusPoste'] == 'Création') {
-                return '#ff3300';
-            } else {
-                return '#33ccff';
-            }
+            return $this->testForStatusPoste($candidat['statusPoste'], '#ff3300', '#33ccff');
         }
 
     }

@@ -3,7 +3,7 @@ namespace CoreBundle\Services\Manager\Admin;
 
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Service;
-
+use Doctrine\Common\Util\Inflector;
 /**
  * Class ServiceManager
  * @package CoreBundle\Services\Manager
@@ -40,6 +40,15 @@ class ServiceManager extends AbstractManager
             $finalTab[] = array('id' => $enreg->getId(), 'name' => $enreg->getName());
         }
         return $finalTab;
+    }
+
+    /**
+     * @param $nameInOdigo
+     * @return mixed
+     */
+    public function returnIdFromOdigoName($nameInOdigo)
+    {
+        return $this->getRepository()->findOneByNameInOdigo($nameInOdigo)->getId();
     }
 
     /**

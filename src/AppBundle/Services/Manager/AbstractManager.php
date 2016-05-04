@@ -175,15 +175,6 @@ abstract class AbstractManager
     }
 
     /**
-     * @param $nameInOdigo
-     * @return mixed
-     */
-    public function returnIdFromOdigoName($nameInOdigo)
-    {
-        return $this->getRepository()->findOneByNameInOdigo($nameInOdigo)->getId();
-    }
-
-    /**
      * @return array
      */
     public function createList()

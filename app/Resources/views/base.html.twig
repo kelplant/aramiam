@@ -5,17 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AramIAM - {% block title %}{% endblock %}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/AdminLTE.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/iCheck/flat/blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.min.css') }}" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Exo+2:400,200,900,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('css/aramiam.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/aramiam.css') }}">
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -172,17 +171,15 @@
     </aside>
     <div class="control-sidebar-bg"></div>
 </div>
-<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
-<script src="{{ asset('plugins/jQueryUI/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('locales/bootstrap-datepicker.fr.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('dist/js/app.min.js') }}"></script>
-<script src="{{ asset('dist/js/demo.js') }}"></script>
-<script src="{{ asset('js/iam.js') }}"></script>
+<script src="{{ asset('js/jquery/jquery-2.2.0.min.js') }}"></script>
+<script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('js/jquery/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/app/app.min.js') }}"></script>
+<script src="{{ asset('js/app/demo.js') }}"></script>
+<script src="{{ asset('js/app/iam.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>

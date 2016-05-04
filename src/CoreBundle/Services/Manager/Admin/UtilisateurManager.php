@@ -4,7 +4,7 @@ namespace CoreBundle\Services\Manager\Admin;
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Utilisateur;
 use DateTime;
-
+use Doctrine\ORM\Query\ResultSetMapping;
 /**
  * Class UtilisateurManager
  * @package CoreBundle\Services\Manager
@@ -175,6 +175,11 @@ class UtilisateurManager extends AbstractManager
         return $prosodieNumId;
     }
 
+    /**
+     * @param $itemToSet
+     * @param $guid
+     * @return mixed
+     */
     public function setIsCreateInWindows($itemToSet, $guid)
     {
         $item = $this->getRepository()->findOneById($itemToSet);

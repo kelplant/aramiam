@@ -206,6 +206,17 @@ abstract class AbstractManager
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function executeRowQuery($query)
+    {
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
      * @param $entity
      */
     private function persistAndFlush($entity)

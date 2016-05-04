@@ -76,7 +76,6 @@
     <script>
         $(document).ready(function(){
             var currentEditItem = localStorage.getItem("currentCandidatToView");
-            console.log(currentEditItem);
             if (!!currentEditItem && currentEditItem != 'null' && currentEditItem != null) {
                 $(window).load(function(){
                     $('#modalEdit').modal('show');

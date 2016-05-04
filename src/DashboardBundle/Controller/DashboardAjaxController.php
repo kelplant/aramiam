@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Exception;
 use CoreBundle\Entity\Admin\Candidat;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * Class DashboardAjaxController
@@ -112,5 +113,20 @@ class DashboardAjaxController extends Controller
         $finalTable = $this->finalTable($finalDatas);
 
         return new JsonResponse($finalTable);
+    }
+
+    /**
+     * @Route(path="/ajax/dashboard/get/graph/utilisateur",name="ajax_get_graph_utilisateur")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUtilisateurGraphInfos()
+    {
+        $result = $this->get('core.utilisateur_manager')
+            ->executeRowQuery("SELECT weekofyear(p.start_date) as wk, year(p.start_date) as yr, count(*) as ct FROM core_admin_utilisateurs p GROUP BY wk, yr ORDER BY yr ASC, wk ASC");
+        $finalTab = [];
+        foreach ($result as $item) {
+            $finalTab[] = (object)array('y' =>$item['yr'].' W'.$item['wk'], 'item1' => (int)$item['ct']);
+        }
+        return new JsonResponse($finalTab);
     }
 }

@@ -9,7 +9,7 @@
         <ul class="users-list clearfix">
             {% for user in lastest_members %}
                 <li>
-                    <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
+                    <img src="{{ asset('images/avatar5.png') }}" alt="User Image">
                     <a class="users-list-name" href="#" name="{{ user.id }}" onclick="goToUserEdit(this.name);">{{ user.viewName }}</a>
                     <span class="users-list-date">{{ user.startDate }}</span>
                 </li>

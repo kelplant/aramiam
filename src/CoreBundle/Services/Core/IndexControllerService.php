@@ -76,7 +76,7 @@ class IndexControllerService extends AbstractControllerService
      */
     public function colorForCandidatSlider($checkDate)
     {
-        if ($today = date("Y-m-d", time() + 604800 ) < $checkDate)
+        if (date("Y-m-d", time() + 604800 ) < $checkDate)
         {
             return 'green';
         } else {

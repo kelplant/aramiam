@@ -7,8 +7,6 @@ use DashboardBundle\Entity\DashboardTodoListEvent;
 
 class DashboardController extends Controller
 {
-    private $countNewUser;
-
     private $startDate;
 
     /**

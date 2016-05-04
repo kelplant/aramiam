@@ -1,4 +1,14 @@
+parameters:
+    dashboard.todo_list_manager.class: DashboardBundle\Services\Manager\DashboardTodoListEventManager
+    dashboard.entity.todo_list_manager.class: DashboardBundle\Entity\DashboardTodoListEvent
+    dashboard.entityname.todo_list_manager.class: 'DashboardBundle\Entity\DashboardTodoListEvent'
+    dashboard.argname.todo_list_manager.class: 'L''action à mener'
+
 services:
-#    dashboard.example:
-#        class: DashboardBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    dashboard.todo_list_manager:
+        class: '%dashboard.todo_list_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%dashboard.entity.todo_list_manager.class%"]]
+        - [setEntityName, ["%dashboard.entityname.todo_list_manager.class%"]]
+        - [setArgname, ["%dashboard.argname.todo_list_manager.class%"]]

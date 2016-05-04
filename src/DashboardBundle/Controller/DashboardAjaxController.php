@@ -82,7 +82,6 @@ class DashboardAjaxController extends Controller
         } else {
             return $this->testForStatusPoste($candidat['statusPoste'], '#ff3300', '#33ccff');
         }
-
     }
 
     /**

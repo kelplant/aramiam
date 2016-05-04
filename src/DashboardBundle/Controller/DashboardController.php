@@ -3,6 +3,7 @@ namespace DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use DashboardBundle\Entity\DashboardTodoListEvent;
 
 class DashboardController extends Controller
 {
@@ -81,6 +82,34 @@ class DashboardController extends Controller
     }
 
     /**
+     * @param $delais
+     * @return string
+     */
+    private function gimmeColorForDelais($delais) {
+        if ($delais <= 1) {
+            return 'label-success';
+        } elseif ($delais > 1 && $delais < 7) {
+            return 'label-warning';
+        } else {
+            return 'label-danger';
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function prepareTodoListEvents()
+    {
+        $finalTodoListEvents = array ();
+        $todoListEvents = $this->get('dashboard.todo_list_manager')->getRepository()->findBy(array('isDone' => false), array('createDate' => 'DESC'));
+        foreach ($todoListEvents as $event) {
+            $delais = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d')))/86400);
+            $finalTodoListEvents[] = array('delais' => $delais, 'color' => $this->gimmeColorForDelais($delais), 'id' => $event->getId(), 'name' => $event->getName(), 'comment' => $event->getComment(), 'createDate' => date('Y-m-d', strtotime($event->getCreateDate()->format('Y-m-d'))), 'isDone' => $event->getIsDone());
+        }
+        return $finalTodoListEvents;
+    }
+
+    /**
      * @Route("/", name="homepage")
      */
     public function indexAction()
@@ -89,6 +118,7 @@ class DashboardController extends Controller
         $this->get('session')->set('messaging', []);
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $lastest_users = $this->lastest_users();
+        $todoListEvents = $this->prepareTodoListEvents();
         return $this->render('DashboardBundle:Default:dashboard.html.twig', array(
             'entity' => '',
             'nb_candidat' => count($candidatListe),
@@ -98,6 +128,7 @@ class DashboardController extends Controller
             'userPhoto' => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
             'lastest_members' => $lastest_users['finalTab'],
             'countNewUser' => $lastest_users['countNewUser'],
+            'todoListEvents' => $todoListEvents,
         ));
     }
 }

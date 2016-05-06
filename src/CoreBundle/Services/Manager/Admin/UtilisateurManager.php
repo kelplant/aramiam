@@ -5,6 +5,8 @@ use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Utilisateur;
 use DateTime;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 /**
  * Class UtilisateurManager
  * @package CoreBundle\Services\Manager
@@ -23,7 +25,7 @@ class UtilisateurManager extends AbstractManager
         $itemLoad['isCreateInRobusto'] = '0';
         $itemLoad['isCreateInSalesforce'] = '0';
         $itemLoad['isCreateInWindows'] = '0';
-        $itemLoad['viewName'] = $itemLoad['surname']." ".$itemLoad['name'];
+        $itemLoad['viewName'] = $itemLoad['surname'] . " " . $itemLoad['name'];
         $itemLoad['email'] = NULL;
         $itemToSet = new Utilisateur();
         try {
@@ -50,8 +52,8 @@ class UtilisateurManager extends AbstractManager
         } else {
             while ($i < count($items)) {
                 $newItem = $lastIfExist;
-                $possibleItems[] = $newItem.'-'.$items[$i];
-                return $this->recursiveListe($item, $i + 1, $newItem.'-'.$items[$i], $possibleItems);
+                $possibleItems[] = $newItem . '-' . $items[$i];
+                return $this->recursiveListe($item, $i + 1, $newItem . '-' . $items[$i], $possibleItems);
             }
             return $possibleItems;
         }
@@ -69,7 +71,7 @@ class UtilisateurManager extends AbstractManager
         $possibleNames = $this->recursiveListe($itemToTransform->getName(), 0, null, array());
         foreach ($possibleSurnames as $surname) {
             foreach ($possibleNames as $name) {
-                $possibleEmails[] = $surname.'.'.$name.'@aramisauto.com';
+                $possibleEmails[] = $surname . '.' . $name . '@aramisauto.com';
             }
         }
         return $possibleEmails;
@@ -107,10 +109,31 @@ class UtilisateurManager extends AbstractManager
         $itemArray['isCreateInRobusto'] = $itemToTransform->getIsCreateInRobusto();
         $itemArray['isCreateInSalesforce'] = $itemToTransform->getIsCreateInSalesforce();
         $itemArray['isCreateInWindows'] = $itemToTransform->getIsCreateInWindows();
-        $itemArray['email'] = $itemToTransform->getEmail();
 
         return $itemArray;
     }
+
+    /**
+     * @param $itemToEditId
+     * @param $ContentToAddToEditedItem
+     * @return array
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Exception
+     */
+/*    public function edit($itemToEditId, $ContentToAddToEditedItem)
+    {
+        $this->em->beginTransaction();
+
+        try {
+            $result = parent::edit($itemToEditId, $ContentToAddToEditedItem);
+            $this->em->getConnection()->commit();
+
+            return $result;
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollBack();
+            throw $e;
+        }
+    }*/
 
     /**
      * @param Utilisateur $itemToSet
@@ -142,7 +165,6 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setIsCreateInRobusto($itemLoad['isCreateInRobusto']);
         $itemToSet->setIsCreateInSalesforce($itemLoad['isCreateInSalesforce']);
         $itemToSet->setIsCreateInWindows($itemLoad['isCreateInWindows']);
-        $itemToSet->setEmail($itemLoad['email']);
 
         return $itemToSet;
     }

@@ -17,10 +17,12 @@ class OdigoTelListeManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['numero'] = $itemToTransform->getNumero();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['inUse'] = $itemToTransform->getInUse();
+
+        $itemArray['numero']   = $itemToTransform->getNumero();
+        $itemArray['service']  = $itemToTransform->getService();
+        $itemArray['inUse']    = $itemToTransform->getInUse();
         $itemArray['fonction'] = $itemToTransform->getFonction();
 
         return $itemArray;

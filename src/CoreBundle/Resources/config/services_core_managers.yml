@@ -34,6 +34,11 @@ parameters:
     core.entityname.candidat_manager.class: 'CoreBundle\Entity\Admin\Candidat'
     core.argname.candidat_manager.class: 'Le candidat'
 
+    core.utilisateur_log_action_manager.class: CoreBundle\Services\Manager\UtilisateurLogActionManager
+    core.entity.utilisateur_log_action_manager.class: CoreBundle\Entity\UtilisateurLogAction
+    core.entityname.utilisateur_log_action_manager.class: 'CoreBundle\Entity\UtilisateurLogAction'
+    core.argname.utilisateur_log_action_manager.class: 'Cet historique'
+
 services:
     core.agence_manager:
         class: '%core.agence_manager.class%'
@@ -90,3 +95,11 @@ services:
         - [setEntity, ["%core.entity.candidat_manager.class%"]]
         - [setEntityName, ["%core.entityname.candidat_manager.class%"]]
         - [setArgname, ["%core.argname.candidat_manager.class%"]]
+
+    core.utilisateur_log_action_manager:
+        class: '%core.utilisateur_log_action_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.utilisateur_log_action_manager.class%"]]
+        - [setEntityName, ["%core.entityname.utilisateur_log_action_manager.class%"]]
+        - [setArgname, ["%core.argname.utilisateur_log_action_manager.class%"]]

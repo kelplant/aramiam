@@ -2,6 +2,7 @@
 namespace AppBundle\Services\Manager;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Util\Inflector;
 
@@ -11,6 +12,9 @@ use Doctrine\Common\Util\Inflector;
  */
 abstract class AbstractManager
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected $em;
 
     protected $entity;
@@ -265,12 +269,13 @@ abstract class AbstractManager
     }
 
     /**
-     * @param mixed $em
-     * @return AbstractManager
+     * @param EntityManagerInterface $em
+     * @return $this
      */
-    public function setEm($em)
+    public function setEm(EntityManagerInterface $em)
     {
         $this->em = $em;
+
         return $this;
     }
 

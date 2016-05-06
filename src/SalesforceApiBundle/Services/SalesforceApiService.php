@@ -14,10 +14,19 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
  */
 class SalesforceApiService
 {
+    /**
+     * @var SalesforceTokenStore
+     */
     protected $tokenManager;
 
+    /**
+     * @var TokenStorage
+     */
     protected $securityContext;
 
+    /**
+     * @var ParametersManager
+     */
     protected $parametersManager;
 
     /**
@@ -26,10 +35,10 @@ class SalesforceApiService
      * @param TokenStorage $securityContext
      * @param ParametersManager $parametersManager
      */
-    public function __construct($tokenManager, $securityContext, $parametersManager)
+    public function __construct(SalesforceTokenStore $tokenManager, TokenStorage $securityContext, ParametersManager $parametersManager)
     {
-        $this->tokenManager = $tokenManager;
-        $this->securityContext = $securityContext;
+        $this->tokenManager      = $tokenManager;
+        $this->securityContext   = $securityContext;
         $this->parametersManager = $parametersManager;
     }
 

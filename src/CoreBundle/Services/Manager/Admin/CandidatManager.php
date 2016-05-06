@@ -31,6 +31,7 @@ class CandidatManager extends AbstractManager
         $itemToSet->setPredecesseur($itemLoad['predecesseur']);
         $itemToSet->setCommentaire($itemLoad['commentaire']);
         $itemToSet->setIsArchived('0');
+        $itemToSet->setCreatedDate(new DateTime());
         return $itemToSet;
     }
 
@@ -56,6 +57,7 @@ class CandidatManager extends AbstractManager
         $itemArray['matriculeRH'] = $itemToTransform->getMatriculeRH();
         $itemArray['commentaire'] = $itemToTransform->getCommentaire();
         $itemArray['isArchived'] = $itemToTransform->getIsArchived();
+        $itemArray['createdDate'] = $itemToTransform->getCreatedDate()->format('d-m-Y');
 
         return $itemArray;
     }

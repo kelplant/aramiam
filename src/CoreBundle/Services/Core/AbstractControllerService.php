@@ -124,7 +124,6 @@ abstract class AbstractControllerService extends Controller
         }
     }
 
-
     /**
      * @param $entity
      * @return $this

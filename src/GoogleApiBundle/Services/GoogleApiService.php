@@ -15,15 +15,78 @@ use Google_Service_Directory_UserName;
  */
 class GoogleApiService
 {
+    /**
+     * @var UtilisateurManager
+     */
     protected $utilisateurManager;
 
     /**
      * GoogleApiService constructor.
      * @param UtilisateurManager $utilisateurManager
      */
-    public function __construct($utilisateurManager)
+    public function __construct(UtilisateurManager $utilisateurManager)
     {
         $this->utilisateurManager = $utilisateurManager;
+    }
+
+    /**
+     * @param $f
+     * @param $userToCreate
+     * @param $service
+     */
+    private function ifUserNotExist($f, $userToCreate, $service)
+    {
+        if ($f == 0) {
+            try {
+                $return = $this->createNewUserAccount($service, $userToCreate);
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
+            } catch (Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
+        }
+    }
+
+    /**
+     * @param $userToCreate
+     * @return Google_Service_Directory_User
+     */
+    private function initUserAccount($userToCreate)
+    {
+        $user = new Google_Service_Directory_User();
+        $name = new Google_Service_Directory_UserName();
+        $name->setGivenName($userToCreate['prenom']);
+        $name->setFamilyName($userToCreate['nom']);
+        $user->setName($name);
+        $user->setHashFunction("SHA-1");
+        $user->setPrimaryEmail($userToCreate['email']);
+        $user->setPassword(hash("sha1", $userToCreate['password']));
+        return $user;
+    }
+
+    /**
+     * @param $userToCreate
+     * @param $params
+     */
+    private function ifEmailNotExistCreateUser($userToCreate, $params)
+    {
+        $service = $this->innitApi($params);
+        $f = 0;
+        try {
+            $this->getInfosFromEmail($service, $userToCreate['email'], $params);
+        } catch (Exception $e) {
+            $f = error_log($e->getMessage());
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $f, 'message' => $e->getMessage()));
+        }
+        $this->ifUserNotExist($f, $userToCreate, $service);
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function base64safeToBase64($data)
+    {
+        return str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT);
     }
 
     /**
@@ -49,48 +112,6 @@ class GoogleApiService
         $client->setAssertionCredentials($credentials);
         $service = new Google_Service_Directory($client);
         return $service;
-    }
-
-    /**
-     * @param $f
-     * @param $userToCreate
-     * @param $service
-     */
-    private function ifUserNotExist($f, $userToCreate, $service)
-    {
-        if ($f == 0) {
-            try {
-                $return = $this->createNewUserAccount($service, $userToCreate);
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
-            } catch (Exception $e) {
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
-        }
-    }
-
-    /**
-     * @param $data
-     * @return string
-     */
-    public function base64safeToBase64($data) {
-        return str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT);
-    }
-
-    /**
-     * @param $userToCreate
-     * @return Google_Service_Directory_User
-     */
-    private function initUserAccount($userToCreate)
-    {
-        $user = new Google_Service_Directory_User();
-        $name = new Google_Service_Directory_UserName();
-        $name->setGivenName($userToCreate['prenom']);
-        $name->setFamilyName($userToCreate['nom']);
-        $user->setName($name);
-        $user->setHashFunction("SHA-1");
-        $user->setPrimaryEmail($userToCreate['email']);
-        $user->setPassword(hash("sha1", $userToCreate['password']));
-        return $user;
     }
 
     /**
@@ -166,22 +187,6 @@ class GoogleApiService
         return $this->innitApi($params)->users_photos->get($email);
     }
 
-    /**
-     * @param $userToCreate
-     * @param $params
-     */
-    private function ifEmailNotExistCreateUser($userToCreate, $params)
-    {
-        $service = $this->innitApi($params);
-        $f = 0;
-        try {
-            $this->getInfosFromEmail($service, $userToCreate['email'], $params);
-        } catch (Exception $e) {
-            $f = error_log($e->getMessage());
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $f, 'message' => $e->getMessage()));
-        }
-        $this->ifUserNotExist($f, $userToCreate, $service);
-    }
 
     /**
      * @param $params

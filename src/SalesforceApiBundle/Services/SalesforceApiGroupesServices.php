@@ -11,28 +11,41 @@ use SalesforceApiBundle\Services\Manager\SalesforceGroupeManager;
  */
 class SalesforceApiGroupesServices
 {
+    /**
+     * @var SalesforceApiService
+     */
     protected $salesforceApiService;
 
+    /**
+     * @var SalesforceGroupMemberFactory
+     */
     protected $salesforceGroupMemberFactory;
 
+    /**
+     * @var SalesforceGroupeMatchFonctionManager
+     */
     protected $SalesforceGroupeMatchFonction;
 
+    /**
+     * @var SalesforceGroupeManager
+     */
     protected $salesforceGroupesManager;
 
     /**
-     * SalesforceGroupesServices constructor.
+     * SalesforceApiGroupesServices constructor.
      * @param SalesforceApiService $salesforceApiService
      * @param SalesforceGroupMemberFactory $salesforceGroupMemberFactory
      * @param SalesforceGroupeMatchFonctionManager $SalesforceGroupeMatchFonction
      * @param SalesforceGroupeManager $salesforceGroupesManager
      */
-    public function __construct($salesforceApiService, $salesforceGroupMemberFactory, $SalesforceGroupeMatchFonction, $salesforceGroupesManager)
+    public function __construct(SalesforceApiService $salesforceApiService, SalesforceGroupMemberFactory $salesforceGroupMemberFactory, SalesforceGroupeMatchFonctionManager $SalesforceGroupeMatchFonction, SalesforceGroupeManager $salesforceGroupesManager)
     {
-        $this->salesforceApiService = $salesforceApiService;
-        $this->salesforceGroupMemberFactory = $salesforceGroupMemberFactory;
+        $this->salesforceApiService          = $salesforceApiService;
+        $this->salesforceGroupMemberFactory  = $salesforceGroupMemberFactory;
         $this->SalesforceGroupeMatchFonction = $SalesforceGroupeMatchFonction;
-        $this->salesforceGroupesManager = $salesforceGroupesManager;
+        $this->salesforceGroupesManager      = $salesforceGroupesManager;
     }
+
 
     /**
      * @param $userId

@@ -11,27 +11,39 @@ use SalesforceApiBundle\Services\Manager\SalesforceGroupeManager;
  */
 class SalesforceApiTerritoriesServices
 {
+    /**
+     * @var SalesforceApiService
+     */
     protected $salesforceApiService;
 
+    /**
+     * @var SalesforceUserTerritoryFactory
+     */
     protected $salesforceUserTerritoryFactory;
 
+    /**
+     * @var SalesforceTerritoryMatchServiceManager
+     */
     protected $SalesforceTerritoryMatchService;
 
+    /**
+     * @var SalesforceGroupeManager
+     */
     protected $salesforceTerritoriesManager;
 
     /**
-     * SalesforceGroupesServices constructor.
+     * SalesforceApiTerritoriesServices constructor.
      * @param SalesforceApiService $salesforceApiService
      * @param SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory
      * @param SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchService
      * @param SalesforceGroupeManager $salesforceTerritoriesManager
      */
-    public function __construct($salesforceApiService, $salesforceUserTerritoryFactory, $SalesforceTerritoryMatchService, $salesforceTerritoriesManager)
+    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory, SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchService, SalesforceGroupeManager $salesforceTerritoriesManager)
     {
-        $this->salesforceApiService = $salesforceApiService;
-        $this->salesforceUserTerritoryFactory = $salesforceUserTerritoryFactory;
+        $this->salesforceApiService            = $salesforceApiService;
+        $this->salesforceUserTerritoryFactory  = $salesforceUserTerritoryFactory;
         $this->SalesforceTerritoryMatchService = $SalesforceTerritoryMatchService;
-        $this->salesforceTerritoriesManager = $salesforceTerritoriesManager;
+        $this->salesforceTerritoriesManager    = $salesforceTerritoriesManager;
     }
 
     /**

@@ -15,20 +15,44 @@ use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
  */
 class OdigoApiService
 {
+    /**
+     * @var UtilisateurManager
+     */
     protected $utilisateurManager;
 
+    /**
+     * @var OdigoTelListeManager
+     */
     protected $odigoTelListeManager;
 
+    /**
+     * @var OrangeTelListeManager
+     */
     protected $orangeTelListeManager;
 
+    /**
+     * @var ProsodieOdigoManager
+     */
     protected $prosodieOdigoManager;
 
+    /**
+     * @var ServiceManager
+     */
     protected $serviceManager;
 
+    /**
+     * @var FonctionManager
+     */
     protected $fonctionManager;
 
+    /**
+     * @var OdigoClientService
+     */
     protected $odigoServiceClient;
 
+    /**
+     * @var GoogleApiService
+     */
     protected $googleApiService;
 
     /**
@@ -42,16 +66,16 @@ class OdigoApiService
      * @param OdigoClientService $odigoServiceClient
      * @param GoogleApiService $googleApiService
      */
-    public function __construct($utilisateurManager, $odigoTelListeManager, $orangeTelListeManager, $prosodieOdigoManager, $serviceManager, $fonctionManager, $odigoServiceClient, $googleApiService)
+    public function __construct(UtilisateurManager $utilisateurManager, OdigoTelListeManager $odigoTelListeManager, OrangeTelListeManager $orangeTelListeManager, ProsodieOdigoManager $prosodieOdigoManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, OdigoClientService $odigoServiceClient, GoogleApiService $googleApiService)
     {
-        $this->utilisateurManager = $utilisateurManager;
-        $this->odigoTelListeManager = $odigoTelListeManager;
+        $this->utilisateurManager    = $utilisateurManager;
+        $this->odigoTelListeManager  = $odigoTelListeManager;
         $this->orangeTelListeManager = $orangeTelListeManager;
-        $this->prosodieOdigoManager = $prosodieOdigoManager;
-        $this->serviceManager = $serviceManager;
-        $this->fonctionManager = $fonctionManager;
-        $this->odigoServiceClient = $odigoServiceClient;
-        $this->googleApiService = $googleApiService;
+        $this->prosodieOdigoManager  = $prosodieOdigoManager;
+        $this->serviceManager        = $serviceManager;
+        $this->fonctionManager       = $fonctionManager;
+        $this->odigoServiceClient    = $odigoServiceClient;
+        $this->googleApiService      = $googleApiService;
     }
 
     /**
@@ -90,6 +114,21 @@ class OdigoApiService
     }
 
     /**
+     * @param $numAutre
+     * @param $numOrange
+     * @return mixed
+     */
+    private function numForOdigo($numAutre, $numOrange)
+    {
+        if ($numAutre != null || $numAutre != "") {
+            return $numAutre;
+        } else {
+            $this->orangeTelListeManager->setNumOrangeInUse($numOrange);
+            return $numOrange;
+        }
+    }
+
+    /**
      * @param $odigoUserId
      * @param $paramsOdigo
      * @return mixed
@@ -106,21 +145,6 @@ class OdigoApiService
     public function exportOdigoModifications($paramsOdigo)
     {
         $this->odigoServiceClient->export($paramsOdigo, $paramsOdigo['login']);
-    }
-
-    /**
-     * @param $numAutre
-     * @param $numOrange
-     * @return mixed
-     */
-    private function numForOdigo($numAutre, $numOrange)
-    {
-        if ($numAutre != null || $numAutre != "") {
-            return $numAutre;
-        } else {
-            $this->orangeTelListeManager->setNumOrangeInUse($numOrange);
-            return $numOrange;
-        }
     }
 
     /**

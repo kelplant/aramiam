@@ -9,16 +9,34 @@ use Swift_Message;
 
 class Mailer
 {
+    /**
+     * @var string
+     */
     protected $from;
 
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var Swift_Mailer
+     */
     protected $mailer;
 
+    /**
+     * @var EngineInterface
+     */
     protected $templating;
 
+    /**
+     * @var UtilisateurManager
+     */
     protected $utilisateurManager;
 
+    /**
+     * @var ProsodieOdigoManager
+     */
     protected $odigoManager;
 
     /**
@@ -28,14 +46,14 @@ class Mailer
      * @param UtilisateurManager $utilisateurManager
      * @param ProsodieOdigoManager $odigoManager
      */
-    public function __construct($mailer, $templating, $utilisateurManager, $odigoManager)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, UtilisateurManager $utilisateurManager, ProsodieOdigoManager $odigoManager)
     {
-        $this->mailer = $mailer;
-        $this->templating = $templating;
-        $this->from = "xavier.arroues@aramisauto.com";
-        $this->name = "[Aramiam] Identifiants";
+        $this->mailer             = $mailer;
+        $this->templating         = $templating;
+        $this->from               = "xavier.arroues@aramisauto.com";
+        $this->name               = "[Aramiam] Identifiants";
         $this->utilisateurManager = $utilisateurManager;
-        $this->odigoManager = $odigoManager;
+        $this->odigoManager       = $odigoManager;
     }
 
     /**

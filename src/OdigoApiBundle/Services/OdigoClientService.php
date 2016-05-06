@@ -48,15 +48,14 @@ class OdigoClientService implements OdigoClientServiceInterface
      */
     public function __construct(UserBeanFactory $userBeanFactory, UserBeanWithTemplateFactory $userBeanWithTemplateFactory, CreateAgentStructFactory $createAgentStructFactory, CreateWithTemplateStructFactory $createWithTemplateStructFactory, DeleteUserStructFactory $deleteUserStructFactory, ExportStructFactory $exportStructFactory, UtilisateurManager $utilisateurManager)
     {
-        $this->userBeanFactory = $userBeanFactory;
-        $this->userBeanWithTemplateFactory = $userBeanWithTemplateFactory;
-        $this->createAgentStructFactory = $createAgentStructFactory;
+        $this->userBeanFactory                 = $userBeanFactory;
+        $this->userBeanWithTemplateFactory     = $userBeanWithTemplateFactory;
+        $this->createAgentStructFactory        = $createAgentStructFactory;
         $this->createWithTemplateStructFactory = $createWithTemplateStructFactory;
-        $this->deleteUserStructFactory = $deleteUserStructFactory;
-        $this->exportStructFactory = $exportStructFactory;
-        $this->utilisateurManager = $utilisateurManager;
+        $this->deleteUserStructFactory         = $deleteUserStructFactory;
+        $this->exportStructFactory             = $exportStructFactory;
+        $this->utilisateurManager              = $utilisateurManager;
     }
-
 
     /**
      * @param $userBeanInfos
@@ -65,6 +64,15 @@ class OdigoClientService implements OdigoClientServiceInterface
     private function generateUserBean($userBeanInfos)
     {
         return $this->userBeanFactory->createFromEntity($userBeanInfos);
+    }
+
+    /**
+     * @param $userBeanWithTemplateInfos
+     * @return UserBeanWithTemplate
+     */
+    private function generateUserBeanWithTemplate($userBeanWithTemplateInfos)
+    {
+        return $this->userBeanWithTemplateFactory->createFromEntity($userBeanWithTemplateInfos);
     }
 
     /**
@@ -81,15 +89,6 @@ class OdigoClientService implements OdigoClientServiceInterface
         } catch (SoapFault $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-    }
-
-    /**
-     * @param $userBeanWithTemplateInfos
-     * @return UserBeanWithTemplate
-     */
-    private function generateUserBeanWithTemplate($userBeanWithTemplateInfos)
-    {
-        return $this->userBeanWithTemplateFactory->createFromEntity($userBeanWithTemplateInfos);
     }
 
     /**

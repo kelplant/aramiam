@@ -10,10 +10,19 @@ use AppBundle\Services\Manager\ParametersManager;
  */
 class ZendeskService
 {
+    /**
+     * @var CurlWrap
+     */
     protected $curlWrap;
 
+    /**
+     * @var ZendeskTicketLinkManager
+     */
     protected $zendeskTicketLinkManager;
 
+    /**
+     * @var ParametersManager
+     */
     protected $parametersCalls;
 
     /**
@@ -22,12 +31,13 @@ class ZendeskService
      * @param ZendeskTicketLinkManager $zendeskTicketLinkManager
      * @param ParametersManager $parametersCalls
      */
-    public function __construct($curlWrap, $zendeskTicketLinkManager, $parametersCalls)
+    public function __construct(CurlWrap $curlWrap, ZendeskTicketLinkManager $zendeskTicketLinkManager, ParametersManager $parametersCalls)
     {
-        $this->curlWrap = $curlWrap;
+        $this->curlWrap                 = $curlWrap;
         $this->zendeskTicketLinkManager = $zendeskTicketLinkManager;
-        $this->parametersCalls = $parametersCalls;
+        $this->parametersCalls          = $parametersCalls;
     }
+
 
     /**
      * @param $message_array

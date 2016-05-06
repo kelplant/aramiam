@@ -16,30 +16,63 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SalesforceApiUserService
 {
+    /**
+     * @var SalesforceApiService
+     */
     protected $salesforceApiService;
 
+    /**
+     * @var SalesforceUserFactory
+     */
     protected $salesforceUserFactory;
 
+    /**
+     * @var ProsodieOdigoManager
+     */
     protected $prosodieOdigo;
 
+    /**
+     * @var AgenceManager
+     */
     protected $agenceManager;
 
+    /**
+     * @var ServiceManager
+     */
     protected $serviceManager;
 
+    /**
+     * @var FonctionManager
+     */
     protected $fonctionManager;
 
+    /**
+     * @var ParametersManager
+     */
     protected $parametersManager;
 
+    /**
+     * @var AramisAgencyManager
+     */
     protected $aramisAgencyManager;
 
+    /**
+     * @var SalesforceServiceCloudAccesManager
+     */
     protected $serviceCloudAccesManager;
 
+    /**
+     * @var SalesforceApiGroupesServices
+     */
     protected $salesforceApiGroupesService;
 
+    /**
+     * @var SalesforceApiTerritoriesServices
+     */
     protected $salesforceApiTerritoriesService;
 
     /**
-     * SalesforceApiService constructor.
+     * SalesforceApiUserService constructor.
      * @param SalesforceApiService $salesforceApiService
      * @param SalesforceUserFactory $salesforceUserFactory
      * @param ProsodieOdigoManager $prosodieOdigo
@@ -52,18 +85,18 @@ class SalesforceApiUserService
      * @param SalesforceApiGroupesServices $salesforceApiGroupesService
      * @param SalesforceApiTerritoriesServices $salesforceApiTerritoriesService
      */
-    public function __construct($salesforceApiService, $salesforceUserFactory, $prosodieOdigo, $agenceManager, $serviceManager, $fonctionManager, $parametersManager, $aramisAgencyManager, $serviceCloudAccesManager, $salesforceApiGroupesService, $salesforceApiTerritoriesService)
+    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserFactory $salesforceUserFactory, ProsodieOdigoManager $prosodieOdigo, AgenceManager $agenceManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, ParametersManager $parametersManager, AramisAgencyManager $aramisAgencyManager, SalesforceServiceCloudAccesManager $serviceCloudAccesManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
     {
-        $this->salesforceApiService = $salesforceApiService;
-        $this->salesforceUserFactory = $salesforceUserFactory;
-        $this->prosodieOdigo = $prosodieOdigo;
-        $this->agenceManager = $agenceManager;
-        $this->serviceManager = $serviceManager;
-        $this->fonctionManager = $fonctionManager;
-        $this->parametersManager = $parametersManager;
-        $this->aramisAgencyManager = $aramisAgencyManager;
-        $this->serviceCloudAccesManager = $serviceCloudAccesManager;
-        $this->salesforceApiGroupesService = $salesforceApiGroupesService;
+        $this->salesforceApiService            = $salesforceApiService;
+        $this->salesforceUserFactory           = $salesforceUserFactory;
+        $this->prosodieOdigo                   = $prosodieOdigo;
+        $this->agenceManager                   = $agenceManager;
+        $this->serviceManager                  = $serviceManager;
+        $this->fonctionManager                 = $fonctionManager;
+        $this->parametersManager               = $parametersManager;
+        $this->aramisAgencyManager             = $aramisAgencyManager;
+        $this->serviceCloudAccesManager        = $serviceCloudAccesManager;
+        $this->salesforceApiGroupesService     = $salesforceApiGroupesService;
         $this->salesforceApiTerritoriesService = $salesforceApiTerritoriesService;
     }
 

@@ -16,10 +16,12 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
+
         $itemArray['gmailGroupId'] = $itemToTransform->getGmailGroupId();
-        $itemArray['fonctionId'] = $itemToTransform->getFonctionId();
-        $itemArray['serviceId'] = $itemToTransform->getServiceId();
+        $itemArray['fonctionId']   = $itemToTransform->getFonctionId();
+        $itemArray['serviceId']    = $itemToTransform->getServiceId();
 
         return $itemArray;
     }
@@ -50,7 +52,9 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
             ->setParameter('serviceId', $service)
             ->setParameter('gmailGroupId', $gmailGroupId)
             ->getResult();
+
         $finalTab = [];
+
         foreach ($queryResult as $result) {
             $finalTab[] = array('gmailGroupId' => $result->getGmailGroupId(), 'fonctionId' => $result->getFonctionId(), 'serviceId' => $result->getServiceId());
         }

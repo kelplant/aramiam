@@ -17,11 +17,13 @@ class SalesforceTokenStoreManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['username'] = $itemToTransform->getUsername();
+
+        $itemArray['username']     = $itemToTransform->getUsername();
         $itemArray['access_token'] = $itemToTransform->getAccessToken();
         $itemArray['instance_url'] = $itemToTransform->getInstanceUrl();
-        $itemArray['issued_at'] = $itemToTransform->getIssuedAt();
+        $itemArray['issued_at']    = $itemToTransform->getIssuedAt();
 
         return $itemArray;
     }
@@ -33,9 +35,11 @@ class SalesforceTokenStoreManager extends AbstractManager
     public function updateOrAdd($itemLoad)
     {
         if (!is_null($this->getRepository()->findOneBy(array('username' => $itemLoad['username'])))) {
-        return $this->editByUsername($itemLoad);
+            return $this->editByUsername($itemLoad);
         } else {
+
             $itemToSet = $itemToSend = new $this->entity;
+
             try {
                 $this->save($this->globalSetItem($itemToSet, $itemLoad));
                 return array('errorCode' => 6669, 'item' => $itemToSend);

@@ -10,6 +10,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class ParametersManager
 {
+    /**
+     * @var ManagerRegistry
+     */
     private $managerRegistry;
 
     private $em;

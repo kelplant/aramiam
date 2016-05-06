@@ -9,7 +9,6 @@ use AppBundle\Services\Manager\AbstractManager;
  */
 class UtilisateurPhotoManager extends AbstractManager
 {
-
     /**
      * @param $itemLoad
      * @return mixed
@@ -17,10 +16,12 @@ class UtilisateurPhotoManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['userId'] = $itemToTransform->getUserId();
+
+        $itemArray['userId']   = $itemToTransform->getUserId();
         $itemArray['mineType'] = $itemToTransform->getMineType();
-        $itemArray['photo'] = $itemToTransform->getPhoto();
+        $itemArray['photo']    = $itemToTransform->getPhoto();
 
         return $itemArray;
     }

@@ -32,12 +32,14 @@ class SalesforceProfileManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['profileId'] = $itemToTransform->getProfileId();
-        $itemArray['profileName'] = $itemToTransform->getProfileName();
+
+        $itemArray['id']            = $itemToTransform->getId();
+        $itemArray['profileId']     = $itemToTransform->getProfileId();
+        $itemArray['profileName']   = $itemToTransform->getProfileName();
         $itemArray['userLicenseId'] = $itemToTransform->getUserLicenseId();
-        $itemArray['userType'] = $itemToTransform->getUserType();
+        $itemArray['userType']      = $itemToTransform->getUserType();
 
         return $itemArray;
     }

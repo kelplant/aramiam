@@ -16,6 +16,7 @@ class SalesforceGroupeMatchFonctionManager extends AbstractManager
     public function purge($fonctionId)
     {
         $itemToTransform = $this->getRepository()->findBy(array('fonctionId' => $fonctionId));
+
         foreach ($itemToTransform as $item) {
             $this->remove($item->getId());
         }
@@ -28,7 +29,9 @@ class SalesforceGroupeMatchFonctionManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findBy(array('fonctionId' => $itemLoad));
+
         $itemArray = [];
+
         foreach ($itemToTransform as $item) {
             $itemArray[] = $item->getSalesforceGroupe();
         }

@@ -31,10 +31,12 @@ class SalesforceTerritoryManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['territoryId'] = $itemToTransform->getTerritoryId();
-        $itemArray['territoryName'] = $itemToTransform->getTerritoryName();
+
+        $itemArray['id']                = $itemToTransform->getId();
+        $itemArray['territoryId']       = $itemToTransform->getTerritoryId();
+        $itemArray['territoryName']     = $itemToTransform->getTerritoryName();
         $itemArray['parentTerritoryId'] = $itemToTransform->getParentTerritoryId();
 
         return $itemArray;

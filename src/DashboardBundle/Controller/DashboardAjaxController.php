@@ -21,7 +21,8 @@ class DashboardAjaxController extends Controller
     private function objectToArray($data)
     {
         if (is_array($data) || is_object($data)) {
-            $result = array();
+            $result = [];
+
             foreach ($data as $key => $value) {
                 $result[$key] = $this->objectToArray($value);
             }
@@ -49,11 +50,14 @@ class DashboardAjaxController extends Controller
      */
     private function getCandidatDatas()
     {
-        $finalDatas = array();
         $result = $this->objectToArray($this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'DESC')));
+
+        $finalDatas = [];
+
         foreach ($result as $candidat) {
             $finalDatas[] = $this->convertDatas($candidat);
         }
+
         return $finalDatas;
     }
 
@@ -91,15 +95,19 @@ class DashboardAjaxController extends Controller
      */
     private function finalTable($finalDatas)
     {
-        $finalTable = array();
+        $finalTable = [];
+
         foreach ($finalDatas as $candidat) {
-            $title = $candidat['surname'].' '.$candidat['name'].' '.$candidat['service'];
-            $start = $candidat['startDate'];
-            $color = $this->gimmeAColor($candidat);
+
+            $title           = $candidat['surname'].' '.$candidat['name'].' '.$candidat['service'];
+            $start           = $candidat['startDate'];
+            $color           = $this->gimmeAColor($candidat);
             $backgroundColor = $color;
-            $borderColor = $color;
-            $finalTable[] = array('title' => $title, 'start' => $start, 'backgroundColor' => $backgroundColor, 'borderColor' => $borderColor, 'id' => $candidat['id']);
+            $borderColor     = $color;
+
+            $finalTable[]    = array('title' => $title, 'start' => $start, 'backgroundColor' => $backgroundColor, 'borderColor' => $borderColor, 'id' => $candidat['id']);
         }
+
         return $finalTable;
     }
 
@@ -123,10 +131,13 @@ class DashboardAjaxController extends Controller
     {
         $result = $this->get('core.utilisateur_manager')
             ->executeRowQuery("SELECT weekofyear(p.start_date) as wk, year(p.start_date) as yr, count(*) as ct FROM core_admin_utilisateurs p GROUP BY wk, yr ORDER BY yr ASC, wk ASC");
+
         $finalTab = [];
+
         foreach ($result as $item) {
             $finalTab[] = (object)array('y' =>$item['yr'].' W'.$item['wk'], 'item1' => (int)$item['ct']);
         }
+
         return new JsonResponse($finalTab);
     }
 }

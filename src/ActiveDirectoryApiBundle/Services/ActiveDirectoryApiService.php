@@ -14,17 +14,36 @@ use CoreBundle\Services\Manager\Admin\UtilisateurManager;
  */
 class ActiveDirectoryApiService
 {
+    /**
+     * @var ServiceManager
+     */
     protected $serviceManager;
 
+    /**
+     * @var UtilisateurManager
+     */
     protected $utilisateurManager;
 
+    /**
+     * @var ActiveDirectoryGroupManager
+     */
     protected $activeDirectoryGroupManager;
 
+    /**
+     * @var ActiveDirectoryGroupMatchFonctionManager
+     */
     protected $activeDirectoryGroupMatchFonctionManager;
 
+    /**
+     * @var ActiveDirectoryGroupMatchServiceManager
+     */
     protected $activeDirectoryGroupMatchServiceManager;
 
+    /**
+     * @var ActiveDirectoryOrganisationUnitManager
+     */
     protected $activeDirectoryOrganisationUnitManager;
+
     /**
      * ActiveDirectoryApiService constructor.
      * @param ServiceManager $serviceManager
@@ -34,14 +53,14 @@ class ActiveDirectoryApiService
      * @param ActiveDirectoryGroupMatchServiceManager $activeDirectoryGroupMatchServiceManager
      * @param ActiveDirectoryOrganisationUnitManager $activeDirectoryOrganisationUnitManager
      */
-    public function __construct($serviceManager, $utilisateurManager, $activeDirectoryGroupManager, $activeDirectoryGroupMatchFonctionManager, $activeDirectoryGroupMatchServiceManager, $activeDirectoryOrganisationUnitManager)
+    public function __construct(ServiceManager $serviceManager, UtilisateurManager $utilisateurManager, ActiveDirectoryGroupManager $activeDirectoryGroupManager, ActiveDirectoryGroupMatchFonctionManager $activeDirectoryGroupMatchFonctionManager, ActiveDirectoryGroupMatchServiceManager $activeDirectoryGroupMatchServiceManager, ActiveDirectoryOrganisationUnitManager $activeDirectoryOrganisationUnitManager)
     {
-        $this->serviceManager = $serviceManager;
-        $this->utilisateurManager = $utilisateurManager;
-        $this->activeDirectoryGroupManager = $activeDirectoryGroupManager;
+        $this->serviceManager                           = $serviceManager;
+        $this->utilisateurManager                       = $utilisateurManager;
+        $this->activeDirectoryGroupManager              = $activeDirectoryGroupManager;
         $this->activeDirectoryGroupMatchFonctionManager = $activeDirectoryGroupMatchFonctionManager;
-        $this->activeDirectoryGroupMatchServiceManager = $activeDirectoryGroupMatchServiceManager;
-        $this->activeDirectoryOrganisationUnitManager = $activeDirectoryOrganisationUnitManager;
+        $this->activeDirectoryGroupMatchServiceManager  = $activeDirectoryGroupMatchServiceManager;
+        $this->activeDirectoryOrganisationUnitManager   = $activeDirectoryOrganisationUnitManager;
     }
 
     /**
@@ -58,6 +77,42 @@ class ActiveDirectoryApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+    }
+
+    /**
+     * @param $newPassword
+     * @return string
+     */
+    private function pwd_encryption($newPassword)
+    {
+        $newPassword = "\"".$newPassword."\"";
+        $newPassw = "";
+        for ($i = 0; $i < strlen($newPassword); $i++) {
+            $newPassw .= "{$newPassword{$i}}\000";
+        }
+        return $newPassw;
+    }
+
+    /**
+     * @param $paramsAD
+     * @param $request
+     */
+    private function addNewUserToGroups($paramsAD, $request, $newUser)
+    {
+        $memberOf = [];
+        $group_info = [];
+        $group_info['member'] = $newUser[0]['dn'];
+        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array('id' => 'ASC')) as $fonction) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
+        }
+        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array('id' => 'ASC')) as $service) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
+        }
+        $ds = $this->connectAD($paramsAD);
+        foreach (array_unique($memberOf) as $uniqueGroup) {
+            $this->addToADGroup($ds, $uniqueGroup, $group_info);
+        }
+        ldap_unbind($ds);
     }
 
     /**
@@ -117,42 +172,6 @@ class ActiveDirectoryApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-    }
-
-    /**
-     * @param $newPassword
-     * @return string
-     */
-    private function pwd_encryption($newPassword)
-    {
-        $newPassword = "\"".$newPassword."\"";
-        $newPassw = "";
-        for ($i = 0; $i < strlen($newPassword); $i++) {
-            $newPassw .= "{$newPassword{$i}}\000";
-        }
-        return $newPassw;
-    }
-
-    /**
-     * @param $paramsAD
-     * @param $request
-     */
-    private function addNewUserToGroups($paramsAD, $request, $newUser)
-    {
-        $memberOf = [];
-        $group_info = [];
-        $group_info['member'] = $newUser[0]['dn'];
-        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array('id' => 'ASC')) as $fonction) {
-            $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
-        }
-        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array('id' => 'ASC')) as $service) {
-            $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
-        }
-        $ds = $this->connectAD($paramsAD);
-        foreach (array_unique($memberOf) as $uniqueGroup) {
-            $this->addToADGroup($ds, $uniqueGroup, $group_info);
-        }
-        ldap_unbind($ds);
     }
 
     /**

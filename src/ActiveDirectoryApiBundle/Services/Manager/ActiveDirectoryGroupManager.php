@@ -17,10 +17,13 @@ class ActiveDirectoryGroupManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
+
+        $itemArray['id']   = $itemToTransform->getId();
         $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['dn'] = $itemToTransform->getDn();
+        $itemArray['dn']   = $itemToTransform->getDn();
+
         return $itemArray;
     }
 

@@ -17,13 +17,15 @@ class AgenceManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['nameInCompany'] = $itemToTransform->getNameInCompany();
-        $itemArray['nameInOdigo'] = $itemToTransform->getNameInOdigo();
-        $itemArray['nameInSalesforce'] = $itemToTransform->getNameInSalesforce();
-        $itemArray['nameInZendesk'] = $itemToTransform->getNameInZendesk();
+
+        $itemArray['id']                    = $itemToTransform->getId();
+        $itemArray['name']                  = $itemToTransform->getName();
+        $itemArray['nameInCompany']         = $itemToTransform->getNameInCompany();
+        $itemArray['nameInOdigo']           = $itemToTransform->getNameInOdigo();
+        $itemArray['nameInSalesforce']      = $itemToTransform->getNameInSalesforce();
+        $itemArray['nameInZendesk']         = $itemToTransform->getNameInZendesk();
         $itemArray['nameInActiveDirectory'] = $itemToTransform->getNameInActiveDirectory();
 
         return $itemArray;

@@ -12,9 +12,6 @@ use Doctrine\Common\Util\Inflector;
  */
 abstract class AbstractManager
 {
-    /**
-     * @var EntityManagerInterface
-     */
     protected $em;
 
     protected $entity;
@@ -25,6 +22,9 @@ abstract class AbstractManager
 
     protected $repository;
 
+    /**
+     * @var Session
+     */
     protected $session;
 
     /**
@@ -39,7 +39,7 @@ abstract class AbstractManager
      */
     public function __construct(ManagerRegistry $managerRegistry, Session $session) {
         $this->managerRegistry = $managerRegistry;
-        $this->session = $session;
+        $this->session         = $session;
     }
 
     /**
@@ -71,8 +71,7 @@ abstract class AbstractManager
      * @return object
      */
     public function load($itemId) {
-        return $this->getRepository()
-            ->findOneBy(array('id' => $itemId));
+        return $this->getRepository()->findOneBy(array('id' => $itemId));
     }
 
     /**
@@ -90,6 +89,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
         return array('item' => $itemId);
     }
 
@@ -111,6 +111,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
         return array('item' => $itemId);
     }
 
@@ -127,6 +128,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
         return array('item' => $archivedItemId);
     }
 
@@ -143,6 +145,7 @@ abstract class AbstractManager
                 $itemToSet->{"set".Inflector::camelize($key)}($value);
             }
         }
+
         return $itemToSet;
     }
 
@@ -159,6 +162,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
         return array('item' => $itemToEditId);
     }
 
@@ -175,6 +179,7 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
         return array('item' => $itemToSend);
     }
 
@@ -192,6 +197,7 @@ abstract class AbstractManager
                 $finalDatas[$data->getName()] = $data->getId();
             }
         }
+
         return $finalDatas;
     }
 
@@ -217,6 +223,7 @@ abstract class AbstractManager
     {
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
+
         return $stmt->fetchAll();
     }
 
@@ -237,6 +244,7 @@ abstract class AbstractManager
     {
         $this->entity = $entity;
         $this->em = $this->managerRegistry->getManagerForClass($this->entity);
+
         return $this;
     }
 
@@ -247,6 +255,7 @@ abstract class AbstractManager
     public function setRepository($repository)
     {
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -257,6 +266,7 @@ abstract class AbstractManager
     public function setEntityName($entityName)
     {
         $this->entityName = $entityName;
+
         return $this;
     }
 
@@ -286,6 +296,7 @@ abstract class AbstractManager
     public function setArgname($argname)
     {
         $this->argname = $argname;
+
         return $this;
     }
 
@@ -296,6 +307,7 @@ abstract class AbstractManager
     public function setManagerRegistry($managerRegistry)
     {
         $this->managerRegistry = $managerRegistry;
+
         return $this;
     }
 }

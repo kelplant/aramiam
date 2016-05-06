@@ -30,9 +30,11 @@ class SalesforceGroupeManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['groupeId'] = $itemToTransform->getGroupeId();
+
+        $itemArray['id']         = $itemToTransform->getId();
+        $itemArray['groupeId']   = $itemToTransform->getGroupeId();
         $itemArray['groupeName'] = $itemToTransform->getGroupeName();
 
         return $itemArray;

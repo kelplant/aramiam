@@ -37,8 +37,10 @@ class MouvHistoryManager Extends AbstractManager
     public function add($itemLoad, $adminId, $type)
     {
         $itemLoad['adminId'] = $adminId;
-        $itemLoad['type'] = $type;
+        $itemLoad['type']    = $type;
+
         $itemToSet = $itemToSend = new MouvHistory();
+
         $this->globalSetItem($itemToSet, $itemLoad);
         try {
             $this->save($itemToSet);

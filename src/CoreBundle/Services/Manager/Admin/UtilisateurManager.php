@@ -84,56 +84,36 @@ class UtilisateurManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['surname'] = $itemToTransform->getSurname();
-        $itemArray['viewName'] = $itemToTransform->getViewName();
-        $itemArray['civilite'] = $itemToTransform->getCivilite();
-        $itemArray['startDate'] = $itemToTransform->getStartDate()->format('d-m-Y');
-        $itemArray['entiteHolding'] = $itemToTransform->getEntiteHolding();
-        $itemArray['email'] = $itemToTransform->getEmail();
-        $itemArray['mainPassword'] = $itemToTransform->getMainPassword();
-        $itemArray['agence'] = $itemToTransform->getAgence();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['fonction'] = $itemToTransform->getFonction();
-        $itemArray['statusPoste'] = $itemToTransform->getStatusPoste();
-        $itemArray['predecesseur'] = $itemToTransform->getPredecesseur();
-        $itemArray['responsable'] = $itemToTransform->getResponsable();
-        $itemArray['matriculeRH'] = $itemToTransform->getMatriculeRH();
-        $itemArray['commentaire'] = $itemToTransform->getCommentaire();
-        $itemArray['isArchived'] = $itemToTransform->getIsArchived();
-        $itemArray['idCandidat'] = $itemToTransform->getIdCandidat();
-        $itemArray['isCreateInGmail'] = $itemToTransform->getIsCreateInGmail();
-        $itemArray['isCreateInOdigo'] = $itemToTransform->getIsCreateInOdigo();
-        $itemArray['isCreateInRobusto'] = $itemToTransform->getIsCreateInRobusto();
+
+        $itemArray['id']                   = $itemToTransform->getId();
+        $itemArray['name']                 = $itemToTransform->getName();
+        $itemArray['surname']              = $itemToTransform->getSurname();
+        $itemArray['viewName']             = $itemToTransform->getViewName();
+        $itemArray['civilite']             = $itemToTransform->getCivilite();
+        $itemArray['startDate']            = $itemToTransform->getStartDate()->format('d-m-Y');
+        $itemArray['entiteHolding']        = $itemToTransform->getEntiteHolding();
+        $itemArray['email']                = $itemToTransform->getEmail();
+        $itemArray['mainPassword']         = $itemToTransform->getMainPassword();
+        $itemArray['agence']               = $itemToTransform->getAgence();
+        $itemArray['service']              = $itemToTransform->getService();
+        $itemArray['fonction']             = $itemToTransform->getFonction();
+        $itemArray['statusPoste']          = $itemToTransform->getStatusPoste();
+        $itemArray['predecesseur']         = $itemToTransform->getPredecesseur();
+        $itemArray['responsable']          = $itemToTransform->getResponsable();
+        $itemArray['matriculeRH']          = $itemToTransform->getMatriculeRH();
+        $itemArray['commentaire']          = $itemToTransform->getCommentaire();
+        $itemArray['isArchived']           = $itemToTransform->getIsArchived();
+        $itemArray['idCandidat']           = $itemToTransform->getIdCandidat();
+        $itemArray['isCreateInGmail']      = $itemToTransform->getIsCreateInGmail();
+        $itemArray['isCreateInOdigo']      = $itemToTransform->getIsCreateInOdigo();
+        $itemArray['isCreateInRobusto']    = $itemToTransform->getIsCreateInRobusto();
         $itemArray['isCreateInSalesforce'] = $itemToTransform->getIsCreateInSalesforce();
-        $itemArray['isCreateInWindows'] = $itemToTransform->getIsCreateInWindows();
+        $itemArray['isCreateInWindows']    = $itemToTransform->getIsCreateInWindows();
 
         return $itemArray;
     }
-
-    /**
-     * @param $itemToEditId
-     * @param $ContentToAddToEditedItem
-     * @return array
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Exception
-     */
-/*    public function edit($itemToEditId, $ContentToAddToEditedItem)
-    {
-        $this->em->beginTransaction();
-
-        try {
-            $result = parent::edit($itemToEditId, $ContentToAddToEditedItem);
-            $this->em->getConnection()->commit();
-
-            return $result;
-        } catch (\Exception $e) {
-            $this->em->getConnection()->rollBack();
-            throw $e;
-        }
-    }*/
 
     /**
      * @param Utilisateur $itemToSet

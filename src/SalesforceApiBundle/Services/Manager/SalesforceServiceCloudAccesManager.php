@@ -17,10 +17,14 @@ class SalesforceServiceCloudAccesManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         if ($itemToTransform != null) {
+
             $itemArray = [];
-            $itemArray['id'] = $itemToTransform->getId();
+
+            $itemArray['id']     = $itemToTransform->getId();
             $itemArray['status'] = $itemToTransform->getStatus();
+
             return $itemArray;
         } else {
             return null;
@@ -39,7 +43,9 @@ class SalesforceServiceCloudAccesManager extends AbstractManager
         } else {
             $value = 0;
         }
+
         $itemToSet = $this->getRepository()->find($itemToEdit);
+
         if ($itemToSet == NULL) {
             return $this->add(array('id' => $itemToEdit, 'status' => $value));
         } else {

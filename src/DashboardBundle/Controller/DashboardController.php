@@ -66,16 +66,21 @@ class DashboardController extends Controller
             ->getQuery()->getResult();
 
         $finalTab = [];
+
         $countNewUser = 0;
+
         foreach ($result as $member) {
-            $startDate = $member->getStartDate()->format('Y-m-d');
+            $startDate    = $member->getStartDate()->format('Y-m-d');
             $countNewUser = $this->countNewUser($startDate, $countNewUser);
+
             $this->ifToday($startDate);
             $this->ifHier($startDate);
             $this->ifNotTodayOrHier($startDate);
+
             $finalTab[] = array('viewName' => $member->getViewName(), 'id' => $member->getId(), 'startDate' => $this->startDate);
         }
         $finalTab = array('countNewUser' => $countNewUser, 'finalTab' => $finalTab);
+
         return $finalTab;
     }
 
@@ -98,8 +103,10 @@ class DashboardController extends Controller
      */
     private function prepareTodoListEvents()
     {
-        $finalTodoListEvents = array ();
+        $finalTodoListEvents = [];
+
         $todoListEvents = $this->get('dashboard.todo_list_manager')->getRepository()->findBy(array('isDone' => false), array('createDate' => 'DESC'));
+
         foreach ($todoListEvents as $event) {
             $delais = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d')))/86400);
             $finalTodoListEvents[] = array('delais' => $delais, 'color' => $this->gimmeColorForDelais($delais), 'id' => $event->getId(), 'name' => $event->getName(), 'comment' => $event->getComment(), 'createDate' => date('Y-m-d', strtotime($event->getCreateDate()->format('Y-m-d'))), 'isDone' => $event->getIsDone());
@@ -114,19 +121,21 @@ class DashboardController extends Controller
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
-        $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
-        $lastest_users = $this->lastest_users();
+
+        $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
+        $lastest_users  = $this->lastest_users();
         $todoListEvents = $this->prepareTodoListEvents();
+
         return $this->render('DashboardBundle:Default:dashboard.html.twig', array(
-            'entity' => '',
-            'nb_candidat' => count($candidatListe),
-            'candidat_color' => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'entity'            => '',
+            'nb_candidat'       => count($candidatListe),
+            'candidat_color'    => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'session_messaging' => $session_messaging,
-            'currentUserInfos' => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto' => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
-            'lastest_members' => $lastest_users['finalTab'],
-            'countNewUser' => $lastest_users['countNewUser'],
-            'todoListEvents' => $todoListEvents,
+            'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
+            'userPhoto'         => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'lastest_members'   => $lastest_users['finalTab'],
+            'countNewUser'      => $lastest_users['countNewUser'],
+            'todoListEvents'    => $todoListEvents,
         ));
     }
 }

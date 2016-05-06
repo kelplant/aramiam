@@ -36,7 +36,9 @@ class OdigoTelListeManager extends AbstractManager
     public function getAllTelForServiceAndFonction($service, $fonction)
     {
         $get = $this->getRepository()->findBy(array('service' => $service, 'fonction' => $fonction, 'inUse' => 0), array('numero' => 'ASC'));
+
         $listeTel = [];
+
         for ($i = 0; $i <= count($get) - 1; $i++) {
             $listeTel[$i] = $get[$i]->getNumero();
         }

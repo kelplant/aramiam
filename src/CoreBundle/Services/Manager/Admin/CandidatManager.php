@@ -41,23 +41,25 @@ class CandidatManager extends AbstractManager
      */
     public function createArray($itemLoad) {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['surname'] = $itemToTransform->getSurname();
-        $itemArray['civilite'] = $itemToTransform->getCivilite();
-        $itemArray['startDate'] = $itemToTransform->getStartDate()->format('d-m-Y');
+
+        $itemArray['id']            = $itemToTransform->getId();
+        $itemArray['name']          = $itemToTransform->getName();
+        $itemArray['surname']       = $itemToTransform->getSurname();
+        $itemArray['civilite']      = $itemToTransform->getCivilite();
+        $itemArray['startDate']     = $itemToTransform->getStartDate()->format('d-m-Y');
         $itemArray['entiteHolding'] = $itemToTransform->getEntiteHolding();
-        $itemArray['agence'] = $itemToTransform->getAgence();
-        $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['fonction'] = $itemToTransform->getFonction();
-        $itemArray['statusPoste'] = $itemToTransform->getStatusPoste();
-        $itemArray['predecesseur'] = $itemToTransform->getPredecesseur();
-        $itemArray['responsable'] = $itemToTransform->getResponsable();
-        $itemArray['matriculeRH'] = $itemToTransform->getMatriculeRH();
-        $itemArray['commentaire'] = $itemToTransform->getCommentaire();
-        $itemArray['isArchived'] = $itemToTransform->getIsArchived();
-        $itemArray['createdDate'] = $itemToTransform->getCreatedDate()->format('d-m-Y');
+        $itemArray['agence']        = $itemToTransform->getAgence();
+        $itemArray['service']       = $itemToTransform->getService();
+        $itemArray['fonction']      = $itemToTransform->getFonction();
+        $itemArray['statusPoste']   = $itemToTransform->getStatusPoste();
+        $itemArray['predecesseur']  = $itemToTransform->getPredecesseur();
+        $itemArray['responsable']   = $itemToTransform->getResponsable();
+        $itemArray['matriculeRH']   = $itemToTransform->getMatriculeRH();
+        $itemArray['commentaire']   = $itemToTransform->getCommentaire();
+        $itemArray['isArchived']    = $itemToTransform->getIsArchived();
+        $itemArray['createdDate']   = $itemToTransform->getCreatedDate()->format('d-m-Y');
 
         return $itemArray;
     }

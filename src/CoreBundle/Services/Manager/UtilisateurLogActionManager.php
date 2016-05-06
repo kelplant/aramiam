@@ -10,8 +10,5 @@ use AppBundle\Services\Manager\AbstractManager;
  */
 class UtilisateurLogActionManager extends AbstractManager
 {
-    public function test($item)
-    {
-        $this->em->persist($item);
-    }
+
 }

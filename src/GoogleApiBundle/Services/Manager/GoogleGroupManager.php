@@ -17,9 +17,11 @@ class GoogleGroupManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
+
+        $itemArray['id']    = $itemToTransform->getId();
+        $itemArray['name']  = $itemToTransform->getName();
         $itemArray['email'] = $itemToTransform->getEmail();
 
         return $itemArray;

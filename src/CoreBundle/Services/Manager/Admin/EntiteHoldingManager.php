@@ -17,9 +17,11 @@ class EntiteHoldingManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-        $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
+
+        $itemArray  = [];
+
+        $itemArray['id']        = $itemToTransform->getId();
+        $itemArray['name']      = $itemToTransform->getName();
         $itemArray['shortName'] = $itemToTransform->getShortName();
 
         return $itemArray;

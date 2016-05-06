@@ -14,10 +14,12 @@ class ProsodieOdigoManager extends AbstractManager
     private function setArray($itemToTransform)
     {
         $itemArray = [];
-        $itemArray['user'] = $itemToTransform->getUser();
-        $itemArray['odigoPhoneNumber'] = $itemToTransform->getOdigoPhoneNumber();
+
+        $itemArray['user']                = $itemToTransform->getUser();
+        $itemArray['odigoPhoneNumber']    = $itemToTransform->getOdigoPhoneNumber();
         $itemArray['redirectPhoneNumber'] = $itemToTransform->getRedirectPhoneNumber();
-        $itemArray['odigoExtension'] = $itemToTransform->getOdigoExtension();
+        $itemArray['odigoExtension']      = $itemToTransform->getOdigoExtension();
+
         return $itemArray;
     }
 

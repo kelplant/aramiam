@@ -16,12 +16,14 @@ class DashboardTodoListEventManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['id'] = $itemToTransform->getId();
-        $itemArray['name'] = $itemToTransform->getName();
-        $itemArray['comment'] = $itemToTransform->getComment();
+
+        $itemArray['id']         = $itemToTransform->getId();
+        $itemArray['name']       = $itemToTransform->getName();
+        $itemArray['comment']    = $itemToTransform->getComment();
         $itemArray['createDate'] = $itemToTransform->getCreateDate();
-        $itemArray['isDone'] = $itemToTransform->getIsDone();
+        $itemArray['isDone']     = $itemToTransform->getIsDone();
 
         return $itemArray;
     }

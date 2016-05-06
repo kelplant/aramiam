@@ -17,10 +17,12 @@ class OrangeTelListeManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+
         $itemArray = [];
-        $itemArray['numero'] = $itemToTransform->getNumero();
+
+        $itemArray['numero']  = $itemToTransform->getNumero();
         $itemArray['service'] = $itemToTransform->getService();
-        $itemArray['inUse'] = $itemToTransform->getInUse();
+        $itemArray['inUse']   = $itemToTransform->getInUse();
 
         return $itemArray;
     }
@@ -32,7 +34,9 @@ class OrangeTelListeManager extends AbstractManager
     public function getAllTelForService($service)
     {
         $get = $this->getRepository()->findBy(array('service' => $service, 'inUse' => 0), array('numero' => 'ASC'));
+
         $listeTel = [];
+
         for ($i = 0; $i <= count($get) - 1; $i++) {
             $listeTel[$i] = $get[$i]->getNumero();
         }
@@ -48,6 +52,7 @@ class OrangeTelListeManager extends AbstractManager
         $itemToSet = $this->getRepository()->findOneByNumero($numTel);
         $itemToSet->setInUse('1');
         $this->em->flush();
+
         return $numTel;
     }
 

@@ -10,6 +10,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class ZendeskTicketLinkManager
 {
+    /**
+     * @var ManagerRegistry
+     */
     private $managerRegistry;
 
     private $em;

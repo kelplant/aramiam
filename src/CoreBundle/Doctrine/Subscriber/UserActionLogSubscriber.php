@@ -47,7 +47,7 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         return array(
             'postUpdate',
-//            'persist',
+            'postPersist',
         );
     }
 
@@ -57,13 +57,15 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifInstanceOfUtilisateur(LifecycleEventArgs $args, $action)
     {
+        $entityManager = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\UtilisateurLogAction');
+
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
             $this->uow = $this->em->getUnitOfWork();
 
-            $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
-            $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);
+            $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow, $entityManager);
+            $this->ifInstanceOfUtilisateurAndPersist('persist', $entity, $entityManager);
         }
     }
 
@@ -72,12 +74,12 @@ class UserActionLogSubscriber implements EventSubscriber
      * @param $entity
      * @param UnitOfWork $uow
      */
-    private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
+    private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow, $entityManager)
     {
         if ($action == 'update') {
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             foreach ($uow->getEntityChangeSet($entity) as $key => $value) {
-                $this->initUserActionLog($key, $value, $entity->getId());
+                $this->initUserActionLog($key, $value, $entity->getId(), $entityManager);
             }
         }
     }
@@ -86,11 +88,24 @@ class UserActionLogSubscriber implements EventSubscriber
      * @param $action
      * @param $entity
      */
-    private function ifInstanceOfUtilisateurAndPersist($action, $entity)
+    private function ifInstanceOfUtilisateurAndPersist($action, $entity, $entityManager)
     {
         if ($action == 'persist') {
             foreach ($entity as $key => $value) {
-                $this->initUserActionLog($key, $value, $entity->getId());
+                if ($key != 'startDate') {
+                    $date          = new \DateTime();
+                    $userActionLog = new UtilisateurLogAction();
+
+                    $userActionLog->setRequesterId($this->container->get('security.token_storage')->getToken()->getUser()->getId());
+                    $userActionLog->setUtilisateurId($entity->getId());
+                    $userActionLog->setField($key);
+                    $userActionLog->setOldString(null);
+                    $userActionLog->setNewString($value);
+                    $userActionLog->setTimestamp($date);
+
+                    $entityManager->persist($userActionLog);
+                    $entityManager->flush();
+                }
             }
         }
     }
@@ -100,10 +115,8 @@ class UserActionLogSubscriber implements EventSubscriber
      * @param $value
      * @param $utilisateurId
      */
-    private function initUserActionLog($key, $value, $utilisateurId)
+    private function initUserActionLog($key, $value, $utilisateurId, $entityManager)
     {
-        $entityManager = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\UtilisateurLogAction');
-
         if ($key != 'startDate') {
             if ($value[0] != $value[1]) {
                 $date          = new \DateTime();
@@ -125,7 +138,7 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    public function persist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args)
     {
         $this->ifInstanceOfUtilisateur($args, 'persist');
     }

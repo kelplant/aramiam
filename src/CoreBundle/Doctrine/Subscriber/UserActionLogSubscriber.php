@@ -1,14 +1,13 @@
 <?php
 namespace CoreBundle\Doctrine\Subscriber;
 
-use CoreBundle\Services\Manager\UtilisateurLogActionManager;
+use CoreBundle\Entity\Admin\Utilisateur;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManager;
 use CoreBundle\Entity\UtilisateurLogAction;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\UnitOfWork;
 
 /**
  * Class UserActionLogSubscriber
@@ -19,6 +18,16 @@ class UserActionLogSubscriber implements EventSubscriber
      * @var \Symfony\Component\DependencyInjection\Container
      */
     private $container;
+
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * @var UnitOfWork
+     */
+    private $uow;
 
     /**
      * @var ManagerRegistry
@@ -38,30 +47,51 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         return array(
             'postUpdate',
-            /*'preUpdate',*/
+//            'persist',
         );
     }
 
     /**
-     * @param PreUpdateEventArgs $args
+     * @param LifecycleEventArgs $args
+     * @param $action
      */
-    public function preUpdate(PreUpdateEventArgs $args)
+    private function ifInstanceOfUtilisateur(LifecycleEventArgs $args, $action)
     {
-        foreach ($args->getEntityChangeSet() as $key => $value) {
-            $this->initUserActionLog($key, $value, $args->getEntity()->getId());
+        $entity = $args->getObject();
+        if ($entity instanceof Utilisateur) {
+            $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
+            $this->uow = $this->em->getUnitOfWork();
+
+            $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
+            $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);
         }
     }
 
-    public function postUpdate(LifecycleEventArgs $args)
+    /**
+     * @param $action
+     * @param $entity
+     * @param UnitOfWork $uow
+     */
+    private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
-        $entity = $args->getObject();
-        $em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
-        $uow = $em->getUnitOfWork();
+        if ($action == 'update') {
+            $uow->computeChangeSets(); // do not compute changes if inside a listener
+            foreach ($uow->getEntityChangeSet($entity) as $key => $value) {
+                $this->initUserActionLog($key, $value, $entity->getId());
+            }
+        }
+    }
 
-        $uow->computeChangeSets(); // do not compute changes if inside a listener
-
-        foreach ($uow->getEntityChangeSet($entity) as $key => $value) {
-            $this->initUserActionLog($key, $value, $entity->getId());
+    /**
+     * @param $action
+     * @param $entity
+     */
+    private function ifInstanceOfUtilisateurAndPersist($action, $entity)
+    {
+        if ($action == 'persist') {
+            foreach ($entity as $key => $value) {
+                $this->initUserActionLog($key, $value, $entity->getId());
+            }
         }
     }
 
@@ -90,5 +120,21 @@ class UserActionLogSubscriber implements EventSubscriber
                 $entityManager->flush();
             }
         }
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function persist(LifecycleEventArgs $args)
+    {
+        $this->ifInstanceOfUtilisateur($args, 'persist');
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $this->ifInstanceOfUtilisateur($args, 'update');
     }
 }

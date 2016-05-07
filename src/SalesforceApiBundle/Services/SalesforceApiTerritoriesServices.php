@@ -2,6 +2,7 @@
 namespace SalesforceApiBundle\Services;
 
 use SalesforceApiBundle\Factory\SalesforceUserTerritoryFactory;
+use SalesforceApiBundle\Services\Manager\SalesforceTerritoryManager;
 use SalesforceApiBundle\Services\Manager\SalesforceTerritoryMatchServiceManager;
 use SalesforceApiBundle\Services\Manager\SalesforceGroupeManager;
 
@@ -24,26 +25,26 @@ class SalesforceApiTerritoriesServices
     /**
      * @var SalesforceTerritoryMatchServiceManager
      */
-    protected $SalesforceTerritoryMatchService;
+    protected $SalesforceTerritoryMatchServiceManager;
 
     /**
-     * @var SalesforceGroupeManager
+     * @var SalesforceTerritoryManager
      */
-    protected $salesforceTerritoriesManager;
+    protected $salesforceTerritoriyManager;
 
     /**
-     * SalesforceApiTerritoriesServices constructor.
+     * SalesforceGroupesServices constructor.
      * @param SalesforceApiService $salesforceApiService
      * @param SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory
-     * @param SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchService
-     * @param SalesforceGroupeManager $salesforceTerritoriesManager
+     * @param SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchServiceManager
+     * @param SalesforceTerritoryManager $salesforceTerritoriyManager
      */
-    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory, SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchService, SalesforceGroupeManager $salesforceTerritoriesManager)
+    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory, SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchServiceManager, SalesforceTerritoryManager $salesforceTerritoriyManager)
     {
-        $this->salesforceApiService            = $salesforceApiService;
-        $this->salesforceUserTerritoryFactory  = $salesforceUserTerritoryFactory;
-        $this->SalesforceTerritoryMatchService = $SalesforceTerritoryMatchService;
-        $this->salesforceTerritoriesManager    = $salesforceTerritoriesManager;
+        $this->salesforceApiService = $salesforceApiService;
+        $this->salesforceUserTerritoryFactory = $salesforceUserTerritoryFactory;
+        $this->SalesforceTerritoryMatchServiceManager = $SalesforceTerritoryMatchServiceManager;
+        $this->salesforceTerritoriyManager = $salesforceTerritoriyManager;
     }
 
     /**
@@ -54,8 +55,8 @@ class SalesforceApiTerritoriesServices
      */
     public function addTerritoriesForNewUser($userId, $fonctionId, $params)
     {
-        foreach ($this->SalesforceTerritoryMatchService->getRepository()->findBy(array('serviceId' => $fonctionId), array('serviceId' => 'ASC')) as $groupe) {
-            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $this->salesforceTerritoriesManager->load($groupe->getSalesforceTerritory())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
+        foreach ($this->SalesforceTerritoryMatchServiceManager->getRepository()->findBy(array('serviceId' => $fonctionId), array('serviceId' => 'ASC')) as $groupe) {
+            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $this->salesforceTerritoriyManager->load($groupe->getSalesforceTerritory())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
             return $this->salesforceApiService->addUserToTerritory($params, json_encode($itemToAdd));
         }
     }

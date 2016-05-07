@@ -180,6 +180,9 @@ class CandidatType extends BaseType
                 ),
                 'required' => false,
             ))
+            ->add('createdDate', HiddenType::class, array(
+                'label' => 'createdDate',
+            ))
         ;
     }
     

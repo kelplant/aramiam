@@ -119,8 +119,7 @@ abstract class AbstractControllerService extends Controller
             $this->isArchived = '1';
         }
         if ($sendaction == "Sauver et Transformer") {
-            $this->get('app.mouv_history_manager')->add($request->request->get('candidat'), $this->get('app.user_manager')->getId($this->get('security.token_storage')->getToken()->getUser()->getUsername()), 'C');
-            $this->get('core.candidat_manager')->transformUser($request->request->get(strtolower($this->entity))['id']);
+            $this->get('core.candidat_manager')->transformUserArchiveCandidat($request->request->get(strtolower($this->entity))['id']);
             $this->get('core.utilisateur_manager')->transform($request->request->get('candidat'));
         }
     }

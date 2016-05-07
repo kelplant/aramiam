@@ -12,8 +12,8 @@ use DateTime;
 class Candidat extends AbstractPerson
 {
     /**
-     * @var DateTime
-     * @ORM\Column(type="date", nullable=false)
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
      */
     public $createdDate;
 
@@ -31,6 +31,10 @@ class Candidat extends AbstractPerson
      */
     public function setCreatedDate($createdDate)
     {
+        if ($createdDate == null) {
+            $createdDate = new DateTime();
+            $createdDate = $createdDate->format('Y-m-d H:m:s');
+        }
         $this->createdDate = $createdDate;
         return $this;
     }

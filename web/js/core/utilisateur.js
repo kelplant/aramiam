@@ -78,7 +78,7 @@ function ajaxGenerateWindows()
     $('#windowsToggle').addClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
-    if (localStorage.getItem("isCreateInWindows") == 'null') {
+    if (localStorage.getItem("isCreateInWindows") == 'null' || localStorage.getItem("isCreateInWindows") == 0) {
         $('#loading').removeClass('hide').addClass('show');
         urlajax ="/ajax/get/active_directory/organisation_units";
         $.ajax({
@@ -247,7 +247,7 @@ function ajaxGenerateOdigo()
     $.ajax({
         url: urlajax, success: function (result) {
             localStorage.setItem("ableToShowOdigo",result);
-            if (localStorage.getItem("isCreateInOdigo") == 'null' && localStorage.getItem("ableToShowOdigo") == 1) {
+            if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
                 var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
                 var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
                 document.getElementById("prosodie_identifiant").value = prenom+nom;
@@ -269,7 +269,6 @@ function ajaxGenerateOdigo()
                         prosodieListe += '</select>';
                         prosodieListe += '</label>';
                         document.getElementById("prosodieListe").innerHTML = prosodieListe;
-
                         urlajax = "/ajax/generate/orange/" + service;
                         $.ajax({
                             url: urlajax, success: function (result) {

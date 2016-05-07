@@ -202,22 +202,27 @@ class UtilisateurType extends BaseType
             ))
             ->add('isCreateInGmail', HiddenType::class, array(
                 'label' => 'isCreateInGmail',
+                'empty_data'  => null,
                 'required' => false,
             ))
             ->add('isCreateInOdigo', HiddenType::class, array(
                 'label' => 'isCreateInOdigo',
+                'empty_data'  => null,
                 'required' => false,
             ))
             ->add('isCreateInRobusto', HiddenType::class, array(
                 'label' => 'isCreateInRobusto',
+                'empty_data'  => null,
                 'required' => false,
             ))
             ->add('isCreateInSalesforce', HiddenType::class, array(
                 'label' => 'isCreateInSalesforce',
                 'required' => false,
+                'empty_data'  => null,
             ))
             ->add('isCreateInWindows', HiddenType::class, array(
                 'label' => 'isCreateInSalesforce',
+                'empty_data'  => null,
                 'required' => false,
             ))
         ;

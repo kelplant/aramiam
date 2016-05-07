@@ -18,7 +18,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $email;
 
@@ -30,37 +30,37 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=10, unique=true, nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", length=10, nullable=true, options={"default":null})
      */
     protected $idCandidat;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", length=1, unique=true, nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInOdigo;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInGmail;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInSalesforce;
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":null})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     protected $isCreateInRobusto;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255, nullable=true, options={"default":null})
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default":0})
      */
     protected $isCreateInWindows;
 

@@ -64,19 +64,14 @@ class DashboardController extends Controller
         $result = $this->get('core.utilisateur_manager')->getRepository()->createQueryBuilder('p')
             ->where('p.isArchived = :isArchived')->addOrderBy('p.startDate', 'DESC')->setParameter('isArchived', 0)->setMaxResults('8')
             ->getQuery()->getResult();
-
         $finalTab = [];
-
         $countNewUser = 0;
-
         foreach ($result as $member) {
             $startDate    = $member->getStartDate()->format('Y-m-d');
             $countNewUser = $this->countNewUser($startDate, $countNewUser);
-
             $this->ifToday($startDate);
             $this->ifHier($startDate);
             $this->ifNotTodayOrHier($startDate);
-
             $finalTab[] = array('viewName' => $member->getViewName(), 'id' => $member->getId(), 'startDate' => $this->startDate);
         }
         $finalTab = array('countNewUser' => $countNewUser, 'finalTab' => $finalTab);

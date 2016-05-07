@@ -13,6 +13,57 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 class UtilisateurManager extends AbstractManager
 {
+    private $nbMajPassword;
+
+    /**
+     * @param $partOfPass
+     * @param $what
+     * @param $maxrand
+     * @return string
+     */
+    private function randomPasswordTestforCap($partOfPass, $what, $maxrand)
+    {
+        $conso = array('b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','x','y','z');
+        $majconso = array('B','C','D','F','G','H','J','K','L','M','N','P','R','S','T','V','W','X','Y','Z');
+        $vocal = array('a','e','i','u');
+        $majvocal = array('A','E','I','U');
+        if (rand(0, 1) == 0 && $this->nbMajPassword < 2) {
+            $what = 'maj'.$what;
+            $partOfPass .= ${$what}[rand(0, $maxrand)];
+            $this->nbMajPassword = $this->nbMajPassword + 1 ;
+        } else {
+            $partOfPass .= ${$what}[rand(0, $maxrand)];
+        }
+        return $partOfPass;
+    }
+
+    /**
+     * @param $len
+     * @return string
+     */
+    private function randomPassword($len){
+
+        srand ((double)microtime() * 1000000);
+        $max = ($len - 2) / 2;
+        $password = [];
+        $password[0] = rand(1, 9);
+        $password[1] = rand(1, 9);
+        $this->nbMajPassword = 0;
+        for($i = 1; $i <= $max; $i++){
+            $partOfPass = '';
+            $partOfPass = $this->randomPasswordTestforCap($partOfPass, 'conso', '19');
+            $partOfPass = $this->randomPasswordTestforCap($partOfPass, 'vocal', '3');
+            $password[$i + 1] = $partOfPass;
+        }
+        shuffle($password);
+        $newPassword = '';
+        foreach ($password as $passPart) {
+            $newPassword .= $passPart;
+        }
+        return $newPassword;
+    }
+
+
     /**
      * @param $itemLoad
      * @return bool|int
@@ -27,14 +78,15 @@ class UtilisateurManager extends AbstractManager
         $itemLoad['isCreateInWindows']    = null;
         $itemLoad['viewName']             = $itemLoad['surname'] . " " . $itemLoad['name'];
         $itemLoad['email']                = null;
+        $itemLoad['mainPassword']         = $this->randomPassword(8);
 
         $itemToSet = new Utilisateur();
 
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            return 6669;
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' '.$itemLoad['surname'] . " " . $itemLoad['name'].' a eté correctionement Transformé'));
         } catch (\Exception $e) {
-            return error_log($e->getMessage());
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
     }
 
@@ -69,7 +121,6 @@ class UtilisateurManager extends AbstractManager
     public function generateListPossibleEmail($utilisateurId)
     {
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
-
         $possibleEmails = [];
 
         $possibleSurnames = $this->recursiveListe($itemToTransform->getSurname(), 0, null, array());

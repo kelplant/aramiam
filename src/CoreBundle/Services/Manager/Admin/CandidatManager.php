@@ -17,6 +17,7 @@ class CandidatManager extends AbstractManager
      * @return Candidat
      */
     public function globalSetItem($itemToSet, $itemLoad) {
+
         $itemToSet->setName($itemLoad['name']);
         $itemToSet->setSurname($itemLoad['surname']);
         $itemToSet->setCivilite($itemLoad['civilite']);
@@ -31,7 +32,8 @@ class CandidatManager extends AbstractManager
         $itemToSet->setPredecesseur($itemLoad['predecesseur']);
         $itemToSet->setCommentaire($itemLoad['commentaire']);
         $itemToSet->setIsArchived('0');
-        $itemToSet->setCreatedDate(new DateTime());
+        $itemToSet->setCreatedDate($itemLoad['createdDate']);
+
         return $itemToSet;
     }
 
@@ -41,9 +43,7 @@ class CandidatManager extends AbstractManager
      */
     public function createArray($itemLoad) {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-
         $itemArray = [];
-
         $itemArray['id']            = $itemToTransform->getId();
         $itemArray['name']          = $itemToTransform->getName();
         $itemArray['surname']       = $itemToTransform->getSurname();
@@ -59,7 +59,7 @@ class CandidatManager extends AbstractManager
         $itemArray['matriculeRH']   = $itemToTransform->getMatriculeRH();
         $itemArray['commentaire']   = $itemToTransform->getCommentaire();
         $itemArray['isArchived']    = $itemToTransform->getIsArchived();
-        $itemArray['createdDate']   = $itemToTransform->getCreatedDate()->format('d-m-Y');
+        $itemArray['createdDate']   = (new DateTime($itemToTransform->getCreatedDate()))->format('Y-m-d H:m:s');
 
         return $itemArray;
     }
@@ -67,7 +67,7 @@ class CandidatManager extends AbstractManager
     /**
      * @param $itemId
      */
-    public function transformUser($itemId) {
+    public function transformUserArchiveCandidat($itemId) {
         $itemToSet = $this->getRepository()->findOneById($itemId);
         $itemToSet->setIsArchived('2');
         $this->em->flush();

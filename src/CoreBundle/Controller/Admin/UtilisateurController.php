@@ -37,6 +37,7 @@ class UtilisateurController extends AbstractControllerService
     public function indexAction()
     {
         $this->initData('index');
+
         return $this->get('core.index.controller_service')->generateIndexAction($this->isArchived);
     }
 
@@ -50,6 +51,7 @@ class UtilisateurController extends AbstractControllerService
         $this->initData('delete');
         $this->initData('index');
         $this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived'));
+
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 
@@ -62,6 +64,7 @@ class UtilisateurController extends AbstractControllerService
     {
         $this->initData('add');
         $this->initData('index');
+
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
@@ -79,7 +82,7 @@ class UtilisateurController extends AbstractControllerService
         if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
             if ($request->request->get('formAction') == 'edit') {
                 $this->saveEditIfSaveOrTransform($request->request->get('sendAction'), $request);
-                $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
+                $this->retablirOrTransformArchivedItem($request->request->get('sendAction'), $request);
                 $this->get('google.google_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
                 $this->get('odigo.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request, $this->getParameter('odigo'), $this->getParameter('google_api'));
                 $this->get('ad.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));

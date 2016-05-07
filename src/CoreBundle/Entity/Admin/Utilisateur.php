@@ -60,7 +60,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true, options={"default":0})
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default":null})
      */
     protected $isCreateInWindows;
 

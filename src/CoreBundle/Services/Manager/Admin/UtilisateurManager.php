@@ -19,15 +19,17 @@ class UtilisateurManager extends AbstractManager
      */
     public function transform($itemLoad)
     {
-        $itemLoad['idCandidat'] = $itemLoad['id'];
-        $itemLoad['isCreateInGmail'] = '0';
-        $itemLoad['isCreateInOdigo'] = '0';
-        $itemLoad['isCreateInRobusto'] = '0';
-        $itemLoad['isCreateInSalesforce'] = '0';
-        $itemLoad['isCreateInWindows'] = '0';
-        $itemLoad['viewName'] = $itemLoad['surname'] . " " . $itemLoad['name'];
-        $itemLoad['email'] = NULL;
+        $itemLoad['idCandidat']           = $itemLoad['id'];
+        $itemLoad['isCreateInGmail']      = null;
+        $itemLoad['isCreateInOdigo']      = null;
+        $itemLoad['isCreateInRobusto']    = null;
+        $itemLoad['isCreateInSalesforce'] = null;
+        $itemLoad['isCreateInWindows']    = null;
+        $itemLoad['viewName']             = $itemLoad['surname'] . " " . $itemLoad['name'];
+        $itemLoad['email']                = null;
+
         $itemToSet = new Utilisateur();
+
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
             return 6669;
@@ -46,6 +48,7 @@ class UtilisateurManager extends AbstractManager
     private function recursiveListe($item, $i, $lastIfExist, $possibleItems)
     {
         $items = explode(' ', str_replace('-', ' ', strtolower($item)));
+
         if ($i == 0) {
             $possibleItems[] = $newItem = $items[0];
             return $this->recursiveListe($item, $i + 1, $newItem, $possibleItems);
@@ -66,7 +69,9 @@ class UtilisateurManager extends AbstractManager
     public function generateListPossibleEmail($utilisateurId)
     {
         $itemToTransform = $this->getRepository()->findOneById($utilisateurId);
+
         $possibleEmails = [];
+
         $possibleSurnames = $this->recursiveListe($itemToTransform->getSurname(), 0, null, array());
         $possibleNames = $this->recursiveListe($itemToTransform->getName(), 0, null, array());
         foreach ($possibleSurnames as $surname) {

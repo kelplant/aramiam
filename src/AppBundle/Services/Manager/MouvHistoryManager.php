@@ -25,6 +25,7 @@ class MouvHistoryManager Extends AbstractManager
         $itemToSet->setAdminId($itemLoad['adminId']);
         $itemToSet->setDateModif(new Datetime());
         $itemToSet->setType($itemLoad['type']);
+
         return $itemToSet;
     }
 

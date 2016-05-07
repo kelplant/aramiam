@@ -8,26 +8,7 @@
     {% block mainform %}
         {% block modal_form %}
         {% endblock %}
-        {% if session_messaging is defined %}
-            <div class="form-group">
-                <div class="col-sm-2"></div>
-                <div class=" col-sm-8 corp-message-3">
-                    {% for message in session_messaging %}
-                        {% if (message.errorCode == 0) %}
-                            <div class="form-group alert-success corp-message-1 font_exo_2">
-                                {{ message.message }}
-                            </div>
-                        {% endif %}
-                        {% if (message.errorCode != 0) %}
-                            <div class="form-group alert-danger corp-message-1 font_exo_2">
-                                {{ message.message }}
-                            </div>
-                        {% endif %}
-
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+        <div class="form-group"></div>
         <div class="box box-primary">
             <section class="content">
                 <div class="row">
@@ -39,7 +20,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% block corps_table_cells %}{% endblock %}
+                            {% block corps_table_cells %}{% endblock %}
                         </tbody>
                     </table>
                 </div>

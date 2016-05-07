@@ -54,8 +54,7 @@
     margin-left: 15px;
     text-align: center;
 }
-.small
-{
+.small {
     width: 20%;
     height: 20%;
 }
@@ -200,4 +199,10 @@ table.display tbody td {
 }
 .dashboard_lastest_user {
     height: 400px;
+}
+.dashboard_lastest_user_box_body {
+    height: 310px;
+}
+.dashboard_todo-list_box_body {
+    height: 280px;
 }

@@ -5,60 +5,40 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
             <li class="dropdown tasks-menu">
+            <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-flag-o"></i>
-                    <span class="label label-danger">9</span>
+                    <i class="fa fa-bell-o"></i>
+                    {% if (session_messaging|length > 0) %}
+                    <span class="label label-warning">{{ session_messaging|length }}</span>
+                    {% endif %}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header">You have 9 tasks</li>
+                    <li class="header">Vous avez {{ session_messaging|length }} notifications</li>
                     <li>
-                        <ul class="menu">
-                            <li>
-                                <a href="#">
-                                    <h3>
-                                        Design some buttons
-                                        <small class="pull-right">20%</small>
-                                    </h3>
-                                    <div class="progress xs">
-                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <h3>
-                                        Create a nice theme
-                                        <small class="pull-right">40%</small>
-                                    </h3>
-                                    <div class="progress xs">
-                                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">40% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <h3>
-                                        Some task I need to do
-                                        <small class="pull-right">60%</small>
-                                    </h3>
-                                    <div class="progress xs">
-                                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">60% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="footer">
-                        <a href="#">View all tasks</a>
+                        {% if session_messaging is defined and session_messaging|length > 0 %}
+                            <ul class="menu">
+                                {% for message in session_messaging %}
+                                    {% if (message.errorCode == 0) %}
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-hand-spock-o text-green"></i>  {{ message.message }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if (message.errorCode != 0) %}
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> {{ message.message }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
                 </ul>
             </li>
+
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="data:{{ currentUserInfos.photoMineType }};base64,{{ userPhoto }}" class="user-image" alt="User Image">

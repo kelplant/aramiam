@@ -31,7 +31,6 @@ class AramisAgencyManager extends AbstractManager
         $itemArray['email']                              = $itemToTransform->getEmail();
         $itemArray['pointOfSale']                        = $itemToTransform->getPointOfSale();
         $itemArray['coordonnees']                        = $itemToTransform->getCoordonnees();
-        $itemArray['cargarantieId']                      = $itemToTransform->getCargarantieId();
         $itemArray['slug']                               = $itemToTransform->getSlug();
         $itemArray['isSaleAppointmentsEligible']         = $itemToTransform->getIsSaleAppointmentsEligible();
         $itemArray['isPurchaseAppointmentsEligible']     = $itemToTransform->getIsPurchaseAppointmentsEligible();

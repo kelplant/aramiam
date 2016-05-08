@@ -68,11 +68,6 @@ class AramisAgency
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $cargarantieId;
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
     protected $slug;
     /**
      * @var string
@@ -275,22 +270,7 @@ class AramisAgency
         $this->coordonnees = $coordonnees;
         return $this;
     }
-    /**
-     * @return string
-     */
-    public function getCargarantieId()
-    {
-        return $this->cargarantieId;
-    }
-    /**
-     * @param string $cargarantieId
-     * @return AramisAgency
-     */
-    public function setCargarantieId($cargarantieId)
-    {
-        $this->cargarantieId = $cargarantieId;
-        return $this;
-    }
+
     /**
      * @return string
      */

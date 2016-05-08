@@ -130,39 +130,44 @@ function ajaxGenerateSalesforce()
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
-    urlajax ="/ajax/get/salesforce/utilisateur/"+localStorage.getItem("email");
-    $.ajax({
-        url:urlajax,success:function(result) {
-            if (result['totalSize'] == 1)
-            {
-                $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
+    if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
+        document.getElementById("createActionSalesforcePart").innerHTML = 'Veuillez d\'abord indiquer un email';
+        $('#loading').removeClass('show').addClass('hide');
+        $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+    } else {
+        urlajax ="/ajax/get/salesforce/utilisateur/"+localStorage.getItem("email");
+        $.ajax({
+            url:urlajax,success:function(result) {
+                if (result['totalSize'] == 1)
+                {
+                    $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
+                    $('#loading').removeClass('show').addClass('hide');
+                    $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
+                    $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                } else {
+                    $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
+                    urlajax ="/ajax/get/salesforce/profiles";
+                    $.ajax({
+                        url:urlajax,success:function(result) {
+                            var i;
+                            var profilesListe = '<label class="font_exo_2 col-sm-4">Profil Salesforce:';
+                            profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
+                            for (i in result) {
+                                profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
+                            }
+                            profilesListe += '</select>';
+                            profilesListe += '</label>';
+                            document.getElementById("salesforceProfilesListe").innerHTML = profilesListe;
 
-                $('#loading').removeClass('show').addClass('hide');
-                $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
-                $('#createActionSalesforcePart').addClass('show').removeClass('hide');
-            } else {
-                $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
-                urlajax ="/ajax/get/salesforce/profiles";
-                $.ajax({
-                    url:urlajax,success:function(result) {
-                        var i;
-                        var profilesListe = '<label class="font_exo_2 col-sm-4">Profil Salesforce:';
-                        profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
-                        for (i in result) {
-                            profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
+                            $('#loading').removeClass('show').addClass('hide');
+                            $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
+                            $('#createActionSalesforcePart').addClass('show').removeClass('hide');
                         }
-                        profilesListe += '</select>';
-                        profilesListe += '</label>';
-                        document.getElementById("salesforceProfilesListe").innerHTML = profilesListe;
-
-                        $('#loading').removeClass('show').addClass('hide');
-                        $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
-                        $('#createActionSalesforcePart').addClass('show').removeClass('hide');
-                    }
-                });
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 // Fonction de chargement du bloc History
@@ -243,43 +248,59 @@ function ajaxGenerateEmail()
     $('#odigoToggle').removeClass('active');
     $('#gmailToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
-    urlajax = "/ajax/check/google/isexist/" + localStorage.getItem("email");
-    $.ajax({
-        url: urlajax, success: function (result) {
-            localStorage.setItem("emailState",result);
-            if (localStorage.getItem("emailState") == "nouser") {
-                var currentEditItem = localStorage.getItem("currentEditItem");
-                urlajax ="/ajax/generate/email/"+currentEditItem;
-                $.ajax({
-                    url:urlajax,success:function(result) {
-                        var i;
-                        var textToAppend = '';
-                        for (i in result) {
-                            textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-8"><input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
-                        }
-                        document.getElementById("actionGmailList").innerHTML = textToAppend;
-                        $('#loading').addClass('hide').removeClass('show');
-                        $('#createActionGmailPart').addClass('show').removeClass('hide');
-                    }
-                });
-            }
-            else {
+    if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
+        urlajax ="/ajax/generate/email/"+localStorage.getItem("currentEditItem");
+        $.ajax({
+            url:urlajax,success:function(result) {
                 var i;
-                var textToAppend = 'L\'Utilisateur possède un compte Gmail<br>';
-                textToAppend += '<br>Compte Principal : '+result.primaryEmail+'<br>';
-                textToAppend += '<br>Alias :';
-                for (i in result.emails)
-                {
-                    console.log(result.emails[i]);
-                    textToAppend += '<br> - '+result.emails[i].address;
+                var textToAppend = '';
+                for (i in result) {
+                    textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-8"><input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
                 }
-                console.dir(result);
-                document.getElementById("createActionGmailPart").innerHTML = textToAppend;
+                document.getElementById("actionGmailList").innerHTML = textToAppend;
                 $('#loading').addClass('hide').removeClass('show');
                 $('#createActionGmailPart').addClass('show').removeClass('hide');
             }
-        }
-    });
+        });
+    } else {
+        urlajax = "/ajax/check/google/isexist/" + localStorage.getItem("email");
+        $.ajax({
+            url: urlajax, success: function (result) {
+                localStorage.setItem("emailState",result);
+                if (localStorage.getItem("emailState") == "nouser") {
+                    var currentEditItem = localStorage.getItem("currentEditItem");
+                    urlajax ="/ajax/generate/email/"+currentEditItem;
+                    $.ajax({
+                        url:urlajax,success:function(result) {
+                            var i;
+                            var textToAppend = '';
+                            for (i in result) {
+                                textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-8"><input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                            }
+                            document.getElementById("actionGmailList").innerHTML = textToAppend;
+                            $('#loading').addClass('hide').removeClass('show');
+                            $('#createActionGmailPart').addClass('show').removeClass('hide');
+                        }
+                    });
+                }
+                else {
+                    var i;
+                    var textToAppend = 'L\'Utilisateur possède un compte Gmail<br>';
+                    textToAppend += '<br>Compte Principal : '+result.primaryEmail+'<br>';
+                    textToAppend += '<br>Alias :';
+                    for (i in result.emails)
+                    {
+                        console.log(result.emails[i]);
+                        textToAppend += '<br> - '+result.emails[i].address;
+                    }
+                    console.dir(result);
+                    document.getElementById("createActionGmailPart").innerHTML = textToAppend;
+                    $('#loading').addClass('hide').removeClass('show');
+                    $('#createActionGmailPart').addClass('show').removeClass('hide');
+                }
+            }
+        });
+    }
 }
 
 // Fonction de chargement du bloc de gestion odigo

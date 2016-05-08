@@ -185,15 +185,23 @@ function ajaxGenerateHistory()
             var i;
             var textToAppend = '';
             for (i in result) {
-                textToAppend += '<div class="panel panel-success" style="width: 360px; margin-bottom: 3px">';
-                textToAppend += '<div class="panel-heading"><h4 class="panel-title">'+result[i].requesterId+' le '+result[i].date+' : </h4></div>';
-                textToAppend += '<p class="panel-body" style="padding-left: 20px; padding-top: 5px; padding-bottom: 0px">';
+                textToAppend += '<div class="panel panel-success history_main_panel">';
+                textToAppend += '<div class="panel-heading text-center history_heading_panel">';
+                textToAppend += '<h4 class="panel-title history_title_panel">'+result[i].requesterId+'</h4>';
+                textToAppend += '<span class="history_span_date"> Le '+result[i].date+'</span>';
+                textToAppend += '</div>';
+                textToAppend += '<div class="panel-body history_panel_body">';
+                textToAppend += '<span class="history_span_field">';
                 textToAppend += result[i].field+' : <br>';
+                textToAppend += '</span>';
+                textToAppend += '<p class="text-center history_p_string">';
                 if (result[i].oldString != null && result[i].oldString != 'null') {
                     textToAppend += result[i].oldString+' ';
                 }
                 textToAppend += '=> '+result[i].newString;
-                textToAppend += '</p></div>';
+                textToAppend += '</p>';
+                textToAppend += '</div>';
+                textToAppend += '</div>';
             }
             document.getElementById("createActionHistoryPart").innerHTML = textToAppend;
             $('#loading').addClass('hide').removeClass('show');

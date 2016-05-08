@@ -137,7 +137,11 @@ class DashboardController extends Controller
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = 0;
-        $globalAlertColor = $this->getGlobalAlertColor($session_messaging, $globalAlertColor);
+        if (isset($session_messaging)) {
+            $globalAlertColor = $this->getGlobalAlertColor($session_messaging, $globalAlertColor);
+        } else {
+            $globalAlertColor = '';
+        }
 
         $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $lastest_users  = $this->lastest_users();

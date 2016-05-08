@@ -2,6 +2,8 @@
 namespace SalesforceApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+
 /**
  * Class Salesforce
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceRepository")
@@ -26,6 +28,18 @@ class Salesforce
      * @ORM\Column(type="string", nullable=true)
      */
     protected $salesforceProfil;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return mixed
@@ -78,6 +92,42 @@ class Salesforce
     public function setSalesforceProfil($salesforceProfil)
     {
         $this->salesforceProfil = $salesforceProfil;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return Salesforce
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return Salesforce
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

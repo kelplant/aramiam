@@ -2,6 +2,7 @@
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="core_admin_fonctions")
@@ -49,6 +50,18 @@ class Fonction
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $nameInActiveDirectory;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return mixed
@@ -191,6 +204,42 @@ class Fonction
     public function setNameInActiveDirectory($nameInActiveDirectory)
     {
         $this->nameInActiveDirectory = $nameInActiveDirectory;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return Fonction
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return Fonction
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

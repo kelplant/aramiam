@@ -2,6 +2,8 @@
 namespace OdigoApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+
 /**
  * Class ProsodieOdigo
  * @ORM\Entity(repositoryClass="OdigoApiBundle\Repository\ProsodieOdigoRepository")
@@ -38,6 +40,18 @@ class ProsodieOdigo
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
     protected $odigoExtension;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return mixed
@@ -126,6 +140,42 @@ class ProsodieOdigo
     public function setOdigoExtension($odigoExtension)
     {
         $this->odigoExtension = $odigoExtension;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return ProsodieOdigo
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return ProsodieOdigo
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

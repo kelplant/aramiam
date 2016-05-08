@@ -2,6 +2,7 @@
 namespace ActiveDirectoryApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="active_directory_groupe_match_service")
@@ -28,6 +29,18 @@ class ActiveDirectoryGroupMatchService
      * @ORM\Column(type="string")
      */
     protected $activeDirectoryGroupId;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -80,6 +93,42 @@ class ActiveDirectoryGroupMatchService
     public function setActiveDirectoryGroupId($activeDirectoryGroupId)
     {
         $this->activeDirectoryGroupId = $activeDirectoryGroupId;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return ActiveDirectoryGroupMatchService
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return ActiveDirectoryGroupMatchService
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

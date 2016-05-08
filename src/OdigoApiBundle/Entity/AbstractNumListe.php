@@ -2,6 +2,7 @@
 namespace OdigoApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 abstract class AbstractNumListe
 {
@@ -30,6 +31,18 @@ abstract class AbstractNumListe
      * @ORM\Column(type="boolean"))
      */
     protected $inUse;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -100,6 +113,42 @@ abstract class AbstractNumListe
     public function setInUse($inUse)
     {
         $this->inUse = $inUse;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return AbstractNumListe
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return AbstractNumListe
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

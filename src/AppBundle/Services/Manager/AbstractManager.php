@@ -156,7 +156,8 @@ abstract class AbstractManager
      */
     public function edit($itemToEditId, $ContentToAddToEditedItem) {
         try {
-            $this->globalSetItem($this->getRepository()->findOneById($itemToEditId), $ContentToAddToEditedItem);
+            $itemToSet = $this->globalSetItem($this->getRepository()->findOneById($itemToEditId), $ContentToAddToEditedItem);
+            $itemToSet->setUpdatedAt(new \DateTime());
             $this->em->flush();
             $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
         } catch (\Exception $e) {
@@ -174,7 +175,9 @@ abstract class AbstractManager
     {
         $itemToSet = $itemToSend = new $this->entity;
         try {
-            $this->save($this->globalSetItem($itemToSet, $itemLoad));
+            $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
+            $itemToSet->setCreatedAt(new \DateTime());
+            $this->save($itemToSet);
             $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

@@ -2,6 +2,7 @@
 namespace ActiveDirectoryApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="active_directory_groupe_match_fonction")
@@ -28,6 +29,18 @@ class ActiveDirectoryGroupMatchFonction
      * @ORM\Column(type="string")
      */
     protected $activeDirectoryGroupId;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return int

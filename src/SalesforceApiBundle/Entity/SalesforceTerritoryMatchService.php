@@ -2,6 +2,7 @@
 namespace SalesforceApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="salesforce_territory_match_service")
@@ -28,6 +29,18 @@ class SalesforceTerritoryMatchService
      * @ORM\Column(type="string")
      */
     protected $salesforceTerritoryId;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -80,6 +93,42 @@ class SalesforceTerritoryMatchService
     public function setSalesforceTerritoryId($salesforceTerritoryId)
     {
         $this->salesforceTerritoryId = $salesforceTerritoryId;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return SalesforceTerritoryMatchService
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return SalesforceTerritoryMatchService
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

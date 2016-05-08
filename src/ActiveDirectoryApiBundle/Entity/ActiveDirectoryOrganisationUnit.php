@@ -2,6 +2,7 @@
 namespace ActiveDirectoryApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="active_directory_organisation_units")
@@ -45,6 +46,18 @@ class ActiveDirectoryOrganisationUnit
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $fonction;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return string
@@ -151,6 +164,42 @@ class ActiveDirectoryOrganisationUnit
     public function setFonction($fonction)
     {
         $this->fonction = $fonction;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return ActiveDirectoryOrganisationUnit
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return ActiveDirectoryOrganisationUnit
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

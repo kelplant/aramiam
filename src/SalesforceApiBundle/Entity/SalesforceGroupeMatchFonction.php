@@ -2,6 +2,7 @@
 namespace SalesforceApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="salesforce_groupe_match_fonction")
@@ -28,6 +29,18 @@ class SalesforceGroupeMatchFonction
      * @ORM\Column(type="string")
      */
     protected $salesforceGroupe;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -80,6 +93,42 @@ class SalesforceGroupeMatchFonction
     public function setSalesforceGroupe($salesforceGroupe)
     {
         $this->salesforceGroupe = $salesforceGroupe;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return SalesforceGroupeMatchFonction
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return SalesforceGroupeMatchFonction
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

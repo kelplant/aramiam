@@ -2,7 +2,7 @@
 namespace AramisApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use DateTime;
 /**
  * @ORM\Table(name="aramis_agencies_data")
  * @ORM\Entity(repositoryClass="AramisApiBundle\Repository\AramisAgencyRepository")
@@ -104,6 +104,18 @@ class AramisAgency
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isPurchaseSaleAppointmentsEligible;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return string
@@ -390,6 +402,42 @@ class AramisAgency
     public function setIsPurchaseSaleAppointmentsEligible($isPurchaseSaleAppointmentsEligible)
     {
         $this->isPurchaseSaleAppointmentsEligible = $isPurchaseSaleAppointmentsEligible;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return AramisAgency
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return AramisAgency
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

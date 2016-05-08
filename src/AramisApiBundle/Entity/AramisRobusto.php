@@ -2,6 +2,8 @@
 namespace AramisApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+
 /**
  * Class AramisRobusto
  * @ORM\Entity(repositoryClass="AramisApiBundle\Repository\ApplicationRepository")
@@ -32,6 +34,18 @@ class AramisRobusto
      * @ORM\Column(type="string", nullable=true)
      */
     protected $robustoEndDate;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * @return mixed
@@ -102,6 +116,42 @@ class AramisRobusto
     public function setRobustoEndDate($robustoEndDate)
     {
         $this->robustoEndDate = $robustoEndDate;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return AramisRobusto
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return AramisRobusto
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

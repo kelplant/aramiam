@@ -24,7 +24,7 @@ class ActiveDirectoryUserLinkManager extends AbstractManager
         $itemArray['user'] = $itemToTransform->getUser();
         $itemArray['dn']   = $itemToTransform->getDn();
         $itemArray['createdAt'] = $itemToTransform->getCreatedAt();
-        $itemArray['updatedAt']   = $itemToTransform->getUpdatedAt();
+        $itemArray['updatedAt'] = $itemToTransform->getUpdatedAt();
 
         return $itemArray;
     }

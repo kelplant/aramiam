@@ -23,14 +23,14 @@ class UtilisateurManager extends AbstractManager
      */
     private function randomPasswordTestforCap($partOfPass, $what, $maxrand)
     {
-        $conso = array('b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','x','y','z');
-        $majconso = array('B','C','D','F','G','H','J','K','L','M','N','P','R','S','T','V','W','X','Y','Z');
-        $vocal = array('a','e','i','u');
-        $majvocal = array('A','E','I','U');
+        $conso = array('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z');
+        $majconso = array('B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z');
+        $vocal = array('a', 'e', 'i', 'u');
+        $majvocal = array('A', 'E', 'I', 'U');
         if (rand(0, 1) == 0 && $this->nbMajPassword < 2) {
             $what = 'maj'.$what;
             $partOfPass .= ${$what}[rand(0, $maxrand)];
-            $this->nbMajPassword = $this->nbMajPassword + 1 ;
+            $this->nbMajPassword = $this->nbMajPassword + 1;
         } else {
             $partOfPass .= ${$what}[rand(0, $maxrand)];
         }
@@ -41,15 +41,15 @@ class UtilisateurManager extends AbstractManager
      * @param $len
      * @return string
      */
-    private function randomPassword($len){
+    private function randomPassword($len) {
 
-        srand ((double)microtime() * 1000000);
+        srand((double)microtime() * 1000000);
         $max = ($len - 2) / 2;
         $password = [];
         $password[0] = rand(1, 9);
         $password[1] = rand(1, 9);
         $this->nbMajPassword = 0;
-        for($i = 1; $i <= $max; $i++){
+        for ($i = 1; $i <= $max; $i++) {
             $partOfPass = '';
             $partOfPass = $this->randomPasswordTestforCap($partOfPass, 'conso', '19');
             $partOfPass = $this->randomPasswordTestforCap($partOfPass, 'vocal', '3');
@@ -76,7 +76,7 @@ class UtilisateurManager extends AbstractManager
         $itemLoad['isCreateInRobusto']    = null;
         $itemLoad['isCreateInSalesforce'] = null;
         $itemLoad['isCreateInWindows']    = null;
-        $itemLoad['viewName']             = $itemLoad['surname'] . " " . $itemLoad['name'];
+        $itemLoad['viewName']             = $itemLoad['surname']." ".$itemLoad['name'];
         $itemLoad['email']                = null;
         $itemLoad['mainPassword']         = $this->randomPassword(8);
 
@@ -84,7 +84,7 @@ class UtilisateurManager extends AbstractManager
 
         try {
             $this->save($this->globalSetItem($itemToSet, $itemLoad));
-            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' '.$itemLoad['surname'] . " " . $itemLoad['name'].' a eté correctionement Transformé'));
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' '.$itemLoad['surname']." ".$itemLoad['name'].' a eté correctionement Transformé'));
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
@@ -107,8 +107,8 @@ class UtilisateurManager extends AbstractManager
         } else {
             while ($i < count($items)) {
                 $newItem = $lastIfExist;
-                $possibleItems[] = $newItem . '-' . $items[$i];
-                return $this->recursiveListe($item, $i + 1, $newItem . '-' . $items[$i], $possibleItems);
+                $possibleItems[] = $newItem.'-'.$items[$i];
+                return $this->recursiveListe($item, $i + 1, $newItem.'-'.$items[$i], $possibleItems);
             }
             return $possibleItems;
         }
@@ -127,7 +127,7 @@ class UtilisateurManager extends AbstractManager
         $possibleNames = $this->recursiveListe($itemToTransform->getName(), 0, null, array());
         foreach ($possibleSurnames as $surname) {
             foreach ($possibleNames as $name) {
-                $possibleEmails[] = $surname . '.' . $name . '@aramisauto.com';
+                $possibleEmails[] = $surname.'.'.$name.'@aramisauto.com';
             }
         }
         return $possibleEmails;

@@ -74,7 +74,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getRequesterId()
     {
@@ -128,7 +128,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @return resource
+     * @return string
      */
     public function getOldString()
     {
@@ -146,7 +146,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @return resource
+     * @return string
      */
     public function getNewString()
     {

@@ -170,8 +170,8 @@ class GoogleApiService
             $member->setRole('MEMBER');
             try {
                 $service->members->insert($value, $member);
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le group ' . $value . ' a été ajouté correctement'));
-            }  catch (Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le group '.$value.' a été ajouté correctement'));
+            } catch (Exception $e) {
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
         }

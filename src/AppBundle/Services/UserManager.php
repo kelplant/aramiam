@@ -2,27 +2,15 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\User;
+use AppBundle\Services\Manager\AbstractManager;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class UserManager
  * @package AppBundle\Services
  */
-class UserManager
+class UserManager extends AbstractManager
 {
-    private $managerRegistry;
-
-    private $em;
-
-    /**
-     * UserManager constructor.
-     * @param ManagerRegistry $managerRegistry
-     */
-    public function __construct(ManagerRegistry $managerRegistry) {
-        $this->managerRegistry = $managerRegistry;
-        $this->em = $this->managerRegistry->getManagerForClass(User::class);
-    }
-
     /**
      * @param $name
      * @return mixed

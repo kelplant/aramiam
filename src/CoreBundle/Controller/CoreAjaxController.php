@@ -102,12 +102,44 @@ class CoreAjaxController extends Controller
     }
 
     /**
+     * @param $results
+     * @param $i
+     * @param $what
+     * @return mixed
+     */
+    private function ifFieldIsWhat($results, $i, $what, $manager, $return)
+    {
+        if($results[$i]['field'] == $what) {
+            if($results[$i]['oldString'] != 'null' && $results[$i]['oldString'] != null) {
+                $results[$i]['oldString'] = $this->get($manager)->load($results[$i]['oldString'])->{"get".$return}();
+            }
+            if($results[$i]['newString'] != 'null' && $results[$i]['newString'] != null) {
+                $results[$i]['newString'] = $this->get($manager)->load($results[$i]['newString'])->{"get".$return}();
+            }
+        }
+
+        return $results;
+    }
+
+    /**
      * @param $utilisateurId
-     * @Route(path="/ajax/generate/email/{utilisateurId}",name="ajax_generate_email")
+     * @Route(path="/ajax/generate/utilisateur/history/{utilisateurId}",name="ajax_generate_utilisateur_history")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function generateHistoriqueforuser($utilisateurId)
     {
-        return new JsonResponse($this->get('core.utilisateur_manager')->generateListPossibleEmail($utilisateurId));
+        $results = $this->get('core.utilisateur_log_action_manager')->getHistoryforUtilisateur($utilisateurId);
+
+        for($i = 0; $i < count($results); $i++) {
+            $results = $this->ifFieldIsWhat($results, $i, 'agence', 'core.agence_manager', 'Name');
+            $results = $this->ifFieldIsWhat($results, $i, 'service', 'core.service_manager', 'Name');
+            $results = $this->ifFieldIsWhat($results, $i, 'fonction', 'core.fonction_manager', 'Name');
+            $results = $this->ifFieldIsWhat($results, $i, 'entiteHolding', 'core.entiteHolding_manager', 'Name');
+            $results = $this->ifFieldIsWhat($results, $i, 'responsable', 'core.utilisateur_manager', 'viewName');
+            $results = $this->ifFieldIsWhat($results, $i, 'predecesseur', 'core.utilisateur_manager', 'viewName');
+            $results[$i]['requesterId'] = $this->get('app.user_manager')->load($results[$i]['requesterId'])->getDisplayName();
+        }
+
+        return new JsonResponse($results);
     }
 }

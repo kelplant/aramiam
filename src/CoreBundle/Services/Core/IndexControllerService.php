@@ -95,6 +95,14 @@ class IndexControllerService extends AbstractControllerService
         $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
+        $globalAlertColor = 0;
+        foreach ($session_messaging as $message) {
+            if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
+                $globalAlertColor = 'success';
+            } else {
+                $globalAlertColor = 'danger';
+            }
+        }
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render(explode("\\", $this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
@@ -110,6 +118,7 @@ class IndexControllerService extends AbstractControllerService
             'session_messaging' => $session_messaging,
             'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
             'userPhoto'         => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'globalAlertColor'  => $globalAlertColor,
         ));
     }
 

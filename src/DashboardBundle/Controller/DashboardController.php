@@ -64,8 +64,10 @@ class DashboardController extends Controller
         $result = $this->get('core.utilisateur_manager')->getRepository()->createQueryBuilder('p')
             ->where('p.isArchived = :isArchived')->addOrderBy('p.startDate', 'DESC')->setParameter('isArchived', 0)->setMaxResults('8')
             ->getQuery()->getResult();
-        $finalTab = [];
+
+        $finalTab     = [];
         $countNewUser = 0;
+
         foreach ($result as $member) {
             $startDate    = $member->getStartDate()->format('Y-m-d');
             $countNewUser = $this->countNewUser($startDate, $countNewUser);
@@ -74,6 +76,7 @@ class DashboardController extends Controller
             $this->ifNotTodayOrHier($startDate);
             $finalTab[] = array('viewName' => $member->getViewName(), 'id' => $member->getId(), 'startDate' => $this->startDate);
         }
+
         $finalTab = array('countNewUser' => $countNewUser, 'finalTab' => $finalTab);
 
         return $finalTab;
@@ -103,7 +106,7 @@ class DashboardController extends Controller
         $todoListEvents = $this->get('dashboard.todo_list_manager')->getRepository()->findBy(array('isDone' => false), array('createDate' => 'DESC'));
 
         foreach ($todoListEvents as $event) {
-            $delais = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d')))/86400);
+            $delais                = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d')))/86400);
             $finalTodoListEvents[] = array('delais' => $delais, 'color' => $this->gimmeColorForDelais($delais), 'id' => $event->getId(), 'name' => $event->getName(), 'comment' => $event->getComment(), 'createDate' => date('Y-m-d', strtotime($event->getCreateDate()->format('Y-m-d'))), 'isDone' => $event->getIsDone());
         }
         return $finalTodoListEvents;
@@ -116,6 +119,14 @@ class DashboardController extends Controller
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
+        $globalAlertColor = 0;
+        foreach ($session_messaging as $message) {
+            if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
+                $globalAlertColor = 'success';
+            } else {
+                $globalAlertColor = 'danger';
+            }
+        }
 
         $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $lastest_users  = $this->lastest_users();
@@ -131,6 +142,7 @@ class DashboardController extends Controller
             'lastest_members'   => $lastest_users['finalTab'],
             'countNewUser'      => $lastest_users['countNewUser'],
             'todoListEvents'    => $todoListEvents,
+            'globalAlertColor'  => $globalAlertColor,
         ));
     }
 }

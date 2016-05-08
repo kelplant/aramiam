@@ -6,6 +6,7 @@ function ajaxUtilisateurEdit(editItem)
     $('#gmailToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
@@ -14,6 +15,7 @@ function ajaxUtilisateurEdit(editItem)
     $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePartNew').addClass('hide').removeClass('show');
     localStorage.setItem("emailState", null);
     localStorage.setItem("ableToShowOdigo", null);
@@ -73,8 +75,10 @@ function ajaxGenerateWindows()
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
     $('#gmailToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#windowsToggle').addClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
@@ -115,12 +119,14 @@ function ajaxGenerateSalesforce()
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
     $('#createActionSalesforcePartNew').addClass('hide').removeClass('show');
     $('#gmailToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
@@ -140,7 +146,7 @@ function ajaxGenerateSalesforce()
                 $.ajax({
                     url:urlajax,success:function(result) {
                         var i;
-                        var profilesListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
+                        var profilesListe = '<label class="font_exo_2 col-sm-4">Profil Salesforce:';
                         profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
                         for (i in result) {
                             profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
@@ -159,8 +165,8 @@ function ajaxGenerateSalesforce()
     });
 }
 
-// Fonction de chargement du bloc aramis
-function ajaxGenerateAramis()
+// Fonction de chargement du bloc History
+function ajaxGenerateHistory()
 {
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
@@ -169,6 +175,45 @@ function ajaxGenerateAramis()
     $('#gmailToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
+    $('#historyToggle').addClass('active');
+    $('#aramisToggle').removeClass('active');
+    $('#salesforceToggle').removeClass('active');
+    $('#loading').removeClass('hide').addClass('show');
+    urlajax ="/ajax/generate/utilisateur/history/" + localStorage.getItem("currentEditItem");
+    $.ajax({
+        url:urlajax,success:function(result) {
+            var i;
+            var textToAppend = '';
+            for (i in result) {
+                textToAppend += '<div class="panel panel-success" style="width: 360px; margin-bottom: 3px">';
+                textToAppend += '<div class="panel-heading"><h4 class="panel-title">'+result[i].requesterId+' le '+result[i].date+' : </h4></div>';
+                textToAppend += '<p class="panel-body" style="padding-left: 20px; padding-top: 5px; padding-bottom: 0px">';
+                textToAppend += result[i].field+' : <br>';
+                if (result[i].oldString != null && result[i].oldString != 'null') {
+                    textToAppend += result[i].oldString+' ';
+                }
+                textToAppend += '=> '+result[i].newString;
+                textToAppend += '</p></div>';
+            }
+            document.getElementById("createActionHistoryPart").innerHTML = textToAppend;
+            $('#loading').addClass('hide').removeClass('show');
+            $('#createActionHistoryPart').addClass('show').removeClass('hide');
+        }
+    });
+}
+
+// Fonction de chargement du bloc aramis
+function ajaxGenerateAramis()
+{
+    $('#createActionWindowsPart').addClass('hide').removeClass('show');
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionGmailPart').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
+    $('#gmailToggle').removeClass('active');
+    $('#odigoToggle').removeClass('active');
+    $('#windowsToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#aramisToggle').addClass('active');
     $('#salesforceToggle').removeClass('active');
     $('#createActionAramisPart').addClass('show').removeClass('hide');
@@ -182,7 +227,9 @@ function ajaxGenerateEmail()
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
     $('#windowsToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
     $('#odigoToggle').removeClass('active');
@@ -235,8 +282,10 @@ function ajaxGenerateOdigo()
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
+    $('#createActionHistoryPart').addClass('hide').removeClass('show');
     $('#gmailToggle').removeClass('active');
     $('#windowsToggle').removeClass('active');
+    $('#historyToggle').removeClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
     $('#odigoToggle').addClass('active');

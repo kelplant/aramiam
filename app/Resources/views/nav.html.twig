@@ -9,7 +9,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-bell-o"></i>
                     {% if (session_messaging|length > 0) %}
-                    <span class="label label-warning">{{ session_messaging|length }}</span>
+                    <span class="label label-{{ globalAlertColor }}">{{ session_messaging|length }}</span>
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">

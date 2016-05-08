@@ -206,3 +206,8 @@ table.display tbody td {
 .dashboard_todo-list_box_body {
     height: 280px;
 }
+.history {
+    height: 730px;
+    width: 390px;
+    overflow-y: auto;
+}

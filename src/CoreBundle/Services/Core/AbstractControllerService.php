@@ -41,7 +41,7 @@ abstract class AbstractControllerService extends Controller
      * @param $what
      * @return mixed
      */
-    protected function getConvertion($manager, $what)
+    public function getConvertion($manager, $what)
     {
         return $this->get('core.'.$manager.'_manager')->getRepository()->findOneById($what);
     }

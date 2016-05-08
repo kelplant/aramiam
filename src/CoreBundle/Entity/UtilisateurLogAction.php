@@ -29,7 +29,7 @@ class UtilisateurLogAction
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $UtilisateurId;
+    protected $utilisateurId;
 
     /**
      * @var DateTime
@@ -96,16 +96,16 @@ class UtilisateurLogAction
      */
     public function getUtilisateurId()
     {
-        return $this->UtilisateurId;
+        return $this->utilisateurId;
     }
 
     /**
-     * @param int $UtilisateurId
+     * @param int $utilisateurId
      * @return UtilisateurLogAction
      */
-    public function setUtilisateurId($UtilisateurId)
+    public function setUtilisateurId($utilisateurId)
     {
-        $this->UtilisateurId = $UtilisateurId;
+        $this->utilisateurId = $utilisateurId;
         return $this;
     }
 

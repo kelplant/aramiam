@@ -14,109 +14,91 @@ class AramisAgency
      * @ORM\Column(type="string")
      */
     protected $id;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cetelemCode;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $lizautoCode;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $label;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $address1;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $zipCode;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $city;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $phone;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
-
     /**
      * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $pointOfSale;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $coordonnees;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cargarantieId;
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $slug;
-
     /**
      * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isSaleAppointmentsEligible;
-
     /**
      * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isPurchaseAppointmentsEligible;
-
     /**
      * @var string
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isPurchaseSaleAppointmentsEligible;
-
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $createdAt;
-
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
-
     /**
      * @return string
      */
@@ -124,7 +106,6 @@ class AramisAgency
     {
         return $this->id;
     }
-
     /**
      * @param string $id
      * @return AramisAgency
@@ -134,7 +115,6 @@ class AramisAgency
         $this->id = $id;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -142,7 +122,6 @@ class AramisAgency
     {
         return $this->cetelemCode;
     }
-
     /**
      * @param string $cetelemCode
      * @return AramisAgency
@@ -152,7 +131,6 @@ class AramisAgency
         $this->cetelemCode = $cetelemCode;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -160,7 +138,6 @@ class AramisAgency
     {
         return $this->lizautoCode;
     }
-
     /**
      * @param string $lizautoCode
      * @return AramisAgency
@@ -170,7 +147,6 @@ class AramisAgency
         $this->lizautoCode = $lizautoCode;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -178,7 +154,6 @@ class AramisAgency
     {
         return $this->label;
     }
-
     /**
      * @param string $label
      * @return AramisAgency
@@ -188,7 +163,6 @@ class AramisAgency
         $this->label = $label;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -196,7 +170,6 @@ class AramisAgency
     {
         return $this->address1;
     }
-
     /**
      * @param string $address1
      * @return AramisAgency
@@ -206,7 +179,6 @@ class AramisAgency
         $this->address1 = $address1;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -214,7 +186,6 @@ class AramisAgency
     {
         return $this->zipCode;
     }
-
     /**
      * @param string $zipCode
      * @return AramisAgency
@@ -224,7 +195,6 @@ class AramisAgency
         $this->zipCode = $zipCode;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -232,7 +202,6 @@ class AramisAgency
     {
         return $this->city;
     }
-
     /**
      * @param string $city
      * @return AramisAgency
@@ -242,7 +211,6 @@ class AramisAgency
         $this->city = $city;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -250,7 +218,6 @@ class AramisAgency
     {
         return $this->phone;
     }
-
     /**
      * @param string $phone
      * @return AramisAgency
@@ -260,7 +227,6 @@ class AramisAgency
         $this->phone = $phone;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -268,7 +234,6 @@ class AramisAgency
     {
         return $this->email;
     }
-
     /**
      * @param string $email
      * @return AramisAgency
@@ -278,7 +243,6 @@ class AramisAgency
         $this->email = $email;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -286,7 +250,6 @@ class AramisAgency
     {
         return $this->pointOfSale;
     }
-
     /**
      * @param string $pointOfSale
      * @return AramisAgency
@@ -296,7 +259,6 @@ class AramisAgency
         $this->pointOfSale = $pointOfSale;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -304,7 +266,6 @@ class AramisAgency
     {
         return $this->coordonnees;
     }
-
     /**
      * @param string $coordonnees
      * @return AramisAgency
@@ -314,7 +275,6 @@ class AramisAgency
         $this->coordonnees = $coordonnees;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -322,7 +282,6 @@ class AramisAgency
     {
         return $this->cargarantieId;
     }
-
     /**
      * @param string $cargarantieId
      * @return AramisAgency
@@ -332,7 +291,6 @@ class AramisAgency
         $this->cargarantieId = $cargarantieId;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -340,7 +298,6 @@ class AramisAgency
     {
         return $this->slug;
     }
-
     /**
      * @param string $slug
      * @return AramisAgency
@@ -350,7 +307,6 @@ class AramisAgency
         $this->slug = $slug;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -358,7 +314,6 @@ class AramisAgency
     {
         return $this->isSaleAppointmentsEligible;
     }
-
     /**
      * @param string $isSaleAppointmentsEligible
      * @return AramisAgency
@@ -368,7 +323,6 @@ class AramisAgency
         $this->isSaleAppointmentsEligible = $isSaleAppointmentsEligible;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -376,7 +330,6 @@ class AramisAgency
     {
         return $this->isPurchaseAppointmentsEligible;
     }
-
     /**
      * @param string $isPurchaseAppointmentsEligible
      * @return AramisAgency
@@ -386,7 +339,6 @@ class AramisAgency
         $this->isPurchaseAppointmentsEligible = $isPurchaseAppointmentsEligible;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -394,7 +346,6 @@ class AramisAgency
     {
         return $this->isPurchaseSaleAppointmentsEligible;
     }
-
     /**
      * @param string $isPurchaseSaleAppointmentsEligible
      * @return AramisAgency
@@ -404,7 +355,6 @@ class AramisAgency
         $this->isPurchaseSaleAppointmentsEligible = $isPurchaseSaleAppointmentsEligible;
         return $this;
     }
-
     /**
      * @return DateTime
      */
@@ -412,7 +362,6 @@ class AramisAgency
     {
         return $this->createdAt;
     }
-
     /**
      * @param DateTime $createdAt
      * @return AramisAgency
@@ -422,7 +371,6 @@ class AramisAgency
         $this->createdAt = $createdAt;
         return $this;
     }
-
     /**
      * @return DateTime
      */
@@ -430,7 +378,6 @@ class AramisAgency
     {
         return $this->updatedAt;
     }
-
     /**
      * @param DateTime $updatedAt
      * @return AramisAgency

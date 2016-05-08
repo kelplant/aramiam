@@ -82,33 +82,39 @@ function ajaxGenerateWindows()
     $('#windowsToggle').addClass('active');
     $('#aramisToggle').removeClass('active');
     $('#salesforceToggle').removeClass('active');
-    if (localStorage.getItem("isCreateInWindows") == 'null' || localStorage.getItem("isCreateInWindows") == 0) {
-        $('#loading').removeClass('hide').addClass('show');
-        urlajax ="/ajax/get/active_directory/organisation_units";
-        $.ajax({
-            url:urlajax,success:function(result) {
-                var i;
-                var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-                var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-                var orgaUnitsListe = '<div class="form-group font_exo_2">' +
-                    '<label class="font_exo_2 col-sm-4">Identifiant :' +
-                    '<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+prenom+nom+'">' +
-                    '</label>' +
-                    '</div>';
-                orgaUnitsListe += '<div class="form-group font_exo_2">' +
-                    '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:' +
-                    '<select name="windows[dn]" id="windows_dn" class="form-control">';
-                for (i in result) {
-                    orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+    if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
+        document.getElementById("createActionWindowsPart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
+        $('#loading').removeClass('show').addClass('hide');
+        $('#createActionWindowsPart').addClass('show').removeClass('hide');
+    } else {
+        if (localStorage.getItem("isCreateInWindows") == 'null' || localStorage.getItem("isCreateInWindows") == 0) {
+            $('#loading').removeClass('hide').addClass('show');
+            urlajax ="/ajax/get/active_directory/organisation_units";
+            $.ajax({
+                url:urlajax,success:function(result) {
+                    var i;
+                    var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+                    var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+                    var orgaUnitsListe = '<div class="form-group font_exo_2">' +
+                        '<label class="font_exo_2 col-sm-4">Identifiant :' +
+                        '<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+prenom+nom+'">' +
+                        '</label>' +
+                        '</div>';
+                    orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                        '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:' +
+                        '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                    for (i in result) {
+                        orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                    }
+                    orgaUnitsListe += '</select>' +
+                        '</label>' +
+                        '</div>';
+                    document.getElementById("InsertWindowsField").innerHTML = orgaUnitsListe;
+                    $('#loading').addClass('hide').removeClass('show');
+                    $('#createActionWindowsPart').addClass('show').removeClass('hide');
                 }
-                orgaUnitsListe += '</select>' +
-                    '</label>' +
-                    '</div>';
-                document.getElementById("InsertWindowsField").innerHTML = orgaUnitsListe;
-                $('#loading').addClass('hide').removeClass('show');
-                $('#createActionWindowsPart').addClass('show').removeClass('hide');
-            }
-        });
+            });
+        }
     }
 }
 
@@ -131,7 +137,7 @@ function ajaxGenerateSalesforce()
     $('#salesforceToggle').addClass('active');
     $('#loading').removeClass('hide').addClass('show');
     if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
-        document.getElementById("createActionSalesforcePart").innerHTML = 'Veuillez d\'abord indiquer un email';
+        document.getElementById("createActionSalesforcePart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
         $('#loading').removeClass('show').addClass('hide');
         $('#createActionSalesforcePart').addClass('show').removeClass('hide');
     } else {
@@ -321,62 +327,68 @@ function ajaxGenerateOdigo()
     $('#loading').removeClass('hide').addClass('show');
     var service = localStorage.getItem("service");
     var fonction = localStorage.getItem("fonction");
-    urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
-    $.ajax({
-        url: urlajax, success: function (result) {
-            localStorage.setItem("ableToShowOdigo",result);
-            if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
-                var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-                var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-                document.getElementById("prosodie_identifiant").value = prenom+nom;
-                var currentEditItem = localStorage.getItem("currentEditItem");
-                urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
-                $.ajax({
-                    url: urlajax, success: function (result) {
-                        var i;
-                        var prosodieListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
-                        prosodieListe += '<select name="prosodie[numProsodie]" id="prosodie_numProsodie" class="form-control">';
-                        if (result.length >= 1) {
-                            prosodieListe += '<option value="">Numéro Prosodie</option>';
-                            for (i in result) {
-                                prosodieListe += '<option value="' + result[i] + '">' + result[i] + '</option>';
-                            }
-                        } else {
-                            prosodieListe += '<option value="">Pas de Numéros</option>';
-                        }
-                        prosodieListe += '</select>';
-                        prosodieListe += '</label>';
-                        document.getElementById("prosodieListe").innerHTML = prosodieListe;
-                        urlajax = "/ajax/generate/orange/" + service;
-                        $.ajax({
-                            url: urlajax, success: function (result) {
-                                var i;
-                                var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
-                                orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
-                                if (result.length >= 1) {
-                                    orangeListe += '<option value="">Numéro Orange</option>';
-                                    for (i in result) {
-                                        orangeListe += '<option value="'+result[i]+'">'+result[i]+'</option>';
-                                    }
-                                } else {
-                                    orangeListe += '<option value="">Pas de Numéros</option>';
+    if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
+        document.getElementById("createActionOdigoPart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
+        $('#loading').removeClass('show').addClass('hide');
+        $('#createActionOdigoPart').addClass('show').removeClass('hide');
+    } else {
+        urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
+        $.ajax({
+            url: urlajax, success: function (result) {
+                localStorage.setItem("ableToShowOdigo", result);
+                if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
+                    var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+                    var prenom = localStorage.getItem("currentSurname").substring(0, 3).toLowerCase();
+                    document.getElementById("prosodie_identifiant").value = prenom + nom;
+                    var currentEditItem = localStorage.getItem("currentEditItem");
+                    urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
+                    $.ajax({
+                        url: urlajax, success: function (result) {
+                            var i;
+                            var prosodieListe = '<label class="font_exo_2 col-sm-4">Numéro Prosodie:';
+                            prosodieListe += '<select name="prosodie[numProsodie]" id="prosodie_numProsodie" class="form-control">';
+                            if (result.length >= 1) {
+                                prosodieListe += '<option value="">Numéro Prosodie</option>';
+                                for (i in result) {
+                                    prosodieListe += '<option value="' + result[i] + '">' + result[i] + '</option>';
                                 }
-                                orangeListe += '</select>';
-                                orangeListe += '</label>';
-                                orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
-                                document.getElementById("orangeliste").innerHTML = orangeListe;
-
-                                $('#loading').addClass('hide').removeClass('show');
-                                $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                            } else {
+                                prosodieListe += '<option value="">Pas de Numéros</option>';
                             }
-                        });
-                    }
-                });
-            } else {
-                $('#loading').addClass('hide').removeClass('show');
+                            prosodieListe += '</select>';
+                            prosodieListe += '</label>';
+                            document.getElementById("prosodieListe").innerHTML = prosodieListe;
+                            urlajax = "/ajax/generate/orange/" + service;
+                            $.ajax({
+                                url: urlajax, success: function (result) {
+                                    var i;
+                                    var orangeListe = '<label class="font_exo_2 col-sm-2">Numéro Orange:';
+                                    orangeListe += '<select name="prosodie[numOrange]" id="prosodie_numOrange" class="form-control">';
+                                    if (result.length >= 1) {
+                                        orangeListe += '<option value="">Numéro Orange</option>';
+                                        for (i in result) {
+                                            orangeListe += '<option value="' + result[i] + '">' + result[i] + '</option>';
+                                        }
+                                    } else {
+                                        orangeListe += '<option value="">Pas de Numéros</option>';
+                                    }
+                                    orangeListe += '</select>';
+                                    orangeListe += '</label>';
+                                    orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
+                                    document.getElementById("orangeliste").innerHTML = orangeListe;
+
+                                    $('#loading').addClass('hide').removeClass('show');
+                                    $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $('#loading').addClass('hide').removeClass('show');
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 // Fonction d'affichage du champ autre email pendant création gmail

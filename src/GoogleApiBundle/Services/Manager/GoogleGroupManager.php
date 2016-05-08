@@ -34,4 +34,18 @@ class GoogleGroupManager extends AbstractManager
     {
         return $this->getRepository()->findBy(array(), array('name' => 'ASC'));
     }
+
+    /**
+     * @param $arrayToTransform
+     * @return array
+     */
+    public function transformMatchArrayToListOfEmail($arrayToTransform)
+    {
+        $finalEmailList = [];
+        foreach ($arrayToTransform as $item) {
+            $finalEmailList[$item->getGmailGroupId()] = $this->load($item->getGmailGroupId())->getEmail();
+        }
+
+        return $finalEmailList;
+    }
 }

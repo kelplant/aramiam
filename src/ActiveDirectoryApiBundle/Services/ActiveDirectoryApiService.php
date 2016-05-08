@@ -5,6 +5,7 @@ use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupManager;
 use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupMatchFonctionManager;
 use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryGroupMatchServiceManager;
 use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryOrganisationUnitManager;
+use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryUserLinkManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 
@@ -45,6 +46,11 @@ class ActiveDirectoryApiService
     protected $activeDirectoryOrganisationUnitManager;
 
     /**
+     * @var ActiveDirectoryUserLinkManager;
+     */
+    protected $activeDirectoryUserLinkManager;
+
+    /**
      * ActiveDirectoryApiService constructor.
      * @param ServiceManager $serviceManager
      * @param UtilisateurManager $utilisateurManager
@@ -52,8 +58,9 @@ class ActiveDirectoryApiService
      * @param ActiveDirectoryGroupMatchFonctionManager $activeDirectoryGroupMatchFonctionManager
      * @param ActiveDirectoryGroupMatchServiceManager $activeDirectoryGroupMatchServiceManager
      * @param ActiveDirectoryOrganisationUnitManager $activeDirectoryOrganisationUnitManager
+     * @param ActiveDirectoryUserLinkManager $activeDirectoryUserLinkManager
      */
-    public function __construct(ServiceManager $serviceManager, UtilisateurManager $utilisateurManager, ActiveDirectoryGroupManager $activeDirectoryGroupManager, ActiveDirectoryGroupMatchFonctionManager $activeDirectoryGroupMatchFonctionManager, ActiveDirectoryGroupMatchServiceManager $activeDirectoryGroupMatchServiceManager, ActiveDirectoryOrganisationUnitManager $activeDirectoryOrganisationUnitManager)
+    public function __construct(ServiceManager $serviceManager, UtilisateurManager $utilisateurManager, ActiveDirectoryGroupManager $activeDirectoryGroupManager, ActiveDirectoryGroupMatchFonctionManager $activeDirectoryGroupMatchFonctionManager, ActiveDirectoryGroupMatchServiceManager $activeDirectoryGroupMatchServiceManager, ActiveDirectoryOrganisationUnitManager $activeDirectoryOrganisationUnitManager, ActiveDirectoryUserLinkManager$activeDirectoryUserLinkManager)
     {
         $this->serviceManager                           = $serviceManager;
         $this->utilisateurManager                       = $utilisateurManager;
@@ -61,6 +68,7 @@ class ActiveDirectoryApiService
         $this->activeDirectoryGroupMatchFonctionManager = $activeDirectoryGroupMatchFonctionManager;
         $this->activeDirectoryGroupMatchServiceManager  = $activeDirectoryGroupMatchServiceManager;
         $this->activeDirectoryOrganisationUnitManager   = $activeDirectoryOrganisationUnitManager;
+        $this->activeDirectoryUserLinkManager           = $activeDirectoryUserLinkManager;
     }
 
     /**
@@ -175,6 +183,21 @@ class ActiveDirectoryApiService
     }
 
     /**
+     * @param $userId
+     * @param $paramsAD
+     * @param $updatedItem
+     */
+    public function modifyInfosForUser($userId, $paramsAD, $updatedItem)
+    {
+        try {
+            ldap_mod_add($this->connectAD($paramsAD), $this->activeDirectoryUserLinkManager->load($userId)->getDn(), $updatedItem);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$updatedItem['viewName'].' a été mis à jour  dans l\'Active Directory'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInWindows
      * @param $request
@@ -188,6 +211,7 @@ class ActiveDirectoryApiService
             $this->createUser($paramsAD, $dn_user, $ldaprecord);
             $newUser = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "objectGUID", "dn", "name"));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->toReadableGuid($newUser[0]['objectguid']));
+            $this->activeDirectoryUserLinkManager->add(array('id' => $this->toReadableGuid($newUser[0]['objectguid']), 'user' => $request->request->get('utilisateur')['id'], 'dn' => $dn_user));
             $this->addNewUserToGroups($paramsAD, $request, $newUser);
         }
     }

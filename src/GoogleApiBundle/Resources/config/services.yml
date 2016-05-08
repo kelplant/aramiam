@@ -30,5 +30,5 @@ services:
 
     google.google_api_service:
         class: '%google.google_api_service.class%'
-        arguments: [ '@core.utilisateur_manager' ]
+        arguments: [ '@core.utilisateur_manager', '@google.google_group_match_fonction_and_service_manager', '@google.google_group_manager' ]
 

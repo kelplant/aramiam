@@ -8,6 +8,6 @@ parameters:
 services:
     core.user_action_log_subscriber_service:
         class: '%core.user_action_log_subscriber_service.class%'
-        arguments: [ '@service_container', '@doctrine' ]
+        arguments: [ '@service_container', '@doctrine', '@request_stack' ]
         tags:
             - { name: doctrine.event_subscriber }

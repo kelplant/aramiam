@@ -54,20 +54,20 @@ $(function () {
       var datas = result;
       console.log(datas);
 
-      var area = new Morris.Area({
+      var area = new Morris.Bar({
         element: 'revenue-chart',
         data: datas,
         resize: true,
         xkey: 'y',
         ykeys: ['item1'],
         labels: ['Nouveaux Utilisateurs'],
-        lineColors: ['#a0d0e0'],
+        barColors: ['#a0d0e0'],
         hideHover: 'auto'
       });
       //Fix for charts under tabs
       $('.box ul.nav a').on('shown.bs.tab', function () {
         area.redraw();
-        donut.redraw();
+        bar.redraw();
         line.redraw();
       });
     }});

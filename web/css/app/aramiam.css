@@ -238,3 +238,13 @@ table.display tbody td {
     font-size: smaller !important;
     margin-top: 2px !important;
 }
+.alert-danger-2 {
+    padding: 10px;
+    color: #ffffff;
+    background-color: rgba(250, 172, 38, 0.85);
+    border: 1px solid;
+
+    border-radius: 10px;
+    width: 340px;
+    text-align: center;
+}

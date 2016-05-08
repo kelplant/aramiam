@@ -8,6 +8,9 @@ use Google_Service_Directory;
 use Exception;
 use Google_Service_Directory_User;
 use Google_Service_Directory_UserName;
+use GoogleApiBundle\Entity\GoogleGroupMatchFonctionAndService;
+use GoogleApiBundle\Services\Manager\GoogleGroupManager;
+use GoogleApiBundle\Services\Manager\GoogleGroupMatchFonctionAndServiceManager;
 
 /**
  * Class GoogleApiService
@@ -21,29 +24,41 @@ class GoogleApiService
     protected $utilisateurManager;
 
     /**
+     * @var GoogleGroupMatchFonctionAndServiceManager
+     */
+    protected $googleGroupMarchFonctionAndServiceManager;
+
+    /**
+     * @var GoogleGroupManager
+     */
+    protected $googleGroupManager;
+
+    /**
      * GoogleApiService constructor.
      * @param UtilisateurManager $utilisateurManager
+     * @param GoogleGroupMatchFonctionAndServiceManager $googleGroupMarchFonctionAndServiceManager
+     * @param GoogleGroupManager $googleGroupManager
      */
-    public function __construct(UtilisateurManager $utilisateurManager)
+    public function __construct(UtilisateurManager $utilisateurManager, GoogleGroupMatchFonctionAndServiceManager $googleGroupMarchFonctionAndServiceManager, GoogleGroupManager $googleGroupManager)
     {
         $this->utilisateurManager = $utilisateurManager;
+        $this->googleGroupMarchFonctionAndServiceManager = $googleGroupMarchFonctionAndServiceManager;
+        $this->googleGroupManager = $googleGroupManager;
     }
 
     /**
-     * @param $f
      * @param $userToCreate
      * @param $service
      */
-    private function ifUserNotExist($f, $userToCreate, $service)
+    private function ifUserNotExist($userToCreate, $service)
     {
-        if ($f == 0) {
-            try {
-                $return = $this->createNewUserAccount($service, $userToCreate);
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
-            } catch (Exception $e) {
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
+        try {
+            $return = $this->createNewUserAccount($service, $userToCreate);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
+        } catch (Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
     }
 
     /**
@@ -70,14 +85,15 @@ class GoogleApiService
     private function ifEmailNotExistCreateUser($userToCreate, $params)
     {
         $service = $this->innitApi($params);
-        $f = 0;
         try {
-            $this->getInfosFromEmail($service, $userToCreate['email'], $params);
+            $isCreated = $this->getInfosFromEmail($service, $userToCreate['email'], $params);
         } catch (Exception $e) {
-            $f = error_log($e->getMessage());
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => $f, 'message' => $e->getMessage()));
+            $isCreated = null;
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        $this->ifUserNotExist($f, $userToCreate, $service);
+        if ($isCreated == null) {
+            $this->ifUserNotExist($userToCreate, $service);
+        }
     }
 
     /**
@@ -98,16 +114,9 @@ class GoogleApiService
         $private_key = file_get_contents('../app/config/'.$params['certificat_name']);
         $scopes = array(
             'https://www.googleapis.com/auth/admin.directory.user',
-            'https://www.googleapis.com/auth/admin.directory.group'
+            'https://www.googleapis.com/auth/admin.directory.group',
         );
-        $credentials = new Google_Auth_AssertionCredentials(
-            $params['user_app_account'],
-            $scopes,
-            $private_key,
-            'notasecret', // Default P12 password
-            'http://oauth.net/grant_type/jwt/1.0/bearer', // Default grant type
-            $params['admin_account']
-        );
+        $credentials = new Google_Auth_AssertionCredentials($params['user_app_account'], $scopes, $private_key, 'notasecret', 'http://oauth.net/grant_type/jwt/1.0/bearer', $params['admin_account']);
         $client = new Google_Client();
         $client->setAssertionCredentials($credentials);
         $service = new Google_Service_Directory($client);
@@ -147,6 +156,26 @@ class GoogleApiService
         }
     }
 
+    /**
+     * @param $params
+     * @param $user
+     * @param $listOfGroupsEmails
+     */
+    public function addUserToGroups($params, $user, $listOfGroupsEmails)
+    {
+        $service = $this->innitApi($params);
+        foreach ($listOfGroupsEmails as $key => $value) {
+            $member = new \Google_Service_Directory_Member();
+            $member->setEmail($user);
+            $member->setRole('MEMBER');
+            try {
+                $service->members->insert($value, $member);
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le group ' . $value . ' a été ajouté correctement'));
+            }  catch (Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
+        }
+    }
     /**
      * @param $service
      * @param $userToCreate
@@ -205,9 +234,19 @@ class GoogleApiService
      */
     public function ifGmailCreate($sendaction, $isCreateInGmail, $request, $params)
     {
-        if ($sendaction == "Créer sur Gmail" && $isCreateInGmail == null) {
+        if ($sendaction == "Créer sur Gmail" && ($isCreateInGmail == null || $isCreateInGmail == 0)) {
             $this->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']), $params);
             $this->utilisateurManager->setEmail($request->request->get('utilisateur')['id'], $request->request->get('genEmail'));
+            $this->addUserToGroups(
+                $params,
+                $request->request->get('genEmail'),
+                $this->googleGroupManager->transformMatchArrayToListOfEmail(
+                    $this->googleGroupMarchFonctionAndServiceManager->globalGroupListToAdd(
+                        $request->request->get('utilisateur')['service'],
+                        $request->request->get('utilisateur')['fonction']
+                    )
+                )
+            );
         }
     }
 }

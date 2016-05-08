@@ -13,4 +13,5 @@ interface GoogleApiServiceInterface
     public function getPhotoOfUser($params, $email);
     public function getListeOfGroupes($params);
     public function ifGmailCreate($sendaction, $isCreateInGmail, $request, $params);
+    public function addUserToGroups($params, $user, $listOfGroupsEmails);
 }

@@ -96,7 +96,7 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         if ($action == 'persist') {
             foreach ($entity as $key => $value) {
-                if ($key != 'startDate') {
+                if ($key != 'startDate' && $key != 'createdAt') {
                     $this->setAndPersistUserActionLog($entity->getId(), $key, null, $value);
                 }
             }
@@ -110,7 +110,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function initUserActionLog($key, $value, $utilisateurId)
     {
-        if ($key != 'startDate') {
+        if ($key != 'startDate' && $key != 'updatedAt') {
             if ($value[0] != $value[1]) {
                 $this->setAndPersistUserActionLog($utilisateurId, $key, $value[0], $value[1]);
             }

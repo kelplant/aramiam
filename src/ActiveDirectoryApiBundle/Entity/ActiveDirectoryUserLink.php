@@ -7,7 +7,7 @@ use DateTime;
 /**
  * Class ActiveDirectoryUserLink
  * @ORM\Entity()
- * @ORM\Table(name="oactive_directory_link_user")
+ * @ORM\Table(name="active_directory_link_user")
  */
 class ActiveDirectoryUserLink
 {

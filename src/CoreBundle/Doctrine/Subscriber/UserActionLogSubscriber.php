@@ -1,7 +1,6 @@
 <?php
 namespace CoreBundle\Doctrine\Subscriber;
 
-use ActiveDirectoryApiBundle\Services\ActiveDirectoryApiService;
 use CoreBundle\Entity\Admin\Utilisateur;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -9,7 +8,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use CoreBundle\Entity\UtilisateurLogAction;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -56,7 +54,7 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getSubscribedEvents()
     {
@@ -89,8 +87,8 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
-     * @param $action
-     * @param $entity
+     * @param string $action
+     * @param Utilisateur $entity
      */
     private function ifInstanceOfUtilisateurAndPersist($action, $entity)
     {
@@ -122,7 +120,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifUserAsActiveDirectoryAccount()
     {
-        if((int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '' && (int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != 0) {
+        if ((int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '' && (int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != 0) {
             $this->container->get('ad.active_directory_api_service')->modifyInfosForUser(
                 $this->requestStack->getCurrentRequest()->request->get('utilisateur')['isCreateInWindows'],
                 $this->container->getParameter('active_directory'),
@@ -141,8 +139,8 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
-     * @param $action
-     * @param $entity
+     * @param string $action
+     * @param Utilisateur $entity
      * @param UnitOfWork $uow
      */
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)

@@ -16,7 +16,7 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
      */
     private function parseAndConcatTable($finalTab, $arrayToparse)
     {
-        foreach($arrayToparse as $item) {
+        foreach ($arrayToparse as $item) {
             $finalTab[] = $item;
         }
         return $finalTab;
@@ -82,7 +82,7 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
     public function globalGroupListToAdd($serviceId, $fonctionId)
     {
         $arrayForFonction = $this->getRepository()->findBy(array('serviceId' => null, 'fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
-        $arrayForService = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => null), array('serviceId' => 'ASC'));;
+        $arrayForService = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => null), array('serviceId' => 'ASC')); ;
         $arrayForBoth = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
 
         $finalTab = [];

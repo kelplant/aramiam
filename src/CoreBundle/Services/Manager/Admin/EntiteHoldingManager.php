@@ -18,7 +18,7 @@ class EntiteHoldingManager extends AbstractManager
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
 
-        $itemArray  = [];
+        $itemArray = [];
 
         $itemArray['id']        = $itemToTransform->getId();
         $itemArray['name']      = $itemToTransform->getName();

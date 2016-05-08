@@ -139,10 +139,8 @@ class UtilisateurManager extends AbstractManager
      */
     public function createArray($itemLoad)
     {
-        $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-
-        $itemArray = [];
-
+        $itemToTransform                   = $this->getRepository()->findOneById($itemLoad);
+        $itemArray                         = [];
         $itemArray['id']                   = $itemToTransform->getId();
         $itemArray['name']                 = $itemToTransform->getName();
         $itemArray['surname']              = $itemToTransform->getSurname();
@@ -167,7 +165,6 @@ class UtilisateurManager extends AbstractManager
         $itemArray['isCreateInRobusto']    = $itemToTransform->getIsCreateInRobusto();
         $itemArray['isCreateInSalesforce'] = $itemToTransform->getIsCreateInSalesforce();
         $itemArray['isCreateInWindows']    = $itemToTransform->getIsCreateInWindows();
-
         return $itemArray;
     }
 
@@ -201,7 +198,6 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setIsCreateInRobusto($itemLoad['isCreateInRobusto']);
         $itemToSet->setIsCreateInSalesforce($itemLoad['isCreateInSalesforce']);
         $itemToSet->setIsCreateInWindows($itemLoad['isCreateInWindows']);
-
         return $itemToSet;
     }
 

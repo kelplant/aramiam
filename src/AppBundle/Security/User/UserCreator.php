@@ -1,5 +1,4 @@
 <?php
-// AppBundle/Security/User/UserCreator.php
 namespace AppBundle\Security\User;
 
 use AppBundle\Entity\User;
@@ -10,7 +9,6 @@ use LightSaml\SpBundle\Security\User\UserCreatorInterface;
 use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 class UserCreator extends Controller implements UserCreatorInterface
 {
@@ -36,6 +34,49 @@ class UserCreator extends Controller implements UserCreatorInterface
     }
 
     /**
+     * @param $username
+     * @param $role
+     * @param $email
+     * @param $dn
+     * @param $displayName
+     * @param $googlePhotoUser
+     * @return User
+     */
+    private function setUser($username, $role, $email, $dn, $displayName, $googlePhotoUser)
+    {
+        $user = new User();
+        $user
+            ->setUsername($username)
+            ->setRoles($role)
+            ->setEmail($email)
+            ->setDn($dn)
+            ->setDisplayName($displayName)
+            ->setPhoto($googlePhotoUser->getPhotoData())
+            ->setPhotoMineType($googlePhotoUser->getMimeType())
+        ;
+        $this->objectManager->persist($user);
+        $this->objectManager->flush();
+
+        return $user;
+    }
+
+    /**
+     * @param $role
+     * @return array
+     */
+    private function defineRole($role)
+    {
+        if ($role == "GRP-Aramiam-SUPER_ADMIN") {
+            $role = ['ROLE_SUPER_ADMIN'];
+        } elseif ($role == "GRP-Aramiam-ADMIN") {
+            $role = ['ROLE_ADMIN'];
+        } else {
+            $role = ['ROLE_USER'];
+        }
+        return $role;
+    }
+
+    /**
      * @param Response $response
      *
      * @return UserInterface|null
@@ -50,28 +91,9 @@ class UserCreator extends Controller implements UserCreatorInterface
         if (isset($response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4])) {
             $role = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0];
         }
-        if ($role == "GRP-Aramiam-SUPER_ADMIN") {
-            $role = ['ROLE_SUPER_ADMIN'];
-        } elseif ($role == "GRP-Aramiam-ADMIN") {
-            $role = ['ROLE_ADMIN'];
-        } else {
-            $role = ['ROLE_USER'];
-        }
+        $role = $this->defineRole($role);
         $googlePhotoUser = $this->googleApiService->getPhotoOfUser($this->getParameter('google_api'), 'xavier.arroues@aramisauto.com');
-
-        $user = new User();
-        $user
-            ->setUsername($username)
-            ->setRoles($role)
-            ->setEmail($email)
-            ->setDn($dn)
-            ->setDisplayName($displayName)
-            ->setPhoto($googlePhotoUser->getPhotoData())
-            ->setPhotoMineType($googlePhotoUser->getMimeType())
-        ;
-        $this->objectManager->persist($user);
-        $this->objectManager->flush();
-
+        $user = $this->setUser($username, $role, $email, $dn, $displayName, $googlePhotoUser);
         return $user;
     }
 }

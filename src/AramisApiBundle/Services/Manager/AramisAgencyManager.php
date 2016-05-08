@@ -17,9 +17,7 @@ class AramisAgencyManager extends AbstractManager
     public function createArray($itemLoad)
     {
         $itemToTransform = $this->getRepository()->findOneById($itemLoad);
-
         $itemArray = [];
-
         $itemArray['id']                                 = $itemToTransform->getId();
         $itemArray['cetelemCode']                        = $itemToTransform->getCetelemCode();
         $itemArray['lizautoCode']                        = $itemToTransform->getLizautoCode();
@@ -35,7 +33,6 @@ class AramisAgencyManager extends AbstractManager
         $itemArray['isSaleAppointmentsEligible']         = $itemToTransform->getIsSaleAppointmentsEligible();
         $itemArray['isPurchaseAppointmentsEligible']     = $itemToTransform->getIsPurchaseAppointmentsEligible();
         $itemArray['isPurchaseSaleAppointmentsEligible'] = $itemToTransform->getIsPurchaseSaleAppointmentsEligible();
-
         return $itemArray;
     }
 }

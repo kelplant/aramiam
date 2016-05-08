@@ -104,20 +104,29 @@ class CoreAjaxController extends Controller
     /**
      * @param $results
      * @param $i
+     * @param $string
+     * @param $manager
+     * @param $return
+     */
+    private function conditionalLoad($results, $i, $string, $manager, $return)
+    {
+        if($results[$i][$string] != 'null' && $results[$i][$string] != null) {
+            return $this->get($manager)->load($results[$i][$string])->{"get".$return}();
+        }
+    }
+
+    /**
+     * @param $results
+     * @param $i
      * @param $what
      * @return mixed
      */
     private function ifFieldIsWhat($results, $i, $what, $manager, $return)
     {
         if($results[$i]['field'] == $what) {
-            if($results[$i]['oldString'] != 'null' && $results[$i]['oldString'] != null) {
-                $results[$i]['oldString'] = $this->get($manager)->load($results[$i]['oldString'])->{"get".$return}();
-            }
-            if($results[$i]['newString'] != 'null' && $results[$i]['newString'] != null) {
-                $results[$i]['newString'] = $this->get($manager)->load($results[$i]['newString'])->{"get".$return}();
-            }
+            $results[$i]['oldString'] = $this->conditionalLoad($results, $i, 'oldString', $manager, $return);
+            $results[$i]['newString'] = $this->conditionalLoad($results, $i, 'newString', $manager, $return);
         }
-
         return $results;
     }
 

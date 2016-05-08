@@ -72,17 +72,21 @@ class IndexControllerService extends AbstractControllerService
 
     /**
      * @param $session_messaging
-     * @param $globalAlertColor
      * @return string
      */
-    private function getGlobalAlertColor($session_messaging, $globalAlertColor)
+    private function getGlobalAlertColor($session_messaging)
     {
-        foreach ($session_messaging as $message) {
-            if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
-                $globalAlertColor = 'success';
-            } else {
-                $globalAlertColor = 'danger';
+        $globalAlertColor = 0;
+        if (isset($session_messaging)) {
+            foreach ($session_messaging as $message) {
+                if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
+                    $globalAlertColor = 'success';
+                } else {
+                    $globalAlertColor = 'danger';
+                }
             }
+        } else {
+            $globalAlertColor = '';
         }
         return $globalAlertColor;
     }
@@ -112,13 +116,7 @@ class IndexControllerService extends AbstractControllerService
         $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
-        $globalAlertColor = 0;
-        if (isset($session_messaging)) {
-            $globalAlertColor = $this->getGlobalAlertColor($session_messaging, $globalAlertColor);
-        } else {
-            $globalAlertColor = '';
-        }
-
+        $globalAlertColor = $this->getGlobalAlertColor($session_messaging);
 
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 

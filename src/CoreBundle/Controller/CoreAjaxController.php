@@ -139,8 +139,8 @@ class CoreAjaxController extends Controller
     public function generateHistoriqueforuser($utilisateurId)
     {
         $results = $this->get('core.utilisateur_log_action_manager')->getHistoryforUtilisateur($utilisateurId);
-
-        for($i = 0; $i < count($results); $i++) {
+        $maxResults = count($results);
+        for($i = 0; $i < $maxResults; $i++) {
             $results = $this->ifFieldIsWhat($results, $i, 'agence', 'core.agence_manager', 'Name');
             $results = $this->ifFieldIsWhat($results, $i, 'service', 'core.service_manager', 'Name');
             $results = $this->ifFieldIsWhat($results, $i, 'fonction', 'core.fonction_manager', 'Name');

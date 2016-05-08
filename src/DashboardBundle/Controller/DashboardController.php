@@ -113,34 +113,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param $session_messaging
-     * @return string
-     */
-    private function getGlobalAlertColor($session_messaging)
-    {
-        $globalAlertColor = 0;
-        if (isset($session_messaging)) {
-            foreach ($session_messaging as $message) {
-                if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
-                    $globalAlertColor = 'success';
-                } else {
-                    $globalAlertColor = 'danger';
-                }
-            }
-        } else {
-            $globalAlertColor = '';
-        }
-        return $globalAlertColor;
-    }
-
-    /**
      * @Route("/", name="homepage")
      */
     public function indexAction()
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
-        $globalAlertColor = $this->getGlobalAlertColor($session_messaging);
+        $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
 
         $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $lastest_users  = $this->lastest_users();

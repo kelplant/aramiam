@@ -70,25 +70,36 @@ class IndexControllerService extends AbstractControllerService
         }
     }
 
+
+    /**
+     * @param $message_errorCode
+     * @param $globalAlertColor
+     * @return string
+     */
+    private function returnGoodcolor($message_errorCode, $globalAlertColor)
+    {
+        if ($message_errorCode == 0 && $globalAlertColor == 0) {
+            return 'success';
+        } else {
+            return 'danger';
+        }
+    }
+
     /**
      * @param $session_messaging
      * @return string
      */
-    private function getGlobalAlertColor($session_messaging)
+    public function getGlobalAlertColor($session_messaging)
     {
         $globalAlertColor = 0;
         if (isset($session_messaging)) {
             foreach ($session_messaging as $message) {
-                if ($message['errorCode'] == 0 && $globalAlertColor == 0) {
-                    $globalAlertColor = 'success';
-                } else {
-                    $globalAlertColor = 'danger';
-                }
+                $globalAlertColor = $this->returnGoodcolor($message['errorCode'], $globalAlertColor);
             }
+            return $globalAlertColor;
         } else {
-            $globalAlertColor = '';
+            return '';
         }
-        return $globalAlertColor;
     }
 
     /**

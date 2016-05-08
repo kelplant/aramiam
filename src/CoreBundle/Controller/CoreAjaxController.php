@@ -4,7 +4,6 @@ namespace CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Exception;
 
 /**
  * Class CoreAjaxController
@@ -104,7 +103,7 @@ class CoreAjaxController extends Controller
     /**
      * @param $results
      * @param $i
-     * @param $string
+     * @param string $string
      * @param $manager
      * @param $return
      */
@@ -117,8 +116,10 @@ class CoreAjaxController extends Controller
 
     /**
      * @param $results
-     * @param $i
-     * @param $what
+     * @param integer $i
+     * @param string $what
+     * @param string $manager
+     * @param string $return
      * @return mixed
      */
     private function ifFieldIsWhat($results, $i, $what, $manager, $return)

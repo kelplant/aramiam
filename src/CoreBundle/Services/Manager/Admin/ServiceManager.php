@@ -3,7 +3,6 @@ namespace CoreBundle\Services\Manager\Admin;
 
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Service;
-use Doctrine\Common\Util\Inflector;
 /**
  * Class ServiceManager
  * @package CoreBundle\Services\Manager

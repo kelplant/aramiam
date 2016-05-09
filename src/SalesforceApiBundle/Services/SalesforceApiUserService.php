@@ -134,7 +134,7 @@ class SalesforceApiUserService
      */
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
-        if ($sendaction == "Créer sur Salesforce" && $isCreateInSalesforce == null) {
+        if ($sendaction == "Créer sur Salesforce" && ($isCreateInSalesforce == null || $isCreateInSalesforce == 0)) {
             $paramsForSalesforceApi = $this->parametersManager->getAllAppParams('salesforce_api');
             $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
             $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'], $paramsForSalesforceApi["salesforce_odigo_cti_id"]);
@@ -169,10 +169,15 @@ class SalesforceApiUserService
                     'Title' => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
                     'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
                     'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
-                    'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
+                    //'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
                 )
             );
-            $this->salesforceApiService->createNewUser($params, json_encode($newSalesforceUser));
+            try {
+                $this->salesforceApiService->createNewUser($params, json_encode($newSalesforceUser));
+                $this->fonctionManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$request->request->get('utilisateur')['email'].' a été créé dans Salesforce'));
+            } catch (\Exception $e) {
+                $this->fonctionManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
             $salesforceUserId = json_decode($this->salesforceApiService->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
             $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);

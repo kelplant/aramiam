@@ -126,6 +126,16 @@ class SalesforceApiService
 
     /**
      * @param $params
+     * @param $newSalesforceUser
+     * @return array|string
+     */
+    public function updateUser($params, $newSalesforceUser)
+    {
+        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+    }
+
+    /**
+     * @param $params
      * @param $userInGroupeToAdd
      * @return array|string
      */

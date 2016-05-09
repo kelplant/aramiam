@@ -130,6 +130,9 @@ class UserActionLogSubscriber implements EventSubscriber
         }
     }
 
+    /**
+     * @param $tabToSend
+     */
     private function ifUserAsGmailAccountLink($tabToSend)
     {
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInGmail"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInGmail"] != '0') {
@@ -138,7 +141,7 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
-     *
+     * @param $tabToSend
      */
     private function ifUserAsActiveDirectoryAccount($tabToSend)
     {
@@ -193,7 +196,7 @@ class UserActionLogSubscriber implements EventSubscriber
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->uow = $this->em->getUnitOfWork();
-            $submitToIgnore = array('Créer Session Windows', 'Créer sur Gmail');
+            $submitToIgnore = array('Créer Session Windows', 'Créer sur Gmail', 'Créer sur Salesforce');
             if (array_search($this->requestStack->getCurrentRequest()->request->get('sendaction'), $submitToIgnore) === false) {
                 $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
                 $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);

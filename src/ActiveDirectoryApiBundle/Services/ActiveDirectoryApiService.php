@@ -148,7 +148,7 @@ class ActiveDirectoryApiService
     }
 
     /**
-     * @param $ds
+     * @param resource $ds
      * @param $groupDn
      * @param $userDn
      */
@@ -163,7 +163,7 @@ class ActiveDirectoryApiService
     }
 
     /**
-     * @param $ds
+     * @param resource $ds
      * @param $group
      * @param $group_info
      */
@@ -179,7 +179,7 @@ class ActiveDirectoryApiService
     }
 
     /**
-     * @param $action
+     * @param string $action
      * @param resource $ds
      * @param $uniqueGroup
      * @param $group_info
@@ -223,7 +223,7 @@ class ActiveDirectoryApiService
     /**
      * @param $tabToSend
      * @param $activeDirectoryParams
-     * @param $newcn
+     * @param string $newcn
      */
     private function progagateInActiveDirectoryIfServiceOrFonctionModified($tabToSend, $activeDirectoryParams, $newcn)
     {

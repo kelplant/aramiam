@@ -91,7 +91,7 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
         $finalTab = $this->parseAndConcatTable($finalTab, $arrayForBoth);
 
         $finalTab2 = [];
-        foreach ($finalTab as $item ) {
+        foreach ($finalTab as $item) {
             $finalTab2[] = $item->getGmailGroupId();
         }
         return array_unique($finalTab2);

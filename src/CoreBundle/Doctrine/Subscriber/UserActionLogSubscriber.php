@@ -148,13 +148,26 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
+     * @param $tabToSend
+     */
+    private function executeConditionalEditForPropagation($tabToSend)
+    {
+        if ($this->updateGmailLink == true) {
+            $this->ifUserAsGmailAccountLink($tabToSend);
+        }
+        if ($this->updateActiveDirectory == true) {
+            $this->ifUserAsActiveDirectoryAccount($tabToSend);
+        }
+    }
+
+    /**
      * @param string $action
      * @param Utilisateur $entity
      * @param UnitOfWork $uow
      */
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
-        if ($action == 'update' && $this->requestStack->getCurrentRequest()->request->get('sendaction') != 'Créer Session Windows' && $this->requestStack->getCurrentRequest()->request->get('sendaction') != 'Créer sur Gmail') {
+        if ($action == 'update') {
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             $changeSet = $uow->getEntityChangeSet($entity);
             if (isset($changeSet['email'][0]) === true) {
@@ -166,12 +179,7 @@ class UserActionLogSubscriber implements EventSubscriber
             foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }
-            if ($this->updateGmailLink == true) {
-                $this->ifUserAsGmailAccountLink($tabToSend);
-            }
-            if ($this->updateActiveDirectory == true) {
-                $this->ifUserAsActiveDirectoryAccount($tabToSend);
-            }
+            $this->executeConditionalEditForPropagation($tabToSend);
         }
     }
 
@@ -185,9 +193,11 @@ class UserActionLogSubscriber implements EventSubscriber
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->uow = $this->em->getUnitOfWork();
-
-            $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
-            $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);
+            $submitToIgnore = array('Créer Session Windows', 'Créer sur Gmail');
+            if (array_search($this->requestStack->getCurrentRequest()->request->get('sendaction'), $submitToIgnore) === false) {
+                $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
+                $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);
+            }
         }
     }
 

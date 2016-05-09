@@ -222,6 +222,19 @@ class ActiveDirectoryApiService
 
     /**
      * @param $tabToSend
+     * @param $activeDirectoryParams
+     * @param $newcn
+     */
+    private function progagateInActiveDirectoryIfServiceOrFonctionModified($tabToSend, $activeDirectoryParams, $newcn)
+    {
+        if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
+            $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'], $newcn, 'remove');
+            $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'], $newcn, 'add');
+        }
+    }
+
+    /**
+     * @param $tabToSend
      */
     public function modifyInfosForUser($tabToSend, $activeDirectoryParams)
     {
@@ -236,10 +249,7 @@ class ActiveDirectoryApiService
                 $item[$key] = $value;
                 ldap_modify($ds, $newcn, $item);
             }
-            if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
-                $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'], $newcn, 'remove');
-                $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'], $newcn, 'add');
-            }
+            $this->progagateInActiveDirectoryIfServiceOrFonctionModified($tabToSend, $activeDirectoryParams, $newcn);
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['displayName'].' a été mis à jour  dans l\'Active Directory'));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

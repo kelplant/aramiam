@@ -115,6 +115,18 @@ class GoogleUserApiService extends AbstractGoogleApiService
      * @param $tabToSend
      * @param $googleApiParams
      */
+    private function progagateInGmailIfServiceOrFonctionModified($tabToSend, $googleApiParams)
+    {
+        if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
+            $this->googleGroupApiService->addOrDeleteUserFromGroups($googleApiParams, $tabToSend['newDatas']['mail'], $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'])), 'supprimé');
+            $this->googleGroupApiService->addOrDeleteUserFromGroups( $googleApiParams, $tabToSend['newDatas']['mail'], $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($tabToSend['utilisateurService'],$tabToSend['utilisateurFonction'])), 'ajouté');
+        }
+    }
+
+    /**
+     * @param $tabToSend
+     * @param $googleApiParams
+     */
     public function modifyInfosForUser($tabToSend, $googleApiParams)
     {
         $service = $this->innitApi($googleApiParams);
@@ -122,30 +134,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
         try {
             $this->updateAccountWithInfos($service, $tabToSend['utilisateurOldEmail'], $user);
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le mail '.$tabToSend['newDatas']['mail'].' a été mis à jour correctement'));
-            if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
-                $this->googleGroupApiService->addOrDeleteUserFromGroups(
-                    $googleApiParams,
-                    $tabToSend['newDatas']['mail'],
-                    $this->googleGroupManager->transformMatchArrayToListOfEmail(
-                        $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
-                            $tabToSend['utilisateurOldService'],
-                            $tabToSend['utilisateurOldFonction']
-                        )
-                    ),
-                    'supprimé'
-                );
-                $this->googleGroupApiService->addOrDeleteUserFromGroups(
-                    $googleApiParams,
-                    $tabToSend['newDatas']['mail'],
-                    $this->googleGroupManager->transformMatchArrayToListOfEmail(
-                        $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
-                            $tabToSend['utilisateurService'],
-                            $tabToSend['utilisateurFonction']
-                        )
-                    ),
-                    'ajouté'
-                );
-            }
+            $this->progagateInGmailIfServiceOrFonctionModified($tabToSend, $googleApiParams);
         } catch (Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
@@ -202,17 +191,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
         if ($sendaction == "Créer sur Gmail" && ($isCreateInGmail == null || $isCreateInGmail == 0)) {
             $this->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']), $params);
             $this->utilisateurManager->setEmail($request->request->get('utilisateur')['id'], $request->request->get('genEmail'));
-            $this->googleGroupApiService->addOrDeleteUserFromGroups(
-                $params,
-                $request->request->get('genEmail'),
-                $this->googleGroupManager->transformMatchArrayToListOfEmail(
-                    $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
-                        $request->request->get('utilisateur')['service'],
-                        $request->request->get('utilisateur')['fonction']
-                    )
-                ),
-                'ajouté'
-            );
+            $this->googleGroupApiService->addOrDeleteUserFromGroups($params, $request->request->get('genEmail'), $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd( $request->request->get('utilisateur')['service'], $request->request->get('utilisateur')['fonction'])), 'ajouté');
         }
     }
 

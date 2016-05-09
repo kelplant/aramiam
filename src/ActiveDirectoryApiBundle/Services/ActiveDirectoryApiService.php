@@ -75,7 +75,7 @@ class ActiveDirectoryApiService
      * @param $connectionADparams
      * @return resource
      */
-    private function connectAD($connectionADparams)
+    public function connectAD($connectionADparams)
     {
         try {
             $ds = ldap_connect($connectionADparams['ldaphost']);
@@ -91,7 +91,7 @@ class ActiveDirectoryApiService
      * @param $newPassword
      * @return string
      */
-    private function pwd_encryption($newPassword)
+    public function pwd_encryption($newPassword)
     {
         $newPassword = "\"".$newPassword."\"";
         $newPassw = "";
@@ -99,28 +99,6 @@ class ActiveDirectoryApiService
             $newPassw .= "{$newPassword{$i}}\000";
         }
         return $newPassw;
-    }
-
-    /**
-     * @param $paramsAD
-     * @param $request
-     */
-    private function addNewUserToGroups($paramsAD, $request, $newUser)
-    {
-        $memberOf = [];
-        $group_info = [];
-        $group_info['member'] = $newUser[0]['dn'];
-        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $request->request->get('utilisateur')['fonction']), array('id' => 'ASC')) as $fonction) {
-            $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
-        }
-        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $request->request->get('utilisateur')['service']), array('id' => 'ASC')) as $service) {
-            $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
-        }
-        $ds = $this->connectAD($paramsAD);
-        foreach (array_unique($memberOf) as $uniqueGroup) {
-            $this->addToADGroup($ds, $uniqueGroup, $group_info);
-        }
-        ldap_unbind($ds);
     }
 
     /**
@@ -183,11 +161,61 @@ class ActiveDirectoryApiService
     }
 
     /**
+     * @param $ds
+     * @param $group
+     * @param $group_info
+     */
+    public function removeUserFromGroup($ds, $group, $group_info)
+    {
+        try {
+            ldap_mod_del($ds, $group, $group_info);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Utilisateur enlevé du group '.$group.' dans l\'Active Directory'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+
+    }
+
+    /**
+     * @param $paramsAD
+     * @param $serviceId
+     * @param $fonctionId
+     * @param $userDn
+     * @param $action
+     */
+    public function parseServiceAndFonctionAndDoAction($paramsAD, $serviceId, $fonctionId, $userDn, $action)
+    {
+        $memberOf = [];
+        $group_info = [];
+        $group_info['member'] = $userDn;
+        foreach ($this->activeDirectoryGroupMatchFonctionManager->getRepository()->findBy(array('fonctionId' => $fonctionId), array('id' => 'ASC')) as $fonction) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($fonction->getActiveDirectoryGroupId())->getDn();
+        }
+        foreach ($this->activeDirectoryGroupMatchServiceManager->getRepository()->findBy(array('serviceId' => $serviceId), array('id' => 'ASC')) as $service) {
+            $memberOf[] = $this->activeDirectoryGroupManager->load($service->getActiveDirectoryGroupId())->getDn();
+        }
+        $ds = $this->connectAD($paramsAD);
+        foreach (array_unique($memberOf) as $uniqueGroup) {
+            if ($action == 'remove') {
+                $this->removeUserFromGroup($ds, $uniqueGroup, $group_info);
+            }
+            if ($action == 'add') {
+                $this->addToADGroup($ds, $uniqueGroup, $group_info);
+            }
+        }
+        ldap_unbind($ds);
+    }
+
+    /**
      * @param $userId
      * @param $paramsAD
      * @param $updatedItem
+     * @param $userServiceId
+     * @param $userFonctionId
+     * @param $oldService
+     * @param $oldFonction
      */
-    public function modifyInfosForUser($userId, $paramsAD, $updatedItem)
+    public function modifyInfosForUser($userId, $paramsAD, $updatedItem, $userServiceId, $userFonctionId, $oldService, $oldFonction)
     {
         $ds = $this->connectAD($paramsAD);
         $newrdn = 'CN='.$updatedItem['displayName'];
@@ -201,10 +229,14 @@ class ActiveDirectoryApiService
                 $item[$key] = $value;
                 ldap_modify($ds, $newcn, $item);
             }
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$updatedItem['viewName'].' a été mis à jour  dans l\'Active Directory'));
+            $this->parseServiceAndFonctionAndDoAction($paramsAD, $oldService, $oldFonction, $newcn, 'remove');
+            $this->parseServiceAndFonctionAndDoAction($paramsAD, $userServiceId, $userFonctionId, $newcn, 'add');
+
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$updatedItem['displayName'].' a été mis à jour  dans l\'Active Directory'));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
+
     }
 
     /**
@@ -222,7 +254,7 @@ class ActiveDirectoryApiService
             $newUser = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "objectGUID", "dn", "name"));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->toReadableGuid($newUser[0]['objectguid'][0]));
             $this->activeDirectoryUserLinkManager->add(array('id' => $this->toReadableGuid($newUser[0]['objectguid'][0]), 'cn' =>  $dn_user, 'dn' => $this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn(), 'identifiant' => $request->request->get('windows')['identifiant'], 'user' => $request->request->get('utilisateur')['id']));
-            $this->addNewUserToGroups($paramsAD, $request, $newUser);
+            $this->parseServiceAndFonctionAndDoAction($paramsAD, $request->request->get('utilisateur')['service'], $request->request->get('utilisateur')['fonction'], $dn_user, 'add');
         }
     }
 }

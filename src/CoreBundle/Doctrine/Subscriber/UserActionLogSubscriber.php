@@ -114,7 +114,7 @@ class UserActionLogSubscriber implements EventSubscriber
     private function initUserActionLog($key, $value, $utilisateurId)
     {
         if ($key != 'startDate' && $key != 'updatedAt') {
-            $activeDirectoryUpdateCases = array('surname', 'viewName', 'name', 'email');
+            $activeDirectoryUpdateCases = array('surname', 'viewName', 'name', 'email', 'service', 'fonction');
             if ($value[0] != $value[1]) {
                 if (array_search($key, $activeDirectoryUpdateCases) !== false) {
                     $this->updateActiveDirectory = true;
@@ -127,7 +127,7 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      *
      */
-    private function ifUserAsActiveDirectoryAccount()
+    private function ifUserAsActiveDirectoryAccount($changeSet)
     {
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '0') {
             $this->container->get('ad.active_directory_api_service')->modifyInfosForUser(
@@ -138,9 +138,11 @@ class UserActionLogSubscriber implements EventSubscriber
                     'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
                     'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
                     'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'],
-                    'name' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
-                    'cn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName']
-                )
+                ),
+                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'],
+                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'],
+                $changeSet['service'][0],
+                $changeSet['fonction'][0]
             );
         }
     }
@@ -154,11 +156,12 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         if ($action == 'update') {
             $uow->computeChangeSets(); // do not compute changes if inside a listener
-            foreach ($uow->getEntityChangeSet($entity) as $key => $value) {
+            $changeSet = $uow->getEntityChangeSet($entity);
+            foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }
             if ($this->updateActiveDirectory == true) {
-                $this->ifUserAsActiveDirectoryAccount();
+                $this->ifUserAsActiveDirectoryAccount($changeSet);
             }
         }
     }

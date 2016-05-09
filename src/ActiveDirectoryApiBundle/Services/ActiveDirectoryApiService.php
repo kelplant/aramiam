@@ -237,8 +237,8 @@ class ActiveDirectoryApiService
                 ldap_modify($ds, $newcn, $item);
             }
             if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
-                $this->parseServiceAndFonctionAndDoAction($tabToSend['activeDirectoryParams'], $tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'], $newcn, 'remove');
-                $this->parseServiceAndFonctionAndDoAction($tabToSend['activeDirectoryParams'], $tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'], $newcn, 'add');
+                $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'], $newcn, 'remove');
+                $this->parseServiceAndFonctionAndDoAction($activeDirectoryParams, $tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'], $newcn, 'add');
             }
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['displayName'].' a été mis à jour  dans l\'Active Directory'));
         } catch (\Exception $e) {

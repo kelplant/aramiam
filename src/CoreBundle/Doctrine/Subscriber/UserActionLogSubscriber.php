@@ -154,7 +154,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
-        if ($action == 'update') {
+        if ($action == 'update' && $this->requestStack->getCurrentRequest()->request->get('sendaction') != 'Créer Session Windows' && $this->requestStack->getCurrentRequest()->request->get('sendaction') != 'Créer sur Gmail') {
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             $changeSet = $uow->getEntityChangeSet($entity);
             if (isset($changeSet['email'][0]) === true) {
@@ -166,11 +166,11 @@ class UserActionLogSubscriber implements EventSubscriber
             foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }
-            if ($this->updateActiveDirectory == true) {
-                $this->ifUserAsActiveDirectoryAccount($tabToSend);
-            }
             if ($this->updateGmailLink == true) {
                 $this->ifUserAsGmailAccountLink($tabToSend);
+            }
+            if ($this->updateActiveDirectory == true) {
+                $this->ifUserAsActiveDirectoryAccount($tabToSend);
             }
         }
     }

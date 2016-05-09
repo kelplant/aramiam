@@ -15,13 +15,13 @@ class GoogleGroupApiService extends AbstractGoogleApiService
      * @param $value
      * @param $member
      */
-    private function switchAddOrRemoveUserToGroups($action, $service, $value, $member)
+    private function switchAddOrRemoveUserToGroups($action,  $service, $value, $member, $user)
     {
         if ($action == 'ajouté') {
             $service->members->insert($value, $member);
         }
         if ($action == 'supprimé') {
-            $service->members->delete($value, $member);
+            $service->members->delete($value, $user);
         }
     }
 
@@ -38,7 +38,7 @@ class GoogleGroupApiService extends AbstractGoogleApiService
         $member->setRole('MEMBER');
         foreach ($listOfGroupsEmails as $key => $value) {
             try {
-                $this->switchAddOrRemoveUserToGroups($action, $service, $value, $member);
+                $this->switchAddOrRemoveUserToGroups($action, $service, $value, $member, $user);
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le group '.$value.' a été '.$action.' correctement'));
             } catch (Exception $e) {
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

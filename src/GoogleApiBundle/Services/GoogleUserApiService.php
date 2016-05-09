@@ -31,19 +31,33 @@ class GoogleUserApiService extends AbstractGoogleApiService
     }
 
     /**
+     * @param $prenom
+     * @param $nom
+     * @param $email
+     * @return Google_Service_Directory_User
+     */
+    private function initBaseUser($prenom, $nom, $email)
+    {
+        $user = new Google_Service_Directory_User();
+        $name = new Google_Service_Directory_UserName();
+        $name->setGivenName($prenom);
+        $name->setFamilyName($nom);
+        $user->setName($name);
+        $user->setPrimaryEmail($email);
+
+        return $user;
+    }
+
+    /**
      * @param $userToCreate
      * @return Google_Service_Directory_User
      */
     private function initUserAccount($userToCreate)
     {
-        $user = new Google_Service_Directory_User();
-        $name = new Google_Service_Directory_UserName();
-        $name->setGivenName($userToCreate['prenom']);
-        $name->setFamilyName($userToCreate['nom']);
-        $user->setName($name);
+        $user = $this->initBaseUser($userToCreate['prenom'],$userToCreate['nom'],$userToCreate['email']);
         $user->setHashFunction("SHA-1");
-        $user->setPrimaryEmail($userToCreate['email']);
         $user->setPassword(hash("sha1", $userToCreate['password']));
+
         return $user;
     }
 
@@ -97,19 +111,41 @@ class GoogleUserApiService extends AbstractGoogleApiService
         }
     }
 
-
+    /**
+     * @param $tabToSend
+     * @param $googleApiParams
+     */
     public function modifyInfosForUser($tabToSend, $googleApiParams)
     {
         $service = $this->innitApi($googleApiParams);
-        $user = new Google_Service_Directory_User();
-        $name = new Google_Service_Directory_UserName();
-        $name->setGivenName($tabToSend['newDatas']['givenName']);
-        $name->setFamilyName($tabToSend['newDatas']['sn']);
-        $user->setName($name);
-        $user->setPrimaryEmail($tabToSend['newDatas']['mail']);
+        $user = $this->initBaseUser($tabToSend['newDatas']['givenName'], $tabToSend['newDatas']['sn'], $tabToSend['newDatas']['mail']);
         try {
             $this->updateAccountWithInfos($service, $tabToSend['utilisateurOldEmail'], $user);
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le mail '.$tabToSend['newDatas']['mail'].' a été mis à jour correctement'));
+            if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
+                $this->googleGroupApiService->addOrDeleteUserFromGroups(
+                    $googleApiParams,
+                    $tabToSend['newDatas']['mail'],
+                    $this->googleGroupManager->transformMatchArrayToListOfEmail(
+                        $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
+                            $tabToSend['utilisateurOldService'],
+                            $tabToSend['utilisateurOldFonction']
+                        )
+                    ),
+                    'supprimé'
+                );
+                $this->googleGroupApiService->addOrDeleteUserFromGroups(
+                    $googleApiParams,
+                    $tabToSend['newDatas']['mail'],
+                    $this->googleGroupManager->transformMatchArrayToListOfEmail(
+                        $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
+                            $tabToSend['utilisateurService'],
+                            $tabToSend['utilisateurFonction']
+                        )
+                    ),
+                    'ajouté'
+                );
+            }
         } catch (Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }

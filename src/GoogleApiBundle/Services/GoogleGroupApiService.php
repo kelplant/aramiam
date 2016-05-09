@@ -16,7 +16,7 @@ class GoogleGroupApiService extends AbstractGoogleApiService
      * @param $member
      * @param $user
      */
-    private function switchAddOrRemoveUserToGroups($action,  $service, $value, $member, $user)
+    private function switchAddOrRemoveUserToGroups($action, $service, $value, $member, $user)
     {
         if ($action == 'ajouté') {
             $service->members->insert($value, $member);

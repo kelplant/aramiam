@@ -54,7 +54,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
      */
     private function initUserAccount($userToCreate)
     {
-        $user = $this->initBaseUser($userToCreate['prenom'],$userToCreate['nom'],$userToCreate['email']);
+        $user = $this->initBaseUser($userToCreate['prenom'], $userToCreate['nom'], $userToCreate['email']);
         $user->setHashFunction("SHA-1");
         $user->setPassword(hash("sha1", $userToCreate['password']));
 
@@ -119,7 +119,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     {
         if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
             $this->googleGroupApiService->addOrDeleteUserFromGroups($googleApiParams, $tabToSend['newDatas']['mail'], $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'])), 'supprimé');
-            $this->googleGroupApiService->addOrDeleteUserFromGroups( $googleApiParams, $tabToSend['newDatas']['mail'], $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($tabToSend['utilisateurService'],$tabToSend['utilisateurFonction'])), 'ajouté');
+            $this->googleGroupApiService->addOrDeleteUserFromGroups($googleApiParams, $tabToSend['newDatas']['mail'], $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'])), 'ajouté');
         }
     }
 
@@ -191,7 +191,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
         if ($sendaction == "Créer sur Gmail" && ($isCreateInGmail == null || $isCreateInGmail == 0)) {
             $this->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']), $params);
             $this->utilisateurManager->setEmail($request->request->get('utilisateur')['id'], $request->request->get('genEmail'));
-            $this->googleGroupApiService->addOrDeleteUserFromGroups($params, $request->request->get('genEmail'), $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd( $request->request->get('utilisateur')['service'], $request->request->get('utilisateur')['fonction'])), 'ajouté');
+            $this->googleGroupApiService->addOrDeleteUserFromGroups($params, $request->request->get('genEmail'), $this->googleGroupManager->transformMatchArrayToListOfEmail($this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd($request->request->get('utilisateur')['service'], $request->request->get('utilisateur')['fonction'])), 'ajouté');
         }
     }
 

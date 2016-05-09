@@ -109,7 +109,7 @@ class CoreAjaxController extends Controller
      */
     private function conditionalLoad($results, $i, $string, $manager, $return)
     {
-        if($results[$i][$string] != 'null' && $results[$i][$string] != null) {
+        if ($results[$i][$string] != 'null' && $results[$i][$string] != null) {
             return $this->get($manager)->load($results[$i][$string])->{"get".$return}();
         }
     }
@@ -124,7 +124,7 @@ class CoreAjaxController extends Controller
      */
     private function ifFieldIsWhat($results, $i, $what, $manager, $return)
     {
-        if($results[$i]['field'] == $what) {
+        if ($results[$i]['field'] == $what) {
             $results[$i]['oldString'] = $this->conditionalLoad($results, $i, 'oldString', $manager, $return);
             $results[$i]['newString'] = $this->conditionalLoad($results, $i, 'newString', $manager, $return);
         }
@@ -140,7 +140,7 @@ class CoreAjaxController extends Controller
     {
         $results = $this->get('core.utilisateur_log_action_manager')->getHistoryforUtilisateur($utilisateurId);
         $maxResults = count($results);
-        for($i = 0; $i < $maxResults; $i++) {
+        for ($i = 0; $i < $maxResults; $i++) {
             $results = $this->ifFieldIsWhat($results, $i, 'agence', 'core.agence_manager', 'Name');
             $results = $this->ifFieldIsWhat($results, $i, 'service', 'core.service_manager', 'Name');
             $results = $this->ifFieldIsWhat($results, $i, 'fonction', 'core.fonction_manager', 'Name');

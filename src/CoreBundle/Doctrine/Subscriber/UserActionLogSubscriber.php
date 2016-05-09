@@ -116,7 +116,7 @@ class UserActionLogSubscriber implements EventSubscriber
         if ($key != 'startDate' && $key != 'updatedAt') {
             $activeDirectoryUpdateCases = array('surname', 'viewName', 'name', 'email');
             if ($value[0] != $value[1]) {
-                if (array_search($key, $activeDirectoryUpdateCases) != null) {
+                if (array_search($key, $activeDirectoryUpdateCases) !== false) {
                     $this->updateActiveDirectory = true;
                 }
                 $this->setAndPersistUserActionLog($utilisateurId, $key, $value[0], $value[1]);
@@ -129,7 +129,6 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifUserAsActiveDirectoryAccount()
     {
-
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '0') {
             $this->container->get('ad.active_directory_api_service')->modifyInfosForUser(
                 $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'],

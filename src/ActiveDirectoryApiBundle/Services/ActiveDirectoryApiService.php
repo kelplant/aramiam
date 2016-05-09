@@ -113,7 +113,7 @@ class ActiveDirectoryApiService
 
     /**
      * @param $connectionADparams
-     * @param $userToCreateDn
+     * @param string $userToCreateDn
      * @param $userToCreate
      */
     public function createUser($connectionADparams, $userToCreateDn, $userToCreate)
@@ -130,6 +130,8 @@ class ActiveDirectoryApiService
 
     /**
      * @param $connectionADparams
+     * @param string $filter
+     * @param string[] $elemsToReturn
      * @return array
      */
     public function executeQueryWithFilter($connectionADparams, $filter, $elemsToReturn)
@@ -178,7 +180,7 @@ class ActiveDirectoryApiService
 
     /**
      * @param $action
-     * @param $ds
+     * @param resource|null $ds
      * @param $uniqueGroup
      * @param $group_info
      */
@@ -197,8 +199,8 @@ class ActiveDirectoryApiService
      * @param $paramsAD
      * @param $serviceId
      * @param $fonctionId
-     * @param $userDn
-     * @param $action
+     * @param string $userDn
+     * @param string $action
      */
     public function parseServiceAndFonctionAndDoAction($paramsAD, $serviceId, $fonctionId, $userDn, $action)
     {

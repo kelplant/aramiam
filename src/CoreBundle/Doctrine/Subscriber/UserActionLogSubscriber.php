@@ -109,7 +109,7 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @param $key
      * @param $value
-     * @param $utilisateurId
+     * @param integer $utilisateurId
      */
     private function initUserActionLog($key, $value, $utilisateurId)
     {

@@ -106,7 +106,7 @@ class DashboardController extends Controller
         $todoListEvents = $this->get('dashboard.todo_list_manager')->getRepository()->findBy(array('isDone' => false), array('createDate' => 'DESC'));
 
         foreach ($todoListEvents as $event) {
-            $delais                = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d')))/86400);
+            $delais                = round(($delais = strtotime(date('Y-m-d', time())) - strtotime($event->getCreateDate()->format('Y-m-d'))) / 86400);
             $finalTodoListEvents[] = array('delais' => $delais, 'color' => $this->gimmeColorForDelais($delais), 'id' => $event->getId(), 'name' => $event->getName(), 'comment' => $event->getComment(), 'createDate' => date('Y-m-d', strtotime($event->getCreateDate()->format('Y-m-d'))), 'isDone' => $event->getIsDone());
         }
         return $finalTodoListEvents;

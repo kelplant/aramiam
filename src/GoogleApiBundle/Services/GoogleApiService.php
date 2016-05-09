@@ -53,8 +53,8 @@ class GoogleApiService
     private function ifUserNotExist($userToCreate, $service)
     {
         try {
-            $return = $this->createNewUserAccount($service, $userToCreate);
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '.$return));
+            $this->createNewUserAccount($service, $userToCreate);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Gmail a été créé '));
         } catch (Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
@@ -89,7 +89,6 @@ class GoogleApiService
             $isCreated = $this->getInfosFromEmail($service, $userToCreate['email'], $params);
         } catch (Exception $e) {
             $isCreated = null;
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
         if ($isCreated == null) {
             $this->ifUserNotExist($userToCreate, $service);

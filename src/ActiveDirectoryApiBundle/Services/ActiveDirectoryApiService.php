@@ -180,7 +180,7 @@ class ActiveDirectoryApiService
 
     /**
      * @param $action
-     * @param resource|null $ds
+     * @param resource $ds
      * @param $uniqueGroup
      * @param $group_info
      */

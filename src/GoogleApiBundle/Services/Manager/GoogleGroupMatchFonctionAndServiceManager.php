@@ -81,8 +81,8 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
      */
     public function globalGroupListToAdd($serviceId, $fonctionId)
     {
-        $arrayForFonction = $this->getRepository()->findBy(array('serviceId' => null, 'fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
-        $arrayForService = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => null), array('serviceId' => 'ASC')); ;
+        $arrayForFonction = $this->getRepository()->findBy(array('serviceId' => '', 'fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
+        $arrayForService = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => ''), array('serviceId' => 'ASC'));
         $arrayForBoth = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
 
         $finalTab = [];
@@ -90,7 +90,10 @@ class GoogleGroupMatchFonctionAndServiceManager extends AbstractManager
         $finalTab = $this->parseAndConcatTable($finalTab, $arrayForService);
         $finalTab = $this->parseAndConcatTable($finalTab, $arrayForBoth);
 
-        return array_unique($finalTab);
+        $finalTab2 = [];
+        foreach ($finalTab as $item ) {
+            $finalTab2[] = $item->getGmailGroupId();
+        }
+        return array_unique($finalTab2);
     }
-
 }

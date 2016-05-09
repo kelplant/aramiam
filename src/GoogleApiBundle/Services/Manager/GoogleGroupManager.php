@@ -43,9 +43,8 @@ class GoogleGroupManager extends AbstractManager
     {
         $finalEmailList = [];
         foreach ($arrayToTransform as $item) {
-            $finalEmailList[$item->getGmailGroupId()] = $this->load($item->getGmailGroupId())->getEmail();
+            $finalEmailList[$item] = $this->load($item)->getEmail();
         }
-
         return $finalEmailList;
     }
 }

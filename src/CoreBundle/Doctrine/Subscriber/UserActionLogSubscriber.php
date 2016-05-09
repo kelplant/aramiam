@@ -41,6 +41,11 @@ class UserActionLogSubscriber implements EventSubscriber
     private $managerRegistry;
 
     /**
+     * @var boolean
+     */
+    private $updateActiveDirectory;
+
+    /**
      * UserActionLogSubscriber constructor.
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param ManagerRegistry $managerRegistry
@@ -109,7 +114,11 @@ class UserActionLogSubscriber implements EventSubscriber
     private function initUserActionLog($key, $value, $utilisateurId)
     {
         if ($key != 'startDate' && $key != 'updatedAt') {
+            $activeDirectoryUpdateCases = array('surname', 'viewName', 'name', 'email');
             if ($value[0] != $value[1]) {
+                if (array_search($key, $activeDirectoryUpdateCases) != null) {
+                    $this->updateActiveDirectory = true;
+                }
                 $this->setAndPersistUserActionLog($utilisateurId, $key, $value[0], $value[1]);
             }
         }
@@ -120,19 +129,18 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifUserAsActiveDirectoryAccount()
     {
-        if ((int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '' && (int)$this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != 0) {
+
+        if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '0') {
             $this->container->get('ad.active_directory_api_service')->modifyInfosForUser(
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['isCreateInWindows'],
+                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'],
                 $this->container->getParameter('active_directory'),
                 array(
                     'givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'],
-                    'cn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
                     'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
-                    'name' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
                     'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
                     'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'],
-                    'sAMAccountName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['identifiant'],
-                    'UserPrincipalName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['identifiant'].'@clphoto.local',
+                    'name' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
+                    'cn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName']
                 )
             );
         }
@@ -146,10 +154,12 @@ class UserActionLogSubscriber implements EventSubscriber
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
         if ($action == 'update') {
-            $this->ifUserAsActiveDirectoryAccount();
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             foreach ($uow->getEntityChangeSet($entity) as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
+            }
+            if ($this->updateActiveDirectory == true) {
+                $this->ifUserAsActiveDirectoryAccount();
             }
         }
     }

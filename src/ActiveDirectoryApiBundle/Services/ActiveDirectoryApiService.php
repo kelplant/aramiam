@@ -189,8 +189,18 @@ class ActiveDirectoryApiService
      */
     public function modifyInfosForUser($userId, $paramsAD, $updatedItem)
     {
+        $ds = $this->connectAD($paramsAD);
+        $newrdn = 'CN='.$updatedItem['displayName'];
+        $newparent = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($userId)->getDn();
+        $newcn = $newrdn.','.$newparent;
+        $userLinkInfos = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($userId);
         try {
-            ldap_mod_add($this->connectAD($paramsAD), $this->activeDirectoryUserLinkManager->load($userId)->getDn(), $updatedItem);
+            ldap_rename($ds, $userLinkInfos->getCn(), $newrdn, $newparent, true);
+            $this->activeDirectoryUserLinkManager->edit($userLinkInfos->getId(), array('cn' => $newcn));
+            foreach ($updatedItem as $key => $value) {
+                $item[$key] = $value;
+                ldap_modify($ds, $newcn, $item);
+            }
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$updatedItem['viewName'].' a été mis à jour  dans l\'Active Directory'));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
@@ -205,13 +215,13 @@ class ActiveDirectoryApiService
      */
     public function ifWindowsCreate($sendaction, $isCreateInWindows, $request, $paramsAD)
     {
-        if ($sendaction == "Créer Session Windows" && $isCreateInWindows == null) {
+        if ($sendaction == "Créer Session Windows" && ($isCreateInWindows == null || $isCreateInWindows == 0)) {
             $dn_user = 'CN='.$request->request->get('utilisateur')['viewName'].','.$this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
             $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->createUser($paramsAD, $dn_user, $ldaprecord);
             $newUser = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "objectGUID", "dn", "name"));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->toReadableGuid($newUser[0]['objectguid'][0]));
-            $this->activeDirectoryUserLinkManager->add(array('id' => $this->toReadableGuid($newUser[0]['objectguid'][0]), 'user' => $request->request->get('utilisateur')['id'], 'dn' => $dn_user));
+            $this->activeDirectoryUserLinkManager->add(array('id' => $this->toReadableGuid($newUser[0]['objectguid'][0]), 'cn' =>  $dn_user, 'dn' => $this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn(), 'identifiant' => $request->request->get('windows')['identifiant'], 'user' => $request->request->get('utilisateur')['id']));
             $this->addNewUserToGroups($paramsAD, $request, $newUser);
         }
     }

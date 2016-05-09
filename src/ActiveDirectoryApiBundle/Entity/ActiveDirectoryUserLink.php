@@ -18,15 +18,27 @@ class ActiveDirectoryUserLink
 
     /**
      * @var string
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="integer")
      */
     protected $user;
 
     /**
      * @var string
-     * @ORM\Column(type="string", unique=true, length=255)
+     * @ORM\Column(type="string", length=255)
      */
     protected $dn;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $cn;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $identifiant;
 
     /**
      * @var DateTime
@@ -127,6 +139,42 @@ class ActiveDirectoryUserLink
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifiant()
+    {
+        return $this->identifiant;
+    }
+
+    /**
+     * @param string $identifiant
+     * @return ActiveDirectoryUserLink
+     */
+    public function setIdentifiant($identifiant)
+    {
+        $this->identifiant = $identifiant;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCn()
+    {
+        return $this->cn;
+    }
+
+    /**
+     * @param string $cn
+     * @return ActiveDirectoryUserLink
+     */
+    public function setCn($cn)
+    {
+        $this->cn = $cn;
         return $this;
     }
 }

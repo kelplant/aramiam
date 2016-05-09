@@ -136,7 +136,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @param resource $oldString
+     * @param string $oldString
      * @return UtilisateurLogAction
      */
     public function setOldString($oldString)
@@ -154,7 +154,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @param resource $newString
+     * @param string $newString
      * @return UtilisateurLogAction
      */
     public function setNewString($newString)

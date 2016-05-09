@@ -177,6 +177,23 @@ class ActiveDirectoryApiService
     }
 
     /**
+     * @param $action
+     * @param $ds
+     * @param $uniqueGroup
+     * @param $group_info
+     */
+    private function switchParseServiceAndFonctionAndDoAction($action, $ds, $uniqueGroup, $group_info)
+    {
+        if ($action == 'remove') {
+            $this->removeUserFromGroup($ds, $uniqueGroup, $group_info);
+        }
+        if ($action == 'add') {
+            $this->addToADGroup($ds, $uniqueGroup, $group_info);
+        }
+    }
+
+
+    /**
      * @param $paramsAD
      * @param $serviceId
      * @param $fonctionId
@@ -196,12 +213,7 @@ class ActiveDirectoryApiService
         }
         $ds = $this->connectAD($paramsAD);
         foreach (array_unique($memberOf) as $uniqueGroup) {
-            if ($action == 'remove') {
-                $this->removeUserFromGroup($ds, $uniqueGroup, $group_info);
-            }
-            if ($action == 'add') {
-                $this->addToADGroup($ds, $uniqueGroup, $group_info);
-            }
+            $this->switchParseServiceAndFonctionAndDoAction($action, $ds, $uniqueGroup, $group_info);
         }
         ldap_unbind($ds);
     }

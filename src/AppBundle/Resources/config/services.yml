@@ -28,7 +28,7 @@ services:
         arguments:
             - "@=service('doctrine').getManager()"
             - "@lightsaml_sp.username_mapper.simple"
-            - "@google.google_api_service"
+            - "@google.google_user_api_service"
         calls:
             - [ setContainer , [ "@service_container" ]]
 

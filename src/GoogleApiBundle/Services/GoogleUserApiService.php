@@ -1,50 +1,20 @@
 <?php
 namespace GoogleApiBundle\Services;
 
-use CoreBundle\Services\Manager\Admin\UtilisateurManager;
-use Google_Client;
-use Google_Auth_AssertionCredentials;
-use Google_Service_Directory;
 use Exception;
 use Google_Service_Directory_User;
 use Google_Service_Directory_UserName;
-use GoogleApiBundle\Entity\GoogleGroupMatchFonctionAndService;
-use GoogleApiBundle\Services\Manager\GoogleGroupManager;
-use GoogleApiBundle\Services\Manager\GoogleGroupMatchFonctionAndServiceManager;
 
 /**
- * Class GoogleApiService
+ * Class GoogleUserApiService
  * @package GoogleApiBundle\Services
  */
-class GoogleApiService
+class GoogleUserApiService extends AbstractGoogleApiService
 {
     /**
-     * @var UtilisateurManager
+     * @var GoogleGroupApiService;
      */
-    protected $utilisateurManager;
-
-    /**
-     * @var GoogleGroupMatchFonctionAndServiceManager
-     */
-    protected $googleGroupMarchFonctionAndServiceManager;
-
-    /**
-     * @var GoogleGroupManager
-     */
-    protected $googleGroupManager;
-
-    /**
-     * GoogleApiService constructor.
-     * @param UtilisateurManager $utilisateurManager
-     * @param GoogleGroupMatchFonctionAndServiceManager $googleGroupMarchFonctionAndServiceManager
-     * @param GoogleGroupManager $googleGroupManager
-     */
-    public function __construct(UtilisateurManager $utilisateurManager, GoogleGroupMatchFonctionAndServiceManager $googleGroupMarchFonctionAndServiceManager, GoogleGroupManager $googleGroupManager)
-    {
-        $this->utilisateurManager = $utilisateurManager;
-        $this->googleGroupMarchFonctionAndServiceManager = $googleGroupMarchFonctionAndServiceManager;
-        $this->googleGroupManager = $googleGroupManager;
-    }
+    public $googleGroupApiService;
 
     /**
      * @param $userToCreate
@@ -58,7 +28,6 @@ class GoogleApiService
         } catch (Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
     }
 
     /**
@@ -96,33 +65,6 @@ class GoogleApiService
     }
 
     /**
-     * @param $data
-     * @return string
-     */
-    public function base64safeToBase64($data)
-    {
-        return str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT);
-    }
-
-    /**
-     * @param $params
-     * @return Google_Service_Directory
-     */
-    public function innitApi($params)
-    {
-        $private_key = file_get_contents('../app/config/'.$params['certificat_name']);
-        $scopes = array(
-            'https://www.googleapis.com/auth/admin.directory.user',
-            'https://www.googleapis.com/auth/admin.directory.group',
-        );
-        $credentials = new Google_Auth_AssertionCredentials($params['user_app_account'], $scopes, $private_key, 'notasecret', 'http://oauth.net/grant_type/jwt/1.0/bearer', $params['admin_account']);
-        $client = new Google_Client();
-        $client->setAssertionCredentials($credentials);
-        $service = new Google_Service_Directory($client);
-        return $service;
-    }
-
-    /**
      * @param $service
      * @param $email
      * @param $params
@@ -155,26 +97,12 @@ class GoogleApiService
         }
     }
 
-    /**
-     * @param $params
-     * @param $user
-     * @param $listOfGroupsEmails
-     */
-    public function addUserToGroups($params, $user, $listOfGroupsEmails)
+
+    public function modifyInfosForUser($email, $newDatas, $serviceId, $fonctionId, $oldServiceId, $oldFonctionId)
     {
-        $service = $this->innitApi($params);
-        foreach ($listOfGroupsEmails as $key => $value) {
-            $member = new \Google_Service_Directory_Member();
-            $member->setEmail($user);
-            $member->setRole('MEMBER');
-            try {
-                $service->members->insert($value, $member);
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le group '.$value.' a été ajouté correctement'));
-            } catch (Exception $e) {
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
-        }
+
     }
+
     /**
      * @param $service
      * @param $userToCreate
@@ -215,17 +143,6 @@ class GoogleApiService
         return $this->innitApi($params)->users_photos->get($email);
     }
 
-
-    /**
-     * @param $params
-     * @return \Google_Service_Directory_Groups
-     */
-    public function getListeOfGroupes($params)
-    {
-        $service = $this->innitApi($params);
-        return $service->groups->listGroups(array('domain' => 'aramisauto.com'));
-    }
-
     /**
      * @param $sendaction
      * @param $isCreateInGmail
@@ -236,16 +153,27 @@ class GoogleApiService
         if ($sendaction == "Créer sur Gmail" && ($isCreateInGmail == null || $isCreateInGmail == 0)) {
             $this->ifEmailNotExistCreateUser(array('nom' => $request->request->get('utilisateur')['name'], 'prenom' => $request->request->get('utilisateur')['surname'], 'email' => $request->request->get('genEmail'), 'password' => $request->request->get('utilisateur')['mainPassword']), $params);
             $this->utilisateurManager->setEmail($request->request->get('utilisateur')['id'], $request->request->get('genEmail'));
-            $this->addUserToGroups(
+            $this->googleGroupApiService->addOrDeleteUserFromGroups(
                 $params,
                 $request->request->get('genEmail'),
                 $this->googleGroupManager->transformMatchArrayToListOfEmail(
-                    $this->googleGroupMarchFonctionAndServiceManager->globalGroupListToAdd(
+                    $this->googleGroupMatchFonctionAndServiceManager->globalGroupListToAdd(
                         $request->request->get('utilisateur')['service'],
                         $request->request->get('utilisateur')['fonction']
                     )
-                )
+                ),
+                'ajouté'
             );
         }
+    }
+
+    /**
+     * @param GoogleGroupApiService $googleGroupApiService
+     * @return GoogleUserApiService
+     */
+    public function setGoogleGroupApiService($googleGroupApiService)
+    {
+        $this->googleGroupApiService = $googleGroupApiService;
+        return $this;
     }
 }

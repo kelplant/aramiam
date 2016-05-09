@@ -143,7 +143,7 @@ class IndexControllerService extends AbstractControllerService
             'formEdit'          => $formEdit->createView(),
             'session_messaging' => $session_messaging,
             'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto'         => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'userPhoto'         => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
             'globalAlertColor'  => $globalAlertColor,
         ));
     }

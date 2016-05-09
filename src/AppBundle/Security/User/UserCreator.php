@@ -4,6 +4,7 @@ namespace AppBundle\Security\User;
 use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use GoogleApiBundle\Services\GoogleApiService;
+use GoogleApiBundle\Services\GoogleUserApiService;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\User\UserCreatorInterface;
 use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
@@ -18,19 +19,19 @@ class UserCreator extends Controller implements UserCreatorInterface
     /** @var UsernameMapperInterface */
     private $usernameMapper;
 
-    /** @var GoogleApiService */
-    private $googleApiService;
+    /** @var GoogleUserApiService */
+    private $googleUserApiService;
 
     /**
      * @param ObjectManager           $objectManager
      * @param UsernameMapperInterface $usernameMapper
-     * @param GoogleApiService        $googleApiService
+     * @param GoogleUserApiService    $googleUserApiService
      */
-    public function __construct($objectManager, $usernameMapper, $googleApiService)
+    public function __construct($objectManager, $usernameMapper, $googleUserApiService)
     {
         $this->objectManager = $objectManager;
         $this->usernameMapper = $usernameMapper;
-        $this->googleApiService = $googleApiService;
+        $this->googleUserApiService = $googleUserApiService;
     }
 
     /**
@@ -92,7 +93,7 @@ class UserCreator extends Controller implements UserCreatorInterface
             $role = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0];
         }
         $role = $this->defineRole($role);
-        $googlePhotoUser = $this->googleApiService->getPhotoOfUser($this->getParameter('google_api'), 'xavier.arroues@aramisauto.com');
+        $googlePhotoUser = $this->googleUserApiService->getPhotoOfUser($this->getParameter('google_api'), 'xavier.arroues@aramisauto.com');
         $user = $this->setUser($username, $role, $email, $dn, $displayName, $googlePhotoUser);
         return $user;
     }

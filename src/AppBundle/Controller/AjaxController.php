@@ -35,7 +35,7 @@ class AjaxController extends Controller
     public function isExistGmailAccount($email)
     {
         try {
-            return new JsonResponse($this->get('google.google_api_service')->getInfosFromEmail($this->get('google.google_api_service')->innitApi($this->getParameter('google_api')), $email, $this->getParameter('google_api')));
+            return new JsonResponse($this->get('google.google_user_api_service')->getInfosFromEmail($this->get('google.google_user_api_service')->innitApi($this->getParameter('google_api')), $email, $this->getParameter('google_api')));
         } catch (Exception $e) {
             return new JsonResponse('nouser');
         }

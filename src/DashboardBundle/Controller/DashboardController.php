@@ -131,7 +131,7 @@ class DashboardController extends Controller
             'candidat_color'    => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'session_messaging' => $session_messaging,
             'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto'         => $this->get('google.google_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'userPhoto'         => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
             'lastest_members'   => $lastest_users['finalTab'],
             'countNewUser'      => $lastest_users['countNewUser'],
             'todoListEvents'    => $todoListEvents,

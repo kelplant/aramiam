@@ -221,36 +221,29 @@ class ActiveDirectoryApiService
     }
 
     /**
-     * @param $userId
-     * @param $paramsAD
-     * @param $updatedItem
-     * @param $userServiceId
-     * @param $userFonctionId
-     * @param $oldService
-     * @param $oldFonction
+     * @param $tabToSend
      */
-    public function modifyInfosForUser($userId, $paramsAD, $updatedItem, $userServiceId, $userFonctionId, $oldService, $oldFonction)
+    public function modifyInfosForUser($tabToSend, $activeDirectoryParams)
     {
-        $ds = $this->connectAD($paramsAD);
-        $newrdn = 'CN='.$updatedItem['displayName'];
-        $newparent = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($userId)->getDn();
-        $newcn = $newrdn.','.$newparent;
-        $userLinkInfos = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($userId);
+        $ds = $this->connectAD($activeDirectoryParams);
+        $newrdn = 'CN='.$tabToSend['newDatas']['displayName'];
+        $userLinkInfos = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($tabToSend['utilisateurId']);
+        $newcn = $newrdn.','.$userLinkInfos->getDn();
         try {
-            ldap_rename($ds, $userLinkInfos->getCn(), $newrdn, $newparent, true);
+            ldap_rename($ds, $userLinkInfos->getCn(), $newrdn, $userLinkInfos->getDn(), true);
             $this->activeDirectoryUserLinkManager->edit($userLinkInfos->getId(), array('cn' => $newcn));
-            foreach ($updatedItem as $key => $value) {
+            foreach ($tabToSend['newDatas'] as $key => $value) {
                 $item[$key] = $value;
                 ldap_modify($ds, $newcn, $item);
             }
-            $this->parseServiceAndFonctionAndDoAction($paramsAD, $oldService, $oldFonction, $newcn, 'remove');
-            $this->parseServiceAndFonctionAndDoAction($paramsAD, $userServiceId, $userFonctionId, $newcn, 'add');
-
-            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$updatedItem['displayName'].' a été mis à jour  dans l\'Active Directory'));
+            if ($tabToSend['utilisateurOldService'] != $tabToSend['utilisateurService'] || $tabToSend['utilisateurOldFonction'] != $tabToSend['utilisateurFonction']) {
+                $this->parseServiceAndFonctionAndDoAction($tabToSend['activeDirectoryParams'], $tabToSend['utilisateurOldService'], $tabToSend['utilisateurOldFonction'], $newcn, 'remove');
+                $this->parseServiceAndFonctionAndDoAction($tabToSend['activeDirectoryParams'], $tabToSend['utilisateurService'], $tabToSend['utilisateurFonction'], $newcn, 'add');
+            }
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['displayName'].' a été mis à jour  dans l\'Active Directory'));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
     }
 
     /**

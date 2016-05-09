@@ -98,9 +98,21 @@ class GoogleUserApiService extends AbstractGoogleApiService
     }
 
 
-    public function modifyInfosForUser($email, $newDatas, $serviceId, $fonctionId, $oldServiceId, $oldFonctionId)
+    public function modifyInfosForUser($tabToSend, $googleApiParams)
     {
-
+        $service = $this->innitApi($googleApiParams);
+        $user = new Google_Service_Directory_User();
+        $name = new Google_Service_Directory_UserName();
+        $name->setGivenName($tabToSend['newDatas']['givenName']);
+        $name->setFamilyName($tabToSend['newDatas']['sn']);
+        $user->setName($name);
+        $user->setPrimaryEmail($tabToSend['newDatas']['mail']);
+        try {
+            $this->updateAccountWithInfos($service, $tabToSend['utilisateurOldEmail'], $user);
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le mail '.$tabToSend['newDatas']['mail'].' a été mis à jour correctement'));
+        } catch (Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
     }
 
     /**
@@ -115,12 +127,13 @@ class GoogleUserApiService extends AbstractGoogleApiService
 
     /**
      * @param $service
-     * @param $userToCreate
+     * @param $email
+     * @param $userToUpdate
      * @return mixed
      */
-    public function updateAccountWithInfos($service, $userToCreate)
+    public function updateAccountWithInfos($service, $email, $userToUpdate)
     {
-        return $service->users->update($userToCreate['email'], $userToCreate);
+        return $service->users->update($email, $userToUpdate);
     }
 
     /**

@@ -130,35 +130,20 @@ class UserActionLogSubscriber implements EventSubscriber
         }
     }
 
-    private function ifUserAsGmailAccountLink($changeSet, $newDatas)
+    private function ifUserAsGmailAccountLink($tabToSend)
     {
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInGmail"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInGmail"] != '0') {
-            $this->container->get('google.google_core_api_service')->modifyInfosForUser(
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'],
-                $newDatas,
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'],
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'],
-                $changeSet['service'][0],
-                $changeSet['fonction'][0]
-            );
+            $this->container->get('google.google_user_api_service')->modifyInfosForUser($tabToSend, $this->container->getParameter('google_api'));
         }
     }
 
     /**
      *
      */
-    private function ifUserAsActiveDirectoryAccount($changeSet, $newDatas)
+    private function ifUserAsActiveDirectoryAccount($tabToSend)
     {
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '0') {
-            $this->container->get('ad.active_directory_api_service')->modifyInfosForUser(
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'],
-                $this->container->getParameter('active_directory'),
-                $newDatas,
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'],
-                $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'],
-                $changeSet['service'][0],
-                $changeSet['fonction'][0]
-            );
+            $this->container->get('ad.active_directory_api_service')->modifyInfosForUser($tabToSend, $this->container->getParameter('active_directory'));
         }
     }
 
@@ -170,23 +155,22 @@ class UserActionLogSubscriber implements EventSubscriber
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
         if ($action == 'update') {
-            $newDatas = array(
-                'givenName'   => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'],
-                'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
-                'sn'          => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
-                'mail'        => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'],
-            );
-
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             $changeSet = $uow->getEntityChangeSet($entity);
+            if (isset($changeSet['email'][0]) === true) {
+                $oldEmail = $changeSet['email'][0];
+            } else {
+                $oldEmail = $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'];
+            }
+            $tabToSend = array('utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'], 'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'], 'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'], 'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']), 'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'], 'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $changeSet['service'][0], 'utilisateurOldFonction' => $changeSet['fonction'][0], 'utilisateurOldEmail' => $oldEmail);
             foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }
             if ($this->updateActiveDirectory == true) {
-                $this->ifUserAsActiveDirectoryAccount($changeSet, $newDatas);
+                $this->ifUserAsActiveDirectoryAccount($tabToSend);
             }
             if ($this->updateGmailLink == true) {
-                $this->ifUserAsGmailAccountLink($changeSet, $newDatas);
+                $this->ifUserAsGmailAccountLink($tabToSend);
             }
         }
     }

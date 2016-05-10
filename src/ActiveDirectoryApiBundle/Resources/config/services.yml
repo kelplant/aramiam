@@ -25,7 +25,9 @@ parameters:
     ad.argname.active_directory_user_link_manager.class: 'Cet utilisateur Active Directory'
 
 
-    ad.active_directory_api_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiService
+    ad.active_directory_abstract_api_service.class: ActiveDirectoryApiBundle\Services\AbstractActiveDirectoryApiService
+    ad.active_directory_api_user_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiUserService
+    ad.active_directory_api_group_service.class: ActiveDirectoryApiBundle\Services\ActiveDirectoryApiGroupService
 
 services:
     ad.active_directory_group_manager:
@@ -68,6 +70,19 @@ services:
         - [setEntityName, ["%ad.entityname.active_directory_user_link_manager.class%"]]
         - [setArgname, ["%ad.argname.active_directory_user_link_manager.class%"]]
 
-    ad.active_directory_api_service:
-        class: '%ad.active_directory_api_service.class%'
+    ad.active_directory_abstract_api_service:
+        class: '%ad.active_directory_abstract_api_service.class%'
         arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager', '@ad.active_directory_organisation_unit_manager', '@ad.active_directory_user_link_manager' ]
+        abstract: true
+
+    ad.active_directory_api_user_service:
+        class: '%ad.active_directory_api_user_service.class%'
+        arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager', '@ad.active_directory_organisation_unit_manager', '@ad.active_directory_user_link_manager' ]
+        parent: ad.active_directory_abstract_api_service
+        calls:
+        - [setActiveDirectoryApiGroupService, ["@ad.active_directory_api_group_service"]]
+
+    ad.active_directory_api_group_service:
+        class: '%ad.active_directory_api_group_service.class%'
+        arguments: [ '@core.service_manager', '@core.utilisateur_manager', '@ad.active_directory_group_manager', '@ad.active_directory_group_match_fonction_manager', '@ad.active_directory_group_match_service_manager', '@ad.active_directory_organisation_unit_manager', '@ad.active_directory_user_link_manager' ]
+        parent: ad.active_directory_abstract_api_service

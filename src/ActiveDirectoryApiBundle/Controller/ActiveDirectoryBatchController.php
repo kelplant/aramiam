@@ -55,7 +55,7 @@ class ActiveDirectoryBatchController extends Controller
                     $this->ifIsInArray($explodeDn[$i], $this->agenceArray, 'agence');
                 }
             }
-            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
+            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
         }
     }
 
@@ -68,10 +68,10 @@ class ActiveDirectoryBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('ad.active_directory_group_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
+            $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
             foreach ((array)$response as $record) {
                 if (!is_null($record['dn'])) {
-                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
+                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
                 }
             }
             return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
@@ -92,7 +92,7 @@ class ActiveDirectoryBatchController extends Controller
             $this->serviceArray = $this->get('core.service_manager')->customSelectNameInActiveDirectoryNotNull();
             $this->agenceArray = $this->get('core.agence_manager')->customSelectNameInActiveDirectoryNotNull();
             $this->get('ad.active_directory_organisation_unit_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=organizationalUnit)', array("objectGUID", "dn", "name"));
+            $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=organizationalUnit)', array("objectGUID", "dn", "name"));
             foreach ((array)$response as $record) {
                 $this->ifRecordDnNotemptyAndUtilisateurOU($record);
             }

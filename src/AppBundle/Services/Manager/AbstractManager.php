@@ -12,6 +12,9 @@ use Doctrine\Common\Util\Inflector;
  */
 abstract class AbstractManager
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected $em;
 
     protected $entity;

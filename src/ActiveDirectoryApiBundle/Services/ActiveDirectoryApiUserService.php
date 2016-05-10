@@ -57,6 +57,7 @@ class ActiveDirectoryApiUserService extends AbstractActiveDirectoryApiService
         $newrdn = 'CN='.$tabToSend['newDatas']['displayName'];
         $userLinkInfos = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($tabToSend['utilisateurId']);
         $newcn = $newrdn.','.$userLinkInfos->getDn();
+        $item = [];
         try {
             ldap_rename($ds, $userLinkInfos->getCn(), $newrdn, $userLinkInfos->getDn(), true);
             $this->activeDirectoryUserLinkManager->edit($userLinkInfos->getId(), array('cn' => $newcn));

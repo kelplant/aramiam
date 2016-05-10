@@ -22,7 +22,7 @@ class UserActionLogSubscriber implements EventSubscriber
     private $container;
 
     /**
-     * @var EntityManagerInterface|ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -147,7 +147,7 @@ class UserActionLogSubscriber implements EventSubscriber
     private function ifUserAsActiveDirectoryAccount($tabToSend)
     {
         if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != null && $this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInWindows"] != '0') {
-            $this->container->get('ad.active_directory_api_service')->modifyInfosForUser($tabToSend, $this->container->getParameter('active_directory'));
+            $this->container->get('ad.active_directory_api_user_service')->modifyInfosForUser($tabToSend, $this->container->getParameter('active_directory'));
         }
     }
 

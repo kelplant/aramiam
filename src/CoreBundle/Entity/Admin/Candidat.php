@@ -12,7 +12,7 @@ use DateTime;
 class Candidat extends AbstractPerson
 {
     /**
-     * @var string
+     * @var DateTime|string
      * @ORM\Column(type="string", nullable=false)
      */
     public $createdDate;

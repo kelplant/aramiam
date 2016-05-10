@@ -1,7 +1,7 @@
 <?php
 namespace  GoogleApiBundle\Services;
 
-interface GoogleApiServiceInterface
+interface GoogleGroupApiServiceInterface
 {
     public function innitApi($params);
     public function base64safeToBase64($data);

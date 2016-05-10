@@ -1,7 +1,7 @@
 <?php
 namespace  ActiveDirectoryApiBundle\Services;
 
-interface ActiveDirectoryApiServiceInterface
+interface ActiveDirectoryApiGroupServiceInterface
 {
     public function connectAD($connectionADparams);
     public function pwd_encryption($newPassword);

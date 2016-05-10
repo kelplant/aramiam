@@ -179,7 +179,7 @@ function ajaxGenerateWindows()
                         '<p class="" style="font-size: 10px">'+
                         result.dn+
                         '</p>' +
-                        '</div>';
+                        '</div></div>';
                     document.getElementById("createActionWindowsPart").innerHTML = textToAppend;
                     $('#loading').addClass('hide').removeClass('show');
                     $('#createActionWindowsPart').addClass('show').removeClass('hide');
@@ -188,6 +188,45 @@ function ajaxGenerateWindows()
         }
     }
 }
+
+// Fonction generate Salesforce Edit Body
+function generateSalesforceBody(action)
+{
+    $('#createActionSalesforcePart').addClass('hide').removeClass('show');
+    document.getElementById("createActionSalesforcePart").innerHTML = '';
+    urlajax ="/ajax/get/salesforce/profiles";
+    $.ajax({
+        url:urlajax,success:function(result) {
+            var profilesListe = '<div class="hide" id="createActionSalesforcePartNew">'+
+                '<div class="form-group font_exo_2" id="salesforceProfilesListe">';
+            var i;
+            profilesListe += '<label class="font_exo_2 col-sm-4">Profil Salesforce:';
+            profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
+            for (i in result) {
+                profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
+            }
+            profilesListe += '</select>';
+            profilesListe += '</label>';
+            profilesListe += '</div>'+
+                '<div class="form-group font_exo_2 col-sm-4 align_right">';
+            if (action == 'create') {
+                profilesListe += '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer sur Salesforce">';
+            }
+            if (action == 'edit') {
+                profilesListe += '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Mettre à jour sur Salesforce">';
+            }
+            profilesListe += '</div>'+
+                '</div>'+
+                '<div class="hide" id="createActionSalesforcePartEdit">'+
+                '</div>';
+            document.getElementById("createActionSalesforcePart").innerHTML = profilesListe;
+            $('#loading').removeClass('show').addClass('hide');
+            $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
+            $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+        }
+    });
+}
+
 
 // Fonction de chargement du bloc salesforce
 function ajaxGenerateSalesforce()
@@ -212,36 +251,38 @@ function ajaxGenerateSalesforce()
         $('#loading').removeClass('show').addClass('hide');
         $('#createActionSalesforcePart').addClass('show').removeClass('hide');
     } else {
-        urlajax ="/ajax/get/salesforce/utilisateur/"+localStorage.getItem("email");
+        urlajax ="/ajax/get/salesforce/utilisateur/full_profil/"+localStorage.getItem("email");
         $.ajax({
             url:urlajax,success:function(result) {
-                console.dir(result);
-                if (result['totalSize'] == 1)
+                if (result.Username != null)
                 {
+                    document.getElementById("createActionSalesforcePart").innerHTML = '';
+                    var textToAppend = '' +
+                        '<div class="block-update-card">' +
+                        '<div class="update-card-header">'+
+                        '<button type="button" class="close" onclick="generateSalesforceBody(\'edit\');"><i class="fa fa-edit fa"></i></span></button>' +
+                        '<h4>'+result.Name+'<br>'+result.Profil__c+'</h4>'+
+                        '</div>'+
+                        '<div class="update-card-body">'+
+                        '<ul>'+
+                        '<li>Username : '+result.Username+'</li>' +
+                        '<li>Département : '+result.Department+'</li>' +
+                        '<li>Division : '+result.Division+'</li>' +
+                        '<li>Profil : '+result.Profil__c+'</li>' +
+                        '<li>Extension Odigo : '+result.OdigoCti__Odigo_login__c+'</li>' +
+                        '<li>Phone : '+result.Phone+'</li>' +
+                        '<li>Phone Redirect : '+result.Telephone_interne__c+'</li>' +
+                        '<li>Service Cloud : '+result.UserPermissionsSupportUser+'</li>' +
+                        '</ul>'+
+                        '</div>' +
+                        '</div>';
+                    document.getElementById("createActionSalesforcePart").innerHTML = textToAppend;
                     $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
                     $('#loading').removeClass('show').addClass('hide');
                     $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
                     $('#createActionSalesforcePart').addClass('show').removeClass('hide');
                 } else {
-                    $('#createActionSalesforcePartEdit').addClass('hide').removeClass('show');
-                    urlajax ="/ajax/get/salesforce/profiles";
-                    $.ajax({
-                        url:urlajax,success:function(result) {
-                            var i;
-                            var profilesListe = '<label class="font_exo_2 col-sm-4">Profil Salesforce:';
-                            profilesListe += '<select name="salesforce[profile]" id="salesforce_profile" class="form-control">';
-                            for (i in result) {
-                                profilesListe += '<option value="'+result[i].profileId+'">'+result[i].profileName+'</option>';
-                            }
-                            profilesListe += '</select>';
-                            profilesListe += '</label>';
-                            document.getElementById("salesforceProfilesListe").innerHTML = profilesListe;
-
-                            $('#loading').removeClass('show').addClass('hide');
-                            $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
-                            $('#createActionSalesforcePart').addClass('show').removeClass('hide');
-                        }
-                    });
+                    generateSalesforceBody('create');
                 }
             }
         });

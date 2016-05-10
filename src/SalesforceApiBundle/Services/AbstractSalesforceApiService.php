@@ -79,8 +79,8 @@ class AbstractSalesforceApiService
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken(),
             "Content-type: application/json"));
-        $this->tokenManager->appendSessionMessaging(array('errorCode' => curl_exec($curl), 'message' => curl_getinfo($curl, CURLINFO_HTTP_CODE)));
-        return array('error' => curl_exec($curl), 'errorCode' => curl_getinfo($curl, CURLINFO_HTTP_CODE));
+        $this->tokenManager->appendSessionMessaging(array('errorCode' => curl_getinfo($curl, CURLINFO_HTTP_CODE), 'message' => curl_getinfo($curl, CURLINFO_HTTP_CODE)));
+        return curl_exec($curl);
     }
 
     /**

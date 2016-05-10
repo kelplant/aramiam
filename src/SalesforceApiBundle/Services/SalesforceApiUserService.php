@@ -1,6 +1,8 @@
 <?php
 namespace SalesforceApiBundle\Services;
 
+use CoreBundle\Entity\Admin\Utilisateur;
+use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use SalesforceApiBundle\Entity\ApiObjects\SalesforceUser;
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
@@ -24,6 +26,11 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      * @var ProsodieOdigoManager
      */
     protected $prosodieOdigo;
+
+    /**
+     * @var UtilisateurManager
+     */
+    protected $utilisateurManager;
 
     /**
      * @var AgenceManager
@@ -69,6 +76,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      * SalesforceApiUserService constructor.
      * @param SalesforceUserFactory $salesforceUserFactory
      * @param ProsodieOdigoManager $prosodieOdigo
+     * @param UtilisateurManager $utilisateurManager
      * @param AgenceManager $agenceManager
      * @param ServiceManager $serviceManager
      * @param FonctionManager $fonctionManager
@@ -78,10 +86,11 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      * @param SalesforceApiGroupesServices $salesforceApiGroupesService
      * @param SalesforceApiTerritoriesServices $salesforceApiTerritoriesService
      */
-    public function __construct(SalesforceUserFactory $salesforceUserFactory, ProsodieOdigoManager $prosodieOdigo, AgenceManager $agenceManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, ParametersManager $parametersManager, AramisAgencyManager $aramisAgencyManager, SalesforceServiceCloudAccesManager $serviceCloudAccesManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
+    public function __construct(SalesforceUserFactory $salesforceUserFactory, ProsodieOdigoManager $prosodieOdigo, UtilisateurManager $utilisateurManager,AgenceManager $agenceManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, ParametersManager $parametersManager, AramisAgencyManager $aramisAgencyManager, SalesforceServiceCloudAccesManager $serviceCloudAccesManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
     {
         $this->salesforceUserFactory           = $salesforceUserFactory;
         $this->prosodieOdigo                   = $prosodieOdigo;
+        $this->utilisateurManager              = $utilisateurManager;
         $this->agenceManager                   = $agenceManager;
         $this->serviceManager                  = $serviceManager;
         $this->fonctionManager                 = $fonctionManager;
@@ -156,7 +165,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      */
     public function getAllInfosForAccountByUsername($emailToLook, $params)
     {
-        return $this->executeQuery('/services/data/v36.0/sobjects/User/Username/'.urlencode($emailToLook), $params, null, "GET");
+        return $this->executeQuery('/sobjects/User/Username/'.$emailToLook, $params, null, "GET");
     }
 
     /**
@@ -168,9 +177,55 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     {
         $checkForPermissionToServiceCloud = $this->serviceCloudAccesManager->load($fonction);
         if (!is_null($checkForPermissionToServiceCloud) === true) {
-            $newSalesforceUser->setUserPermissionsMobileUser($checkForPermissionToServiceCloud->getStatus());
+            $newSalesforceUser->setUserPermissionsSupportUser($checkForPermissionToServiceCloud->getStatus());
         }
         return $newSalesforceUser;
+    }
+
+    /**
+     * @param Request $request
+     * @param Utilisateur $utilisateurInfos
+     * @return mixed
+     */
+    private function prepareSalesforceUser(Request $request, Utilisateur $utilisateurInfos)
+    {
+        $paramsForSalesforceApi = $this->parametersManager->getAllAppParams('salesforce_api');
+        $nickname = $this->shortNickName($utilisateurInfos->getName(), $utilisateurInfos->getSurname());
+        $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'], $paramsForSalesforceApi["salesforce_odigo_cti_id"]);
+        $agenceCompany = $this->aramisAgencyManager->load($this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany());
+        $newSalesforceUser = $this->salesforceUserFactory->createFromEntity(
+            array(
+                'Username'                              => $utilisateurInfos->getEmail(),
+                'LastName'                              => $utilisateurInfos->getName(),
+                'FirstName'                             => $utilisateurInfos->getSurname(),
+                'Email'                                 => $utilisateurInfos->getEmail(),
+                'TimeZoneSidKey'                        => 'Europe/Paris',
+                'Alias'                                 => substr($nickname, 0, 8),
+                'CommunityNickname'                     => $nickname."aramisauto",
+                'IsActive'                              => true,
+                'LocaleSidKey'                          => "fr_FR",
+                'EmailEncodingKey'                      => "ISO-8859-1",
+                'ProfileId'                             => $request->request->get('salesforce')['profile'],
+                'LanguageLocaleKey'                     => "FR",
+                'UserPermissionsMobileUser'             => true,
+                'UserPreferencesDisableAutoSubForFeeds' => false,
+                'CallCenterId'                          => $odigoInfos['callCenterId'],
+                'Street'                                => $agenceCompany->getAddress1(),
+                'City'                                  => $agenceCompany->getCity(),
+                'PostalCode'                            => $agenceCompany->getZipCode(),
+                'State '                                => 'France',
+                'ExternalID__c'                         => rand(1, 9999), #Id from Robusto
+                'Fax'                                   => '0606060606', //Fax from Robusto Agence
+                'Extension'                             => $odigoInfos['odigoExtension'],
+                'OdigoCti__Odigo_login__c'              => $odigoInfos['odigoExtension'],
+                'Telephone_interne__c'                  => $odigoInfos['redirectPhoneNumber'],
+                'Phone'                                 => $odigoInfos['odigoPhoneNumber'],
+                'Title'                                 => $this->fonctionManager->load($utilisateurInfos->getFonction())->getName(),
+                'Department'                            => $this->agenceManager->load($utilisateurInfos->getAgence())->getNameInCompany(),
+                'Division'                              => $this->serviceManager->load($utilisateurInfos->getService())->getNameInCompany(),
+            )
+        );
+        return $this->checkForServiceCloud($utilisateurInfos->getFonction(), $newSalesforceUser);
     }
 
     /**
@@ -182,53 +237,17 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
     {
         if ($sendaction == "Créer sur Salesforce" && ($isCreateInSalesforce == null || $isCreateInSalesforce == 0)) {
-            $paramsForSalesforceApi = $this->parametersManager->getAllAppParams('salesforce_api');
-            $nickname = $this->shortNickName($request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['surname']);
-            $odigoInfos = $this->ifOdigoCreated($request->request->get('utilisateur')['isCreateInOdigo'], $paramsForSalesforceApi["salesforce_odigo_cti_id"]);
-            $agenceCompany = $this->aramisAgencyManager->load($this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany());
-            $newSalesforceUser = $this->salesforceUserFactory->createFromEntity(
-                array(
-                    'Username'                              => $request->request->get('utilisateur')['email'],
-                    'LastName'                              => $request->request->get('utilisateur')['name'],
-                    'FirstName'                             => $request->request->get('utilisateur')['surname'],
-                    'Email'                                 => $request->request->get('utilisateur')['email'],
-                    'TimeZoneSidKey'                        => 'Europe/Paris',
-                    'Alias'                                 => substr($nickname, 0, 8),
-                    'CommunityNickname'                     => $nickname."aramisauto",
-                    'IsActive'                              => true,
-                    'LocaleSidKey'                          => "fr_FR",
-                    'EmailEncodingKey'                      => "ISO-8859-1",
-                    'ProfileId'                             => $request->request->get('salesforce')['profile'],
-                    'LanguageLocaleKey'                     => "FR",
-                    'UserPermissionsMobileUser'             => true,
-                    'UserPreferencesDisableAutoSubForFeeds' => false,
-                    'CallCenterId'                          => $odigoInfos['callCenterId'],
-                    'Street'                                => $agenceCompany->getAddress1(),
-                    'City'                                  => $agenceCompany->getCity(),
-                    'PostalCode'                            => $agenceCompany->getZipCode(),
-                    'State '                                => 'France',
-                    'ExternalID__c'                         => rand(1, 9999), #Id from Robusto
-                    'Fax'                                   => '0606060606', //Fax from Robusto Agence
-                    'Extension'                             => $odigoInfos['odigoExtension'],
-                    'OdigoCti__Odigo_login__c'              => $odigoInfos['odigoExtension'],
-                    'Telephone_interne__c'                  => $odigoInfos['redirectPhoneNumber'],
-                    'Phone'                                 => $odigoInfos['odigoPhoneNumber'],
-                    'Title'                                 => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
-                    'Department'                            => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
-                    'Division'                              => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
-                )
-            );
-            $newSalesforceUser = $this->checkForServiceCloud($request->request->get('utilisateur')['fonction'], $newSalesforceUser);
-
+            $utilisateurInfos = $this->utilisateurManager->load($request->request->get('utilisateur')['id']);
+            $newSalesforceUser = $this->prepareSalesforceUser($request, $utilisateurInfos);
             try {
                 $this->createNewUser($params, json_encode($newSalesforceUser));
-                $this->fonctionManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$request->request->get('utilisateur')['email'].' a été créé dans Salesforce'));
+                $this->fonctionManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$utilisateurInfos->getEmail().' a été créé dans Salesforce'));
             } catch (\Exception $e) {
                 $this->fonctionManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
-            $salesforceUserId = json_decode($this->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
-            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
-            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
+            $salesforceUserId = json_decode($this->getAccountByUsername($utilisateurInfos->getEmail(), $params))->records[0]->Id;
+            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $utilisateurInfos->getFonction(), $params);
+            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $utilisateurInfos->getService(), $params);
         }
     }
 }

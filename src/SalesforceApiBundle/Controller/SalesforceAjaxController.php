@@ -19,9 +19,18 @@ class SalesforceAjaxController extends Controller
      */
     public function getUserOnSalesforceByEmail($userMail)
     {
-        return new JsonResponse($this->get('salesforce.salesforce_api_user_service')->getAccountByUsername($userMail, $this->getParameter('salesforce')));
+        return new JsonResponse(\GuzzleHttp\json_decode($this->get('salesforce.salesforce_api_user_service')->getAccountByUsername($userMail, $this->getParameter('salesforce'))));
     }
 
+    /**
+     * @param $userMail
+     * @Route(path="/ajax/get/salesforce/utilisateur/full_profil/{userMail}",name="ajax_get_salesforce_utilisateur_full_profil")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getAllInfosForUserOnSalesforceByEmail($userMail)
+    {
+        return new JsonResponse(\GuzzleHttp\json_decode($this->get('salesforce.salesforce_api_user_service')->getAllInfosForAccountByUsername($userMail, $this->getParameter('salesforce'))));
+    }
     /**
      * @Route(path="/ajax/get/salesforce/profiles",name="ajax_get_salesforce_profiles")
      * @return \Symfony\Component\HttpFoundation\Response

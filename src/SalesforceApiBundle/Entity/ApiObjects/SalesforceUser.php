@@ -149,6 +149,11 @@ class SalesforceUser
     public $Division;
 
     /**
+     * @var string
+     */
+    public $UserPermissionsSupportUser;
+
+    /**
      * @param string $Username
      * @return SalesforceUser
      */
@@ -425,6 +430,16 @@ class SalesforceUser
     public function setDivision($Division)
     {
         $this->Division = $Division;
+        return $this;
+    }
+
+    /**
+     * @param string $UserPermissionsSupportUser
+     * @return SalesforceUser
+     */
+    public function setUserPermissionsSupportUser($UserPermissionsSupportUser)
+    {
+        $this->UserPermissionsSupportUser = $UserPermissionsSupportUser;
         return $this;
     }
 }

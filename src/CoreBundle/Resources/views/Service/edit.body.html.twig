@@ -24,96 +24,120 @@
                                 {{ form_label(formEdit.name) }}
                                 {{ form_errors(formEdit.name) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.name) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.name) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.shortName) }}
                                 {{ form_errors(formEdit.shortName) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.shortName) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.shortName) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.parentAgence) }}
                                 {{ form_errors(formEdit.parentAgence) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.parentAgence) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.parentAgence) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.nameInCompany) }}
                                 {{ form_errors(formEdit.nameInCompany) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.nameInCompany) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.nameInCompany) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.nameInOdigo) }}
                                 {{ form_errors(formEdit.nameInOdigo) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.nameInOdigo) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.nameInOdigo) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.nameInSalesforce) }}
                                 {{ form_errors(formEdit.nameInSalesforce) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.nameInSalesforce) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-sellsy fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.nameInSalesforce) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.nameInZendesk) }}
                                 {{ form_errors(formEdit.nameInZendesk) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.nameInZendesk) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cogs fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.nameInZendesk) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.nameInActiveDirectory) }}
                                 {{ form_errors(formEdit.nameInActiveDirectory) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.nameInActiveDirectory) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-windows fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.nameInActiveDirectory) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 font_exo_2">
-                                <ul class="nav nav-pills">
-                                    <li role="presentation" id="windowsToggle" onclick="ajaxGenerateWindows();">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Windows
-                                        </a>
-                                    </li>
-                                    <li role="presentation" id="salesforceToggle" onclick="ajaxGenerateSalesforce();">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Salesf.
-                                        </a>
-                                    </li>
-                                    <li role="presentation" id="aramisToggle" onclick="ajaxGenerateAramis();">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Aramis
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="container-fluid actionPartFonction">
-                                    <div class="container hide col-sm-4 text-center" id="loadingRight">
-                                        <button type="button" class="btn btn-lg btn-warning">
-                                            <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
-                                        </button>
+                            <ul class="nav nav-pills">
+                                <li role="presentation" id="windowsToggle" onclick="ajaxGenerateWindows();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Windows
+                                    </a>
+                                </li>
+                                <li role="presentation" id="salesforceToggle" onclick="ajaxGenerateSalesforce();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Salesf.
+                                    </a>
+                                </li>
+                                <li role="presentation" id="aramisToggle" onclick="ajaxGenerateAramis();">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Aramis
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="container-fluid actionPartFonction">
+                                <div class="container hide col-sm-4 text-center" id="loadingRight">
+                                    <button type="button" class="btn btn-lg btn-warning">
+                                        <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
+                                    </button>
+                                </div>
+                                <div class="hide" id="createActionSalesforcePart">
+                                    <div class="hide" id="midSFEditForm">
                                     </div>
-                                    <div class="hide" id="createActionSalesforcePart">
-                                        <div class="hide" id="midSFEditForm">
-                                        </div>
-                                        <div class="hide" id="bottomSFEditForm">
-                                        </div>
-                                    </div>
-                                    <div class="hide" id="createActionWindowsPart">
-                                        <div class="hide" id="midADEditForm">
-                                        </div>
-                                        <div class="hide" id="bottomADEditForm">
-                                        </div>
+                                    <div class="hide" id="bottomSFEditForm">
                                     </div>
                                 </div>
+                                <div class="hide" id="createActionWindowsPart">
+                                    <div class="hide" id="midADEditForm">
+                                    </div>
+                                    <div class="hide" id="bottomADEditForm">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,7 +146,7 @@
                     <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
                 </div>
 
+            </div>
         </div>
-    </div>
     </form>
 </div>

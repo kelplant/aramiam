@@ -69,9 +69,7 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
         $jsonDecoded = json_decode(curl_exec($curl));
-
         $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
-        return $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
     }
 
     /**
@@ -93,8 +91,6 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken(),
             "Content-type: application/json"));
-        $this->tokenManager->appendSessionMessaging(array('errorCode' => curl_exec($curl), 'message' => curl_getinfo($curl, CURLINFO_HTTP_CODE)));
-        return array('error' => curl_exec($curl), 'errorCode' => curl_getinfo($curl, CURLINFO_HTTP_CODE));
     }
 
     /**
@@ -117,11 +113,10 @@ class SalesforceApiService
     /**
      * @param $params
      * @param $newSalesforceUser
-     * @return array|string
      */
     public function createNewUser($params, $newSalesforceUser)
     {
-        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+        $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
     }
 
     /**
@@ -137,11 +132,10 @@ class SalesforceApiService
     /**
      * @param $params
      * @param $userInGroupeToAdd
-     * @return array|string
      */
     public function addUserToGroupe($params, $userInGroupeToAdd)
     {
-        return $this->executeQuery('/sobjects/GroupMember/', $params, $userInGroupeToAdd, "POST");
+        $this->executeQuery('/sobjects/GroupMember/', $params, $userInGroupeToAdd, "POST");
     }
 
     /**
@@ -151,7 +145,7 @@ class SalesforceApiService
      */
     public function addUserToTerritory($params, $userInTerritoryToAdd)
     {
-        return $this->executeQuery('/sobjects/UserTerritory', $params, $userInTerritoryToAdd, "POST");
+        $this->executeQuery('/sobjects/UserTerritory', $params, $userInTerritoryToAdd, "POST");
     }
 
     /**

@@ -46,18 +46,22 @@ class SalesforceApiGroupesServices
         $this->salesforceGroupesManager      = $salesforceGroupesManager;
     }
 
-
     /**
      * @param $userId
      * @param $fonctionId
      * @param $params
-     * @return array|string
      */
     public function addGroupesForNewUser($userId, $fonctionId, $params)
     {
-        foreach ($this->SalesforceGroupeMatchFonction->getRepository()->findBy(array('fonctionId' => $fonctionId), array('fonctionId' => 'ASC')) as $groupe) {
+        $listOfGroupes = $this->SalesforceGroupeMatchFonction->getRepository()->findBy(array('fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
+        foreach ($listOfGroupes as $groupe) {
             $itemToAdd = $this->salesforceGroupMemberFactory->createFromEntity(array('GroupId' => $this->salesforceGroupesManager->load($groupe->getSalesforceGroupe())->getGroupeId(), 'UserOrGroupId' => $userId));
-            return $this->salesforceApiService->addUserToGroupe($params, json_encode($itemToAdd));
+            try {
+                $this->salesforceApiService->addUserToGroupe($params, json_encode($itemToAdd));
+                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$userId.' a été créé ajouté au groupe'.$groupe->getGroupeName()));
+            } catch (\Exception $e) {
+                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
         }
     }
 }

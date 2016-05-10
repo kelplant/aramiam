@@ -7,55 +7,70 @@
                     <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'une agence</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="main_container">
-                        <input type="hidden" name="formAction" value="edit">
-                        {{ form_errors(formEdit) }}
-                        <div class="form-group">
-                            {{ form_label(formEdit.name) }}
-                            {{ form_errors(formEdit.name) }}
-                            <div class="col-sm-8">
+                    <div class="form-group">
+                        {{ form_label(formEdit.name) }}
+                        {{ form_errors(formEdit.name) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.name) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(formEdit.nameInCompany) }}
-                            {{ form_errors(formEdit.nameInCompany) }}
-                            <div class="col-sm-8">
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formEdit.nameInCompany) }}
+                        {{ form_errors(formEdit.nameInCompany) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.nameInCompany) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(formEdit.nameInOdigo) }}
-                            {{ form_errors(formEdit.nameInOdigo) }}
-                            <div class="col-sm-8">
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formEdit.nameInOdigo) }}
+                        {{ form_errors(formEdit.nameInOdigo) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.nameInOdigo) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(formEdit.nameInSalesforce) }}
-                            {{ form_errors(formEdit.nameInSalesforce) }}
-                            <div class="col-sm-8">
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formEdit.nameInSalesforce) }}
+                        {{ form_errors(formEdit.nameInSalesforce) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-sellsy fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.nameInSalesforce) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(formEdit.nameInZendesk) }}
-                            {{ form_errors(formEdit.nameInZendesk) }}
-                            <div class="col-sm-8">
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formEdit.nameInZendesk) }}
+                        {{ form_errors(formEdit.nameInZendesk) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-cogs fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.nameInZendesk) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(formEdit.nameInActiveDirectory) }}
-                            {{ form_errors(formEdit.nameInActiveDirectory) }}
-                            <div class="col-sm-8">
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formEdit.nameInActiveDirectory) }}
+                        {{ form_errors(formEdit.nameInActiveDirectory) }}
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-windows fa" aria-hidden="true"></i></span>
                                 {{ form_widget(formEdit.nameInActiveDirectory) }}
                             </div>
                         </div>
+                    </div>
                         {{ form_row(formEdit.id) }}
                         {{ form_rest(formEdit) }}
-                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
                     <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">

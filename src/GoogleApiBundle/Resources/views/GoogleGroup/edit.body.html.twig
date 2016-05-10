@@ -24,14 +24,20 @@
                                 {{ form_label(formEdit.name) }}
                                 {{ form_errors(formEdit.name) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.name) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-google fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.name) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form_label(formEdit.email) }}
                                 {{ form_errors(formEdit.email) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(formEdit.email) }}
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-google fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.email) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

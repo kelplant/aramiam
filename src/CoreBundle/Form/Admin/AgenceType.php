@@ -27,7 +27,7 @@ class AgenceType extends BaseType
             ->add('name', TextType::class, array(
                 'label' => 'Nom de l\'agence',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_righ font_exo_2',
+                    'class' => 'col-sm-4 control-label align_righ font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -36,7 +36,7 @@ class AgenceType extends BaseType
             ->add('nameInCompany', TextType::class, array(
                 'label' => 'Dans Company',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -46,7 +46,7 @@ class AgenceType extends BaseType
             ->add('nameInOdigo', TextType::class, array(
                 'label' => 'Dans Odigo',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -56,7 +56,7 @@ class AgenceType extends BaseType
             ->add('nameInSalesforce', TextType::class, array(
                 'label' => 'Dans Salesforce',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -66,7 +66,7 @@ class AgenceType extends BaseType
             ->add('nameInZendesk', TextType::class, array(
                 'label' => 'Dans Zendesk',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',
@@ -76,7 +76,7 @@ class AgenceType extends BaseType
             ->add('nameInActiveDirectory', TextType::class, array(
                 'label' => 'Dans l\'AD Windows',
                 'label_attr' => array(
-                    'class' => 'col-sm-3 control-label align_right font_exo_2',
+                    'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2',

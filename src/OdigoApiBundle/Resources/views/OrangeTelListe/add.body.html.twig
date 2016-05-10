@@ -14,21 +14,30 @@
                             {{ form_label(formAdd.numero) }}
                             {{ form_errors(formAdd.numero) }}
                             <div class="col-sm-8">
-                                {{ form_widget(formAdd.numero) }}
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.numero) }}
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             {{ form_label(formAdd.service) }}
                             {{ form_errors(formAdd.service) }}
                             <div class="col-sm-8">
-                                {{ form_widget(formAdd.service) }}
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.service) }}
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             {{ form_label(formAdd.inUse) }}
                             {{ form_errors(formAdd.inUse) }}
                             <div class="col-sm-8">
-                                {{ form_widget(formAdd.inUse) }}
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-check-square-o fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.inUse) }}
+                                </div>
                             </div>
                         </div>
                         {{ form_row(formAdd.id) }}

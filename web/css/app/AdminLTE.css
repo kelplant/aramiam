@@ -1284,7 +1284,8 @@ a:focus {
 }
 /* Input group */
 .input-group .input-group-addon {
-  border-radius: 0;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-bottomleft: 10px;
   border-color: #d2d6de;
   background-color: #fff;
 }

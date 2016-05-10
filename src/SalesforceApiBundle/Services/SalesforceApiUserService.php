@@ -2,6 +2,7 @@
 namespace SalesforceApiBundle\Services;
 
 
+use SalesforceApiBundle\Entity\ApiObjects\SalesforceUser;
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
@@ -127,6 +128,20 @@ class SalesforceApiUserService
     }
 
     /**
+     * @param $fonction
+     * @param SalesforceUser $newSalesforceUser
+     * @return mixed
+     */
+    private function checkForServiceCloud($fonction, SalesforceUser $newSalesforceUser)
+    {
+        $checkForPermissionToServiceCloud = $this->serviceCloudAccesManager->load($fonction);
+        if (!is_null($checkForPermissionToServiceCloud) === true) {
+            $newSalesforceUser->setUserPermissionsMobileUser($checkForPermissionToServiceCloud->getStatus());
+        }
+        return $newSalesforceUser;
+    }
+
+    /**
      * @param $sendaction
      * @param $isCreateInSalesforce
      * @param Request $request
@@ -141,37 +156,38 @@ class SalesforceApiUserService
             $agenceCompany = $this->aramisAgencyManager->load($this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany());
             $newSalesforceUser = $this->salesforceUserFactory->createFromEntity(
                 array(
-                    'Username' => $request->request->get('utilisateur')['email'],
-                    'LastName' => $request->request->get('utilisateur')['name'],
-                    'FirstName' => $request->request->get('utilisateur')['surname'],
-                    'Email' => $request->request->get('utilisateur')['email'],
-                    'TimeZoneSidKey' => 'Europe/Paris',
-                    'Alias' => substr($nickname, 0, 8),
-                    'CommunityNickname' => $nickname."aramisauto",
-                    'IsActive' => true,
-                    'LocaleSidKey' => "fr_FR",
-                    'EmailEncodingKey' => "ISO-8859-1",
-                    'ProfileId' => $request->request->get('salesforce')['profile'],
-                    'LanguageLocaleKey' => "FR",
-                    'UserPermissionsMobileUser' => true,
+                    'Username'                              => $request->request->get('utilisateur')['email'],
+                    'LastName'                              => $request->request->get('utilisateur')['name'],
+                    'FirstName'                             => $request->request->get('utilisateur')['surname'],
+                    'Email'                                 => $request->request->get('utilisateur')['email'],
+                    'TimeZoneSidKey'                        => 'Europe/Paris',
+                    'Alias'                                 => substr($nickname, 0, 8),
+                    'CommunityNickname'                     => $nickname."aramisauto",
+                    'IsActive'                              => true,
+                    'LocaleSidKey'                          => "fr_FR",
+                    'EmailEncodingKey'                      => "ISO-8859-1",
+                    'ProfileId'                             => $request->request->get('salesforce')['profile'],
+                    'LanguageLocaleKey'                     => "FR",
+                    'UserPermissionsMobileUser'             => true,
                     'UserPreferencesDisableAutoSubForFeeds' => false,
-                    'CallCenterId' => $odigoInfos['callCenterId'],
-                    'Street' => $agenceCompany->getAddress1(),
-                    'City' => $agenceCompany->getCity(),
-                    'PostalCode' => $agenceCompany->getZipCode(),
-                    'State ' => 'France',
-                    'ExternalID__c' => rand(1, 9999), #Id from Robusto
-                    'Fax' => '0606060606', //Fax from Robusto Agence
-                    'Extension' => $odigoInfos['odigoExtension'],
-                    'OdigoCti__Odigo_login__c' => $odigoInfos['odigoExtension'],
-                    'Telephone_interne__c' => $odigoInfos['redirectPhoneNumber'],
-                    'Phone' => $odigoInfos['odigoPhoneNumber'],
-                    'Title' => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
-                    'Department' => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
-                    'Division' => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
-                    //'UserPermissionsSupportUser' => $this->serviceCloudAccesManager->load($request->request->get('utilisateur')['fonction'])->getStatus(),
+                    'CallCenterId'                          => $odigoInfos['callCenterId'],
+                    'Street'                                => $agenceCompany->getAddress1(),
+                    'City'                                  => $agenceCompany->getCity(),
+                    'PostalCode'                            => $agenceCompany->getZipCode(),
+                    'State '                                => 'France',
+                    'ExternalID__c'                         => rand(1, 9999), #Id from Robusto
+                    'Fax'                                   => '0606060606', //Fax from Robusto Agence
+                    'Extension'                             => $odigoInfos['odigoExtension'],
+                    'OdigoCti__Odigo_login__c'              => $odigoInfos['odigoExtension'],
+                    'Telephone_interne__c'                  => $odigoInfos['redirectPhoneNumber'],
+                    'Phone'                                 => $odigoInfos['odigoPhoneNumber'],
+                    'Title'                                 => $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getName(),
+                    'Department'                            => $this->agenceManager->load($request->request->get('utilisateur')['agence'])->getNameInCompany(),
+                    'Division'                              => $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInCompany(),
                 )
             );
+            $newSalesforceUser = $this->checkForServiceCloud($request->request->get('utilisateur')['fonction'], $newSalesforceUser);
+
             try {
                 $this->salesforceApiService->createNewUser($params, json_encode($newSalesforceUser));
                 $this->fonctionManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$request->request->get('utilisateur')['email'].' a été créé dans Salesforce'));

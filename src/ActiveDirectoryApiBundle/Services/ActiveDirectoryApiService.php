@@ -276,6 +276,44 @@ class ActiveDirectoryApiService
     }
 
     /**
+     * @param $ds
+     * @param $actualWindowsLink
+     * @param $newrdn
+     * @param $parent
+     * @param $newcn
+     * @param $viewName
+     */
+    private function renameIfWindowsUpdate($ds, $actualWindowsLink, $newrdn, $parent, $newcn, $viewName)
+    {
+        try {
+            ldap_rename($ds, $actualWindowsLink->getCn(), $newrdn, $parent, true);
+            $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('dn' => $parent, 'cn' => $newcn));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$viewName.' a été déplacé  dans l\'Active Directory'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * @param $ds
+     * @param $newcn
+     * @param $item
+     * @param $actualWindowsLink
+     * @param $viewName
+     * @param $identifiant
+     */
+    private function modifyIfWindowsUpdate($ds, $newcn, $item, $actualWindowsLink, $viewName, $identifiant)
+    {
+        try {
+            ldap_modify($ds, $newcn, $item);
+            $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('identifiant' => $identifiant));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$viewName.' a été mis à jour  dans l\'Active Directory'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+
+    /**
      * @param $sendaction
      * @param $request
      * @param $paramsAD
@@ -290,20 +328,8 @@ class ActiveDirectoryApiService
             $parent = $this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
             $newcn = $newrdn.','.$parent;
             $item = array('sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant']);
-            try {
-                ldap_rename($ds, $actualWindowsLink->getCn(), $newrdn, $parent, true);
-                $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('dn' => $parent, 'cn' => $newcn));
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$actualUserInfos->getViewName().' a été déplacé  dans l\'Active Directory'));
-            } catch (\Exception $e) {
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
-            try {
-                ldap_modify($ds, $newcn, $item);
-                $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('identifiant' => $request->request->get('windows')['identifiant']));
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$actualUserInfos->getViewName().' a été mis à jour  dans l\'Active Directory'));
-            } catch (\Exception $e) {
-                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-            }
+            $this->renameIfWindowsUpdate($ds, $actualWindowsLink, $newrdn, $parent, $newcn, $actualUserInfos->getViewName());
+            $this->modifyIfWindowsUpdate($ds, $newcn, $item, $actualWindowsLink, $actualUserInfos->getViewName(), $request->request->get('windows')['identifiant']);
         }
     }
 }

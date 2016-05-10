@@ -62,7 +62,6 @@ class UserActionLogSubscriber implements EventSubscriber
         $this->container                 = $container;
         $this->managerRegistry           = $managerRegistry;
         $this->requestStack              = $requestStack;
-        $this->em                        = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
     }
 
     /**
@@ -193,6 +192,8 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifInstanceOfUtilisateur(LifecycleEventArgs $args)
     {
+        $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
+
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->uow = $this->em->getUnitOfWork();

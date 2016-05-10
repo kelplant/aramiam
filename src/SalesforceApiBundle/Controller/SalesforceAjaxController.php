@@ -19,7 +19,7 @@ class SalesforceAjaxController extends Controller
      */
     public function getUserOnSalesforceByEmail($userMail)
     {
-        return new JsonResponse($this->get('salesforce.salesforce_api_service')->getAccountByUsername($userMail, $this->getParameter('salesforce')));
+        return new JsonResponse($this->get('salesforce.salesforce_api_user_service')->getAccountByUsername($userMail, $this->getParameter('salesforce')));
     }
 
     /**

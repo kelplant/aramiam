@@ -1,7 +1,6 @@
 <?php
 namespace SalesforceApiBundle\Services;
 
-
 use SalesforceApiBundle\Entity\ApiObjects\SalesforceUser;
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
@@ -14,14 +13,8 @@ use SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
-
-class SalesforceApiUserService
+class SalesforceApiUserService extends AbstractSalesforceApiService
 {
-    /**
-     * @var SalesforceApiService
-     */
-    protected $salesforceApiService;
-
     /**
      * @var SalesforceUserFactory
      */
@@ -74,7 +67,6 @@ class SalesforceApiUserService
 
     /**
      * SalesforceApiUserService constructor.
-     * @param SalesforceApiService $salesforceApiService
      * @param SalesforceUserFactory $salesforceUserFactory
      * @param ProsodieOdigoManager $prosodieOdigo
      * @param AgenceManager $agenceManager
@@ -86,9 +78,8 @@ class SalesforceApiUserService
      * @param SalesforceApiGroupesServices $salesforceApiGroupesService
      * @param SalesforceApiTerritoriesServices $salesforceApiTerritoriesService
      */
-    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserFactory $salesforceUserFactory, ProsodieOdigoManager $prosodieOdigo, AgenceManager $agenceManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, ParametersManager $parametersManager, AramisAgencyManager $aramisAgencyManager, SalesforceServiceCloudAccesManager $serviceCloudAccesManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
+    public function __construct(SalesforceUserFactory $salesforceUserFactory, ProsodieOdigoManager $prosodieOdigo, AgenceManager $agenceManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, ParametersManager $parametersManager, AramisAgencyManager $aramisAgencyManager, SalesforceServiceCloudAccesManager $serviceCloudAccesManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
     {
-        $this->salesforceApiService            = $salesforceApiService;
         $this->salesforceUserFactory           = $salesforceUserFactory;
         $this->prosodieOdigo                   = $prosodieOdigo;
         $this->agenceManager                   = $agenceManager;
@@ -125,6 +116,47 @@ class SalesforceApiUserService
         } else {
             return array('callCenterId' => null, 'odigoExtension' => null, 'odigoPhoneNumber' => null, 'redirectPhoneNumber' => null);
         }
+    }
+
+    /**
+     * @param $params
+     * @param $newSalesforceUser
+     * @return array|string
+     */
+    public function createNewUser($params, $newSalesforceUser)
+    {
+        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+    }
+
+    /**
+     * @param $params
+     * @param $newSalesforceUser
+     * @return array|string
+     */
+    public function updateUser($params, $newSalesforceUser)
+    {
+        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+    }
+
+    /**
+     * @param $emailToLook
+     * @param $params
+     * @return mixed
+     */
+    public function getAccountByUsername($emailToLook, $params)
+    {
+        $query = "SELECT Id,Username,CallCenterId FROM User WHERE Username = '".$emailToLook."'";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
+     * @param $emailToLook
+     * @param $params
+     * @return array|string
+     */
+    public function getAllInfosForAccountByUsername($emailToLook, $params)
+    {
+        return $this->executeQuery('/services/data/v36.0/sobjects/User/Username/'.urlencode($emailToLook), $params, null, "GET");
     }
 
     /**
@@ -189,12 +221,12 @@ class SalesforceApiUserService
             $newSalesforceUser = $this->checkForServiceCloud($request->request->get('utilisateur')['fonction'], $newSalesforceUser);
 
             try {
-                $this->salesforceApiService->createNewUser($params, json_encode($newSalesforceUser));
+                $this->createNewUser($params, json_encode($newSalesforceUser));
                 $this->fonctionManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$request->request->get('utilisateur')['email'].' a été créé dans Salesforce'));
             } catch (\Exception $e) {
                 $this->fonctionManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
-            $salesforceUserId = json_decode($this->salesforceApiService->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
+            $salesforceUserId = json_decode($this->getAccountByUsername($request->request->get('utilisateur')['email'], $params)['error'])->records[0]->Id;
             $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
         }

@@ -88,7 +88,6 @@ function generateWindowsBody()
                 urlajax = '/ajax/get/active_directory/user_link/'+localStorage.getItem("currentEditItem");
                 $.ajax({
                     url: urlajax, success: function (result2) {
-                        console.log(result2.identifiant);
                         orgaUnitsListe +='<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+result2.identifiant+'">' +
                             '</label>' +
                             '</div>';
@@ -216,6 +215,7 @@ function ajaxGenerateSalesforce()
         urlajax ="/ajax/get/salesforce/utilisateur/"+localStorage.getItem("email");
         $.ajax({
             url:urlajax,success:function(result) {
+                console.dir(result);
                 if (result['totalSize'] == 1)
                 {
                     $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
@@ -377,7 +377,6 @@ function ajaxGenerateEmail()
                     var i;
                     for (i in result.emails)
                     {
-                        console.log(result.emails[i]);
                         textToAppend += '<li>'+result.emails[i].address+'</li>';
                     }
                     textToAppend += '</ul>' +

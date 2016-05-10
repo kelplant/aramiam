@@ -10,13 +10,8 @@ use SalesforceApiBundle\Services\Manager\SalesforceGroupeManager;
  * Class SalesforceApiTerritoriesServices
  * @package SalesforceApiBundle\Services
  */
-class SalesforceApiTerritoriesServices
+class SalesforceApiTerritoriesServices extends AbstractSalesforceApiService
 {
-    /**
-     * @var SalesforceApiService
-     */
-    protected $salesforceApiService;
-
     /**
      * @var SalesforceUserTerritoryFactory
      */
@@ -34,17 +29,35 @@ class SalesforceApiTerritoriesServices
 
     /**
      * SalesforceGroupesServices constructor.
-     * @param SalesforceApiService $salesforceApiService
      * @param SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory
      * @param SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchServiceManager
      * @param SalesforceTerritoryManager $salesforceTerritoriyManager
      */
-    public function __construct(SalesforceApiService $salesforceApiService, SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory, SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchServiceManager, SalesforceTerritoryManager $salesforceTerritoriyManager)
+    public function __construct(SalesforceUserTerritoryFactory $salesforceUserTerritoryFactory, SalesforceTerritoryMatchServiceManager $SalesforceTerritoryMatchServiceManager, SalesforceTerritoryManager $salesforceTerritoriyManager)
     {
-        $this->salesforceApiService = $salesforceApiService;
         $this->salesforceUserTerritoryFactory = $salesforceUserTerritoryFactory;
         $this->SalesforceTerritoryMatchServiceManager = $SalesforceTerritoryMatchServiceManager;
         $this->salesforceTerritoriyManager = $salesforceTerritoriyManager;
+    }
+
+    /**
+     * @param $params
+     * @param $userInTerritoryToAdd
+     * @return array|string
+     */
+    public function addUserToTerritory($params, $userInTerritoryToAdd)
+    {
+        return $this->executeQuery('/sobjects/UserTerritory', $params, $userInTerritoryToAdd, "POST");
+    }
+
+    /**
+     * @param $params
+     * @return mixed
+     */
+    public function getListOfTerritories($params)
+    {
+        $query = "SELECT Id,Name,ParentTerritoryId FROM Territory ORDER BY Name ASC NULLS LAST";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
     }
 
     /**
@@ -58,7 +71,7 @@ class SalesforceApiTerritoriesServices
         foreach ($territoryList as $territory) {
             $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $this->salesforceTerritoriyManager->load($territory->getSalesforceTerritoryId())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
             try {
-                $this->salesforceApiService->addUserToTerritory($params, json_encode($itemToAdd));
+                $this->addUserToTerritory($params, json_encode($itemToAdd));
                 $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$userId.' a été créé ajouté au groupe'.$territory->getTerritoryName()));
             } catch (\Exception $e) {
                 $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));

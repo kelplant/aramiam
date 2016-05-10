@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
- * Class SalesforceApiService
+ * Class AbstractSalesforceApiService
  * @package SalesforceApiBundle\Services
  */
-class SalesforceApiService
+class AbstractSalesforceApiService
 {
     /**
      * @var SalesforceTokenStore
@@ -30,19 +30,6 @@ class SalesforceApiService
     protected $parametersManager;
 
     /**
-     * SalesforceApiService constructor.
-     * @param SalesforceTokenStore $tokenManager
-     * @param TokenStorage $securityContext
-     * @param ParametersManager $parametersManager
-     */
-    public function __construct(SalesforceTokenStore $tokenManager, TokenStorage $securityContext, ParametersManager $parametersManager)
-    {
-        $this->tokenManager      = $tokenManager;
-        $this->securityContext   = $securityContext;
-        $this->parametersManager = $parametersManager;
-    }
-
-    /**
      * @param string $url
      * @return resource
      */
@@ -58,7 +45,7 @@ class SalesforceApiService
      * @param $params
      * @return bool|int
      */
-    private function connnect($params)
+    public function connnect($params)
     {
         $paramsCurl = "grant_type=password"
             . "&client_id=".$params['consumerKey']
@@ -69,6 +56,7 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $paramsCurl);
         $jsonDecoded = json_decode(curl_exec($curl));
+
         $this->tokenManager->updateOrAdd(array('username' => $this->securityContext->getToken()->getUser()->getUsername(), 'access_token' => $jsonDecoded->access_token, 'instance_url' => $jsonDecoded->instance_url, 'issued_at' => $jsonDecoded->issued_at));
     }
 
@@ -91,6 +79,8 @@ class SalesforceApiService
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: OAuth '.$tokenInfos->getAccessToken(),
             "Content-type: application/json"));
+        $this->tokenManager->appendSessionMessaging(array('errorCode' => curl_exec($curl), 'message' => curl_getinfo($curl, CURLINFO_HTTP_CODE)));
+        return array('error' => curl_exec($curl), 'errorCode' => curl_getinfo($curl, CURLINFO_HTTP_CODE));
     }
 
     /**
@@ -112,44 +102,6 @@ class SalesforceApiService
 
     /**
      * @param $params
-     * @param $newSalesforceUser
-     */
-    public function createNewUser($params, $newSalesforceUser)
-    {
-        $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
-    }
-
-    /**
-     * @param $params
-     * @param $newSalesforceUser
-     * @return array|string
-     */
-    public function updateUser($params, $newSalesforceUser)
-    {
-        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
-    }
-
-    /**
-     * @param $params
-     * @param $userInGroupeToAdd
-     */
-    public function addUserToGroupe($params, $userInGroupeToAdd)
-    {
-        $this->executeQuery('/sobjects/GroupMember/', $params, $userInGroupeToAdd, "POST");
-    }
-
-    /**
-     * @param $params
-     * @param $userInTerritoryToAdd
-     * @return array|string
-     */
-    public function addUserToTerritory($params, $userInTerritoryToAdd)
-    {
-        $this->executeQuery('/sobjects/UserTerritory', $params, $userInTerritoryToAdd, "POST");
-    }
-
-    /**
-     * @param $params
      * @return mixed
      */
     public function getListOfProfiles($params)
@@ -159,33 +111,32 @@ class SalesforceApiService
     }
 
     /**
-     * @param $params
-     * @return mixed
+     * @param SalesforceTokenStore $tokenManager
+     * @return AbstractSalesforceApiService
      */
-    public function getListOfTerritories($params)
+    public function setTokenManager($tokenManager)
     {
-        $query = "SELECT Id,Name,ParentTerritoryId FROM Territory ORDER BY Name ASC NULLS LAST";
-        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+        $this->tokenManager = $tokenManager;
+        return $this;
     }
 
     /**
-     * @param $params
-     * @return mixed
+     * @param TokenStorage $securityContext
+     * @return AbstractSalesforceApiService
      */
-    public function getListOfGroupes($params)
+    public function setSecurityContext($securityContext)
     {
-        $query = "SELECT Id,Name FROM Group ORDER BY Name ASC NULLS LAST";
-        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+        $this->securityContext = $securityContext;
+        return $this;
     }
 
     /**
-     * @param $emailToLook
-     * @param $params
-     * @return mixed
+     * @param ParametersManager $parametersManager
+     * @return AbstractSalesforceApiService
      */
-    public function getAccountByUsername($emailToLook, $params)
+    public function setParametersManager($parametersManager)
     {
-        $query = "SELECT Id,Username,CallCenterId FROM User WHERE Username = '".$emailToLook."'";
-        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+        $this->parametersManager = $parametersManager;
+        return $this;
     }
 }

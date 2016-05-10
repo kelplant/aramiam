@@ -20,7 +20,7 @@ class SalesforceBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('salesforce.salesforceprofile_manager')->truncateTable();
-            $response = json_decode($this->get('salesforce.salesforce_api_service')->getListOfProfiles($this->getParameter('salesforce'))["error"])->records;
+            $response = json_decode($this->get('salesforce.salesforce_api_user_service')->getListOfProfiles($this->getParameter('salesforce'))["error"])->records;
             foreach ((array)$response as $record) {
                 $this->get('salesforce.salesforceprofile_manager')->add(array('profileId' => $record->Id, 'profileName' => $record->Name, 'userLicenseId' => $record->UserLicenseId, 'userType' => $record->UserType));
             }
@@ -39,7 +39,7 @@ class SalesforceBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('salesforce.salesforceterritory_manager')->truncateTable();
-            $response = json_decode($this->get('salesforce.salesforce_api_service')->getListOfTerritories($this->getParameter('salesforce'))["error"])->records;
+            $response = json_decode($this->get('salesforce.salesforce_api_territories_services')->getListOfTerritories($this->getParameter('salesforce'))["error"])->records;
             foreach ((array)$response as $record) {
                 $this->get('salesforce.salesforceterritory_manager')->add(array('territoryId' => $record->Id, 'territoryName' => $record->Name, 'parentTerritoryId' => $record->ParentTerritoryId));
             }
@@ -59,7 +59,7 @@ class SalesforceBatchController extends Controller
         if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
         {
             $this->get('salesforce.salesforcegroupe_manager')->truncateTable();
-            $response = json_decode($this->get('salesforce.salesforce_api_service')->getListOfGroupes($this->getParameter('salesforce'))["error"])->records;
+            $response = json_decode($this->get('salesforce.salesforce_api_groupes_services')->getListOfGroupes($this->getParameter('salesforce'))["error"])->records;
             foreach ((array)$response as $record) {
                 $this->get('salesforce.salesforcegroupe_manager')->add(array('groupeId' => $record->Id, 'groupeName' => $record->Name));
             }

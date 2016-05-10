@@ -34,7 +34,7 @@ parameters:
     salesforce.entityname.territory_to_service_manager.class: 'SalesforceApiBundle\Entity\SalesforceTerritoryMatchService'
     salesforce.argname.territory_to_service_manager.class: 'Le territoire Salesforce'
 
-    salesforce.salesforce_api_service.class: SalesforceApiBundle\Services\SalesforceApiService
+    salesforce.salesforce_abstract_api_service.class: SalesforceApiBundle\Services\AbstractSalesforceApiService
     salesforce.salesforce_api_user_service.class: SalesforceApiBundle\Services\SalesforceApiUserService
     salesforce.salesforce_api_groupes_services.class: SalesforceApiBundle\Services\SalesforceApiGroupesServices
     salesforce.salesforce_api_territories_services.class: SalesforceApiBundle\Services\SalesforceApiTerritoriesServices
@@ -100,21 +100,36 @@ services:
         - [setEntityName, ["%salesforce.entityname.territory_to_service_manager.class%"]]
         - [setArgname, ["%salesforce.argname.territory_to_service_manager.class%"]]
 
-    salesforce.salesforce_api_service:
-        class: '%salesforce.salesforce_api_service.class%'
-        arguments: [ '@salesforce.salesforcetoken_store', '@security.token_storage', '@app.parameters_calls' ]
+    salesforce.salesforce_abstract_api_service:
+        class: '%salesforce.salesforce_abstract_api_service.class%'
+        abstract: true
 
     salesforce.salesforce_api_user_service:
         class: '%salesforce.salesforce_api_user_service.class%'
-        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.factory.salesforce_user', '@odigo.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager', '@salesforce.service_cloud_acces_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services' ]
+        arguments: [ '@salesforce.factory.salesforce_user', '@odigo.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager', '@salesforce.service_cloud_acces_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services' ]
+        parent: salesforce.salesforce_abstract_api_service
+        calls:
+        - [setTokenManager, [ '@salesforce.salesforcetoken_store' ]]
+        - [setSecurityContext, [ '@security.token_storage' ]]
+        - [setParametersManager, [ '@app.parameters_calls' ]]
 
     salesforce.salesforce_api_groupes_services:
         class: '%salesforce.salesforce_api_groupes_services.class%'
-        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.factory.salesforce_group_member', '@salesforce.groupe_to_fonction_manager', '@salesforce.salesforcegroupe_manager' ]
+        arguments: [ '@salesforce.factory.salesforce_group_member', '@salesforce.groupe_to_fonction_manager', '@salesforce.salesforcegroupe_manager' ]
+        parent: salesforce.salesforce_abstract_api_service
+        calls:
+        - [setTokenManager, [ '@salesforce.salesforcetoken_store' ]]
+        - [setSecurityContext, [ '@security.token_storage' ]]
+        - [setParametersManager, [ '@app.parameters_calls' ]]
 
     salesforce.salesforce_api_territories_services:
         class: '%salesforce.salesforce_api_territories_services.class%'
-        arguments: [ '@salesforce.salesforce_api_service', '@salesforce.factory.salesforce_user_territory', '@salesforce.territory_to_service_manager', '@salesforce.salesforceterritory_manager' ]
+        arguments: [ '@salesforce.factory.salesforce_user_territory', '@salesforce.territory_to_service_manager', '@salesforce.salesforceterritory_manager' ]
+        parent: salesforce.salesforce_abstract_api_service
+        calls:
+        - [setTokenManager, [ '@salesforce.salesforcetoken_store' ]]
+        - [setSecurityContext, [ '@security.token_storage' ]]
+        - [setParametersManager, [ '@app.parameters_calls' ]]
 
     salesforce.factory.salesforce_user:
         class: '%salesforce.factory.salesforce_user.class%'

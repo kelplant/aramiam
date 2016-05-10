@@ -6,7 +6,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use CoreBundle\Entity\UtilisateurLogAction;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -21,7 +22,7 @@ class UserActionLogSubscriber implements EventSubscriber
     private $container;
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface|ObjectManager
      */
     private $em;
 
@@ -61,6 +62,7 @@ class UserActionLogSubscriber implements EventSubscriber
         $this->container                 = $container;
         $this->managerRegistry           = $managerRegistry;
         $this->requestStack              = $requestStack;
+        $this->em                        = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
     }
 
     /**
@@ -155,10 +157,10 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function executeConditionalEditForPropagation($tabToSend)
     {
-        if ($this->updateGmailLink == true) {
+        if ($this->updateGmailLink === true) {
             $this->ifUserAsGmailAccountLink($tabToSend);
         }
-        if ($this->updateActiveDirectory == true) {
+        if ($this->updateActiveDirectory === true) {
             $this->ifUserAsActiveDirectoryAccount($tabToSend);
         }
     }
@@ -191,8 +193,6 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifInstanceOfUtilisateur(LifecycleEventArgs $args)
     {
-        $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
-
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->uow = $this->em->getUnitOfWork();

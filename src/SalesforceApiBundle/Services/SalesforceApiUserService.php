@@ -86,7 +86,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
 
     /**
      * @param $userId
-     * @return Utilisateur
+     * @return Utilisateur|null
      */
     private function loadAUser($userId) {
         return $this->utilisateurManager->load($userId);

@@ -8,13 +8,10 @@ use CoreBundle\Entity\Admin\Utilisateur;
 use CoreBundle\Services\Manager\Admin\AgenceManager;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
-use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
 use SalesforceApiBundle\Entity\ApiObjects\SalesforceUser;
 use Doctrine\Common\Util\Inflector;
 use SalesforceApiBundle\Services\Manager\SalesforceServiceCloudAccesManager;
-use SalesforceApiBundle\Services\SalesforceApiGroupesServices;
-use SalesforceApiBundle\Services\SalesforceApiTerritoriesServices;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

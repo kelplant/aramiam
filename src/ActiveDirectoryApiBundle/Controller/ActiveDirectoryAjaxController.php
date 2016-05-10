@@ -75,4 +75,14 @@ class ActiveDirectoryAjaxController extends Controller
         }
         return new JsonResponse($groupes);
     }
+
+    /**
+     * @param $userId
+     * @Route(path="/ajax/get/active_directory/user_link/{userId}",name="ajax_get_active_directory_user_link")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getActiveDirectoryUserLink($userId)
+    {
+        return new JsonResponse($this->get('ad.active_directory_user_link_manager')->createArray($userId));
+    }
 }

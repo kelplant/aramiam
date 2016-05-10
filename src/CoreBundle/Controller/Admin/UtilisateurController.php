@@ -86,6 +86,7 @@ class UtilisateurController extends AbstractControllerService
                 $this->get('google.google_user_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
                 $this->get('odigo.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInOdigo'], $request, $this->getParameter('odigo'), $this->getParameter('google_api'));
                 $this->get('ad.active_directory_api_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
+                $this->get('ad.active_directory_api_service')->ifWindowsUpdate($request->request->get('sendaction'), $request, $this->getParameter('active_directory'));
                 $this->get('salesforce.salesforce_api_user_service')->ifSalesforceCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInSalesforce'], $request, $this->getParameter('salesforce'));
             }
         }

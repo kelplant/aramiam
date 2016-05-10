@@ -274,4 +274,36 @@ class ActiveDirectoryApiService
             $this->parseServiceAndFonctionAndDoAction($paramsAD, $request->request->get('utilisateur')['service'], $request->request->get('utilisateur')['fonction'], $dn_user, 'add');
         }
     }
+
+    /**
+     * @param $sendaction
+     * @param $request
+     * @param $paramsAD
+     */
+    public function ifWindowsUpdate($sendaction, $request, $paramsAD)
+    {
+        if ($sendaction == "Mise à jour Session Windows") {
+            $actualWindowsLink = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($request->request->get('utilisateur')['id']);
+            $actualUserInfos = $this->utilisateurManager->load($request->request->get('utilisateur')['id']);
+            $ds = $this->connectAD($paramsAD);
+            $newrdn = 'CN='.$actualUserInfos->getViewName();
+            $parent = $this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
+            $newcn = $newrdn.','.$parent;
+            $item = array('sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant']);
+            try {
+                ldap_rename($ds, $actualWindowsLink->getCn(), $newrdn, $parent, true);
+                $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('dn' => $parent, 'cn' => $newcn));
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$actualUserInfos->getViewName().' a été déplacé  dans l\'Active Directory'));
+            } catch (\Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
+            try {
+                ldap_modify($ds, $newcn, $item);
+                $this->activeDirectoryUserLinkManager->edit($actualWindowsLink->getId(), array('identifiant' => $request->request->get('windows')['identifiant']));
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$actualUserInfos->getViewName().' a été mis à jour  dans l\'Active Directory'));
+            } catch (\Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
+        }
+    }
 }

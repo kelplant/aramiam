@@ -48,6 +48,9 @@ function ajaxUtilisateurEdit(editItem)
             if (i == 'isCreateInWindows') {
                 localStorage.setItem("isCreateInWindows", result[i])
             }
+            if (i == 'isCreateInSalesforce') {
+                localStorage.setItem("isCreateInSalesforce", result[i])
+            }
             if (i == 'email') {
                 localStorage.setItem("email", result[i])
             }
@@ -65,6 +68,77 @@ function ajaxSendEmailToSalarie()
     $.ajax({
         url:urlajax,success:function(result) {
         }});
+}
+
+function generateWindowsBody()
+{
+    urlajax ="/ajax/get/active_directory/organisation_units";
+    $.ajax({
+        url:urlajax,success:function(result) {
+            document.getElementById("createActionWindowsPart").innerHTML = '';
+            $('#loading').addClass('show').removeClass('hide');
+            var i;
+            var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
+            var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
+            var orgaUnitsListe = '' +
+                '<div id="InsertWindowsField">' +
+                '<div class="form-group font_exo_2">' +
+                '<label class="font_exo_2 col-sm-4">Identifiant :';
+            if(localStorage.getItem("isCreateInWindows") != '0' && localStorage.getItem("isCreateInWindows") != 0 && localStorage.getItem("isCreateInWindows") != null && localStorage.getItem("isCreateInWindows") != 'null') {
+                urlajax = '/ajax/get/active_directory/user_link/'+localStorage.getItem("currentEditItem");
+                $.ajax({
+                    url: urlajax, success: function (result2) {
+                        console.log(result2.identifiant);
+                        orgaUnitsListe +='<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+result2.identifiant+'">' +
+                            '</label>' +
+                            '</div>';
+                        orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                            '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:';
+                        orgaUnitsListe += '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                        for (i in result) {
+                            if (result2.dn == result[i].name) {
+                                orgaUnitsListe += '<option value="' + result[i].id + '" selected>' + result[i].name + '</option>';
+                            } else {
+                                orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                            }
+                        }
+                        orgaUnitsListe += '' +
+                            '</select>' +
+                            '</label>' +
+                            '</div>' +
+                            '</div>'+
+                            '<div class="form-group font_exo_2 col-sm-4 align_right">'+
+                            '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Mise à jour Session Windows">'+
+                            '</div>';
+                        document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
+                        $('#loading').addClass('hide').removeClass('show');
+                        $('#createActionWindowsPart').addClass('show').removeClass('hide');
+                    }
+                });
+            } else {
+                orgaUnitsListe +='<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+prenom+nom+'">' +
+                    '</label>' +
+                    '</div>';
+                orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                    '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:';
+                orgaUnitsListe += '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                for (i in result) {
+                    orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                }
+                orgaUnitsListe += '' +
+                    '</select>' +
+                    '</label>' +
+                    '</div>' +
+                    '</div>'+
+                    '<div class="form-group font_exo_2 col-sm-4 align_right">'+
+                    '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer Session Windows">'+
+                    '</div>';
+                document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
+                $('#loading').addClass('hide').removeClass('show');
+                $('#createActionWindowsPart').addClass('show').removeClass('hide');
+            }
+        }
+    });
 }
 
 // Fonction de chargement du bloc Windows
@@ -89,27 +163,25 @@ function ajaxGenerateWindows()
     } else {
         if (localStorage.getItem("isCreateInWindows") == 'null' || localStorage.getItem("isCreateInWindows") == 0) {
             $('#loading').removeClass('hide').addClass('show');
-            urlajax ="/ajax/get/active_directory/organisation_units";
+            generateWindowsBody();
+        } else {
+            urlajax = '/ajax/get/active_directory/user_link/'+localStorage.getItem("currentEditItem");
             $.ajax({
                 url:urlajax,success:function(result) {
-                    var i;
-                    var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
-                    var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
-                    var orgaUnitsListe = '<div class="form-group font_exo_2">' +
-                        '<label class="font_exo_2 col-sm-4">Identifiant :' +
-                        '<input type="text" name="windows[identifiant]" id="windows_identifiant" class="form-control" value="'+prenom+nom+'">' +
-                        '</label>' +
+                    document.getElementById("createActionWindowsPart").innerHTML = '';
+                    var textToAppend = '<div class="block-update-card">' +
+                        '<div class="update-card-header">' +
+                        '<button type="button" class="close" onclick="generateWindowsBody();"><i class="fa fa-edit fa"></i></span></button>' +
+                        '<h4>'+result.identifiant+'</h4>' +
+                        '</div>' +
+                        '<div class="update-card-body">';
+                    textToAppend += '' +
+                        '<p>dn :</p>' +
+                        '<p class="" style="font-size: 10px">'+
+                        result.dn+
+                        '</p>' +
                         '</div>';
-                    orgaUnitsListe += '<div class="form-group font_exo_2">' +
-                        '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:' +
-                        '<select name="windows[dn]" id="windows_dn" class="form-control">';
-                    for (i in result) {
-                        orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
-                    }
-                    orgaUnitsListe += '</select>' +
-                        '</label>' +
-                        '</div>';
-                    document.getElementById("InsertWindowsField").innerHTML = orgaUnitsListe;
+                    document.getElementById("createActionWindowsPart").innerHTML = textToAppend;
                     $('#loading').addClass('hide').removeClass('show');
                     $('#createActionWindowsPart').addClass('show').removeClass('hide');
                 }
@@ -261,7 +333,12 @@ function ajaxGenerateEmail()
                 var i;
                 var textToAppend = '';
                 for (i in result) {
-                    textToAppend += '<div class="form-group font_exo_2" onclick="showhide();"><label class="font_exo_2 col-sm-8"><input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">' +result[i]+'</label></div>';
+                    textToAppend += '<div class="form-group font_exo_2" onclick="showhide();">' +
+                        '<label class="font_exo_2 col-sm-8">' +
+                        '<input class="font_exo_2 col-sm-1" type="radio" name="genEmail" value="'+result[i]+'">'
+                        +result[i]+
+                        '</label>' +
+                        '</div>';
                 }
                 document.getElementById("actionGmailList").innerHTML = textToAppend;
                 $('#loading').addClass('hide').removeClass('show');
@@ -290,16 +367,22 @@ function ajaxGenerateEmail()
                     });
                 }
                 else {
+                    var textToAppend = '<div class="block-update-card">' +
+                        '<div class="update-card-header">' +
+                        '<h4>'+result.primaryEmail+'</h4>' +
+                        '</div>' +
+                        '<div class="update-card-body">' +
+                        '<p>Alias :</p>' +
+                        '<ul>';
                     var i;
-                    var textToAppend = 'L\'Utilisateur possède un compte Gmail<br>';
-                    textToAppend += '<br>Compte Principal : '+result.primaryEmail+'<br>';
-                    textToAppend += '<br>Alias :';
                     for (i in result.emails)
                     {
                         console.log(result.emails[i]);
-                        textToAppend += '<br> - '+result.emails[i].address;
+                        textToAppend += '<li>'+result.emails[i].address+'</li>';
                     }
-                    console.dir(result);
+                    textToAppend += '</ul>' +
+                        '</div>' +
+                        '</div>';
                     document.getElementById("createActionGmailPart").innerHTML = textToAppend;
                     $('#loading').addClass('hide').removeClass('show');
                     $('#createActionGmailPart').addClass('show').removeClass('hide');

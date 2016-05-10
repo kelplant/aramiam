@@ -16,13 +16,15 @@ class ActiveDirectoryUserLinkManager extends AbstractManager
      */
     public function createArray($itemLoad)
     {
-        $itemToTransform = $this->getRepository()->findOneById($itemLoad);
+        $itemToTransform = $this->getRepository()->findOneByUser($itemLoad);
 
         $itemArray = [];
 
         $itemArray['id']   = $itemToTransform->getId();
         $itemArray['user'] = $itemToTransform->getUser();
         $itemArray['dn']   = $itemToTransform->getDn();
+        $itemArray['cn']   = $itemToTransform->getCn();
+        $itemArray['identifiant']   = $itemToTransform->getIdentifiant();
         $itemArray['createdAt'] = $itemToTransform->getCreatedAt();
         $itemArray['updatedAt'] = $itemToTransform->getUpdatedAt();
 

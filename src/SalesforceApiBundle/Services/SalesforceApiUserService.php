@@ -45,7 +45,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
 
     /**
      * @param $params
-     * @param $newSalesforceUser
+     * @param string $newSalesforceUser
      * @return array|string
      */
     public function createNewUser($params, $newSalesforceUser)
@@ -66,7 +66,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     /**
      * @param $emailToLook
      * @param $params
-     * @return mixed
+     * @return string
      */
     public function getAccountByUsername($emailToLook, $params)
     {

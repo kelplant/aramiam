@@ -106,7 +106,7 @@ services:
 
     salesforce.salesforce_api_user_service:
         class: '%salesforce.salesforce_api_user_service.class%'
-        arguments: [ '@salesforce.factory.salesforce_user', '@odigo.prosodie_odigo_manager', '@core.utilisateur_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager', '@salesforce.service_cloud_acces_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services' ]
+        arguments: [ '@salesforce.factory.salesforce_user', '@core.utilisateur_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services' ]
         parent: salesforce.salesforce_abstract_api_service
         calls:
         - [setTokenManager, [ '@salesforce.salesforcetoken_store' ]]
@@ -133,6 +133,7 @@ services:
 
     salesforce.factory.salesforce_user:
         class: '%salesforce.factory.salesforce_user.class%'
+        arguments: [ '@odigo.prosodie_odigo_manager', '@core.agence_manager', '@core.service_manager', '@core.fonction_manager', '@app.parameters_calls', '@aramis.aramisagency_manager', '@salesforce.service_cloud_acces_manager' ]
         parent: app.factory.abstract
 
     salesforce.factory.salesforce_group_member:

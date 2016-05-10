@@ -68,7 +68,7 @@ abstract class AbstractManager
 
     /**
      * @param $itemId
-     * @return $this->entity
+     * @return object
      */
     public function load($itemId) {
         return $this->getRepository()->findOneBy(array('id' => $itemId));

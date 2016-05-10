@@ -6,8 +6,6 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use CoreBundle\Entity\UtilisateurLogAction;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -21,9 +19,6 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private $container;
 
-    /**
-     * @var EntityManagerInterface
-     */
     private $em;
 
     /**

@@ -19,6 +19,7 @@ class ProsodieOdigoManager extends AbstractManager
         $itemArray['odigoPhoneNumber']    = $itemToTransform->getOdigoPhoneNumber();
         $itemArray['redirectPhoneNumber'] = $itemToTransform->getRedirectPhoneNumber();
         $itemArray['odigoExtension']      = $itemToTransform->getOdigoExtension();
+        $itemArray['profilBase']          = $itemToTransform->getProfilBase();
 
         return $itemArray;
     }

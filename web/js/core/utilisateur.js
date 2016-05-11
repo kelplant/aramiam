@@ -169,11 +169,11 @@ function ajaxGenerateWindows()
                 url:urlajax,success:function(result) {
                     document.getElementById("createActionWindowsPart").innerHTML = '';
                     var textToAppend = '<div class="block-update-card">' +
-                        '<div class="update-card-header">' +
+                        '<div class="font_exo_2 update-card-header">' +
                         '<button type="button" class="close" onclick="generateWindowsBody();"><i class="fa fa-edit fa"></i></span></button>' +
-                        '<h4>'+result.identifiant+'</h4>' +
+                        '<h4 class="font_exo_2">'+result.identifiant+'</h4>' +
                         '</div>' +
-                        '<div class="update-card-body">';
+                        '<div class="font_exo_2 update-card-body">';
                     textToAppend += '' +
                         '<p>dn :</p>' +
                         '<p class="" style="font-size: 10px">'+
@@ -261,9 +261,9 @@ function ajaxGenerateSalesforce()
                         '<div class="block-update-card">' +
                         '<div class="update-card-header">'+
                         '<button type="button" class="close" onclick="generateSalesforceBody(\'edit\');"><i class="fa fa-edit fa"></i></span></button>' +
-                        '<h4>'+result.Name+'<br>'+result.Profil__c+'</h4>'+
+                        '<h4 class="font_exo_2">'+result.Name+'<br>'+result.Profil__c+'</h4>'+
                         '</div>'+
-                        '<div class="update-card-body">'+
+                        '<div class="update-card-body font_exo_2">'+
                         '<ul>Informations Profil'+
                         '<li>Username : '+result.Username+'</li>' +
                         '<li>Département : '+result.Department+'</li>' +
@@ -431,10 +431,10 @@ function ajaxGenerateEmail()
                 }
                 else {
                     var textToAppend = '<div class="block-update-card">' +
-                        '<div class="update-card-header">' +
-                        '<h4>'+result.primaryEmail+'</h4>' +
+                        '<div class="font_exo_2 update-card-header">' +
+                        '<h4 class="font_exo_2">'+result.primaryEmail+'</h4>' +
                         '</div>' +
-                        '<div class="update-card-body">' +
+                        '<div class="font_exo_2 update-card-body">' +
                         '<p>Alias :</p>' +
                         '<ul>';
                     var i;
@@ -529,7 +529,30 @@ function ajaxGenerateOdigo()
                         }
                     });
                 } else {
-                    $('#loading').addClass('hide').removeClass('show');
+                    document.getElementById("createActionOdigoPart").innerHTML = '';
+                    urlajax = "/ajax/odigo/get/utilisateur_infos/" + localStorage.getItem("currentEditItem");
+                    $.ajax({
+                        url: urlajax, success: function (result) {
+                            var textToAppend = '<div class="block-update-card">' +
+                                '<div class="update-card-header">' +
+                                '<input type="submit" name="sendaction" id="sendaction" class="font_exo_2 top-right btn btn-danger" value="Supprimer dans Odigo">' +
+                                '<h4 class="font_exo_2">'+result.odigoExtension+'<br>' +
+                                result.profilBase+'</h4>' +
+                                '</div>' +
+                                '<div class="font_exo_2 update-card-body">' +
+                                '<p>Informations :</p>' +
+                                '<ul>';
+                            textToAppend += '<li>Numéro Odigo : '+result.odigoPhoneNumber+'</li>';
+                            textToAppend += '<li>Poste Fixe : '+result.redirectPhoneNumber+'</li>';
+                            textToAppend += '</ul>' +
+                                '</div>' +
+                                '</div>';
+                            textToAppend += '<input type="hidden" name="odigo[odigoId]" id="odigo_odigoId" value="'+result.id+'">';
+                            document.getElementById("createActionOdigoPart").innerHTML = textToAppend;
+                            $('#loading').addClass('hide').removeClass('show');
+                            $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                        }
+                    });
                 }
             }
         });

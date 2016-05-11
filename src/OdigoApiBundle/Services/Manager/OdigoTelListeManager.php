@@ -77,4 +77,22 @@ class OdigoTelListeManager extends AbstractManager
             return '0';
         }
     }
+
+    /**
+     * @param $odigoNumber
+     * @param $ContentToAddToEditedItem
+     * @return array
+     */
+    public function editByNumero($odigoNumber, $ContentToAddToEditedItem) {
+        try {
+            $itemToSet = $this->globalSetItem($this->getRepository()->findOneByNumero($odigoNumber), $ContentToAddToEditedItem);
+            $itemToSet->setUpdatedAt(new \DateTime());
+            $this->em->flush();
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+
+        return array('item' => $odigoNumber);
+    }
 }

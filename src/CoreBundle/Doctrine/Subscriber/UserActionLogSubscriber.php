@@ -185,7 +185,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function ifInstanceOfUtilisateurAndUpdate($action, $entity, UnitOfWork $uow)
     {
-        if ($action == 'update') {
+        if ($action == 'update' && $this->requestStack->getCurrentRequest()->request->get('sendaction') == 'Sauvegarder') {
             $uow->computeChangeSets(); // do not compute changes if inside a listener
             $changeSet = $uow->getEntityChangeSet($entity);
             if (isset($changeSet['email'][0]) === true) {

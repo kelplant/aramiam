@@ -1,14 +1,15 @@
 <?php
 namespace OdigoApiBundle\Services;
 
-use GoogleApiBundle\Services\GoogleApiService;
+use GoogleApiBundle\Services\GoogleUserApiService;
 use CoreBundle\Services\Manager\Admin\FonctionManager;
 use CoreBundle\Services\Manager\Admin\ServiceManager;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
-use GoogleApiBundle\Services\GoogleUserApiService;
+use Symfony\Component\HttpFoundation\Request;
 use OdigoApiBundle\Services\Manager\OdigoTelListeManager;
 use OdigoApiBundle\Services\Manager\OrangeTelListeManager;
 use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
+use SalesforceApiBundle\Services\SalesforceApiUserService;
 
 /**
  * Class OdigoApiService
@@ -57,6 +58,11 @@ class OdigoApiService
     protected $googleUserApiService;
 
     /**
+     * @var SalesforceApiUserService;
+     */
+    protected $salesforceApiUserService;
+
+    /**
      * OdigoApiService constructor.
      * @param UtilisateurManager $utilisateurManager
      * @param OdigoTelListeManager $odigoTelListeManager
@@ -66,17 +72,19 @@ class OdigoApiService
      * @param FonctionManager $fonctionManager
      * @param OdigoClientService $odigoServiceClient
      * @param GoogleUserApiService $googleUserApiService
+     * @param SalesforceApiUserService $salesforceApiUserService
      */
-    public function __construct(UtilisateurManager $utilisateurManager, OdigoTelListeManager $odigoTelListeManager, OrangeTelListeManager $orangeTelListeManager, ProsodieOdigoManager $prosodieOdigoManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, OdigoClientService $odigoServiceClient, GoogleUserApiService $googleUserApiService)
+    public function __construct(UtilisateurManager $utilisateurManager, OdigoTelListeManager $odigoTelListeManager, OrangeTelListeManager $orangeTelListeManager, ProsodieOdigoManager $prosodieOdigoManager, ServiceManager $serviceManager, FonctionManager $fonctionManager, OdigoClientService $odigoServiceClient, GoogleUserApiService $googleUserApiService, SalesforceApiUserService $salesforceApiUserService)
     {
-        $this->utilisateurManager    = $utilisateurManager;
-        $this->odigoTelListeManager  = $odigoTelListeManager;
-        $this->orangeTelListeManager = $orangeTelListeManager;
-        $this->prosodieOdigoManager  = $prosodieOdigoManager;
-        $this->serviceManager        = $serviceManager;
-        $this->fonctionManager       = $fonctionManager;
-        $this->odigoServiceClient    = $odigoServiceClient;
-        $this->googleUserApiService  = $googleUserApiService;
+        $this->utilisateurManager       = $utilisateurManager;
+        $this->odigoTelListeManager     = $odigoTelListeManager;
+        $this->orangeTelListeManager    = $orangeTelListeManager;
+        $this->prosodieOdigoManager     = $prosodieOdigoManager;
+        $this->serviceManager           = $serviceManager;
+        $this->fonctionManager          = $fonctionManager;
+        $this->odigoServiceClient       = $odigoServiceClient;
+        $this->googleUserApiService     = $googleUserApiService;
+        $this->salesforceApiUserService = $salesforceApiUserService;
     }
 
     /**
@@ -130,13 +138,28 @@ class OdigoApiService
     }
 
     /**
-     * @param $odigoUserId
+     * @param $sendaction
+     * @param Request $request
+     * @param $userId
      * @param $paramsOdigo
-     * @return mixed
+     * @param $paramsGoogle
      */
-    public function deleteOdigoUser($odigoUserId, $paramsOdigo)
+    public function deleteOdigoUser($sendaction, Request $request, $userId, $paramsOdigo, $paramsGoogle, $salesforceParams)
     {
-        $this->odigoServiceClient->delete($paramsOdigo, $odigoUserId);
+        if ($sendaction == "Supprimer dans Odigo") {
+            $userLinkInfos = $this->prosodieOdigoManager->getRepository()->findOneByUser($userId);
+            $this->odigoServiceClient->delete($paramsOdigo, $userLinkInfos->getOdigoExtension());
+            $this->exportOdigoModifications($paramsOdigo);
+            $this->utilisateurManager->edit($userId, array('isCreateInOdigo' => 0));
+            $this->prosodieOdigoManager->remove($userLinkInfos->getId());
+            $this->odigoTelListeManager->editByNumero($userLinkInfos->getOdigoPhoneNumber(), array('inUse' => 0));
+            if ($userLinkInfos->isRedirectFromAramis() == true) {
+                $this->orangeTelListeManager->editByNumero($userLinkInfos->getOdigoPhoneNumber(), array('inUse' => 0));
+            }
+            $this->googleUserApiService->deleteAliasToUser($paramsGoogle, $request->request->get('utilisateur')['email'], $request->request->get('prosodie')['numProsodie'].'@aramisauto.com');
+            $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldEmail' => $request->request->get('utilisateur')['fonction'], 'request' => $request->request);
+            $this->salesforceApiUserService->ifUserUpdated($tabToSend, $salesforceParams);
+        }
     }
 
     /**
@@ -150,19 +173,26 @@ class OdigoApiService
 
     /**
      * @param $sendaction
-     * @param $isCreateInOdigo
-     * @param $request
+     * @param Request $request
      * @param $paramsOdigo
+     * @param $paramsGoogle
+     * @param $salesforceParams
      */
-    public function ifOdigoCreate($sendaction, $isCreateInOdigo, $request, $paramsOdigo, $paramsGoogle)
+    public function ifOdigoCreate($sendaction, Request $request, $paramsOdigo, $paramsGoogle, $salesforceParams)
     {
-        if ($sendaction == "Créer sur Odigo" && $isCreateInOdigo == null) {
+        if ($sendaction == "Créer sur Odigo") {
             $this->createOdigoUser($request->request->get('prosodie')['numProsodie'], $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), $request->request->get('utilisateur')['surname'], $request->request->get('utilisateur')['email'], $request->request->get('utilisateur')['name'], $request->request->get('utilisateur')['mainPassword'], $this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo(), $this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo(), $request->request->get('prosodie')['identifiant'], $paramsOdigo);
+            $redirectFromAramis = true;
+            if ($request->request->get('prosodie')['autreNum'] != null || $request->request->get('prosodie')['autreNum'] != "") {
+                $redirectFromAramis = false;
+            }
             $this->exportOdigoModifications($paramsOdigo);
-            $return = $this->prosodieOdigoManager->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant']));
+            $return = $this->prosodieOdigoManager->add(array('user' => $request->request->get('utilisateur')['id'], 'odigoPhoneNumber' => $request->request->get('prosodie')['numProsodie'], 'redirectFromAramis' => $redirectFromAramis, 'redirectPhoneNumber' => $this->numForOdigo($request->request->get('prosodie')['autreNum'], $request->request->get('prosodie')['numOrange']), 'odigoExtension'=> $request->request->get('prosodie')['identifiant'], 'profilBase' =>$this->serviceManager->load($request->request->get('utilisateur')['service'])->getNameInOdigo().'_'.$this->fonctionManager->load($request->request->get('utilisateur')['fonction'])->getNameInOdigo()));
             $this->utilisateurManager->setIsCreateInOdigo($request->request->get('utilisateur')['id'], $return['item']->getId());
             $this->odigoTelListeManager->setNumProsodieInUse($request->request->get('prosodie')['numProsodie']);
             $this->googleUserApiService->addAliasToUser($paramsGoogle, $request->request->get('utilisateur')['email'], $request->request->get('prosodie')['numProsodie'].'@aramisauto.com');
+            $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldEmail' => $request->request->get('utilisateur')['fonction'], 'request' => $request->request);
+            $this->salesforceApiUserService->ifUserUpdated($tabToSend, $salesforceParams);
         }
     }
 }

@@ -74,4 +74,22 @@ class OrangeTelListeManager extends AbstractManager
             return '0';
         }
     }
+
+    /**
+     * @param $orangeNumber
+     * @param $ContentToAddToEditedItem
+     * @return array
+     */
+    public function editByNumero($orangeNumber, $ContentToAddToEditedItem) {
+        try {
+            $itemToSet = $this->globalSetItem($this->getRepository()->findOneByNumero($orangeNumber), $ContentToAddToEditedItem);
+            $itemToSet->setUpdatedAt(new \DateTime());
+            $this->em->flush();
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+
+        return array('item' => $orangeNumber);
+    }
 }

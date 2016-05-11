@@ -54,7 +54,7 @@ services:
 
     odigo.odigo_api_service:
         class: '%odigo.odigo_api_service.class%'
-        arguments: [ '@core.utilisateur_manager', '@odigo.odigotelliste_manager', '@odigo.orangetelliste_manager', '@odigo.prosodie_odigo_manager', '@core.service_manager', '@core.fonction_manager', '@odigo.service.client', '@google.google_user_api_service' ]
+        arguments: [ '@core.utilisateur_manager', '@odigo.odigotelliste_manager', '@odigo.orangetelliste_manager', '@odigo.prosodie_odigo_manager', '@core.service_manager', '@core.fonction_manager', '@odigo.service.client', '@google.google_user_api_service', '@salesforce.salesforce_api_user_service' ]
 
     odigo.factory.userbeanwithtemplate:
         class: '%odigo.factory.userbeanwithtemplate.class%'

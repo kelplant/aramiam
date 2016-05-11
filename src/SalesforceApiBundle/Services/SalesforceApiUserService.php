@@ -169,5 +169,4 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurService'], $params);
         }
     }
-
 }

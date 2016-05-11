@@ -42,6 +42,18 @@ class ProsodieOdigo
     protected $odigoExtension;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $profilBase;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $redirectFromAramis;
+
+    /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -176,6 +188,42 @@ class ProsodieOdigo
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfilBase()
+    {
+        return $this->profilBase;
+    }
+
+    /**
+     * @param string $profilBase
+     * @return ProsodieOdigo
+     */
+    public function setProfilBase($profilBase)
+    {
+        $this->profilBase = $profilBase;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRedirectFromAramis()
+    {
+        return $this->redirectFromAramis;
+    }
+
+    /**
+     * @param boolean $redirectFromAramis
+     * @return ProsodieOdigo
+     */
+    public function setRedirectFromAramis($redirectFromAramis)
+    {
+        $this->redirectFromAramis = $redirectFromAramis;
         return $this;
     }
 }

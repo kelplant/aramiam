@@ -51,6 +51,39 @@ class SalesforceApiGroupesServices extends AbstractSalesforceApiService
 
     /**
      * @param $params
+     * @param $groupMemberId
+     * @return array|string
+     */
+    public function deleteUserFromGroupe($params, $groupMemberId)
+    {
+        return $this->executeQuery('/sobjects/GroupMember/'.$groupMemberId, $params, null, "DELETE");
+    }
+
+    /**
+     * @param $params
+     * @param $userId
+     * @param $groupId
+     * @return array|string
+     */
+    public function getTheGroupId($params, $userId, $groupId)
+    {
+        $query = "SELECT Id FROM GroupMember WHERE UserOrGroupId='".$userId."' AND GroupId='".$groupId."'";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
+     * @param $params
+     * @param $userId
+     * @return array|string
+     */
+    public function getListOfGroupesForUser($params, $userId)
+    {
+        $query = "SELECT Id,GroupId FROM GroupMember WHERE UserOrGroupId='".$userId."'";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
+     * @param $params
      * @return mixed
      */
     public function getListOfGroupes($params)
@@ -60,13 +93,22 @@ class SalesforceApiGroupesServices extends AbstractSalesforceApiService
     }
 
     /**
+     * @param $fonctionId
+     * @return array
+     */
+    public function listOfGroupesForFonction($fonctionId)
+    {
+        return $this->SalesforceGroupeMatchFonction->getRepository()->findBy(array('fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
+    }
+
+    /**
      * @param $userId
      * @param $fonctionId
      * @param $params
      */
     public function addGroupesForNewUser($userId, $fonctionId, $params)
     {
-        $listOfGroupes = $this->SalesforceGroupeMatchFonction->getRepository()->findBy(array('fonctionId' => $fonctionId), array('fonctionId' => 'ASC'));
+        $listOfGroupes = $this->listOfGroupesForFonction($fonctionId);
         foreach ($listOfGroupes as $groupe) {
             $itemToAdd = $this->salesforceGroupMemberFactory->createFromEntity(array('GroupId' => $this->salesforceGroupesManager->load($groupe->getSalesforceGroupe())->getGroupeId(), 'UserOrGroupId' => $userId));
             try {

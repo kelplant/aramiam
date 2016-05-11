@@ -264,7 +264,7 @@ function ajaxGenerateSalesforce()
                         '<h4>'+result.Name+'<br>'+result.Profil__c+'</h4>'+
                         '</div>'+
                         '<div class="update-card-body">'+
-                        '<ul>'+
+                        '<ul>Informations Profil'+
                         '<li>Username : '+result.Username+'</li>' +
                         '<li>Département : '+result.Department+'</li>' +
                         '<li>Division : '+result.Division+'</li>' +
@@ -273,14 +273,25 @@ function ajaxGenerateSalesforce()
                         '<li>Phone : '+result.Phone+'</li>' +
                         '<li>Phone Redirect : '+result.Telephone_interne__c+'</li>' +
                         '<li>Service Cloud : '+result.UserPermissionsSupportUser+'</li>' +
-                        '</ul>'+
-                        '</div>' +
-                        '</div>';
-                    document.getElementById("createActionSalesforcePart").innerHTML = textToAppend;
-                    $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
-                    $('#loading').removeClass('show').addClass('hide');
-                    $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
-                    $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                        '</ul>';
+                    urlajax = '/ajax/get/salesforce/utilisateur_group/' + localStorage.getItem("currentEditItem");
+                    $.ajax({
+                        url: urlajax, success: function (result) {
+                            textToAppend += '<ul>Groupes';
+                            var i;
+                            for (i in result) {
+                                textToAppend += '<li>'+result[i]+'</li>';
+                            }
+                            textToAppend += '</ul>'+
+                                '</div>' +
+                                '</div>';
+                            document.getElementById("createActionSalesforcePart").innerHTML = textToAppend;
+                            $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
+                            $('#loading').removeClass('show').addClass('hide');
+                            $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
+                            $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                        }
+                    });
                 } else {
                     generateSalesforceBody('create');
                 }

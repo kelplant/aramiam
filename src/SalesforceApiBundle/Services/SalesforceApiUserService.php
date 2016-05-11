@@ -97,7 +97,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      * @param $userId
      * @return Utilisateur|null
      */
-    private function loadAUser($userId) {
+    private function loadUser($userId) {
         return $this->utilisateurManager->load($userId);
     }
 
@@ -114,14 +114,14 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
             try {
                 $this->createNewUser($params, json_encode($newSalesforceUser));
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$utilisateurInfos->getEmail().' a été créé dans Salesforce'));
+                $salesforceUser = json_decode($this->getAllInfosForAccountByUsername($utilisateurInfos->getEmail(), $params));
+                $this->utilisateurManager->edit($request->request->get('utilisateur')['id'], array('isCreateInSalesforce' => $salesforceUser->Id));
+                $this->salesforceUserLinkManager->add(array('id' => $salesforceUser->Id, 'user' => $request->request->get('utilisateur')['id'], 'salesforceProfil' => $request->request->get('salesforce')['profile']));
+                $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUser->Id, $utilisateurInfos->getFonction(), $params);
+                $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUser->Id, $utilisateurInfos->getService(), $params);
             } catch (\Exception $e) {
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
-            $salesforceUser = json_decode($this->getAllInfosForAccountByUsername($utilisateurInfos->getEmail(), $params));
-            $this->utilisateurManager->edit($request->request->get('utilisateur')['id'], array('isCreateInSalesforce' => $salesforceUser->Id));
-            $this->salesforceUserLinkManager->add(array('id' => $salesforceUser->Id, 'user' => $request->request->get('utilisateur')['id'], 'salesforceProfil' => $request->request->get('salesforce')['profile']));
-            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUser->Id, $utilisateurInfos->getFonction(), $params);
-            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUser->Id, $utilisateurInfos->getService(), $params);
         }
     }
 
@@ -133,11 +133,12 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     public function ifSalesforceProfilUpdated($sendaction, Request $request, $params)
     {
         if ($sendaction == "Mettre à jour sur Salesforce") {
-            $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
+            $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
             $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
             try {
                 $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le profil salesforce de '.$utilisateurInfos->getEmail().' a été mis à jour'));
+                $this->salesforceUserLinkManager->edit($utilisateurInfos->getIsCreateInSalesforce(), array('salesforceProfil' => $request->request->get('salesforce')['profile']));
             } catch (\Exception $e) {
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
@@ -150,17 +151,21 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
      */
     public function ifUserUpdated($tabToSend, $params)
     {
-        $userInfos = $this->utilisateurManager->load($tabToSend['utilisateurId']);
-        $salesforceUserInfos = $this->salesforceUserLinkManager->load($userInfos->getIsCreateInSalesforce());
+        $utilisateurInfos = $this->loadUser($tabToSend['utilisateurId']);
+        $salesforceUserInfos = $this->salesforceUserLinkManager->load($utilisateurInfos->getIsCreateInSalesforce());
         $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
         try {
-            $this->updateUser($params, json_encode($newSalesforceUser), $userInfos->getIsCreateInSalesforce());
+            $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['mail'].' a été mis à jour dans Salesforce'));
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        //$salesforceUserId = json_decode($this->getAccountByUsername($request->request->get('utilisateur')['email'], $params))->records[0]->Id;
-        //$this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
+        $listOfGroupes = $this->salesforceApiGroupesService->listOfGroupesForFonction($tabToSend['utilisateurFonction']);
+        foreach ($listOfGroupes as $group) {
+            $salesforceGroup = json_decode($this->salesforceApiGroupesService->getTheGroupId($params, $utilisateurInfos->getIsCreateInSalesforce(), $group->getSalesforceGroupe()));
+            $this->salesforceApiGroupesService->deleteUserFromGroupe($params, $salesforceGroup['Id']);
+        }
+        $this->salesforceApiGroupesService->addGroupesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurFonction'], $params);
         //$this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
 
     }

@@ -15,7 +15,7 @@ class SalesforceAjaxController extends Controller
     /**
      * @param $userMail
      * @Route(path="/ajax/get/salesforce/utilisateur/{userMail}",name="ajax_get_salesforce_utilisateur")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getUserOnSalesforceByEmail($userMail)
     {
@@ -23,9 +23,32 @@ class SalesforceAjaxController extends Controller
     }
 
     /**
+     * @param $userId
+     * @Route(path="/ajax/get/salesforce/utilisateur_group/{userId}",name="ajax_get_salesforce_utilisateur_group")
+     * @return JsonResponse
+     */
+    public function getListOfGroupesForUser($userId)
+    {
+        $userInfos = $this->get('core.utilisateur_manager')->load($userId);
+        $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_groupes_services')->getListOfGroupesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
+        if ($listFromSalesforce->totalSize != 0)
+        {
+            $finalTab = [];
+            foreach ($listFromSalesforce->records as $groupe)
+            {
+                $finalgroup = $this->get('salesforce.salesforcegroupe_manager')->load($groupe->GroupId);
+                $finalTab[] = $finalgroup->getGroupeName();
+            }
+            return new JsonResponse($finalTab);
+        } else {
+            return new JsonResponse(null);
+        }
+    }
+
+    /**
      * @param $userMail
      * @Route(path="/ajax/get/salesforce/utilisateur/full_profil/{userMail}",name="ajax_get_salesforce_utilisateur_full_profil")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getAllInfosForUserOnSalesforceByEmail($userMail)
     {
@@ -33,7 +56,7 @@ class SalesforceAjaxController extends Controller
     }
     /**
      * @Route(path="/ajax/get/salesforce/profiles",name="ajax_get_salesforce_profiles")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceProfilesListe()
     {
@@ -48,7 +71,7 @@ class SalesforceAjaxController extends Controller
 
     /**
      * @Route(path="/ajax/get/salesforce/territories",name="ajax_get_salesforce_territories")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceTerritoryListe()
     {
@@ -63,7 +86,7 @@ class SalesforceAjaxController extends Controller
 
     /**
      * @Route(path="/ajax/get/salesforce/groupes",name="ajax_get_salesforce_groupes")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceGroupeListe()
     {
@@ -79,7 +102,7 @@ class SalesforceAjaxController extends Controller
     /**
      * @param $fonctionId
      * @Route(path="/ajax/get/salesforce/service_cloud/{fonctionId}",name="ajax_get_salesforce_service_cloud")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceServiceCloudForFonction($fonctionId)
     {
@@ -89,7 +112,7 @@ class SalesforceAjaxController extends Controller
     /**
      * @param $fonctionId
      * @Route(path="/ajax/get/salesforce/groupe_fonction/{fonctionId}",name="ajax_get_salesforce_groupe_fonction")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceGroupeForFonction($fonctionId)
     {
@@ -106,7 +129,7 @@ class SalesforceAjaxController extends Controller
     /**
      * @param $serviceId
      * @Route(path="/ajax/get/salesforce/territory_service/{serviceId}",name="ajax_get_salesforce_territory_service")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function getSalesforceTerritoryForService($serviceId)
     {

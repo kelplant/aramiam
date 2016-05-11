@@ -58,11 +58,6 @@ class SalesforceUserFactory extends AbstractFactory
     protected $serviceCloudAccesManager;
 
     /**
-     * @var string
-     */
-    private $nickname;
-
-    /**
      * @var array
      */
     private $odigoInfos;
@@ -140,7 +135,7 @@ class SalesforceUserFactory extends AbstractFactory
      * @param $agenceCompany
      * @return SalesforceUser
      */
-    private function createUserWithBDDDatas($utilisateurInfos, Request $request, $odigoInfos, $agenceCompany)
+    private function createUserWithBDDDatas($utilisateurInfos, Request $request, $odigoInfos, $agenceCompany, $salesforceProfil)
     {
         $nickname = $this->shortNickName($utilisateurInfos->getName(), $utilisateurInfos->getSurname());
         return $this->createFromEntity(
@@ -150,7 +145,7 @@ class SalesforceUserFactory extends AbstractFactory
                 'FirstName'         => $utilisateurInfos->getSurname(),
                 'Email'             => $utilisateurInfos->getEmail(),
                 'TimeZoneSidKey'    => 'Europe/Paris', 'Alias' => substr($nickname, 0, 8), 'CommunityNickname' => $nickname."aramisauto", 'IsActive' => true, 'LocaleSidKey' => "fr_FR", 'EmailEncodingKey' => "ISO-8859-1",
-                'ProfileId'         => $request->request->get('salesforce')['profile'],
+                'ProfileId'         => $salesforceProfil,
                 'LanguageLocaleKey' => "FR", 'UserPermissionsMobileUser' => true, 'UserPreferencesDisableAutoSubForFeeds' => false,
                 'Street'            => $agenceCompany->getAddress1(), 'City' => $agenceCompany->getCity(), 'PostalCode' => $agenceCompany->getZipCode(), 'State ' => 'France',
                 'ExternalID__c'     => rand(1, 9999), #Id from Robusto
@@ -209,10 +204,10 @@ class SalesforceUserFactory extends AbstractFactory
      * @param Utilisateur $utilisateurInfos
      * @return SalesforceUser
      */
-    public function prepareSalesforceUserFromBDD(Request $request, Utilisateur $utilisateurInfos)
+    public function prepareSalesforceUserFromBDD(Request $request, Utilisateur $utilisateurInfos, $salesforceProfil)
     {
         $this->setDatasForUser($request);
-        $newSalesforceUser = $this->createUserWithBDDDatas($utilisateurInfos, $request, $this->odigoInfos, $this->agenceCompany);
+        $newSalesforceUser = $this->createUserWithBDDDatas($utilisateurInfos, $request, $this->odigoInfos, $this->agenceCompany, $salesforceProfil);
 
         return $this->checkForServiceCloud($utilisateurInfos->getFonction(), $newSalesforceUser);
     }

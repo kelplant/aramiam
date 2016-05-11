@@ -110,7 +110,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     {
         if ($sendaction == "Créer sur Salesforce") {
             $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
-            $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos);
+            $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
             try {
                 $this->createNewUser($params, json_encode($newSalesforceUser));
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$utilisateurInfos->getEmail().' a été créé dans Salesforce'));
@@ -122,6 +122,25 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
             $this->salesforceUserLinkManager->add(array('id' => $salesforceUser->Id, 'user' => $request->request->get('utilisateur')['id'], 'salesforceProfil' => $request->request->get('salesforce')['profile']));
             $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUser->Id, $utilisateurInfos->getFonction(), $params);
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUser->Id, $utilisateurInfos->getService(), $params);
+        }
+    }
+
+    /**
+     * @param $sendaction
+     * @param Request $request
+     * @param $params
+     */
+    public function ifSalesforceProfilUpdated($sendaction, Request $request, $params)
+    {
+        if ($sendaction == "Mettre à jour sur Salesforce") {
+            $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
+            $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
+            try {
+                $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le profil salesforce de '.$utilisateurInfos->getEmail().' a été mis à jour'));
+            } catch (\Exception $e) {
+                $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
         }
     }
 

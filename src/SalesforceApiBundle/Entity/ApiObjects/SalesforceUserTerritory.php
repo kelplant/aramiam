@@ -19,11 +19,6 @@ class SalesforceUserTerritory
     public $UserId;
 
     /**
-     * @var string
-     */
-    public $IsActive;
-
-    /**
      * @return string
      */
     public function getTerritoryId()
@@ -56,24 +51,6 @@ class SalesforceUserTerritory
     public function setUserId($UserId)
     {
         $this->UserId = $UserId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsActive()
-    {
-        return $this->IsActive;
-    }
-
-    /**
-     * @param string $IsActive
-     * @return SalesforceUserTerritory
-     */
-    public function setIsActive($IsActive)
-    {
-        $this->IsActive = $IsActive;
         return $this;
     }
 }

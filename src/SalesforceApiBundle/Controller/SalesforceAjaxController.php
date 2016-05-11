@@ -46,6 +46,29 @@ class SalesforceAjaxController extends Controller
     }
 
     /**
+     * @param $userId
+     * @Route(path="/ajax/get/salesforce/utilisateur_territories/{userId}",name="ajax_get_salesforce_utilisateur_territories")
+     * @return JsonResponse
+     */
+    public function getListOfTerritoriesForUser($userId)
+    {
+        $userInfos = $this->get('core.utilisateur_manager')->load($userId);
+        $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_territories_services')->getListOfTerritoriesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
+        if ($listFromSalesforce->totalSize != 0)
+        {
+            $finalTab = [];
+            foreach ($listFromSalesforce->records as $territory)
+            {
+                $finalgroup = $this->get('salesforce.salesforceterritory_manager')->load($territory->TerritoryId);
+                $finalTab[] = $finalgroup->getTerritoryName();
+            }
+            return new JsonResponse($finalTab);
+        } else {
+            return new JsonResponse(null);
+        }
+    }
+
+    /**
      * @param $userMail
      * @Route(path="/ajax/get/salesforce/utilisateur/full_profil/{userMail}",name="ajax_get_salesforce_utilisateur_full_profil")
      * @return JsonResponse

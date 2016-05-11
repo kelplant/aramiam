@@ -160,10 +160,13 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        if ($tabToSend['utilisateurService'] != $tabToSend['utilisateurOldService'] || $tabToSend['utilisateurFonction'] != $tabToSend['utilisateurOldFonction']) {
+        if ($tabToSend['utilisateurFonction'] != $tabToSend['utilisateurOldFonction']) {
             $this->salesforceApiGroupesService->deleteGroupesForUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurOldFonction'], $params);
             $this->salesforceApiGroupesService->addGroupesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurFonction'], $params);
-            //$this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
+        }
+        if ($tabToSend['utilisateurService'] != $tabToSend['utilisateurOldService']) {
+            $this->salesforceApiTerritoriesService->removeTerritoriesForUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurOldService'], $params);
+            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurService'], $params);
         }
     }
 

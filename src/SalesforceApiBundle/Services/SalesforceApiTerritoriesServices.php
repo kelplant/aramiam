@@ -61,18 +61,81 @@ class SalesforceApiTerritoriesServices extends AbstractSalesforceApiService
     }
 
     /**
+     * @param $params
      * @param $userId
-     * @param $fonctionId
+     * @param $groupId
+     * @return array|string
+     */
+    public function getTheTerritoryId($params, $userId, $groupId)
+    {
+        $query = "SELECT Id FROM UserTerritory WHERE UserId='".$userId."' AND TerritoryId='".$groupId."' AND IsActive = true";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
+     * @param $params
+     * @param $userId
+     * @return array|string
+     */
+    public function getListOfTerritoriesForUser($params, $userId)
+    {
+        $query = "SELECT Id,TerritoryId FROM UserTerritory WHERE UserId = '".$userId."' AND IsActive = true";
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
+     * @param $params
+     * @param $territoryMemberId
+     * @return array|string
+     */
+    public function deleteUserInTerritory($params, $territoryMemberId)
+    {
+        return $this->executeQuery('/sobjects/UserTerritory/'.$territoryMemberId, $params, null, "DELETE");
+    }
+
+    /**
+     * @param $serviceId
+     * @return array
+     */
+    public function listOfTerritoriesForService($serviceId)
+    {
+        return $this->SalesforceTerritoryMatchServiceManager->getRepository()->findBy(array('serviceId' => $serviceId), array('serviceId' => 'ASC'));
+    }
+
+    /**
+     * @param $userId
+     * @param $serviceId
      * @param $params
      */
-    public function addTerritoriesForNewUser($userId, $fonctionId, $params)
+    public function addTerritoriesForNewUser($userId, $serviceId, $params)
     {
-        $territoryList = $this->SalesforceTerritoryMatchServiceManager->getRepository()->findBy(array('serviceId' => $fonctionId), array('serviceId' => 'ASC'));
-        foreach ($territoryList as $territory) {
-            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $this->salesforceTerritoriyManager->load($territory->getSalesforceTerritoryId())->getTerritoryId(), 'UserId' => $userId, 'IsActive' => true));
+        $listOfTerritories = $this->SalesforceTerritoryMatchServiceManager->getRepository()->findBy(array('serviceId' => $serviceId), array('serviceId' => 'ASC'));
+        foreach ($listOfTerritories as $territory) {
+            $territoryInfos = $this->salesforceTerritoriyManager->load($territory->getSalesforceTerritoryId());
+            $itemToAdd = $this->salesforceUserTerritoryFactory->createFromEntity(array('TerritoryId' => $territoryInfos->getTerritoryId(), 'UserId' => $userId));
             try {
                 $this->addUserToTerritory($params, json_encode($itemToAdd));
-                $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$userId.' a été créé ajouté au groupe'.$territory->getTerritoryName()));
+                $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur a été créé ajouté au territoire '.$territoryInfos->getTerritoryName()));
+            } catch (\Exception $e) {
+                $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+            }
+        }
+    }
+
+    /**
+     * @param $salesforceUserId
+     * @param $serviceId
+     * @param $params
+     */
+    public function removeTerritoriesForUser($salesforceUserId, $serviceId, $params)
+    {
+        $listOfTerritories = $this->listOfTerritoriesForService($serviceId);
+        foreach ($listOfTerritories as $territory) {
+            $salesforceTerritoryMember = json_decode($this->getTheTerritoryId($params, $salesforceUserId, $territory->getSalesforceTerritoryId()));
+            $territoryInfos = $this->salesforceTerritoriyManager->load($territory->getSalesforceTerritoryId());
+            try {
+                $this->deleteUserInTerritory($params, $salesforceTerritoryMember->records[0]->Id);
+                $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur a été supprimé du territoire '.$territoryInfos->getTerritoryName()));
             } catch (\Exception $e) {
                 $this->SalesforceTerritoryMatchServiceManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }

@@ -114,7 +114,7 @@ class SalesforceApiGroupesServices extends AbstractSalesforceApiService
             $groupInfos = $this->salesforceGroupesManager->load($group->getSalesforceGroupe());
             try {
                 $this->deleteUserFromGroupe($params, $salesforceGroupMember->records[0]->Id);
-                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$salesforceUserId.' a été supprimé du groupe'.$groupInfos->getGroupeName()));
+                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur a été supprimé du groupe '.$groupInfos->getGroupeName()));
             } catch (\Exception $e) {
                 $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
@@ -134,7 +134,7 @@ class SalesforceApiGroupesServices extends AbstractSalesforceApiService
             $itemToAdd = $this->salesforceGroupMemberFactory->createFromEntity(array('GroupId' => $groupInfos->getGroupeId(), 'UserOrGroupId' => $userId));
             try {
                 $this->addUserToGroupe($params, json_encode($itemToAdd));
-                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$userId.' a été créé ajouté au groupe'.$groupInfos->getGroupeName()));
+                $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur a été créé ajouté au groupe '.$groupInfos->getGroupeName()));
             } catch (\Exception $e) {
                 $this->salesforceGroupesManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }

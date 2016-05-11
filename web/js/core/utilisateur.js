@@ -282,14 +282,25 @@ function ajaxGenerateSalesforce()
                             for (i in result) {
                                 textToAppend += '<li>'+result[i]+'</li>';
                             }
-                            textToAppend += '</ul>'+
-                                '</div>' +
-                                '</div>';
-                            document.getElementById("createActionSalesforcePart").innerHTML = textToAppend;
-                            $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
-                            $('#loading').removeClass('show').addClass('hide');
-                            $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
-                            $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                            textToAppend += '</ul>';
+                            urlajax = '/ajax/get/salesforce/utilisateur_territories/' + localStorage.getItem("currentEditItem");
+                            $.ajax({
+                                url: urlajax, success: function (result) {
+                                    textToAppend += '<ul>Territoires';
+                                    var i;
+                                    for (i in result) {
+                                        textToAppend += '<li>'+result[i]+'</li>';
+                                    }
+                                    textToAppend += '</ul>'+
+                                        '</div>' +
+                                        '</div>';
+                                    document.getElementById("createActionSalesforcePart").innerHTML = textToAppend;
+                                    $('#createActionSalesforceParNew').addClass('hide').removeClass('show');
+                                    $('#loading').removeClass('show').addClass('hide');
+                                    $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
+                                    $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                                }
+                            });
                         }
                     });
                 } else {

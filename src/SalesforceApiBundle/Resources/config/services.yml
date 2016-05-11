@@ -34,6 +34,11 @@ parameters:
     salesforce.entityname.territory_to_service_manager.class: 'SalesforceApiBundle\Entity\SalesforceTerritoryMatchService'
     salesforce.argname.territory_to_service_manager.class: 'Le territoire Salesforce'
 
+    salesforce.user_link_manager.class: SalesforceApiBundle\Services\Manager\SalesforceUserLinkManager
+    salesforce.entity.user_link_manager.class: SalesforceApiBundle\Entity\SalesforceUserLink
+    salesforce.entityname.user_link_manager.class: 'SalesforceApiBundle\Entity\SalesforceUserLink'
+    salesforce.argname.user_link_manager.class: 'Le lien Salesforce Salesforce'
+
     salesforce.salesforce_abstract_api_service.class: SalesforceApiBundle\Services\AbstractSalesforceApiService
     salesforce.salesforce_api_user_service.class: SalesforceApiBundle\Services\SalesforceApiUserService
     salesforce.salesforce_api_groupes_services.class: SalesforceApiBundle\Services\SalesforceApiGroupesServices
@@ -100,13 +105,21 @@ services:
         - [setEntityName, ["%salesforce.entityname.territory_to_service_manager.class%"]]
         - [setArgname, ["%salesforce.argname.territory_to_service_manager.class%"]]
 
+    salesforce.user_link_manager:
+        class: '%salesforce.user_link_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%salesforce.entity.user_link_manager.class%"]]
+        - [setEntityName, ["%salesforce.entityname.user_link_manager.class%"]]
+        - [setArgname, ["%salesforce.argname.user_link_manager.class%"]]
+
     salesforce.salesforce_abstract_api_service:
         class: '%salesforce.salesforce_abstract_api_service.class%'
         abstract: true
 
     salesforce.salesforce_api_user_service:
         class: '%salesforce.salesforce_api_user_service.class%'
-        arguments: [ '@salesforce.factory.salesforce_user', '@core.utilisateur_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services' ]
+        arguments: [ '@salesforce.factory.salesforce_user', '@core.utilisateur_manager', '@salesforce.salesforce_api_groupes_services', '@salesforce.salesforce_api_territories_services', '@salesforce.user_link_manager' ]
         parent: salesforce.salesforce_abstract_api_service
         calls:
         - [setTokenManager, [ '@salesforce.salesforcetoken_store' ]]

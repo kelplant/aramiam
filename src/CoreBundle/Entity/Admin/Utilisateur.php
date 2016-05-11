@@ -49,7 +49,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(type="string", nullable=true, options={"default":null})
      */
     protected $isCreateInSalesforce;
 
@@ -61,7 +61,7 @@ class Utilisateur extends AbstractPerson
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255, nullable=true, options={"default":0})
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default":null})
      */
     protected $isCreateInWindows;
 

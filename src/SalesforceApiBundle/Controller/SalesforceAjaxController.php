@@ -19,7 +19,7 @@ class SalesforceAjaxController extends Controller
      */
     public function getUserOnSalesforceByEmail($userMail)
     {
-        return new JsonResponse(\GuzzleHttp\json_decode($this->get('salesforce.salesforce_api_user_service')->getAccountByUsername($userMail, $this->getParameter('salesforce'))));
+        return new JsonResponse(json_decode($this->get('salesforce.salesforce_api_user_service')->getAccountByUsername($userMail, $this->getParameter('salesforce'))));
     }
 
     /**
@@ -29,7 +29,7 @@ class SalesforceAjaxController extends Controller
      */
     public function getAllInfosForUserOnSalesforceByEmail($userMail)
     {
-        return new JsonResponse(\GuzzleHttp\json_decode($this->get('salesforce.salesforce_api_user_service')->getAllInfosForAccountByUsername($userMail, $this->getParameter('salesforce'))));
+        return new JsonResponse(json_decode($this->get('salesforce.salesforce_api_user_service')->getAllInfosForAccountByUsername($userMail, $this->getParameter('salesforce'))));
     }
     /**
      * @Route(path="/ajax/get/salesforce/profiles",name="ajax_get_salesforce_profiles")

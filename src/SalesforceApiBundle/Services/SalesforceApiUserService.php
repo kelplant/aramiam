@@ -4,6 +4,7 @@ namespace SalesforceApiBundle\Services;
 use CoreBundle\Entity\Admin\Utilisateur;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use SalesforceApiBundle\Factory\SalesforceUserFactory;
+use SalesforceApiBundle\Services\Manager\SalesforceUserLinkManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class SalesforceApiUserService extends AbstractSalesforceApiService
@@ -29,18 +30,25 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     protected $salesforceApiTerritoriesService;
 
     /**
+     * @var SalesforceUserLinkManager
+     */
+    protected $salesforceUserLinkManager;
+
+    /**
      * SalesforceApiUserService constructor.
      * @param SalesforceUserFactory $salesforceUserFactory
      * @param UtilisateurManager $utilisateurManager
      * @param SalesforceApiGroupesServices $salesforceApiGroupesService
      * @param SalesforceApiTerritoriesServices $salesforceApiTerritoriesService
+     * @param SalesforceUserLinkManager $salesforceUserLinkManager
      */
-    public function __construct(SalesforceUserFactory $salesforceUserFactory, UtilisateurManager $utilisateurManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService)
+    public function __construct(SalesforceUserFactory $salesforceUserFactory, UtilisateurManager $utilisateurManager, SalesforceApiGroupesServices $salesforceApiGroupesService, SalesforceApiTerritoriesServices $salesforceApiTerritoriesService, SalesforceUserLinkManager $salesforceUserLinkManager)
     {
         $this->salesforceUserFactory           = $salesforceUserFactory;
         $this->utilisateurManager              = $utilisateurManager;
         $this->salesforceApiGroupesService     = $salesforceApiGroupesService;
         $this->salesforceApiTerritoriesService = $salesforceApiTerritoriesService;
+        $this->salesforceUserLinkManager       = $salesforceUserLinkManager;
     }
 
     /**
@@ -56,11 +64,12 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     /**
      * @param $params
      * @param $newSalesforceUser
+     * @param $salesforceId
      * @return array|string
      */
-    public function updateUser($params, $newSalesforceUser)
+    public function updateUser($params, $newSalesforceUser, $salesforceId)
     {
-        return $this->executeQuery('/sobjects/User/', $params, $newSalesforceUser, "POST");
+        return $this->executeQuery('/sobjects/User/'.$salesforceId, $params, $newSalesforceUser, "PATCH");
     }
 
     /**
@@ -94,24 +103,47 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
 
     /**
      * @param $sendaction
-     * @param $isCreateInSalesforce
      * @param Request $request
      * @param $params
      */
-    public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, Request $request, $params)
+    public function ifSalesforceCreate($sendaction, Request $request, $params)
     {
-        if ($sendaction == "Créer sur Salesforce" && ($isCreateInSalesforce == null || $isCreateInSalesforce == 0)) {
+        if ($sendaction == "Créer sur Salesforce") {
             $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
-            $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUser($request, $utilisateurInfos);
+            $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos);
             try {
                 $this->createNewUser($params, json_encode($newSalesforceUser));
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$utilisateurInfos->getEmail().' a été créé dans Salesforce'));
             } catch (\Exception $e) {
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
             }
-            $salesforceUserId = json_decode($this->getAccountByUsername($utilisateurInfos->getEmail(), $params))->records[0]->Id;
-            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $utilisateurInfos->getFonction(), $params);
-            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $utilisateurInfos->getService(), $params);
+            $salesforceUser = json_decode($this->getAllInfosForAccountByUsername($utilisateurInfos->getEmail(), $params));
+            $this->utilisateurManager->edit($request->request->get('utilisateur')['id'], array('isCreateInSalesforce' => $salesforceUser->Id));
+            $this->salesforceUserLinkManager->add(array('id' => $salesforceUser->Id, 'user' => $request->request->get('utilisateur')['id'], 'salesforceProfil' => $request->request->get('salesforce')['profile']));
+            $this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUser->Id, $utilisateurInfos->getFonction(), $params);
+            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUser->Id, $utilisateurInfos->getService(), $params);
         }
     }
+
+    /**
+     * @param $tabToSend
+     * @param $params
+     */
+    public function ifUserUpdated($tabToSend, $params)
+    {
+        $userInfos = $this->utilisateurManager->load($tabToSend['utilisateurId']);
+        $salesforceUserInfos = $this->salesforceUserLinkManager->load($userInfos->getIsCreateInSalesforce());
+        $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
+        try {
+            $this->updateUser($params, json_encode($newSalesforceUser), $userInfos->getIsCreateInSalesforce());
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['mail'].' a été mis à jour dans Salesforce'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+        //$salesforceUserId = json_decode($this->getAccountByUsername($request->request->get('utilisateur')['email'], $params))->records[0]->Id;
+        //$this->salesforceApiGroupesService->addGroupesForNewUser($salesforceUserId, $request->request->get('utilisateur')['fonction'], $params);
+        //$this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
+
+    }
+
 }

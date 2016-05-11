@@ -5,15 +5,14 @@ use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
 /**
- * Class Salesforce
+ * Class SalesforceUserLink
  * @ORM\Entity(repositoryClass="SalesforceApiBundle\Repository\SalesforceRepository")
  * @ORM\Table(name="salesforce_user_link")
  */
-class Salesforce
+class SalesforceUserLink
 {
     /** @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string")
      */
     protected $id;
 
@@ -51,7 +50,7 @@ class Salesforce
 
     /**
      * @param mixed $id
-     * @return Salesforce
+     * @return SalesforceUserLink
      */
     public function setId($id)
     {
@@ -69,7 +68,7 @@ class Salesforce
 
     /**
      * @param string $user
-     * @return Salesforce
+     * @return SalesforceUserLink
      */
     public function setUser($user)
     {
@@ -87,7 +86,7 @@ class Salesforce
 
     /**
      * @param string $salesforceProfil
-     * @return Salesforce
+     * @return SalesforceUserLink
      */
     public function setSalesforceProfil($salesforceProfil)
     {
@@ -105,7 +104,7 @@ class Salesforce
 
     /**
      * @param DateTime $createdAt
-     * @return Salesforce
+     * @return SalesforceUserLink
      */
     public function setCreatedAt($createdAt)
     {
@@ -123,7 +122,7 @@ class Salesforce
 
     /**
      * @param DateTime $updatedAt
-     * @return Salesforce
+     * @return SalesforceUserLink
      */
     public function setUpdatedAt($updatedAt)
     {

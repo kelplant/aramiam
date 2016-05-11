@@ -20,8 +20,8 @@ class UtilisateurLogAction
     protected $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var int
+     * @ORM\Column(type="integer")
      */
     protected $requesterId;
 
@@ -74,7 +74,7 @@ class UtilisateurLogAction
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getRequesterId()
     {

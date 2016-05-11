@@ -47,6 +47,11 @@ class UserActionLogSubscriber implements EventSubscriber
     private $updateGmailLink;
 
     /**
+     * @var boolean
+     */
+    private $updateSalesforceLink;
+
+    /**
      * UserActionLogSubscriber constructor.
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param ManagerRegistry $managerRegistry
@@ -116,10 +121,11 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         if ($key != 'startDate' && $key != 'updatedAt') {
             $basicUpdateCases = array('surname', 'viewName', 'name', 'email', 'service', 'fonction');
-            if ($value[0] != $value[1]) {
+            if ($value[0] != $value[1] && $value[0] != null) {
                 if (array_search($key, $basicUpdateCases) !== false) {
                     $this->updateActiveDirectory = true;
                     $this->updateGmailLink = true;
+                    $this->updateSalesforceLink = true;
                 }
                 $this->setAndPersistUserActionLog($utilisateurId, $key, $value[0], $value[1]);
             }
@@ -149,6 +155,16 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @param $tabToSend
      */
+    private function ifUserAsSalesforceAccount($tabToSend)
+    {
+        if ($this->requestStack->getCurrentRequest()->request->get('utilisateur')["isCreateInSalesforce"] != null) {
+            $this->container->get('salesforce.salesforce_api_user_service')->ifUserUpdated($tabToSend, $this->container->getParameter('salesforce'));
+        }
+    }
+
+    /**
+     * @param $tabToSend
+     */
     private function executeConditionalEditForPropagation($tabToSend)
     {
         if ($this->updateGmailLink === true) {
@@ -156,6 +172,9 @@ class UserActionLogSubscriber implements EventSubscriber
         }
         if ($this->updateActiveDirectory === true) {
             $this->ifUserAsActiveDirectoryAccount($tabToSend);
+        }
+        if ($this->updateSalesforceLink === true) {
+            $this->ifUserAsSalesforceAccount($tabToSend);
         }
     }
 
@@ -174,7 +193,21 @@ class UserActionLogSubscriber implements EventSubscriber
             } else {
                 $oldEmail = $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'];
             }
-            $tabToSend = array('utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'], 'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'], 'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'], 'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']), 'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'], 'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $changeSet['service'][0], 'utilisateurOldFonction' => $changeSet['fonction'][0], 'utilisateurOldEmail' => $oldEmail);
+            $tabToSend = array(
+                'utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'],
+                'newDatas' => array(
+                    'givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'],
+                    'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
+                    'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
+                    'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']
+                ),
+                'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'],
+                'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'],
+                'utilisateurOldService' => $changeSet['service'][0],
+                'utilisateurOldFonction' => $changeSet['fonction'][0],
+                'utilisateurOldEmail' => $oldEmail,
+                'request' => $this->requestStack->getCurrentRequest(),
+            );
             foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }

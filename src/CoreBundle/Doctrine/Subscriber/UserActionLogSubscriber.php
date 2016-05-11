@@ -193,21 +193,7 @@ class UserActionLogSubscriber implements EventSubscriber
             } else {
                 $oldEmail = $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'];
             }
-            $tabToSend = array(
-                'utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'],
-                'newDatas' => array(
-                    'givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'],
-                    'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'],
-                    'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'],
-                    'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']
-                ),
-                'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'],
-                'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'],
-                'utilisateurOldService' => $changeSet['service'][0],
-                'utilisateurOldFonction' => $changeSet['fonction'][0],
-                'utilisateurOldEmail' => $oldEmail,
-                'request' => $this->requestStack->getCurrentRequest(),
-            );
+            $tabToSend = array('utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'], 'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'], 'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'], 'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']), 'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'], 'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $changeSet['service'][0], 'utilisateurOldFonction' => $changeSet['fonction'][0], 'utilisateurOldEmail' => $oldEmail, 'request' => $this->requestStack->getCurrentRequest());
             foreach ($changeSet as $key => $value) {
                 $this->initUserActionLog($key, $value, $entity->getId());
             }

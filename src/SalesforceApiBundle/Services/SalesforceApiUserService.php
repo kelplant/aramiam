@@ -160,14 +160,11 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         } catch (\Exception $e) {
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-        $listOfGroupes = $this->salesforceApiGroupesService->listOfGroupesForFonction($tabToSend['utilisateurFonction']);
-        foreach ($listOfGroupes as $group) {
-            $salesforceGroup = json_decode($this->salesforceApiGroupesService->getTheGroupId($params, $utilisateurInfos->getIsCreateInSalesforce(), $group->getSalesforceGroupe()));
-            $this->salesforceApiGroupesService->deleteUserFromGroupe($params, $salesforceGroup['Id']);
+        if ($tabToSend['utilisateurService'] != $tabToSend['utilisateurOldService'] || $tabToSend['utilisateurFonction'] != $tabToSend['utilisateurOldFonction']) {
+            $this->salesforceApiGroupesService->deleteGroupesForUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurOldFonction'], $params);
+            $this->salesforceApiGroupesService->addGroupesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurFonction'], $params);
+            //$this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
         }
-        $this->salesforceApiGroupesService->addGroupesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurFonction'], $params);
-        //$this->salesforceApiTerritoriesService->addTerritoriesForNewUser($salesforceUserId, $request->request->get('utilisateur')['service'], $params);
-
     }
 
 }

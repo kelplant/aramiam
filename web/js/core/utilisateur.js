@@ -477,6 +477,7 @@ function ajaxGenerateOdigo()
         $('#loading').removeClass('show').addClass('hide');
         $('#createActionOdigoPart').addClass('show').removeClass('hide');
     } else {
+        document.getElementById("createActionOdigoPart").innerHTML = '';
         urlajax = "/ajax/check/odigo/isabletouse/" + service + "/" + fonction;
         $.ajax({
             url: urlajax, success: function (result) {
@@ -484,7 +485,11 @@ function ajaxGenerateOdigo()
                 if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
                     var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
                     var prenom = localStorage.getItem("currentSurname").substring(0, 3).toLowerCase();
-                    document.getElementById("prosodie_identifiant").value = prenom + nom;
+                    var textToAppend = '<div class="form-group font_exo_2">'+
+                        '<label class="font_exo_2 col-sm-4">Identifiant :'+
+                        '<input type="text" name="prosodie[identifiant]" id="prosodie_identifiant" class="form-control" value="'+prenom + nom+'">'+
+                        '</label>'+
+                        '</div>';
                     var currentEditItem = localStorage.getItem("currentEditItem");
                     urlajax = "/ajax/generate/odigo/" + service + "/" + fonction;
                     $.ajax({
@@ -502,7 +507,6 @@ function ajaxGenerateOdigo()
                             }
                             prosodieListe += '</select>';
                             prosodieListe += '</label>';
-                            document.getElementById("prosodieListe").innerHTML = prosodieListe;
                             urlajax = "/ajax/generate/orange/" + service;
                             $.ajax({
                                 url: urlajax, success: function (result) {
@@ -520,8 +524,22 @@ function ajaxGenerateOdigo()
                                     orangeListe += '</select>';
                                     orangeListe += '</label>';
                                     orangeListe += '<button type="button" onclick="showOtherNum();" class="otherNumButton btn btn-info font_exo_2">Autre Num</button>';
-                                    document.getElementById("orangeliste").innerHTML = orangeListe;
 
+                                    textToAppend += '<div class="form-group font_exo_2" id="prosodieListe">'+
+                                        prosodieListe +
+                                        '</div>'+
+                                        '<div class="form-group font_exo_2" id="orangeliste">'+
+                                    orangeListe +
+                                        '</div>'+
+                                    '<div class="form-group font_exo_2 hide" id="otherNumField">'+
+                                    '<label class="font_exo_2 col-sm-4">Autre Numéro :'+
+                                    '<input type="text" name="prosodie[autreNum]" id="prosodie_autreNum" class="form-control">'+
+                                    '</label>'+
+                                    '</div>'+
+                                    '<div class="form-group font_exo_2 col-sm-4 align_right">'+
+                                    '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer sur Odigo">'+
+                                    '</div>'
+                                    document.getElementById("createActionOdigoPart").innerHTML = textToAppend;
                                     $('#loading').addClass('hide').removeClass('show');
                                     $('#createActionOdigoPart').addClass('show').removeClass('hide');
                                 }

@@ -196,14 +196,14 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    private function ifInstanceOfUtilisateur(LifecycleEventArgs $args)
+    private function ifInstanceOfUtilisateur(LifecycleEventArgs $args, $action)
     {
         $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
 
         $entity = $args->getObject();
         if ($entity instanceof Utilisateur) {
             $this->uow = $this->em->getUnitOfWork();
-            $submitToIgnore = array('Créer Session Windows', 'Créer sur Gmail', 'Créer sur Salesforce');
+            $submitToIgnore = array('Créer Session Windows', 'Créer sur Gmail', 'Créer sur Salesforce', 'Créer sur Odigo', 'Supprimer dans Odigo');
             if (array_search($this->requestStack->getCurrentRequest()->request->get('sendaction'), $submitToIgnore) === false) {
                 $this->ifInstanceOfUtilisateurAndUpdate('update', $entity, $this->uow);
                 $this->ifInstanceOfUtilisateurAndPersist('persist', $entity);
@@ -216,7 +216,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $this->ifInstanceOfUtilisateur($args);
+        $this->ifInstanceOfUtilisateur($args, 'persist');
     }
 
     /**
@@ -224,6 +224,6 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $this->ifInstanceOfUtilisateur($args);
+        $this->ifInstanceOfUtilisateur($args, 'update');
     }
 }

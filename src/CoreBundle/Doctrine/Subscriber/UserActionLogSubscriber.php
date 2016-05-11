@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use CoreBundle\Entity\UtilisateurLogAction;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class UserActionLogSubscriber
@@ -39,25 +40,15 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @var boolean
      */
-    private $updateActiveDirectory;
-
-    /**
-     * @var boolean
-     */
-    private $updateGmailLink;
-
-    /**
-     * @var boolean
-     */
-    private $updateSalesforceLink;
+    private $updateBasicLink;
 
     /**
      * UserActionLogSubscriber constructor.
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      * @param ManagerRegistry $managerRegistry
      * @param RequestStack $requestStack
      */
-    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, ManagerRegistry $managerRegistry, RequestStack $requestStack)
+    public function __construct(ContainerInterface $container, ManagerRegistry $managerRegistry, RequestStack $requestStack)
     {
         $this->container                 = $container;
         $this->managerRegistry           = $managerRegistry;
@@ -85,14 +76,12 @@ class UserActionLogSubscriber implements EventSubscriber
     {
         $date          = new \DateTime();
         $userActionLog = new UtilisateurLogAction();
-
         $userActionLog->setRequesterId($this->container->get('security.token_storage')->getToken()->getUser()->getId());
         $userActionLog->setUtilisateurId($utilisateurId);
         $userActionLog->setField($key);
         $userActionLog->setOldString($oldValue);
         $userActionLog->setNewString($newValue);
         $userActionLog->setTimestamp($date);
-
         $this->em->persist($userActionLog);
         $this->em->flush();
     }
@@ -123,9 +112,7 @@ class UserActionLogSubscriber implements EventSubscriber
             $basicUpdateCases = array('surname', 'viewName', 'name', 'email', 'service', 'fonction');
             if ($value[0] != $value[1] && $value[0] != null) {
                 if (array_search($key, $basicUpdateCases) !== false) {
-                    $this->updateActiveDirectory = true;
-                    $this->updateGmailLink = true;
-                    $this->updateSalesforceLink = true;
+                    $this->updateBasicLink = true;
                 }
                 $this->setAndPersistUserActionLog($utilisateurId, $key, $value[0], $value[1]);
             }
@@ -167,16 +154,24 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     private function executeConditionalEditForPropagation($tabToSend)
     {
-        if ($this->updateGmailLink === true) {
+        if ($this->updateBasicLink === true) {
             $this->ifUserAsGmailAccountLink($tabToSend);
-        }
-        if ($this->updateActiveDirectory === true) {
             $this->ifUserAsActiveDirectoryAccount($tabToSend);
-        }
-        if ($this->updateSalesforceLink === true) {
             $this->ifUserAsSalesforceAccount($tabToSend);
         }
     }
+
+    /**
+     * @param $changeSet
+     * @param $entity
+     */
+    private function compulseChangeSet($changeSet, $entity)
+    {
+        foreach ($changeSet as $key => $value) {
+            $this->initUserActionLog($key, $value, $entity->getId());
+        }
+    }
+
 
     /**
      * @param string $action
@@ -193,11 +188,8 @@ class UserActionLogSubscriber implements EventSubscriber
             } else {
                 $oldEmail = $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email'];
             }
-            $tabToSend = array('utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'], 'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'], 'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'], 'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']), 'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'], 'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $changeSet['service'][0], 'utilisateurOldFonction' => $changeSet['fonction'][0], 'utilisateurOldEmail' => $oldEmail, 'request' => $this->requestStack->getCurrentRequest());
-            foreach ($changeSet as $key => $value) {
-                $this->initUserActionLog($key, $value, $entity->getId());
-            }
-            $this->executeConditionalEditForPropagation($tabToSend);
+            $this->compulseChangeSet($changeSet, $entity);
+            $this->executeConditionalEditForPropagation(array('utilisateurId' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['surname'], 'displayName' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['viewName'], 'sn' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['name'], 'mail' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['email']), 'utilisateurService' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['service'], 'utilisateurFonction' => $this->requestStack->getCurrentRequest()->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $changeSet['service'][0], 'utilisateurOldFonction' => $changeSet['fonction'][0], 'utilisateurOldEmail' => $oldEmail, 'request' => $this->requestStack->getCurrentRequest()));
         }
     }
 

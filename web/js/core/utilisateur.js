@@ -263,11 +263,12 @@ function ajaxGenerateSalesforce()
                         '<button type="button" class="close" onclick="generateSalesforceBody(\'edit\');"><i class="fa fa-edit fa"></i></span></button>' +
                         '<h4 class="font_exo_2">'+result.Name+'<br>'+result.Profil__c+'<br>';
                     if (result.IsActive == true) {
+                        textToAppend += '<input type="submit" name="sendaction" id="sendaction" class="font_exo_2 top-right btn btn-danger" value="Désactiver">';
                         textToAppend += '<span class="text-green">Actif</span>';
                     } else {
+                        textToAppend += '<input type="submit" name="sendaction" id="sendaction" class="font_exo_2 top-right btn btn-success" value="Activer">';
                         textToAppend += '<span class="text-red">Inactif</span>';
                     }
-
                     textToAppend += '</h4>'+
                         '</div>'+
                         '<div class="update-card-body font_exo_2">'+

@@ -214,10 +214,10 @@ class SalesforceUserFactory extends AbstractFactory
 
     /**
      * @param $tabToSend
-     * @param SalesforceUserLink $salesforceUserInfos
+     * @param $salesforceUserInfos
      * @return SalesforceUser
      */
-    public function prepareSalesforceUserFromRequest($tabToSend, SalesforceUserLink $salesforceUserInfos)
+    public function prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos)
     {
         $this->setDatasForUser($tabToSend['request']);
         $newSalesforceUser = $this->createUserWithRequestDatas($tabToSend, $this->odigoInfos, $this->agenceCompany, $salesforceUserInfos);

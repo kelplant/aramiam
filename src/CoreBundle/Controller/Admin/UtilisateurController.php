@@ -98,6 +98,8 @@ class UtilisateurController extends AbstractControllerService
                 $this->get('ad.active_directory_api_user_service')->ifWindowsUpdate($request->request->get('sendaction'), $request, $this->getParameter('active_directory'));
                 $this->get('salesforce.salesforce_api_user_service')->ifSalesforceCreate($request->request->get('sendaction'), $request, $this->getParameter('salesforce'));
                 $this->get('salesforce.salesforce_api_user_service')->ifSalesforceProfilUpdated($request->request->get('sendaction'), $request, $this->getParameter('salesforce'));
+                $this->get('salesforce.salesforce_api_user_service')->IfSalesforceDesactivateAccount($request->request->get('sendaction'), $request, $this->getParameter('salesforce'));
+                $this->get('salesforce.salesforce_api_user_service')->IfSalesforceActivateAccount($request->request->get('sendaction'), $request, $this->getParameter('salesforce'));
             }
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);

@@ -174,15 +174,40 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     }
 
     /**
+     * @param $sendaction
+     * @param Request $request
+     * @param $params
+     */
+    public function IfSalesforceDesactivateAccount($sendaction, Request $request, $params)
+    {
+        if ($sendaction == "Désactiver") {
+            $this->ActiveDesactiveSalesforceAccount($request, $params, false);
+        }
+    }
+
+    /**
+     * @param $sendaction
+     * @param Request $request
+     * @param $params
+     */
+    public function IfSalesforceActivateAccount($sendaction, Request $request, $params)
+    {
+        if ($sendaction == "Activer") {
+            $this->ActiveDesactiveSalesforceAccount($request, $params, true);
+            $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
+            $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $request->request->get('utilisateur')['service'], $params);
+        }
+    }
+    /**
      * @param Request $request
      * @param $params
      * @param $state
      */
     public function ActiveDesactiveSalesforceAccount(Request $request, $params, $state)
     {
-        $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['Id']);
+        $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
         $salesforceUserInfos = $this->salesforceUserLinkManager->load($utilisateurInfos->getIsCreateInSalesforce());
-        $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldEmail' => $request->request->get('utilisateur')['fonction'], 'request' => $request->request);
+        $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldFonction' => $request->request->get('utilisateur')['fonction'],  'utilisateurOldEmail' => $request->request->get('utilisateur')['email'], 'request' => $request);
         $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
         $newSalesforceUser->setIsActive($state);
         try {

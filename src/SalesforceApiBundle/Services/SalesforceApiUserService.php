@@ -63,7 +63,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
 
     /**
      * @param $params
-     * @param $newSalesforceUser
+     * @param string $newSalesforceUser
      * @param $salesforceId
      * @return array|string
      */
@@ -86,7 +86,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     /**
      * @param $emailToLook
      * @param $params
-     * @return array|string
+     * @return string
      */
     public function getAllInfosForAccountByUsername($emailToLook, $params)
     {
@@ -201,7 +201,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     /**
      * @param Request $request
      * @param $params
-     * @param $state
+     * @param boolean $state
      */
     public function ActiveDesactiveSalesforceAccount(Request $request, $params, $state)
     {

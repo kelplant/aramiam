@@ -4,7 +4,6 @@ namespace SalesforceApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Exception;
 
 /**
  * Class SalesforceAjaxController
@@ -33,8 +32,7 @@ class SalesforceAjaxController extends Controller
         $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_groupes_services')->getListOfGroupesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
         if (is_array($listFromSalesforce) == true) {
             return new JsonResponse(null);
-        }
-        else if ($listFromSalesforce->totalSize != 0) {
+        } else if ($listFromSalesforce->totalSize != 0) {
             $finalTab = [];
             foreach ($listFromSalesforce->records as $groupe) {
                 $finalgroup = $this->get('salesforce.salesforcegroupe_manager')->load($groupe->GroupId);

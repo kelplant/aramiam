@@ -261,7 +261,14 @@ function ajaxGenerateSalesforce()
                         '<div class="block-update-card">' +
                         '<div class="update-card-header">'+
                         '<button type="button" class="close" onclick="generateSalesforceBody(\'edit\');"><i class="fa fa-edit fa"></i></span></button>' +
-                        '<h4 class="font_exo_2">'+result.Name+'<br>'+result.Profil__c+'</h4>'+
+                        '<h4 class="font_exo_2">'+result.Name+'<br>'+result.Profil__c+'<br>';
+                    if (result.IsActive == true) {
+                        textToAppend += '<span class="text-green">Actif</span>';
+                    } else {
+                        textToAppend += '<span class="text-red">Inactif</span>';
+                    }
+
+                    textToAppend += '</h4>'+
                         '</div>'+
                         '<div class="update-card-body font_exo_2">'+
                         '<ul>Informations Profil'+

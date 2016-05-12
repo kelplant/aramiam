@@ -31,11 +31,12 @@ class SalesforceAjaxController extends Controller
     {
         $userInfos = $this->get('core.utilisateur_manager')->load($userId);
         $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_groupes_services')->getListOfGroupesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
-        if ($listFromSalesforce->totalSize != 0)
-        {
+        if (is_array($listFromSalesforce) == true) {
+            return new JsonResponse(null);
+        }
+        else if ($listFromSalesforce->totalSize != 0) {
             $finalTab = [];
-            foreach ($listFromSalesforce->records as $groupe)
-            {
+            foreach ($listFromSalesforce->records as $groupe) {
                 $finalgroup = $this->get('salesforce.salesforcegroupe_manager')->load($groupe->GroupId);
                 $finalTab[] = $finalgroup->getGroupeName();
             }
@@ -54,11 +55,9 @@ class SalesforceAjaxController extends Controller
     {
         $userInfos = $this->get('core.utilisateur_manager')->load($userId);
         $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_territories_services')->getListOfTerritoriesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
-        if ($listFromSalesforce->totalSize != 0)
-        {
+        if ($listFromSalesforce->totalSize != 0) {
             $finalTab = [];
-            foreach ($listFromSalesforce->records as $territory)
-            {
+            foreach ($listFromSalesforce->records as $territory) {
                 $finalgroup = $this->get('salesforce.salesforceterritory_manager')->load($territory->TerritoryId);
                 $finalTab[] = $finalgroup->getTerritoryName();
             }
@@ -141,8 +140,7 @@ class SalesforceAjaxController extends Controller
     {
         $groupesIds = $this->get('salesforce.groupe_to_fonction_manager')->createArray($fonctionId);
         $groupes = [];
-        foreach ($groupesIds as $groupe)
-        {
+        foreach ($groupesIds as $groupe) {
             $groupe = $this->get('salesforce.salesforcegroupe_manager')->load($groupe);
             $groupes[] = array('id' => $groupe->getId(), 'groupeName' => $groupe->getGroupeName());
         }
@@ -158,8 +156,7 @@ class SalesforceAjaxController extends Controller
     {
         $territoriesIds = $this->get('salesforce.territory_to_service_manager')->createArray($serviceId);
         $territories = [];
-        foreach ($territoriesIds as $territory)
-        {
+        foreach ($territoriesIds as $territory) {
             $territory = $this->get('salesforce.salesforceterritory_manager')->load($territory);
             $territories[] = array('id' => $territory->getId(), 'territoryName' => $territory->getTerritoryName());
         }

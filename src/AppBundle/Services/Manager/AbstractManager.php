@@ -98,7 +98,7 @@ abstract class AbstractManager
      * @param $isArchived
      * @return array
      */
-    public function removeCandidat($itemId, $isArchived) {
+    public function archiveOrNot($itemId, $isArchived) {
         $itemToSet = $this->getRepository()->findOneById($itemId);
         try {
             if ($isArchived == '0') {

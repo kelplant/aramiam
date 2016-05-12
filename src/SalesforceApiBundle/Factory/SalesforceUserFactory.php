@@ -130,12 +130,11 @@ class SalesforceUserFactory extends AbstractFactory
 
     /**
      * @param $utilisateurInfos
-     * @param Request $request
      * @param $odigoInfos
      * @param $agenceCompany
      * @return SalesforceUser
      */
-    private function createUserWithBDDDatas($utilisateurInfos, Request $request, $odigoInfos, $agenceCompany, $salesforceProfil)
+    private function createUserWithBDDDatas($utilisateurInfos, $odigoInfos, $agenceCompany, $salesforceProfil)
     {
         $nickname = $this->shortNickName($utilisateurInfos->getName(), $utilisateurInfos->getSurname());
         return $this->createFromEntity(
@@ -207,7 +206,7 @@ class SalesforceUserFactory extends AbstractFactory
     public function prepareSalesforceUserFromBDD(Request $request, Utilisateur $utilisateurInfos, $salesforceProfil)
     {
         $this->setDatasForUser($request);
-        $newSalesforceUser = $this->createUserWithBDDDatas($utilisateurInfos, $request, $this->odigoInfos, $this->agenceCompany, $salesforceProfil);
+        $newSalesforceUser = $this->createUserWithBDDDatas($utilisateurInfos, $this->odigoInfos, $this->agenceCompany, $salesforceProfil);
 
         return $this->checkForServiceCloud($utilisateurInfos->getFonction(), $newSalesforceUser);
     }

@@ -196,7 +196,7 @@ class UserActionLogSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    private function ifInstanceOfUtilisateur(LifecycleEventArgs $args, $action)
+    private function ifInstanceOfUtilisateur(LifecycleEventArgs $args)
     {
         $this->em = $this->managerRegistry->getManagerForClass('CoreBundle\Entity\Admin\Utilisateur');
 
@@ -216,7 +216,7 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $this->ifInstanceOfUtilisateur($args, 'persist');
+        $this->ifInstanceOfUtilisateur($args);
     }
 
     /**
@@ -224,6 +224,6 @@ class UserActionLogSubscriber implements EventSubscriber
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $this->ifInstanceOfUtilisateur($args, 'update');
+        $this->ifInstanceOfUtilisateur($args);
     }
 }

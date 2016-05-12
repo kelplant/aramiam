@@ -109,7 +109,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     public function ifSalesforceCreate($sendaction, Request $request, $params)
     {
         if ($sendaction == "Créer sur Salesforce") {
-            $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
+            $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
             $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
             $newSalesforceUser->setIsActive(true);
             try {
@@ -207,7 +207,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     {
         $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
         $salesforceUserInfos = $this->salesforceUserLinkManager->load($utilisateurInfos->getIsCreateInSalesforce());
-        $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldFonction' => $request->request->get('utilisateur')['fonction'],  'utilisateurOldEmail' => $request->request->get('utilisateur')['email'], 'request' => $request);
+        $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldEmail' => $request->request->get('utilisateur')['email'], 'request' => $request);
         $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
         $newSalesforceUser->setIsActive($state);
         try {

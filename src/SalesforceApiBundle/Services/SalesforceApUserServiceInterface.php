@@ -14,4 +14,9 @@ interface SalesforceApiUserServiceInterface
     public function getAccountByUsername($emailToLook, $params);
     public function getAllInfosForAccountByUsername($emailToLook, $params);
     public function ifSalesforceCreate($sendaction, $isCreateInSalesforce, $request, $params);
+    public function ifSalesforceProfilUpdated($sendaction, $request, $params);
+    public function ifUserUpdated($tabToSend, $params);
+    public function IfSalesforceDesactivateAccount($sendaction, $request, $params);
+    public function IfSalesforceActivateAccount($sendaction, $request, $params);
+    public function ActiveDesactiveSalesforceAccount($request, $params, $state);
 }

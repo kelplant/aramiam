@@ -10,6 +10,11 @@ interface SalesforceApiGroupesServicesInterface
     public function setSecurityContext($securityContext);
     public function setParametersManager($parametersManager);
     public function addUserToGroupe($params, $userInGroupeToAdd);
+    public function deleteUserFromGroupe($params, $groupMemberId);
+    public function getTheGroupId($params, $userId, $groupId);
     public function getListOfGroupes($params);
+    public function getListOfGroupesForUser($params, $userId);
+    public function listOfGroupesForFonction($fonctionId);
     public function addGroupesForNewUser($userId, $fonctionId, $params);
+    public function deleteGroupesForUser($salesforceUserId, $fonctionId, $params);
 }

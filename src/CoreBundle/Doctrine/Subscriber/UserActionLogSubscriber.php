@@ -67,7 +67,7 @@ class UserActionLogSubscriber implements EventSubscriber
     }
 
     /**
-     * @param $utilisateurId
+     * @param integer $utilisateurId
      * @param $key
      * @param $oldValue
      * @param $newValue
@@ -163,7 +163,7 @@ class UserActionLogSubscriber implements EventSubscriber
 
     /**
      * @param $changeSet
-     * @param $entity
+     * @param Utilisateur $entity
      */
     private function compulseChangeSet($changeSet, $entity)
     {

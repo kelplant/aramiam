@@ -18,7 +18,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
 
     /**
      * @param $userToCreate
-     * @param $service
+     * @param \Google_Service_Directory $service
      */
     private function ifUserNotExist($userToCreate, $service)
     {
@@ -79,7 +79,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     }
 
     /**
-     * @param $service
+     * @param \Google_Service_Directory $service
      * @param $email
      * @param $params
      * @return Google_Service_Directory_User
@@ -95,7 +95,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     /**
      * @param $params
      * @param $user
-     * @param $newAlias
+     * @param string $newAlias
      * @return \Google_Service_Directory_Alias
      */
     public function addAliasToUser($params, $user, $newAlias)
@@ -114,7 +114,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     /**
      * @param $params
      * @param $user
-     * @param $newAlias
+     * @param string $newAlias
      * @return \Google_Service_Directory_Alias
      */
     public function deleteAliasToUser($params, $user, $newAlias)
@@ -170,9 +170,9 @@ class GoogleUserApiService extends AbstractGoogleApiService
     }
 
     /**
-     * @param $service
+     * @param \Google_Service_Directory $service
      * @param $email
-     * @param $userToUpdate
+     * @param Google_Service_Directory_User $userToUpdate
      * @return mixed
      */
     public function updateAccountWithInfos($service, $email, $userToUpdate)
@@ -192,7 +192,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
 
     /**
      * @param $params
-     * @param $email
+     * @param string $email
      * @return \Google_Service_Directory_UserPhoto
      */
     public function getPhotoOfUser($params, $email)

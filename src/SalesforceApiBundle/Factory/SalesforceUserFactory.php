@@ -174,7 +174,7 @@ class SalesforceUserFactory extends AbstractFactory
                 'LastName'          => $tabToSend['newDatas']['sn'],
                 'FirstName'         => $tabToSend['newDatas']['givenName'],
                 'Email'             => $tabToSend['newDatas']['mail'],
-                'TimeZoneSidKey'    => 'Europe/Paris', 'Alias' => substr($nickname, 0, 8), 'CommunityNickname' => $nickname."aramisauto", 'IsActive' => true, 'LocaleSidKey' => "fr_FR", 'EmailEncodingKey' => "ISO-8859-1", 'LanguageLocaleKey' => "FR", 'UserPermissionsMobileUser' => true, 'UserPreferencesDisableAutoSubForFeeds' => false,
+                'TimeZoneSidKey'    => 'Europe/Paris', 'Alias' => substr($nickname, 0, 8), 'CommunityNickname' => $nickname."aramisauto", 'LocaleSidKey' => "fr_FR", 'EmailEncodingKey' => "ISO-8859-1", 'LanguageLocaleKey' => "FR", 'UserPermissionsMobileUser' => true, 'UserPreferencesDisableAutoSubForFeeds' => false,
                 'ProfileId'         => $salesforceUserInfos->getSalesforceProfil(),
                 'Street'            => $agenceCompany->getAddress1(), 'City' => $agenceCompany->getCity(), 'PostalCode' => $agenceCompany->getZipCode(), 'State ' => 'France',
                 'ExternalID__c'     => rand(1, 9999), #Id from Robusto

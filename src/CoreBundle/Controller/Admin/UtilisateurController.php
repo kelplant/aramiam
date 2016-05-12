@@ -52,6 +52,14 @@ class UtilisateurController extends AbstractControllerService
         $this->initData('index');
         $this->get('core.utilisateur_manager')->removeCandidat($request->query->get('itemDelete'), $request->query->get('isArchived'));
 
+        if ($request->query->get('isArchived') == '0') {
+            $this->get('odigo.odigo_api_service')->deleteOdigoUser($request->request->get('sendaction'), $request, $request->request->get('utilisateur')['id'], $this->getParameter('odigo'), $this->getParameter('google_api'), $this->getParameter('salesforce'));
+            $this->get('salesforce.salesforce_api_user_service')->ActiveDesactiveSalesforceAccount($request, $this->getParameter('salesforce'), false);
+            $this->get('ad.active_directory_api_user_service')->deleteUserFromAD($this->getParameter('active_directory'), $request->request->get('utilisateur')['id']);
+        } elseif ($request->query->get('isArchived') == '1') {
+           //Activate
+        }
+
         return $this->get('core.delete.controller_service')->generateDeleteAction();
     }
 

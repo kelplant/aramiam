@@ -31,4 +31,14 @@ class ActiveDirectoryUserLinkManager extends AbstractManager
         return $itemArray;
     }
 
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function removeByUserId($userId) {
+        $item = $this->getRepository()->findOneByIdUser($userId);
+        $this->em->remove($item);
+        $this->em->flush();
+    }
+
 }

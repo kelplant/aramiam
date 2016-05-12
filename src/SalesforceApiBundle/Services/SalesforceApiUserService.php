@@ -111,6 +111,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         if ($sendaction == "Créer sur Salesforce") {
             $utilisateurInfos = $this->loadAUser($request->request->get('utilisateur')['id']);
             $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
+            $newSalesforceUser->setIsActive(true);
             try {
                 $this->createNewUser($params, json_encode($newSalesforceUser));
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$utilisateurInfos->getEmail().' a été créé dans Salesforce'));
@@ -135,6 +136,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         if ($sendaction == "Mettre à jour sur Salesforce") {
             $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['id']);
             $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromBDD($request, $utilisateurInfos, $request->request->get('salesforce')['profile']);
+            $newSalesforceUser->setIsActive(true);
             try {
                 $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
                 $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le profil salesforce de '.$utilisateurInfos->getEmail().' a été mis à jour'));
@@ -154,6 +156,7 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         $utilisateurInfos = $this->loadUser($tabToSend['utilisateurId']);
         $salesforceUserInfos = $this->salesforceUserLinkManager->load($utilisateurInfos->getIsCreateInSalesforce());
         $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
+        $newSalesforceUser->setIsActive(true);
         try {
             $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
             $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['mail'].' a été mis à jour dans Salesforce'));
@@ -167,6 +170,26 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
         if ($tabToSend['utilisateurService'] != $tabToSend['utilisateurOldService']) {
             $this->salesforceApiTerritoriesService->removeTerritoriesForUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurOldService'], $params);
             $this->salesforceApiTerritoriesService->addTerritoriesForNewUser($utilisateurInfos->getIsCreateInSalesforce(), $tabToSend['utilisateurService'], $params);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $params
+     * @param $state
+     */
+    public function ActiveDesactiveSalesforceAccount(Request $request, $params, $state)
+    {
+        $utilisateurInfos = $this->loadUser($request->request->get('utilisateur')['Id']);
+        $salesforceUserInfos = $this->salesforceUserLinkManager->load($utilisateurInfos->getIsCreateInSalesforce());
+        $tabToSend = array('utilisateurId' => $request->request->get('utilisateur')['id'], 'newDatas' => array('givenName' => $request->request->get('utilisateur')['surname'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'sn' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email']), 'utilisateurService' => $request->request->get('utilisateur')['service'], 'utilisateurFonction' => $request->request->get('utilisateur')['fonction'], 'utilisateurOldService' => $request->request->get('utilisateur')['service'], 'utilisateurOldEmail' => $request->request->get('utilisateur')['fonction'], 'request' => $request->request);
+        $newSalesforceUser = $this->salesforceUserFactory->prepareSalesforceUserFromRequest($tabToSend, $salesforceUserInfos);
+        $newSalesforceUser->setIsActive($state);
+        try {
+            $this->updateUser($params, json_encode($newSalesforceUser), $utilisateurInfos->getIsCreateInSalesforce());
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'L\'Utilisateur '.$tabToSend['newDatas']['mail'].' a été désactiver dans Salesforce'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
     }
 }

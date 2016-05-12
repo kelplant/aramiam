@@ -49,6 +49,24 @@ class ActiveDirectoryApiUserService extends AbstractActiveDirectoryApiService
     }
 
     /**
+     * @param $connectionADparams
+     * @param $utilisateurId
+     */
+    public function deleteUserFromAD($connectionADparams, $utilisateurId)
+    {
+        $ds = $this->connectAD($connectionADparams);
+        $userLinkInfos = $this->activeDirectoryUserLinkManager->getRepository()->findOneByUser($utilisateurId);
+        try {
+            ldap_delete ($ds, $userLinkInfos->getCn());
+            $this->activeDirectoryUserLinkManager->removeByUserId($utilisateurId);
+            $this->utilisateurManager->edit($utilisateurId, array('isCreateInWindows' => null));
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => '0', 'message' => 'Le compte Active Directory a été supprimé'));
+        } catch (\Exception $e) {
+            $this->utilisateurManager->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+
+    /**
      * @param $tabToSend
      */
     public function modifyInfosForUser($tabToSend, $activeDirectoryParams)

@@ -1,0 +1,154 @@
+{% extends '::base.html.twig' %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/morris/morris.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/fullcalendar/fullcalendar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app/dashboard/prosodie_dashboard.css') }}">
+    {% endblock %}
+    {% block title %} Accueil - Dashboard {% endblock %}
+    {% block title2 %} Accueil {% endblock %}
+    {% block title3 %} Licences {% endblock %}
+    {% block breadcrumb %} Licences {% endblock %}
+{% block body %}
+    <div class="col-sm-6" id="dashboard-left">
+        <div class="box box-primary main_box_paddng_bottom">
+            <div class="box-header with-border">
+                <h3 class="box-title font_exo_2">Numéros Plateformes d'Appels</h3>
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped display" id="bootstrap-todo">
+                    <thead>
+                    <tr>
+                        <th class="admin_cat_table_title small_box_main_th_left"></th>
+                        <th colspan="4" class="admin_cat_table_title small_box_main_th_right">Conseiller Commercial</th>
+                    </tr>
+                    <tr>
+                        <th class="admin_cat_table_title small_box_th_style_left">Service</th>
+                        <th class="admin_cat_table_title small_box_th_style">Total</th>
+                        <th class="admin_cat_table_title small_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
+                    </tr>
+                    </thead>
+                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    {% for key,value in odigoNumfinalTabPFA %}
+                        <tr id="generalBtr" data-href="">
+                            <td class="admin_cat_table_cell small_box_tr_style_left" >{{ key }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.Conseiller_Commercial.full }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.Conseiller_Commercial.used }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style {% if (value.Conseiller_Commercial.last <= 2) %} text-red {% endif %}{% if (value.Conseiller_Commercial.last > 2) %} text-green {% endif %}">{{ value.Conseiller_Commercial.last }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6" id="dashboard-left">
+        <div class="box box-primary main_box_paddng_bottom">
+            <div class="box-header with-border">
+                <h3 class="box-title font_exo_2">Numéros Service Satisfaction Client</h3>
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped display" id="bootstrap-todo">
+                    <thead>
+                    <tr>
+                        <th class="admin_cat_table_title small_box_main_th_left"></th>
+                        <th colspan="3" class="admin_cat_table_title small_box_main_th_right">Chargé de Satisfaction Client</th>
+                    </tr>
+                    <tr>
+                        <th class="admin_cat_table_title small_box_th_style_left">Service</th>
+                        <th class="admin_cat_table_title small_box_th_style">Total</th>
+                        <th class="admin_cat_table_title small_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
+                    </tr>
+                    </thead>
+                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    {% for key,value in odigoNumfinalTabSSC %}
+                        <tr id="generalBtr" data-href="">
+                            <td class="admin_cat_table_cell small_box_tr_style_left">{{ key }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Client.full }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Client.used }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style {% if (value.Charge_de_Satisfaction_Client.last <= 2) %} text-red {% endif %}{% if (value.Charge_de_Satisfaction_Client.last > 2) %} text-green {% endif %}">{{ value.Charge_de_Satisfaction_Client.last }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" id="dashboard-left">
+        <div class="box box-primary main_box_paddng_bottom">
+            <div class="box-header with-border">
+                <h3 class="box-title font_exo_2">Numéros Agences</h3>
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped display" id="bootstrap-todo">
+                    <thead>
+                    <tr>
+                        <th class="admin_cat_table_title big_box_main_th_left"></th>
+                        <th colspan="3" class="admin_cat_table_title big_box_main_th_right">Expert VO</th>
+                        <th colspan="3" class="admin_cat_table_title big_box_main_th_right" style="width: 21%; border-bottom: hidden">Conseiller Commercial</th>
+                        <th colspan="3" class="admin_cat_table_title big_box_main_th_right" style="width: 21%; border-bottom: hidden">Chargé de Livraison</th>
+                        <th colspan="3" class="admin_cat_table_title big_box_main_th_right" style="width: 21%; border-bottom: hidden">Responsable d'Agence</th>
+                    </tr>
+                    <tr>
+                        <th class="admin_cat_table_title big_box_th_style_left">Service</th>
+                        <th class="admin_cat_table_title big_box_th_style">Total</th>
+                        <th class="admin_cat_table_title big_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title big_box_th_style">Disponibles</th>
+                        <th class="admin_cat_table_title big_box_th_style">Total</th>
+                        <th class="admin_cat_table_title big_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title big_box_th_style">Disponibles</th>
+                        <th class="admin_cat_table_title big_box_th_style">Total</th>
+                        <th class="admin_cat_table_title big_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title big_box_th_style">Disponibles</th>
+                        <th class="admin_cat_table_title big_box_th_style">Total</th>
+                        <th class="admin_cat_table_title big_box_th_style">Utilisés</th>
+                        <th class="admin_cat_table_title big_box_th_style">Disponibles</th>
+                    </tr>
+                    </thead>
+                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    {% for key,value in odigoNumfinalTabAgence %}
+                        <tr id="generalBtr" data-href="">
+                            <td class="admin_cat_table_cell big_box_tr_style_left">{{ key }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Conseiller_Commercial.full }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Conseiller_Commercial.used }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style_separator {% if (value.Conseiller_Commercial.last <= 2) %} text-red {% endif %}{% if (value.Conseiller_Commercial.last > 2) %} text-green {% endif %}">{{ value.Conseiller_Commercial.last }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Expert_VO.full }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Expert_VO.used }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style_separator {% if (value.Expert_VO.last <= 2) %} text-red {% endif %}{% if (value.Expert_VO.last > 2) %} text-green {% endif %}">{{ value.Expert_VO.last }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Charge_de_Livraison.full }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Charge_de_Livraison.used }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style_separator {% if (value.Charge_de_Livraison.last <= 2) %} text-red {% endif %}{% if (value.Charge_de_Livraison.last > 2) %} text-green {% endif %}">{{ value.Charge_de_Livraison.last }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Responsable_dAgence.full }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style">{{ value.Responsable_dAgence.used }}</td>
+                            <td class="admin_cat_table_cell big_box_tr_style {% if (value.Responsable_dAgence.last <= 2) %} text-red {% endif %}{% if (value.Responsable_dAgence.last > 2) %} text-green {% endif %}">{{ value.Responsable_dAgence.last }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/raphael/raphael-min.js') }}"></script>
+    <script src="{{ asset('js/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('js/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('js/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('js/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/fullcalendar.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/lang-all.js') }}"></script>
+    <script src="{{ asset('js/fastclick/fastclick.js') }}"></script>
+    <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
+{% endblock %}

@@ -146,21 +146,18 @@ class DashboardController extends Controller
     /**
      * @return array
      */
-    private function generateAgenceListNumeros()
+    private function generateAgenceListNumeros($listA, $listB)
     {
-        $listNumOdigoByAgence = $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByService();
-        $listNumOdigoInUseByAgence = $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceInUse();
-
         $finalTab2 = [];
-        foreach ($listNumOdigoInUseByAgence as $odigonum2) {
+        foreach ($listB as $odigonum2) {
             $finalTab2[$odigonum2['service_name'].'_'.$odigonum2['fonction_name']] = $odigonum2['nbnum'];
         }
-
         $finalTab1 = [];
         $this->temp = '';
         $this->stock = [];
         $this->order = [];
-        foreach ($listNumOdigoByAgence as $odigonum) {
+        $i = 0;
+        foreach ($listA as $odigonum) {
             if (!isset($finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']])) {
                 $finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']] = 0;
             }
@@ -173,6 +170,10 @@ class DashboardController extends Controller
                 $this->stock[str_replace("é", "e", str_replace("'", "", str_replace(' ','_',$odigonum['fonction_name'])))] = array('full' => (int)$odigonum['nbnum'], 'used' => (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']], 'last' => (int)$odigonum['nbnum'] - (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']]);
             }
             $this->temp = $odigonum['service_name'];
+            $i = $i + 1;
+            if($i == count($listA)) {
+                $finalTab1[$this->temp] = $this->stock;
+            }
         }
         return $finalTab1;
     }
@@ -191,15 +192,17 @@ class DashboardController extends Controller
         $listNumOrangeInUseByAgence = $this->get('odigo.orangetelliste_manager')->calculNumberOfNumeroByServiceInUse();
 
 
-        return $this->render('DashboardBundle:Default:licences.html.twig', array(
-            'entity'            => '',
-            'nb_candidat'       => count($candidatListe),
-            'candidat_color'    => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'session_messaging' => $session_messaging,
-            'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto'         => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
-            'globalAlertColor'  => $globalAlertColor,
-            'odigoNumfinalTab'  => $this->generateAgenceListNumeros(),
+        return $this->render('DashboardBundle:Default:prosodie_dashboard.html.twig', array(
+            'entity'                 => '',
+            'nb_candidat'            => count($candidatListe),
+            'candidat_color'         => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'session_messaging'      => $session_messaging,
+            'currentUserInfos'       => $this->get('security.token_storage')->getToken()->getUser(),
+            'userPhoto'              => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'globalAlertColor'       => $globalAlertColor,
+            'odigoNumfinalTabAgence' => $this->generateAgenceListNumeros($this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceForAgencies(), $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceInUseForAgencies()),
+            'odigoNumfinalTabPFA'    => $this->generateAgenceListNumeros($this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceForPFA(), $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceInUseForPFA()),
+            'odigoNumfinalTabSSC'    => $this->generateAgenceListNumeros($this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceForSSC(), $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceInUseForSSC()),
         ));
     }
 }

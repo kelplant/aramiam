@@ -14,11 +14,11 @@
             {% if is_granted("ROLE_SUPER_ADMIN") %}
                 <li class="treeview {% if 'dashboard' in app.request.get('_route') == true %} active {%  endif %}" id="Utilisateurs">
                     <a href="#">
-                        <i class="fa fa-user"></i> <span class="font_exo_2">Dashboard</span> <i class="fa fa-dashboard pull-right"></i>
+                        <i class="fa fa-dashboard"></i> <span class="font_exo_2">Dashboard</span> <i class="fa fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ path( 'homepage_dashboard' ) }}"><i class="fa fa-user"></i> Main Dashboard</a></li>
-                        <li><a href="{{ path( 'licences_dashboard' ) }}"><i class="fa fa-ban"></i> Numéros Prosodie</a></li>
+                        <li><a href="{{ path( 'licences_dashboard' ) }}"><i class="fa fa-phone"></i> Numéros Prosodie</a></li>
                     </ul>
                 </li>
             {% endif %}

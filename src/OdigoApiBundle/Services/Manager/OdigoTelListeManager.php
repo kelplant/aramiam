@@ -95,4 +95,22 @@ class OdigoTelListeManager extends AbstractManager
 
         return array('item' => $odigoNumber);
     }
+
+    /**
+     * @return mixed
+     */
+    public function calculNumberOfNumeroByService()
+    {
+        $query = 'SELECT core_admin_services.service_name, core_admin_fonctions.fonction_name, count(odigo_numodigo.numero) as nbnum FROM odigo_numodigo LEFT JOIN core_admin_services ON odigo_numodigo.service = core_admin_services.id LEFT JOIN core_admin_fonctions ON odigo_numodigo.fonction = core_admin_fonctions.id WHERE core_admin_services.service_name != \'The Custumer Company\' AND core_admin_services.service_name != \'Satisfaction Client\' GROUP BY odigo_numodigo.service, odigo_numodigo.fonction ORDER BY core_admin_services.service_name';
+        return $this->executeRowQuery($query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function calculNumberOfNumeroByServiceInUse()
+    {
+    $query = 'SELECT core_admin_services.service_name, core_admin_fonctions.fonction_name, count(odigo_numodigo.numero) as nbnum FROM odigo_numodigo LEFT JOIN core_admin_services ON odigo_numodigo.service = core_admin_services.id LEFT JOIN core_admin_fonctions ON odigo_numodigo.fonction = core_admin_fonctions.id WHERE odigo_numodigo.in_use=1 AND  core_admin_services.service_name != \'The Custumer Company\' AND core_admin_services.service_name != \'Satisfaction Client\' GROUP BY odigo_numodigo.service, odigo_numodigo.fonction ORDER BY core_admin_services.service_name';
+        return $this->executeRowQuery($query);
+    }
 }

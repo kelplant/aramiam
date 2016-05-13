@@ -92,4 +92,22 @@ class OrangeTelListeManager extends AbstractManager
 
         return array('item' => $orangeNumber);
     }
+
+    /**
+     * @return mixed
+     */
+    public function calculNumberOfNumeroByService()
+    {
+        $query = 'SELECT core_admin_services.service_name, count(odigo_numorange.numero) as nbnum FROM odigo_numorange LEFT JOIN core_admin_services ON odigo_numorange.service = core_admin_services.id GROUP BY core_admin_services.service_name ORDER BY core_admin_services.service_name';
+        return $this->executeRowQuery($query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function calculNumberOfNumeroByServiceInUse()
+    {
+        $query = 'SELECT core_admin_services.service_name, count(odigo_numorange.numero) as nbnum FROM odigo_numorange LEFT JOIN core_admin_services ON odigo_numorange.service = core_admin_services.id WHERE odigo_numorange.in_use=1 GROUP BY core_admin_services.service_name ORDER BY core_admin_services.service_name';
+        return $this->executeRowQuery($query);
+    }
 }

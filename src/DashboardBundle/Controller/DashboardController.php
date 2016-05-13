@@ -9,6 +9,10 @@ class DashboardController extends Controller
 {
     private $startDate;
 
+    private $temp;
+
+    private $stock;
+
     /**
      * @param $startDate
      * @return string
@@ -113,7 +117,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage_dashboard")
      */
     public function indexAction()
     {
@@ -136,6 +140,66 @@ class DashboardController extends Controller
             'countNewUser'      => $lastest_users['countNewUser'],
             'todoListEvents'    => $todoListEvents,
             'globalAlertColor'  => $globalAlertColor,
+        ));
+    }
+
+    /**
+     * @return array
+     */
+    private function generateAgenceListNumeros()
+    {
+        $listNumOdigoByAgence = $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByService();
+        $listNumOdigoInUseByAgence = $this->get('odigo.odigotelliste_manager')->calculNumberOfNumeroByServiceInUse();
+
+        $finalTab2 = [];
+        foreach ($listNumOdigoInUseByAgence as $odigonum2) {
+            $finalTab2[$odigonum2['service_name'].'_'.$odigonum2['fonction_name']] = $odigonum2['nbnum'];
+        }
+
+        $finalTab1 = [];
+        $this->temp = '';
+        $this->stock = [];
+        $this->order = [];
+        foreach ($listNumOdigoByAgence as $odigonum) {
+            if (!isset($finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']])) {
+                $finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']] = 0;
+            }
+            if ($odigonum['service_name'] == $this->temp) {
+                $this->stock[str_replace("é", "e", str_replace("'", "", str_replace(' ', '_', $odigonum['fonction_name'])))] = array('full' => (int)$odigonum['nbnum'], 'used' => (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']], 'last' => (int)$odigonum['nbnum'] - (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']]);
+            } else {
+                if ($this->temp != '') {
+                    $finalTab1[$this->temp] = $this->stock;
+                }
+                $this->stock[str_replace("é", "e", str_replace("'", "", str_replace(' ','_',$odigonum['fonction_name'])))] = array('full' => (int)$odigonum['nbnum'], 'used' => (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']], 'last' => (int)$odigonum['nbnum'] - (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']]);
+            }
+            $this->temp = $odigonum['service_name'];
+        }
+        return $finalTab1;
+    }
+
+    /**
+     * @Route("/admin/licences", name="licences_dashboard")
+     */
+    public function licencesAction()
+    {
+        $session_messaging = $this->get('session')->get('messaging');
+        $this->get('session')->set('messaging', []);
+        $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
+        $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
+
+        $listNumOrangeByAgence = $this->get('odigo.orangetelliste_manager')->calculNumberOfNumeroByService();
+        $listNumOrangeInUseByAgence = $this->get('odigo.orangetelliste_manager')->calculNumberOfNumeroByServiceInUse();
+
+
+        return $this->render('DashboardBundle:Default:licences.html.twig', array(
+            'entity'            => '',
+            'nb_candidat'       => count($candidatListe),
+            'candidat_color'    => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'session_messaging' => $session_messaging,
+            'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
+            'userPhoto'         => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'globalAlertColor'  => $globalAlertColor,
+            'odigoNumfinalTab'  => $this->generateAgenceListNumeros(),
         ));
     }
 }

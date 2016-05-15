@@ -99,6 +99,15 @@ class AbstractSalesforceApiService
     }
 
     /**
+     * @return array|string
+     */
+    public function getLiencesInformations($params)
+    {
+        $query = 'SELECT Id,Name,uletas_gamma__Calculated_Used_Licenses__c,uletas_gamma__Remaining_Licenses__c,uletas_gamma__Total_Licenses__c,uletas_gamma__Used_Licenses__c,uletas_gamma__User_License_Id__c FROM uletas_gamma__User_License_Extended__c';
+        return $this->executeQuery('/query?q='.urlencode($query), $params, null, "GET");
+    }
+
+    /**
      * @param $params
      * @return mixed
      */

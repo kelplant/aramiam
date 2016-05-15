@@ -12,6 +12,11 @@ use Google_Service_Directory_UserName;
 class GoogleUserApiService extends AbstractGoogleApiService
 {
     /**
+     * @var string
+     */
+    private $pageToken;
+
+    /**
      * @var GoogleGroupApiService;
      */
     public $googleGroupApiService;
@@ -90,6 +95,27 @@ class GoogleUserApiService extends AbstractGoogleApiService
             $service = $this->innitApi($params);
         }
         return $service->users->get($email);
+    }
+
+    /**
+     * @param $service
+     * @param $params
+     * @return \Google_Service_Directory_Users
+     */
+    public function numberGmailUsers($service, $params)
+    {
+        if (is_null($service)) {
+            $service = $this->innitApi($params);
+        }
+        $nbGoogleUsed = 0;
+        $this->pageToken = null;
+        do {
+            $result = $service->users->listUsers(array('domain' => 'aramisauto.com', 'viewType' => 'ADMIN_VIEW', 'maxResults' => 500, 'pageToken' => $this->pageToken));
+            $this->pageToken = $result->getNextPageToken();
+            $nbGoogleUsed = $nbGoogleUsed + count($result->getUsers());
+        } while (count($result->getUsers()) == 500) ;
+
+        return $nbGoogleUsed;
     }
 
     /**

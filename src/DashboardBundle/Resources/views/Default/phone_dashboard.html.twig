@@ -7,18 +7,50 @@
     {% endblock %}
     {% block title %} Accueil - Dashboard {% endblock %}
     {% block title2 %} Accueil {% endblock %}
-    {% block title3 %} Licences {% endblock %}
-    {% block breadcrumb %} Licences {% endblock %}
+    {% block title3 %} Atributions Numéros {% endblock %}
+    {% block breadcrumb %} Atributions Numéros {% endblock %}
 {% block body %}
-    <div class="col-sm-6" id="dashboard-left">
+    <div class="col-sm-12">
         <div class="box box-primary main_box_paddng_bottom">
             <div class="box-header with-border">
-                <h3 class="box-title font_exo_2">Numéros Plateformes d'Appels</h3>
+                <h3 class="box-title font_exo_2">Numéros Orange Agences</h3>
                 <div class="box-tools pull-right">
                 </div>
             </div>
             <div class="box-body no-padding">
-                <table class="table table-striped display" id="bootstrap-todo">
+                <table class="table table-striped display" id="dashboard-orange">
+                    <thead>
+                    <tr>
+                        <th class="admin_cat_table_title" style="border-bottom: 1px solid #3e8ebd; padding-bottom: 15px"><div><span> Type</span></div></th>
+                        {% for i in orangeKeys %}
+                            <th class="rotate admin_cat_table_title" style="border-bottom: 1px solid #3e8ebd"><div><span>{{ i }}</span></div></th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody class="th_bottom">
+                    {% for key,value in orangeNumfinalTab %}
+                        <tr id="generalBtr" data-href="">
+                            <td class="right_solid admin_cat_table_cell">{{ key }}</td>
+                            {% for i in value %}
+                                <td class="right_solid admin_cat_table_cell{% if (i <= 2 and key == 'last') %} text-red {% endif %}{% if (i > 2 and key == 'last') %} text-green {% endif %}">{{ i }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-6">
+        <div class="box box-primary main_box_paddng_bottom">
+            <div class="box-header with-border">
+                <h3 class="box-title font_exo_2">Numéros Prosodie Plateformes d'Appels</h3>
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped display" id="dashboard-left">
                     <thead>
                     <tr>
                         <th class="admin_cat_table_title small_box_main_th_left"></th>
@@ -31,7 +63,7 @@
                         <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
                     </tr>
                     </thead>
-                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    <tbody class="th_bottom">
                     {% for key,value in odigoNumfinalTabPFA %}
                         <tr id="generalBtr" data-href="">
                             <td class="admin_cat_table_cell small_box_tr_style_left" >{{ key }}</td>
@@ -45,15 +77,16 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6" id="dashboard-left">
+
+    <div class="col-sm-6">
         <div class="box box-primary main_box_paddng_bottom">
             <div class="box-header with-border">
-                <h3 class="box-title font_exo_2">Numéros Service Satisfaction Client</h3>
+                <h3 class="box-title font_exo_2">Numéros Prosodie Service Satisfaction Client</h3>
                 <div class="box-tools pull-right">
                 </div>
             </div>
             <div class="box-body no-padding">
-                <table class="table table-striped display" id="bootstrap-todo">
+                <table class="table table-striped display" id="dashboard-right">
                     <thead>
                     <tr>
                         <th class="admin_cat_table_title small_box_main_th_left"></th>
@@ -66,7 +99,7 @@
                         <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
                     </tr>
                     </thead>
-                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    <tbody class="th_bottom">
                     {% for key,value in odigoNumfinalTabSSC %}
                         <tr id="generalBtr" data-href="">
                             <td class="admin_cat_table_cell small_box_tr_style_left">{{ key }}</td>
@@ -81,15 +114,15 @@
         </div>
     </div>
 
-    <div class="col-sm-12" id="dashboard-left">
+    <div class="col-sm-12">
         <div class="box box-primary main_box_paddng_bottom">
             <div class="box-header with-border">
-                <h3 class="box-title font_exo_2">Numéros Agences</h3>
+                <h3 class="box-title font_exo_2">Numéros Prosodie Agences</h3>
                 <div class="box-tools pull-right">
                 </div>
             </div>
             <div class="box-body no-padding">
-                <table class="table table-striped display" id="bootstrap-todo">
+                <table class="table table-striped display" id="dashboard-prosodie">
                     <thead>
                     <tr>
                         <th class="admin_cat_table_title big_box_main_th_left"></th>
@@ -114,7 +147,7 @@
                         <th class="admin_cat_table_title big_box_th_style">Disponibles</th>
                     </tr>
                     </thead>
-                    <tbody style="border-bottom: 1px solid #3e8ebd">
+                    <tbody class="th_bottom">
                     {% for key,value in odigoNumfinalTabAgence %}
                         <tr id="generalBtr" data-href="">
                             <td class="admin_cat_table_cell big_box_tr_style_left">{{ key }}</td>
@@ -137,7 +170,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/raphael/raphael-min.js') }}"></script>
@@ -151,4 +183,58 @@
     <script src="{{ asset('js/fullcalendar/lang-all.js') }}"></script>
     <script src="{{ asset('js/fastclick/fastclick.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
+{% endblock %}
+{% block javascriptsEndofEnd %}
+    <script>
+        $(document).ready(function() {
+            $('#dashboard-prosodie').DataTable({
+                "dom": '<".todofilter">rt<"bottom"><"clear">',
+                bFilter: true,
+                bInfo: false,
+                bLengthChange:false,
+                ordering: true,
+                "pageLength": 30,
+                "language": {
+                    "paginate": {
+                        "previous": "Préc.",
+                        "next": "Suiv."
+                    },
+                    "zeroRecords": "Pas de données à Afficher",
+                    "search": ""
+                }
+            });
+            $('#dashboard-left').DataTable({
+                "dom": '<".todofilter">rt<"bottom"><"clear">',
+                bFilter: true,
+                bInfo: false,
+                bLengthChange:false,
+                ordering: true,
+                "pageLength": 30,
+                "language": {
+                    "paginate": {
+                        "previous": "Préc.",
+                        "next": "Suiv."
+                    },
+                    "zeroRecords": "Pas de données à Afficher",
+                    "search": ""
+                }
+            });
+            $('#dashboard-right').DataTable({
+                "dom": '<".todofilter">rt<"bottom"><"clear">',
+                bFilter: true,
+                bInfo: false,
+                bLengthChange:false,
+                ordering: true,
+                "pageLength": 30,
+                "language": {
+                    "paginate": {
+                        "previous": "Préc.",
+                        "next": "Suiv."
+                    },
+                    "zeroRecords": "Pas de données à Afficher",
+                    "search": ""
+                }
+            });
+        });
+    </script>
 {% endblock %}

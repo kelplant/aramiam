@@ -10,7 +10,7 @@
             </div>
         </form>
         <ul class="sidebar-menu">
-            <li class="header font_exo_2">MAIN NAVIGATION</li>
+            <li class="header font_exo_2">NAVIGATION PRINCIPALE</li>
             {% if is_granted("ROLE_SUPER_ADMIN") %}
                 <li class="treeview {% if 'dashboard' in app.request.get('_route') == true %} active {%  endif %}" id="Utilisateurs">
                     <a href="#">
@@ -18,7 +18,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ path( 'homepage_dashboard' ) }}"><i class="fa fa-user"></i> Main Dashboard</a></li>
-                        <li><a href="{{ path( 'licences_dashboard' ) }}"><i class="fa fa-phone"></i> Numéros Prosodie</a></li>
+                        <li><a href="{{ path( 'phone_dashboard' ) }}"><i class="fa fa-phone"></i> Récap. Téléphonie</a></li>
+                        <li><a href="{{ path( 'licences_dashboard' ) }}"><i class="fa fa-dollar"></i> Récap. Licences</a></li>
                     </ul>
                 </li>
             {% endif %}

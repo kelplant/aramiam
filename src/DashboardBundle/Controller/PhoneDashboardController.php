@@ -33,11 +33,11 @@ class PhoneDashboardController extends Controller
             if ($this->temp != '') {
                 $finalTab1[$this->temp] = $this->stock;
             }
-            $this->stock[str_replace("é", "e", str_replace("'", "", str_replace(' ','_',$odigonum['fonction_name'])))] = array('full' => (int)$odigonum['nbnum'], 'used' => (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']], 'last' => (int)$odigonum['nbnum'] - (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']]);
+            $this->stock[str_replace("é", "e", str_replace("'", "", str_replace(' ', '_', $odigonum['fonction_name'])))] = array('full' => (int)$odigonum['nbnum'], 'used' => (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']], 'last' => (int)$odigonum['nbnum'] - (int)$finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']]);
         }
         $this->temp = $odigonum['service_name'];
         $this->iprosodie = $this->iprosodie + 1;
-        if($this->iprosodie == count($listAprosodie)) {
+        if ($this->iprosodie == count($listAprosodie)) {
             $finalTab1[$this->temp] = $this->stock;
         }
         return $finalTab1;
@@ -101,7 +101,7 @@ class PhoneDashboardController extends Controller
             $finalTab2[$odigonum2['service_name']] = $odigonum2['nbnum'];
         }
         foreach ($listAorange as $odigonum) {
-           $finalTab1 = $this->foreachListAorange($odigonum, $finalTab1, $finalTab2);
+            $finalTab1 = $this->foreachListAorange($odigonum, $finalTab1, $finalTab2);
         }
         foreach ($finalTab1 as $key => $value) {
             $full[$key] = $value['full'];
@@ -123,7 +123,7 @@ class PhoneDashboardController extends Controller
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
-        $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
+        $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render('DashboardBundle:Default:phone_dashboard.html.twig', array(
             'entity'                        => '','nb_candidat' => count($candidatListe), 'session_messaging' => $session_messaging, 'globalAlertColor' => $globalAlertColor,

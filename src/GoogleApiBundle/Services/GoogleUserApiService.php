@@ -113,7 +113,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
             $result = $service->users->listUsers(array('domain' => 'aramisauto.com', 'viewType' => 'ADMIN_VIEW', 'maxResults' => 500, 'pageToken' => $this->pageToken));
             $this->pageToken = $result->getNextPageToken();
             $nbGoogleUsed = $nbGoogleUsed + count($result->getUsers());
-        } while (count($result->getUsers()) == 500) ;
+        } while (count($result->getUsers()) == 500);
 
         return $nbGoogleUsed;
     }

@@ -4,7 +4,6 @@ namespace OdigoApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Exception;
 
 /**
  * Class OdigoAjaxController

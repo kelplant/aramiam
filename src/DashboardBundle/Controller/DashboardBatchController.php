@@ -17,7 +17,7 @@ class DashboardBatchController extends Controller
      */
     public function updateMaxLicenceNumber()
     {
-        $salesforceLicenses            = json_decode($this->get('salesforce.salesforce_api_user_service')->getLiencesInformations($this->getParameter('salesforce')))->records;
+        $salesforceLicenses = json_decode($this->get('salesforce.salesforce_api_user_service')->getLiencesInformations($this->getParameter('salesforce')))->records;
         foreach ($salesforceLicenses as $licenceType) {
             $this->get('app.parameters_calls')->setParamForName('remaining_licences_type_'.$licenceType->Name, $licenceType->uletas_gamma__Remaining_Licenses__c, 'salesforce_dashboard');
         }

@@ -126,7 +126,7 @@ class PhoneDashboardController extends Controller
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render('DashboardBundle:Default:phone_dashboard.html.twig', array(
-            'entity'                        => '','nb_candidat' => count($candidatListe), 'session_messaging' => $session_messaging, 'globalAlertColor' => $globalAlertColor,
+            'entity'                        => '', 'nb_candidat' => count($candidatListe), 'session_messaging' => $session_messaging, 'globalAlertColor' => $globalAlertColor,
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'currentUserInfos'              => $this->get('security.token_storage')->getToken()->getUser(),
             'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),

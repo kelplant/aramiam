@@ -51,10 +51,12 @@ class UserCreator extends Controller implements UserCreatorInterface
             ->setRoles($role)
             ->setEmail($email)
             ->setDn($dn)
-            ->setDisplayName($displayName)
-            ->setPhoto($googlePhotoUser->getPhotoData())
-            ->setPhotoMineType($googlePhotoUser->getMimeType())
-        ;
+            ->setDisplayName($displayName);
+        if ($googlePhotoUser != null) {
+            $user
+                ->setPhoto($googlePhotoUser->getPhotoData())
+                ->setPhotoMineType($googlePhotoUser->getMimeType());
+        }
         $this->objectManager->persist($user);
         $this->objectManager->flush();
 

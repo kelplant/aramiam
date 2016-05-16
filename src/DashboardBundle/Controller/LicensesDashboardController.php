@@ -17,13 +17,10 @@ class LicensesDashboardController extends Controller
         $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render('DashboardBundle:Default:licenses.html.twig', array(
-            'entity'                        => '',
-            'nb_candidat'                   => count($candidatListe),
+            'entity'                        => '', 'nb_candidat' => count($candidatListe), 'session_messaging' => $session_messaging, 'globalAlertColor' => $globalAlertColor,
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'session_messaging'             => $session_messaging,
             'currentUserInfos'              => $this->get('security.token_storage')->getToken()->getUser(),
             'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
-            'globalAlertColor'              => $globalAlertColor,
             'salesforceLicenses'            => json_decode($this->get('salesforce.salesforce_api_user_service')->getLiencesInformations($this->getParameter('salesforce')))->records,
             'actualNumberGmailUserLicenses' => $this->get('google.google_user_api_service')->numberGmailUsers(null, $this->getParameter('google_api')),
             'maxNumberGmailUserLicenses'    => $this->get('app.parameters_calls')->getParam('max_google_licenses'),

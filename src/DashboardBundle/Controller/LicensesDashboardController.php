@@ -14,7 +14,7 @@ class LicensesDashboardController extends Controller
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
-        $candidatListe  = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
+        $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render('DashboardBundle:Default:licenses.html.twig', array(
             'entity'                        => '',

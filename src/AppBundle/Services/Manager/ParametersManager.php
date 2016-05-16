@@ -57,7 +57,7 @@ class ParametersManager
     {
         $repository = $this->em->getRepository('AppBundle:Parameters');
         $insert = $repository->findOneByParamName($name);
-        if ($insert == NULL)
+        if ($insert == null)
         {
             $insert = new Parameters();
         }

@@ -124,6 +124,16 @@ class DashboardAjaxController extends Controller
     }
 
     /**
+     * @param $newMax
+     * @Route(path="/ajax/dashboard/licences/gmail/update/maxnumber/{newMax}",name="ajax_update_dashboard_licences_gmail_maxnumber")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateGmailLicencesMaxNumber($newMax)
+    {
+        return new JsonResponse($this->get('app.parameters_calls')->setParamForName('max_google_licenses', $newMax, 'google_dashboard'));
+    }
+
+    /**
      * @Route(path="/ajax/dashboard/get/graph/utilisateur",name="ajax_get_graph_utilisateur")
      * @return \Symfony\Component\HttpFoundation\Response
      */

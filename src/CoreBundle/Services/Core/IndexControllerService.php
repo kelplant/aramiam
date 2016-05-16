@@ -132,19 +132,21 @@ class IndexControllerService extends AbstractControllerService
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render(explode("\\", $this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
-            'all'               => $allItems,
-            'remove_path'       => 'remove_'.strtolower($this->entity),
-            'alert_text'        => $this->alertText,
-            'is_archived'       => $isArchived,
-            'entity'            => strtolower($this->checkFormEntity($this->entity)),
-            'nb_candidat'       => count($candidatListe),
-            'candidat_color'    => $this->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'formAdd'           => $formAdd->createView(),
-            'formEdit'          => $formEdit->createView(),
-            'session_messaging' => $session_messaging,
-            'currentUserInfos'  => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto'         => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
-            'globalAlertColor'  => $globalAlertColor,
+            'all'                           => $allItems,
+            'remove_path'                   => 'remove_'.strtolower($this->entity),
+            'alert_text'                    => $this->alertText,
+            'is_archived'                   => $isArchived,
+            'entity'                        => strtolower($this->checkFormEntity($this->entity)),
+            'nb_candidat'                   => count($candidatListe),
+            'candidat_color'                => $this->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'formAdd'                       => $formAdd->createView(),
+            'formEdit'                      => $formEdit->createView(),
+            'session_messaging'             => $session_messaging,
+            'currentUserInfos'              => $this->get('security.token_storage')->getToken()->getUser(),
+            'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'globalAlertColor'              => $globalAlertColor,
+            'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
+            'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
         ));
     }
 

@@ -3,6 +3,7 @@
         <link rel="stylesheet" href="{{ asset('css/morris/morris.css') }}">
         <link rel="stylesheet" href="{{ asset('css/fullcalendar/fullcalendar.css') }}">
         <link rel="stylesheet" href="{{ asset('css/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app/dashboard/prosodie_dashboard.css') }}">
     {% endblock %}
     {% block title %} Accueil - Dashboard {% endblock %}
     {% block title2 %} Accueil {% endblock %}
@@ -17,7 +18,7 @@
                 </div>
             </div>
             <div class="box-body no-padding">
-                <table class="table table-striped display" id="dashboard-left">
+                <table class="table table-striped display" id="dashboard-salesforce">
                     <thead>
                     <tr>
                         <th class="admin_cat_table_title small_box_th_style_left">Type</th>
@@ -45,11 +46,12 @@
         <div class="box box-primary main_box_paddng_bottom">
             <div class="box-header with-border">
                 <h3 class="box-title font_exo_2">Licences Gmail</h3>
-                <div class="box-tools pull-right">
+                <div class="pull-right">
+                    <a href="#" onclick="editMaxNumberGmailLicences();"><i class="fa fa fa-edit text-aqua pull-right fa-2x"></i></a>
                 </div>
             </div>
             <div class="box-body no-padding">
-                <table class="table table-striped display" id="dashboard-left">
+                <table class="table table-striped" id="dashboard-gmail">
                     <thead>
                     <tr>
                         <th class="admin_cat_table_title small_box_th_style_left">Status</th>
@@ -59,14 +61,14 @@
                     <tbody class="th_bottom">
                         <tr id="generalBtr" data-href="">
                             <td class="admin_cat_table_cell small_box_tr_style_left" >Total</td>
-                            <td class="admin_cat_table_cell small_box_tr_style">{{ maxNumberGmailUserLicenses }}</td>
+                            <td class="admin_cat_table_cell small_box_tr_style" id="maxNumberGmailUserLicenses">{{ maxNumberGmailUserLicenses }}</td>
                         </tr>
                         <tr id="generalBtr" data-href="">
                             <td class="admin_cat_table_cell small_box_tr_style_left" >Utilisées</td>
                             <td class="admin_cat_table_cell small_box_tr_style">{{ actualNumberGmailUserLicenses + 2 }}</td>
                         </tr>
                         <tr id="generalBtr" data-href="">
-                            <td class="admin_cat_table_cell small_box_tr_style_left" >Restantes</td>
+                            <td class="admin_cat_table_cell small_box_tr_style_left" >Disponibles</td>
                             <td class="{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) <= 5) %} text-red {% endif %}{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) > 5) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) }}</td>
                         </tr>
                     </tbody>
@@ -90,4 +92,27 @@
     <script src="{{ asset('js/fullcalendar/lang-all.js') }}"></script>
     <script src="{{ asset('js/fastclick/fastclick.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
+    <script src="{{ asset('js/dashboard/licenses.js') }}"></script>
+{% endblock %}
+{% block javascriptsEndofEnd %}
+    <script>
+        $(document).ready(function() {
+            $('#dashboard-salesforce').DataTable({
+                "dom": '<".todofilter">rt<"bottom"><"clear">',
+                bFilter: true,
+                bInfo: false,
+                bLengthChange:false,
+                ordering: true,
+                "pageLength": 30,
+                "language": {
+                    "paginate": {
+                        "previous": "Préc.",
+                        "next": "Suiv."
+                    },
+                    "zeroRecords": "Pas de données à Afficher",
+                    "search": ""
+                }
+            });
+        });
+    </script>
 {% endblock %}

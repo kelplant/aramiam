@@ -50,7 +50,6 @@ class Mailer
     {
         $this->mailer             = $mailer;
         $this->templating         = $templating;
-        $this->from               = "xavier.arroues@aramisauto.com";
         $this->name               = "[Aramiam] Identifiants";
         $this->utilisateurManager = $utilisateurManager;
         $this->odigoManager       = $odigoManager;
@@ -71,6 +70,7 @@ class Mailer
             ->setSubject($subject)
             ->setBody($body)
             ->setContentType('text/html');
+
         return $this->mailer->send($mail);
     }
 
@@ -88,10 +88,21 @@ class Mailer
             $to = '';
         }
         $subject = 'Identidiants pour '.$userInfos['viewName'];
-        $body = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
-            'userInfos' => $userInfos,
+        $body    = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
+            'userInfos'      => $userInfos,
             'odigoUserInfos' => $this->odigoManager->createArrayByUser($numUser),
             ));
+
         return $this->sendMessage($to, $subject, $body);
+    }
+
+    /**
+     * @param string $from
+     * @return Mailer
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+        return $this;
     }
 }

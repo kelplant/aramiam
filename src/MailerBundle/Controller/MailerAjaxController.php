@@ -18,6 +18,7 @@ class MailerAjaxController extends Controller
      */
     public function sendMailToUserId($userId)
     {
+        $this->get('mailer.mailer_service')->setFrom($this->getParameter('google_api')['admin_account']);
         return new JsonResponse($this->get('mailer.mailer_service')->sendInfosMessage($userId, '1'));
     }
 }

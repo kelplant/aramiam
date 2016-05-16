@@ -93,8 +93,9 @@ class UserCreator extends Controller implements UserCreatorInterface
             $role = $response->getAllAssertions()[0]->getAllItems()[1]->getAllAttributes()[4]->getAllAttributeValues()[0];
         }
         $role = $this->defineRole($role);
-        $googlePhotoUser = $this->googleUserApiService->getPhotoOfUser($this->getParameter('google_api'), 'xavier.arroues@aramisauto.com');
+        $googlePhotoUser = $this->googleUserApiService->getPhotoOfUser($this->getParameter('google_api'), $email);
         $user = $this->setUser($username, $role, $email, $dn, $displayName, $googlePhotoUser);
+
         return $user;
     }
 }

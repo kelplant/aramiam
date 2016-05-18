@@ -141,16 +141,15 @@ class CoreAjaxController extends Controller
         $results = $this->get('core.utilisateur_log_action_manager')->getHistoryforUtilisateur($utilisateurId);
         $maxResults = count($results);
         for ($i = 0; $i < $maxResults; $i++) {
-            $results = $this->ifFieldIsWhat($results, $i, 'agence', 'core.agence_manager', 'Name');
-            $results = $this->ifFieldIsWhat($results, $i, 'service', 'core.service_manager', 'Name');
-            $results = $this->ifFieldIsWhat($results, $i, 'fonction', 'core.fonction_manager', 'Name');
-            $results = $this->ifFieldIsWhat($results, $i, 'entiteHolding', 'core.entiteHolding_manager', 'Name');
-            $results = $this->ifFieldIsWhat($results, $i, 'responsable', 'core.utilisateur_manager', 'viewName');
-            $results = $this->ifFieldIsWhat($results, $i, 'predecesseur', 'core.utilisateur_manager', 'viewName');
-            try {
-                $results[$i]['requesterId'] = $this->get('app.user_manager')->load($results[$i]['requesterId'])->getDisplayName();
-            } catch (\Exception $e) {
-
+            $results   = $this->ifFieldIsWhat($results, $i, 'agence', 'core.agence_manager', 'Name');
+            $results   = $this->ifFieldIsWhat($results, $i, 'service', 'core.service_manager', 'Name');
+            $results   = $this->ifFieldIsWhat($results, $i, 'fonction', 'core.fonction_manager', 'Name');
+            $results   = $this->ifFieldIsWhat($results, $i, 'entiteHolding', 'core.entiteHolding_manager', 'Name');
+            $results   = $this->ifFieldIsWhat($results, $i, 'responsable', 'core.utilisateur_manager', 'viewName');
+            $results   = $this->ifFieldIsWhat($results, $i, 'predecesseur', 'core.utilisateur_manager', 'viewName');
+            $requester = $this->get('app.user_manager')->load($results[$i]['requesterId']);
+            if ($requester != null) {
+                $results[$i]['requesterId'] = $requester->getDisplayName();
             }
         }
 

@@ -53,7 +53,9 @@ class SalesforceAjaxController extends Controller
     {
         $userInfos = $this->get('core.utilisateur_manager')->load($userId);
         $listFromSalesforce = json_decode($this->get('salesforce.salesforce_api_territories_services')->getListOfTerritoriesForUser($this->getParameter('salesforce'), $userInfos->getIsCreateInSalesforce()));
-        if ($listFromSalesforce->totalSize != 0) {
+        if (is_array($listFromSalesforce) == true) {
+            return new JsonResponse(null);
+        } else if ($listFromSalesforce->totalSize != 0) {
             $finalTab = [];
             foreach ($listFromSalesforce->records as $territory) {
                 $finalgroup = $this->get('salesforce.salesforceterritory_manager')->load($territory->TerritoryId);

@@ -22,7 +22,7 @@ class PhoneDashboardController extends Controller
      * @param $finalTab1
      * @return mixed
      */
-    private function foreachListAprosodie($listAprosodie, $odigonum, $finalTab1)
+    private function foreachListAprosodie($listAprosodie, $odigonum, $finalTab1, $finalTab2)
     {
         if (!isset($finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']])) {
             $finalTab2[$odigonum['service_name'].'_'.$odigonum['fonction_name']] = 0;
@@ -61,7 +61,7 @@ class PhoneDashboardController extends Controller
             $finalTab2[$odigonum2['service_name'].'_'.$odigonum2['fonction_name']] = $odigonum2['nbnum'];
         }
         foreach ($listAprosodie as $odigonum) {
-            $finalTab1 = $this->foreachListAprosodie($listAprosodie, $odigonum, $finalTab1);
+            $finalTab1 = $this->foreachListAprosodie($listAprosodie, $odigonum, $finalTab1, $finalTab2);
         }
         return $finalTab1;
     }

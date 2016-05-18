@@ -330,3 +330,6 @@ table.display tbody td {
     font-size: 10px;
     float:right;
 }
+.table-scrollable{
+    overflow: auto;
+}

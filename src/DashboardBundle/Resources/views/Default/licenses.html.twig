@@ -10,75 +10,84 @@
     {% block title3 %} Licences {% endblock %}
     {% block breadcrumb %} Licences {% endblock %}
 {% block body %}
-    <div class="col-sm-8" id="dashboard-calendar">
-        <div class="box box-primary main_box_paddng_bottom">
-            <div class="box-header with-border">
-                <h3 class="box-title font_exo_2">Licences Salesforce</h3>
-                <div class="box-tools pull-right">
+    <section class="col-sm-12 connectedSortable">
+        <div class="nav-tabs-custom">
+            <div class="tab-content no-padding">
+                <div class="col-sm-8" id="dashboard-calendar">
+                    <div class="box box-primary main_box_paddng_bottom">
+                        <div class="box-header with-border">
+                            <h3 class="box-title font_exo_2">Licences Salesforce</h3>
+                            <div class="box-tools pull-right">
+                            </div>
+                        </div>
+                        <div class="box-body no-padding">
+                            <div class="table-responsive">
+                                <table class="table table-striped display" id="dashboard-salesforce">
+                                    <thead>
+                                    <tr>
+                                        <th class="admin_cat_table_title small_box_th_style_left">Type</th>
+                                        <th class="admin_cat_table_title small_box_th_style">Total</th>
+                                        <th class="admin_cat_table_title small_box_th_style">Utilisées</th>
+                                        <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="th_bottom">
+                                    {% for value in salesforceLicenses %}
+                                        <tr id="generalBtr" data-href="">
+                                            <td class="admin_cat_table_cell small_box_tr_style_left" >{{ value.Name }}</td>
+                                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Total_Licenses__c }}</td>
+                                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Used_Licenses__c }}</td>
+                                            <td class="{% if (value.uletas_gamma__Remaining_Licenses__c <= 3) %} text-red {% endif %}{% if (value.uletas_gamma__Remaining_Licenses__c > 3) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Remaining_Licenses__c }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" id="dashboard-right">
+                    <div class="box box-primary main_box_paddng_bottom">
+                        <div class="box-header with-border">
+                            <h3 class="box-title font_exo_2">Licences Gmail</h3>
+                            <div class="pull-right">
+                                <a href="#" onclick="editMaxNumberGmailLicences();"><i class="fa fa fa-edit text-aqua pull-right fa-2x"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-body no-padding">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="dashboard-gmail">
+                                    <thead>
+                                    <tr>
+                                        <th class="admin_cat_table_title small_box_th_style_left">Status</th>
+                                        <th class="admin_cat_table_title small_box_th_style">Gmail</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="th_bottom">
+                                    <tr id="generalBtr" data-href="">
+                                        <td class="admin_cat_table_cell small_box_tr_style_left" >Total</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style" id="maxNumberGmailUserLicenses">{{ maxNumberGmailUserLicenses }}</td>
+                                    </tr>
+                                    <tr id="generalBtr" data-href="">
+                                        <td class="admin_cat_table_cell small_box_tr_style_left" >Utilisées</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style">{{ actualNumberGmailUserLicenses + 2 }}</td>
+                                    </tr>
+                                    <tr id="generalBtr" data-href="">
+                                        <td class="admin_cat_table_cell small_box_tr_style_left" >Disponibles</td>
+                                        <td class="{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) <= 5) %} text-red {% endif %}{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) > 5) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" id="dashboard-graphs">
                 </div>
             </div>
-            <div class="box-body no-padding">
-                <table class="table table-striped display" id="dashboard-salesforce">
-                    <thead>
-                    <tr>
-                        <th class="admin_cat_table_title small_box_th_style_left">Type</th>
-                        <th class="admin_cat_table_title small_box_th_style">Total</th>
-                        <th class="admin_cat_table_title small_box_th_style">Utilisées</th>
-                        <th class="admin_cat_table_title small_box_th_style">Disponibles</th>
-                    </tr>
-                    </thead>
-                    <tbody class="th_bottom">
-                    {% for value in salesforceLicenses %}
-                        <tr id="generalBtr" data-href="">
-                            <td class="admin_cat_table_cell small_box_tr_style_left" >{{ value.Name }}</td>
-                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Total_Licenses__c }}</td>
-                            <td class="admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Used_Licenses__c }}</td>
-                            <td class="{% if (value.uletas_gamma__Remaining_Licenses__c <= 3) %} text-red {% endif %}{% if (value.uletas_gamma__Remaining_Licenses__c > 3) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ value.uletas_gamma__Remaining_Licenses__c }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
         </div>
-    </div>
-
-    <div class="col-sm-4" id="dashboard-right">
-        <div class="box box-primary main_box_paddng_bottom">
-            <div class="box-header with-border">
-                <h3 class="box-title font_exo_2">Licences Gmail</h3>
-                <div class="pull-right">
-                    <a href="#" onclick="editMaxNumberGmailLicences();"><i class="fa fa fa-edit text-aqua pull-right fa-2x"></i></a>
-                </div>
-            </div>
-            <div class="box-body no-padding">
-                <table class="table table-striped" id="dashboard-gmail">
-                    <thead>
-                    <tr>
-                        <th class="admin_cat_table_title small_box_th_style_left">Status</th>
-                        <th class="admin_cat_table_title small_box_th_style">Gmail</th>
-                    </tr>
-                    </thead>
-                    <tbody class="th_bottom">
-                        <tr id="generalBtr" data-href="">
-                            <td class="admin_cat_table_cell small_box_tr_style_left" >Total</td>
-                            <td class="admin_cat_table_cell small_box_tr_style" id="maxNumberGmailUserLicenses">{{ maxNumberGmailUserLicenses }}</td>
-                        </tr>
-                        <tr id="generalBtr" data-href="">
-                            <td class="admin_cat_table_cell small_box_tr_style_left" >Utilisées</td>
-                            <td class="admin_cat_table_cell small_box_tr_style">{{ actualNumberGmailUserLicenses + 2 }}</td>
-                        </tr>
-                        <tr id="generalBtr" data-href="">
-                            <td class="admin_cat_table_cell small_box_tr_style_left" >Disponibles</td>
-                            <td class="{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) <= 5) %} text-red {% endif %}{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) > 5) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12" id="dashboard-graphs">
-
-    </div>
+    </section>
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/raphael/raphael-min.js') }}"></script>

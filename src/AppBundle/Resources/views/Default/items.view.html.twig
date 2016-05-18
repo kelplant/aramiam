@@ -8,25 +8,32 @@
     {% block mainform %}
         {% block modal_form %}
         {% endblock %}
-        <div class="form-group"></div>
-        <div class="box box-primary">
-            <section class="content">
-                <div class="row">
-                    <table class="table table-striped display" id="bootstrap-todo">
-                        <thead>
-                        <tr>
-                            {% block corps_table_title %}{% endblock %}
-                            <th class="admin_cat_table_title">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {% block corps_table_cells %}{% endblock %}
-                        </tbody>
-                    </table>
+        <section class="col-sm-12 connectedSortable">
+            <div class="nav-tabs-custom">
+                <div class="tab-content no-padding">
+                    <div class="form-group"></div>
+                    <div class="box box-primary">
+                        <section class="content">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-striped display" id="bootstrap-todo">
+                                        <thead>
+                                        <tr>
+                                            {% block corps_table_title %}{% endblock %}
+                                            <th class="admin_cat_table_title">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% block corps_table_cells %}{% endblock %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </section>
-        </div>
-
+            </div>
+        </section>
     {% endblock %}
     {% block footform %}
 

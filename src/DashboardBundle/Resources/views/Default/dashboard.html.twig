@@ -9,20 +9,26 @@
     {% block title3 %} Dashboard {% endblock %}
     {% block breadcrumb %} Dashboard {% endblock %}
 {% block body %}
-    <div class="col-sm-8" id="dashboard-calendar">
-        {% embed 'DashboardBundle:Default:calendar.html.twig'  %}
-        {% endembed %}
-    </div>
-    <div class="col-sm-4" id="dashboard-right">
-        {% embed 'DashboardBundle:Default:latest_members.html.twig'  %}
-        {% endembed %}
-        {% embed 'DashboardBundle:Default:todo_list.html.twig'  %}
-        {% endembed %}
-    </div>
-    <div class="col-sm-12" id="dashboard-graphs">
-        {% embed 'DashboardBundle:Default:graph_recap.html.twig'  %}
-        {% endembed %}
-    </div>
+    <section class="col-sm-12 connectedSortable">
+        <div class="nav-tabs-custom">
+            <div class="tab-content no-padding">
+                <div class="col-sm-8" id="dashboard-calendar">
+                    {% embed 'DashboardBundle:Default:calendar.html.twig'  %}
+                    {% endembed %}
+                </div>
+                <div class="col-sm-4" id="dashboard-right">
+                    {% embed 'DashboardBundle:Default:latest_members.html.twig'  %}
+                    {% endembed %}
+                    {% embed 'DashboardBundle:Default:todo_list.html.twig'  %}
+                    {% endembed %}
+                </div>
+                <div class="col-sm-12" id="dashboard-graphs">
+                    {% embed 'DashboardBundle:Default:graph_recap.html.twig'  %}
+                    {% endembed %}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/raphael/raphael-min.js') }}"></script>

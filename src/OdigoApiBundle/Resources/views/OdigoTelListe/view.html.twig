@@ -15,7 +15,7 @@
                 <td class="admin_cat_table_cell">{{ item.numero }}</td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
-                <td class="admin_cat_table_cell">{{ item.inUse }}</td>
+                <td class="admin_cat_table_cell">{% if(item.inUse == '1') %}Oui{% else %}Non{% endif %}</td>
                 <td class="admin_cat_table_cell_action">
                     <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>

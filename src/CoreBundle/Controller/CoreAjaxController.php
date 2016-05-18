@@ -147,7 +147,11 @@ class CoreAjaxController extends Controller
             $results = $this->ifFieldIsWhat($results, $i, 'entiteHolding', 'core.entiteHolding_manager', 'Name');
             $results = $this->ifFieldIsWhat($results, $i, 'responsable', 'core.utilisateur_manager', 'viewName');
             $results = $this->ifFieldIsWhat($results, $i, 'predecesseur', 'core.utilisateur_manager', 'viewName');
-            $results[$i]['requesterId'] = $this->get('app.user_manager')->load($results[$i]['requesterId'])->getDisplayName();
+            try {
+                $results[$i]['requesterId'] = $this->get('app.user_manager')->load($results[$i]['requesterId'])->getDisplayName();
+            } catch (\Exception $e) {
+
+            }
         }
 
         return new JsonResponse($results);

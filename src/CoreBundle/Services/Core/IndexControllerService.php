@@ -8,7 +8,7 @@ class IndexControllerService extends AbstractControllerService
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertService($service, $entity)
+    public function ifFilterConvertService($service, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe' || $entity == 'OrangeTelListe') {
             return $service->setService($this->getConvertion('service', $service->getService())->getName());
@@ -21,7 +21,7 @@ class IndexControllerService extends AbstractControllerService
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertFonction($fonction, $entity)
+    public function ifFilterConvertFonction($fonction, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur' || $entity == 'OdigoTelListe') {
             return $fonction->setFonction($this->getConvertion('fonction', $fonction->getFonction())->getName());
@@ -34,7 +34,7 @@ class IndexControllerService extends AbstractControllerService
      * @param $entity
      * @return mixed|null
      */
-    private function ifFilterConvertAgence($agence, $entity)
+    public function ifFilterConvertAgence($agence, $entity)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
             $agence->setAgence($this->getConvertion('agence', $agence->getAgence())->getName());

@@ -36,7 +36,7 @@
     {% block slidebar %}{% include 'slidebar.html.twig' %} {% endblock %}
     <div class="content-wrapper">
         <section class="content-header font_exo_2">
-            <h1 class="font_exo_2">
+            <h1 class="font_exo_2" style="padding-bottom: 15px">
                 {% block title2%}{% endblock %}
                 <small class="font_exo_2">{% block title3%}{% endblock %}</small>
             </h1>
@@ -52,11 +52,9 @@
                 </section>
             </div>
             <div class="row">
-
-                            {% block body %}{% endblock %}
-                            {% block mainform %}{% endblock %}
-                            {% block footform %}{% endblock %}
-
+                {% block body %}{% endblock %}
+                {% block mainform %}{% endblock %}
+                {% block footform %}{% endblock %}
             </div>
         </section>
     </div>

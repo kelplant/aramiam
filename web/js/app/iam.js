@@ -282,3 +282,39 @@ function filterGlobal () {
         $('#global_filter').val()
     ).draw();
 }
+
+// Switch Panel
+function switchPanelToUser()
+{
+    $("#user_panel").addClass("show").removeClass("hide");
+    $("#Profile").addClass("show").removeClass("hide");
+    $("#Equipe").addClass("show").removeClass("hide");
+    $("#Recrutement").addClass("show").removeClass("hide");
+    $("#admin_panel").removeClass("show").addClass("hide");
+    $("#Dashboards").removeClass("show").addClass("hide");
+    $("#Candidats").removeClass("show").addClass("hide");
+    $("#Utilisateurs").removeClass("show").addClass("hide");
+    $("#Divers").removeClass("show").addClass("hide");
+    $("#Odigo").removeClass("show").addClass("hide");
+    $("#Salesforce").removeClass("show").addClass("hide");
+    $("#ActiveDirectory").removeClass("show").addClass("hide");
+    $("#Google").removeClass("show").addClass("hide");
+
+}
+
+function switchPanelToAdmin()
+{
+    $("#user_panel").addClass("hide").removeClass("show");
+    $("#Profile").addClass("hide").removeClass("show");
+    $("#Equipe").addClass("hide").removeClass("show");
+    $("#Recrutement").addClass("hide").removeClass("show");
+    $("#admin_panel").removeClass("hide").addClass("show");
+    $("#Dashboards").removeClass("hide").addClass("show");
+    $("#Candidats").removeClass("hide").addClass("show");
+    $("#Utilisateurs").removeClass("hide").addClass("show");
+    $("#Divers").removeClass("hide").addClass("show");
+    $("#Odigo").removeClass("hide").addClass("show");
+    $("#Salesforce").removeClass("hide").addClass("show");
+    $("#ActiveDirectory").removeClass("hide").addClass("show");
+    $("#Google").removeClass("hide").addClass("show");
+}

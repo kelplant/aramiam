@@ -128,6 +128,7 @@ class PhoneDashboardController extends Controller
         return $this->render('DashboardBundle:Default:phone_dashboard.html.twig', array(
             'entity'                        => '', 'nb_candidat' => count($candidatListe), 'session_messaging' => $session_messaging, 'globalAlertColor' => $globalAlertColor,
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'panel'                         => 'admin',
             'currentUserInfos'              => $this->get('security.token_storage')->getToken()->getUser(),
             'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
             'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),

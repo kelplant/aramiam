@@ -6,16 +6,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class ProfileController
+ * Class LauncherController
  * @package CoreBundle\Controller\User
  */
-class ProfileController extends Controller
+class LauncherController extends Controller
 {
     /**
-     * @Route(path="/user/profile/show/{panel}", name="user_profile_show")
+     * @Route(path="/user/launcher", name="user_launcher")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showProfileAction($panel)
+    public function showProfileAction()
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
@@ -26,8 +26,8 @@ class ProfileController extends Controller
         $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
         $formEdit = $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()));
 
-        return $this->render('CoreBundle:User:ProfileShow.html.twig', array(
-            'panel'                         => $panel,
+        return $this->render('@Core/Launcher/launcher.html.twig', array(
+            'panel'                         => 'user',
             'entity'                        => '',
             'nb_candidat'                   => count($candidatListe),
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),

@@ -12,10 +12,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class RecrutementController extends Controller
 {
     /**
-     * @Route(path="/user/recrutement/show", name="user_recrutement_show")
+     * @param $isTransformed
+     * @Route(path="/user/recrutement/show/{isTransformed}", name="user_recrutement_show")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction($isTransformed)
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
@@ -26,7 +27,7 @@ class RecrutementController extends Controller
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
         $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
 
-        $allItems = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => 0, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
+        $allItems = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => $isTransformed, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
         foreach ($allItems as $item) {
             $this->get('core.index.controller_service')->ifFilterConvertService($item, 'Candidat');
             $this->get('core.index.controller_service')->ifFilterConvertFonction($item, 'Candidat');
@@ -34,6 +35,7 @@ class RecrutementController extends Controller
         }
 
         return $this->render('@Core/User/Recrutement/view.html.twig', array(
+            'panel'                         => 'user',
             'all'                           => $allItems,
             'is_archived'                   => 0,
             'entity'                        => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),

@@ -1,8 +1,16 @@
 {% extends 'AppBundle:Default:items.view.html.twig' %}
-    {% block title %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
-    {% block title2 %} Candidats {% endblock %}
-    {% block title3 %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
-    {% block breadcrumb %} Liste des Candidats{% if is_archived == "1" %} archivés{% endif %} {% endblock %}
+    {% block title %} Liste des Recrutements {% if app.request.attributes.get('isTransformed') == 0 %} en Cours {% endif %}{% if app.request.attributes.get('isTransformed') == 2 %} Terminés {% endif %} {% endblock %}
+    {% block title2 %} Recrutements {% endblock %}
+    {% block title3 %} Liste des Recrutements {% if app.request.attributes.get('isTransformed') == 0 %} en Cours {% endif %}{% if app.request.attributes.get('isTransformed') == 2 %} Terminés {% endif %} {% endblock %}
+    {% block breadcrumb %} Liste des Recrutements {% if app.request.attributes.get('isTransformed') == 0 %} en Cours {% endif %}{% if app.request.attributes.get('isTransformed') == 2 %} Terminés {% endif %} {% endblock %}
+    {% block box_header %}
+        <div class="box-header with-border" style="margin-bottom: 30px">
+            <i class="fa fa-user"></i>
+            <h3 class="box-title font_exo_2">Recrutements {% if app.request.attributes.get('isTransformed') == 0 %} en Cours {% endif %}{% if app.request.attributes.get('isTransformed') == 2 %} Terminés {% endif %}</h3>
+            <div class="box-tools pull-right">
+            </div>
+        </div>
+    {% endblock %}
     {% block corps_table_title %}
         <th class="admin_cat_table_title">Nom Prénom</th>
         <th class="admin_cat_table_title">Date d'entrée</th>

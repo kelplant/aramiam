@@ -112,7 +112,7 @@ class MainDashboardController extends Controller
     }
 
     /**
-     * @Route("/", name="homepage_dashboard")
+     * @Route("/admin/dashboard/main_dashboard", name="admin_main_dashboard")
      */
     public function indexAction()
     {
@@ -132,6 +132,7 @@ class MainDashboardController extends Controller
             'countNewUser'                  => $lastest_users['countNewUser'],
             'todoListEvents'                => $todoListEvents,
             'globalAlertColor'              => $globalAlertColor,
+            'panel'                         => 'admin',
             'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
             'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
         ));

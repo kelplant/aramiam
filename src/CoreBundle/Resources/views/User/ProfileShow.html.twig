@@ -32,7 +32,7 @@
                                 <div class="margin-bottom"></div>
                                 <div class="box-body no-padding">
                                     <div class="container-fluid">
-                                        <form action="{{ path( 'user_profile_show' ) }}" method="post" class="form-horizontal" id="form-edit" name="form-edit">
+                                        <form action="{{ path( 'user_profile_show' , { 'panel' : 'admin'} ) }}" method="post" class="form-horizontal" id="form-edit" name="form-edit">
                                             <input type="hidden" name="formAction" value="edit">
                                             {{ form_errors(formEdit) }}
                                             <div class="col-sm-8">

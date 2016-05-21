@@ -128,11 +128,11 @@ class IndexControllerService extends AbstractControllerService
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->getGlobalAlertColor($session_messaging);
-
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
 
         return $this->render(explode("\\", $this->newEntity)[0].':'.$this->entity.':view.html.twig', array(
             'all'                           => $allItems,
+            'panel'                         => 'admin',
             'remove_path'                   => 'remove_'.strtolower($this->entity),
             'alert_text'                    => $this->alertText,
             'is_archived'                   => $isArchived,

@@ -64,19 +64,14 @@ class LauncherController extends Controller
         $myProfil = $this->getUtilisateurInfos();
 
         return $this->render('LauncherBundle:Default:launcher.html.twig', array(
-            'appsTable'                     => $this->get('core.index.controller_service')->generateAppsTable(),
-            'panel'                         => 'user',
-            'entity'                        => '',
-            'nb_candidat'                   => count($candidatListe),
-            'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'session_messaging'             => $session_messaging,
-            'formEdit'                      => $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
-            'currentUserInfos'              => $userInfos,
-            'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($userInfos->getPhoto())),
-            'globalAlertColor'              => $globalAlertColor,
-            'myProfil'                      => $myProfil,
-            'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
-            'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
+            'appsTable'                => $this->get('core.index.controller_service')->generateAppsTable(), 'panel' => 'user', 'entity' => '', 'nb_candidat' => count($candidatListe),
+            'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'formEdit'                 => $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
+            'currentUserInfos'         => $userInfos, 'session_messaging' => $session_messaging,
+            'userPhoto'                => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($userInfos->getPhoto())),
+            'globalAlertColor'         => $globalAlertColor,
+            'myProfil'                 => $myProfil,
+            'remaining_gmail_licenses' => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'), 'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
         ));
     }
 }

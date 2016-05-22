@@ -50,19 +50,13 @@ class EquipeController extends Controller
         }
 
         return $this->render('@Core/User/Equipe/view.html.twig', array(
-            'formView'                      => $this->createForm(UtilisateurType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
-            'panel'                         => 'user',
-            'all'                           => $allItems,
-            'is_archived'                   => 0,
-            'entity'                        => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
-            'nb_candidat'                   => count($candidatListe),
-            'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'session_messaging'             => $session_messaging,
-            'currentUserInfos'              => $this->get('security.token_storage')->getToken()->getUser(),
-            'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
-            'globalAlertColor'              => $globalAlertColor,
-            'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
-            'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
+            'formView'                 => $this->createForm(UtilisateurType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
+            'panel'                    => 'user', 'all' => $allItems,'is_archived' => 0, 'entity' => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
+            'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
+            'session_messaging'        => $session_messaging, 'globalAlertColor' => $globalAlertColor, 'nb_candidat' => count($candidatListe),
+            'currentUserInfos'         => $this->get('security.token_storage')->getToken()->getUser(),
+            'userPhoto'                => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($this->get('security.token_storage')->getToken()->getUser()->getPhoto())),
+            'remaining_gmail_licenses' => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'), 'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
         ));
     }
 }

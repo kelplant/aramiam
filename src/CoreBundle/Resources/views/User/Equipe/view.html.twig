@@ -27,21 +27,22 @@
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell_action">
-                    <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir le candidat" onclick="ajaxRecrutementEdit(this.name);" data-toggle="modal" data-target="#modalView" id="editForm" name="{{ item.id }}">
+                    <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir le candidat" onclick="ajaxEquipeEdit(this.name);" data-toggle="modal" data-target="#modalView" id="editForm" name="{{ item.id }}">
                         <span class="glyphicon glyphicon-eye-open  btn-xs" aria-hidden="true"></span>
                     </button>
                     <input type='hidden' value='' id='ref_id_bouton'>
                 </td>
             </tr>
         {% endfor %}
+        {% block modal_form %}
+
+            {% embed "CoreBundle:User/Equipe:view.body.html.twig"  %}
+            {% endembed %}
+
+        {% endblock %}
+
     {% endblock %}
 
-    {% block modal_form %}
-
-        {% embed "CoreBundle:User/Recrutement:view.body.html.twig"  %}
-        {% endembed %}
-
-    {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/bootstrap/locales/bootstrap-datepicker.fr.min.js') }}" type="text/javascript"></script>
@@ -67,15 +68,15 @@
         });
     </script>
     <script>
-        function ajaxRecrutementEdit(viewItem)
+        function ajaxEquipeEdit(viewItem)
         {
-            urlajax = "/user/ajax/candidat/get/"+viewItem;
+            urlajax = "/user/ajax/utilisateur/get/"+viewItem;
             $.ajax({
                 url: urlajax, success: function (result) {
                     var frm = $("#formView");
                     var i;
                     for (i in result) {
-                        frm.find('[name="recrutement[' + i + ']"]').val(result[i]);
+                        frm.find('[name="equipe[' + i + ']"]').val(result[i]);
                     }
                 }
             });

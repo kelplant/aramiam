@@ -33,22 +33,22 @@
                             <li class="font_exo_2{% if 'user_profile_show' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('user_profile_show' , { 'panel' : 'user'}) }}"><i class="fa fa-user"></i> Voir Mon Profile</a></li>
                         </ul>
                     </li>
-                    <li class="treeview {% if panel != 'user' %} hide {% endif %} {% if 'orange' in app.request.get('_route') == true %} active {%  endif %} {% if 'odigo' in app.request.get('_route') == true %} active {%  endif %}" id="Equipe">
+                    <li class="treeview {% if panel != 'user' %} hide {% endif %} {% if 'equipe' in app.request.get('_route') == true %} active {%  endif %}" id="Equipe">
                         <a href="#">
                             <i class="fa fa-users"></i> <span class="font_exo_2">Mon Equipe</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="font_exo_2"><a href="{{ path('odigo_tel_liste') }}"><i class="fa fa-users"></i> Numéros Odigo</a></li>
-                            <li class="font_exo_2"><a href="{{ path('orange_tel_liste') }}"><i class="fa fa-users"></i> Numéros Orange</a></li>
+                            <li class="font_exo_2 {% if 'user_equipe_show' in app.request.get('_route') == true and app.request.attributes.get('isArchived') == 0 %} active {%  endif %}"><a href="{{ path('user_equipe_show', { 'isArchived': 0 }) }}"><i class="fa fa-users"></i> Equipe en place</a></li>
+                            <li class="font_exo_2 {% if 'user_equipe_show' in app.request.get('_route') == true and app.request.attributes.get('isArchived') == 1 %} active {%  endif %}"><a href="{{ path('user_equipe_show', { 'isArchived': 1 }) }}"><i class="fa fa-users"></i> Equipe - archives</a></li>
                         </ul>
                     </li>
-                    <li class="treeview {% if panel != 'user' %} hide {% endif %} {% if 'recrutement' in app.request.get('_route') == true %} active {%  endif %} {% if 'odigo' in app.request.get('_route') == true %} active {%  endif %}" id="Recrutement">
+                    <li class="treeview {% if panel != 'user' %} hide {% endif %} {% if 'recrutement' in app.request.get('_route') == true %} active {%  endif %}" id="Recrutement">
                         <a href="#">
                             <i class="fa fa-user-plus"></i> <span class="font_exo_2">Mes Recrutements</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="font_exo_2 {% if 'user_recrutement_show' in app.request.get('_route') == true and app.request.attributes.get('isTransformed') == 0 %} active {%  endif %}"><a href="{{ path('user_recrutement_show', { 'isTransformed': 0 } ) }}"><i class="fa fa-user-plus"></i> Recrutements en Cours</a></li>
-                            <li class="font_exo_2 {% if 'user_recrutement_show' in app.request.get('_route') == true and app.request.attributes.get('isTransformed') == 2 %} active {%  endif %}"><a href="{{ path('user_recrutement_show', { 'isTransformed': 2 } ) }}"><i class="fa fa-user-plus"></i> Recrutements Terminés</a></li>
+                            <li class="font_exo_2 {% if 'user_recrutement_show' in app.request.get('_route') == true and app.request.attributes.get('isTransformed') == 0 %} active {%  endif %}"><a href="{{ path('user_recrutement_show', { 'isTransformed': 0 }) }}"><i class="fa fa-user-plus"></i> Recrutements en Cours</a></li>
+                            <li class="font_exo_2 {% if 'user_recrutement_show' in app.request.get('_route') == true and app.request.attributes.get('isTransformed') == 2 %} active {%  endif %}"><a href="{{ path('user_recrutement_show', { 'isTransformed': 2 }) }}"><i class="fa fa-user-plus"></i> Recrutements Terminés</a></li>
                         </ul>
                     </li>
                 {% endif %}
@@ -205,6 +205,20 @@
                         </ul>
                     </li>
                 {% endif %}
+
+            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                <li class="header font_exo_2 {% if panel != 'admin' %} hide {% endif %}" id="tools_panel">
+                    <span>TOOLS PANEL</span>
+                </li>
+                <li class="treeview {% if panel != 'admin' %} hide {% endif %} {% if 'launcher' in app.request.get('_route') == true %} active {%  endif %}" id="UserLauncher">
+                    <a href="#">
+                        <i class="fa fa-gears"></i> <span class="font_exo_2">User Launcher</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="font_exo_2 {% if 'admin_tools_launcher_screen_management' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('admin_tools_launcher_screen_management') }}"><i class="fa fa-gear"></i> Screen Management</a></li>
+                    </ul>
+                </li>
+            {% endif %}
         </ul>
     </section>
 </aside>

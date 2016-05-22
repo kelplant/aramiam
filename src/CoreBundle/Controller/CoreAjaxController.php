@@ -79,7 +79,6 @@ class CoreAjaxController extends Controller
         return new JsonResponse($this->get('core.service_manager')->getStandardServiceListe());
     }
 
-
     /**
      * @param $utilisateurEdit
      * @Route(path="/ajax/utilisateur/get/{utilisateurEdit}",name="ajax_get_utilisateur")

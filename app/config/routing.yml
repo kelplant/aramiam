@@ -1,3 +1,7 @@
+launcher:
+    resource: "@LauncherBundle/Resources/config/routing.yml"
+    prefix:   /
+
 dashboard:
     resource: "@DashboardBundle/Resources/config/routing.yml"
     prefix:   /

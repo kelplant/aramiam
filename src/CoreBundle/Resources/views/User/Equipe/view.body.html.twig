@@ -1,0 +1,172 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalView">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path( 'form_exec_add_utilisateur' ) }}" method="post" class="form-horizontal" name="form-add" id="formView">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Voir un Utilisateur</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="formAction" value="add">
+                    {{ form_errors(formView) }}
+                    <div class="form-group">
+                        {{ form_label(formView.civilite) }}
+                        {{ form_errors(formView.civilite) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.civilite) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.name) }}
+                        {{ form_errors(formView.name) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.name) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.surname) }}
+                        {{ form_errors(formView.surname) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.surname) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.viewName) }}
+                        {{ form_errors(formView.viewName) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.viewName) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.email) }}
+                        {{ form_errors(formView.email) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.email) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formView.startDate) }}
+                        {{ form_errors(formView.startDate) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.startDate) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.responsable) }}
+                        {{ form_errors(formView.responsable) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.responsable) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.statusPoste) }}
+                        {{ form_errors(formView.statusPoste) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.statusPoste) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.predecesseur) }}
+                        {{ form_errors(formView.predecesseur) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.predecesseur) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.matriculeRH) }}
+                        {{ form_errors(formView.matriculeRH) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.matriculeRH) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.entiteHolding) }}
+                        {{ form_errors(formView.entiteHolding) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.entiteHolding) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.agence) }}
+                        {{ form_errors(formView.agence) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.agence) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.service) }}
+                        {{ form_errors(formView.service) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.service) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.fonction) }}
+                        {{ form_errors(formView.fonction) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-support fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.fonction) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formView.commentaire) }}
+                        {{ form_errors(formView.commentaire) }}
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-comment fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formView.commentaire) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_row(formView.isCreateInGmail) }}
+                    {{ form_row(formView.isCreateInOdigo) }}
+                    {{ form_row(formView.isCreateInRobusto) }}
+                    {{ form_row(formView.isCreateInSalesforce) }}
+                    {{ form_row(formView.isCreateInWindows) }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

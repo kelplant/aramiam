@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new AramisApiBundle\AramisApiBundle(),
             new MailerBundle\MailerBundle(),
             new DashboardBundle\DashboardBundle(),
+            new LauncherBundle\LauncherBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

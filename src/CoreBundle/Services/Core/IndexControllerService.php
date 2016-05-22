@@ -4,6 +4,24 @@ namespace CoreBundle\Services\Core;
 class IndexControllerService extends AbstractControllerService
 {
     /**
+     * @return array
+     */
+    public function generateAppsTable()
+    {
+        $listGroups = $this->get('launcher.launcher_app_group_manager')->getRepository()->findBy(array(), array('groupOrder' => 'ASC'));
+        $finalTab = [];
+        foreach ($listGroups as $group) {
+            $listApps = $this->get('launcher.launcher_app_manager')->getRepository()->findBy(array('groupId' => $group->getId()), array('tilesOrder' => 'ASC'));
+            $middleTab = [];
+            foreach ($listApps as $app) {
+                $middleTab[] = array('appName' => $app->getAppName(), 'appDescription' => $app->getAppDescription(), 'titleHeight' => $app->getTitleHeight(), 'tilesLenght' => $app->getTilesLenght(), 'tilesColor' => $app->getTilesColor(), 'icon' => $app->getIcon(), 'groupId' => $app->getGroupId(), 'tilesOrder' => $app->getTilesOrder(), 'urlLink' => $app->getUrlLink());
+            }
+            $finalTab[] = array('groupId' => $group->getId(), 'groupName' => $group->getGroupName(), 'groupOrder' => $group->getGroupOrder(), 'apps' => $middleTab);
+        }
+        return $finalTab;
+    }
+
+    /**
      * @param $service
      * @param $entity
      * @return mixed|null

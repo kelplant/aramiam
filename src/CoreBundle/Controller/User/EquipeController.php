@@ -1,34 +1,36 @@
 <?php
 namespace CoreBundle\Controller\User;
 
-use CoreBundle\Entity\Admin\Candidat;
+use CoreBundle\Entity\Admin\Utilisateur;
+use CoreBundle\Form\User\EquipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CoreBundle\Form\User\RecrutementType;
 
 /**
- * Class RecrutementController
+ * Class EquipeController
  * @package CoreBundle\Controller\User
  */
-class RecrutementController extends Controller
+class EquipeController extends Controller
 {
     /**
-     * @param $candidatEdit
-     * @Route(path="/user/ajax/candidat/get/{candidatEdit}",name="user_ajax_get_candidat")
+     * @param $utilisateurEdit
+     * @Route(path="/user/ajax/utilisateur/get/{utilisateurEdit}",name="user_ajax_get_utilisateur")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function candidatGetInfosIndex($candidatEdit)
+    public function utilisateurGetInfosIndex($utilisateurEdit)
     {
-        return new JsonResponse($this->get('core.candidat_manager')->createArray($candidatEdit));
+        $fullInfos = $this->get('core.utilisateur_manager')->createArray($utilisateurEdit);
+        unset($fullInfos['mainPassword']);
+        return new JsonResponse($fullInfos);
     }
 
     /**
-     * @param $isTransformed
-     * @Route(path="/user/recrutement/show/{isTransformed}", name="user_recrutement_show")
+     * @param $isArchived
+     * @Route(path="/user/equipe/show/{isArchived}", name="user_equipe_show")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($isTransformed)
+    public function indexAction($isArchived)
     {
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
@@ -39,15 +41,15 @@ class RecrutementController extends Controller
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
         $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
 
-        $allItems = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => $isTransformed, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
+        $allItems = $this->get('core.utilisateur_manager')->getRepository()->findBy(array('isArchived' => $isArchived, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
         foreach ($allItems as $item) {
             $this->get('core.index.controller_service')->ifFilterConvertService($item, 'Candidat');
             $this->get('core.index.controller_service')->ifFilterConvertFonction($item, 'Candidat');
             $this->get('core.index.controller_service')->ifFilterConvertAgence($item, 'Candidat');
         }
 
-        return $this->render('@Core/User/Recrutement/view.html.twig', array(
-            'formView'                      => $this->createForm(RecrutementType::class, new Candidat(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
+        return $this->render('@Core/User/Equipe/view.html.twig', array(
+            'formView'                      => $this->createForm(EquipeType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
             'panel'                         => 'user',
             'all'                           => $allItems,
             'is_archived'                   => 0,

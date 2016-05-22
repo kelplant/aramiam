@@ -28,6 +28,23 @@ class EquipeController extends Controller
 
     /**
      * @param $isArchived
+     * @param $userInfos
+     * @return array
+     */
+    private function generateItemsList($isArchived, $userInfos)
+    {
+        $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
+        $allItems = $this->get('core.utilisateur_manager')->getRepository()->findBy(array('isArchived' => $isArchived, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
+        foreach ($allItems as $item) {
+            $this->get('core.index.controller_service')->ifFilterConvertService($item, 'Candidat');
+            $this->get('core.index.controller_service')->ifFilterConvertFonction($item, 'Candidat');
+            $this->get('core.index.controller_service')->ifFilterConvertAgence($item, 'Candidat');
+        }
+        return $allItems;
+    }
+
+    /**
+     * @param $isArchived
      * @Route(path="/user/equipe/show/{isArchived}", name="user_equipe_show")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -36,22 +53,12 @@ class EquipeController extends Controller
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
-
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
-
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
-        $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
-
-        $allItems = $this->get('core.utilisateur_manager')->getRepository()->findBy(array('isArchived' => $isArchived, 'responsable' => $myProfil->getId()), array('startDate' => 'DESC'));
-        foreach ($allItems as $item) {
-            $this->get('core.index.controller_service')->ifFilterConvertService($item, 'Candidat');
-            $this->get('core.index.controller_service')->ifFilterConvertFonction($item, 'Candidat');
-            $this->get('core.index.controller_service')->ifFilterConvertAgence($item, 'Candidat');
-        }
 
         return $this->render('@Core/User/Equipe/view.html.twig', array(
             'formView'                 => $this->createForm(UtilisateurType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
-            'panel'                    => 'user', 'all' => $allItems,'is_archived' => 0, 'entity' => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
+            'panel'                    => 'user', 'all' => $this->generateItemsList($isArchived, $userInfos),'is_archived' => 0, 'entity' => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
             'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'session_messaging'        => $session_messaging, 'globalAlertColor' => $globalAlertColor, 'nb_candidat' => count($candidatListe),
             'currentUserInfos'         => $this->get('security.token_storage')->getToken()->getUser(),

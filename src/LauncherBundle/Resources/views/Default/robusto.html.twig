@@ -6,9 +6,9 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="hide">
     <form action="http://robusto.aramisauto.com/s/index.php/login/" method="post" id="salesforce_form">
-        <input type="hidden" id="username" name="username" value="XARROUES"/>
-        <input type="hidden" id="password" name="password" value="Supernatural01"/>
-        <input type="hidden" id="lecourbe" name="lecourbe" value="Parempuyre"/>
+        <input type="hidden" id="username" name="username" value="{{ aramisInfos.robustoUserName }}"/>
+        <input type="hidden" id="password" name="password" value="{{ myProfil.mainPassword }}"/>
+        <input type="hidden" id="lecourbe" name="lecourbe" value="{{ lecourbeCode }}"/>
         <input type="submit" name="login" value="login"/>
     </form>
 </div>

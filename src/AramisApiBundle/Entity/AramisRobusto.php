@@ -6,7 +6,7 @@ use DateTime;
 
 /**
  * Class AramisRobusto
- * @ORM\Entity(repositoryClass="AramisApiBundle\Repository\ApplicationRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="aramis_robusto_user_link")
  */
 class AramisRobusto
@@ -32,6 +32,12 @@ class AramisRobusto
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
+     */
+    protected $robustoUserName;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="date", nullable=true)
      */
     protected $robustoEndDate;
 
@@ -116,6 +122,24 @@ class AramisRobusto
     public function setRobustoEndDate($robustoEndDate)
     {
         $this->robustoEndDate = $robustoEndDate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRobustoUserName()
+    {
+        return $this->robustoUserName;
+    }
+
+    /**
+     * @param string $robustoUserName
+     * @return AramisRobusto
+     */
+    public function setRobustoUserName($robustoUserName)
+    {
+        $this->robustoUserName = $robustoUserName;
         return $this;
     }
 

@@ -4,6 +4,11 @@ parameters:
     aramis.entityname.agency_manager.class: 'AramisApiBundle\Entity\AramisAgency'
     aramis.argname.agency_manager.class: 'L''agence AramisAuto'
 
+    aramis.aramis_user_link.class: AramisApiBundle\Services\Manager\AramisRobustoManager
+    aramis.entity.aramis_user_link.class: AramisApiBundle\Entity\AramisRobusto
+    aramis.entityname.aramis_user_link.class: 'AramisApiBundle\Entity\AramisRobusto'
+    aramis.argname.aramis_user_link.class: 'L''utilisateur Robusto'
+
     aramis.factory.aramis_agency.class: AramisApiBundle\Factory\AramisAgencyFactory
 
 services:
@@ -14,6 +19,14 @@ services:
         - [setEntity, ["%aramis.entity.agency_manager.class%"]]
         - [setEntityName, ["%aramis.entityname.agency_manager.class%"]]
         - [setArgname, ["%aramis.argname.agency_manager.class%"]]
+
+    aramis.aramis_user_link:
+        class: '%aramis.aramis_user_link.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%aramis.entity.aramis_user_link.class%"]]
+        - [setEntityName, ["%aramis.entityname.aramis_user_link.class%"]]
+        - [setArgname, ["%aramis.argname.aramis_user_link.class%"]]
 
     aramis.factory.aramis_agency:
         class: '%aramis.factory.aramis_agency.class%'

@@ -38,7 +38,9 @@ class LauncherController extends Controller
      */
     public function logIntoRobustoAction()
     {
-        return $this->render('LauncherBundle:Default:robusto.html.twig');
+        $myProfil = $this->getUtilisateurInfos();
+        $aramisInfos = $this->get('aramis.aramis_user_link')->getRepository()->findOneBy(array('user' => $myProfil->getId()));
+        return $this->render('LauncherBundle:Default:robusto.html.twig', array('myProfil' => $myProfil, 'aramisInfos' => $aramisInfos, 'lecourbeCode' => $this->get('app.parameters_calls')->getParam('lecourbe')));
     }
 
     /**

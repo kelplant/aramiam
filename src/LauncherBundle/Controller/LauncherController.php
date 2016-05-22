@@ -60,10 +60,8 @@ class LauncherController extends Controller
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
-
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
         $myProfil = $this->getUtilisateurInfos();
-        $formEdit = $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()));
 
         return $this->render('LauncherBundle:Default:launcher.html.twig', array(
             'appsTable'                     => $this->get('core.index.controller_service')->generateAppsTable(),
@@ -72,7 +70,7 @@ class LauncherController extends Controller
             'nb_candidat'                   => count($candidatListe),
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'session_messaging'             => $session_messaging,
-            'formEdit'                      => $formEdit->createView(),
+            'formEdit'                      => $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
             'currentUserInfos'              => $userInfos,
             'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($userInfos->getPhoto())),
             'globalAlertColor'              => $globalAlertColor,

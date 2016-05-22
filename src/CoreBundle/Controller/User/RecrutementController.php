@@ -2,10 +2,10 @@
 namespace CoreBundle\Controller\User;
 
 use CoreBundle\Entity\Admin\Candidat;
+use CoreBundle\Form\Admin\CandidatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CoreBundle\Form\User\RecrutementType;
 
 /**
  * Class RecrutementController
@@ -47,7 +47,7 @@ class RecrutementController extends Controller
         }
 
         return $this->render('@Core/User/Recrutement/view.html.twig', array(
-            'formView'                      => $this->createForm(RecrutementType::class, new Candidat(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
+            'formView'                      => $this->createForm(CandidatType::class, new Candidat(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
             'panel'                         => 'user',
             'all'                           => $allItems,
             'is_archived'                   => 0,

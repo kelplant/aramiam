@@ -14,7 +14,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.civilite) }}
+                                {{ form_widget(formView.civilite, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.name) }}
+                                {{ form_widget(formView.name, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.surname) }}
+                                {{ form_widget(formView.surname, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.startDate) }}
+                                {{ form_widget(formView.startDate, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.responsable) }}
+                                {{ form_widget(formView.responsable, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.statusPoste) }}
+                                {{ form_widget(formView.statusPoste, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.predecesseur) }}
+                                {{ form_widget(formView.predecesseur, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.matriculeRH) }}
+                                {{ form_widget(formView.matriculeRH, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.entiteHolding) }}
+                                {{ form_widget(formView.entiteHolding, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.agence) }}
+                                {{ form_widget(formView.agence, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.service) }}
+                                {{ form_widget(formView.service, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-support fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.fonction) }}
+                                {{ form_widget(formView.fonction, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-comment fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formView.commentaire) }}
+                                {{ form_widget(formView.commentaire, {'attr': {'readonly': 'is_archived', 'disabled': 'disabled' }}) }}
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 namespace CoreBundle\Controller\User;
 
 use CoreBundle\Entity\Admin\Utilisateur;
+use CoreBundle\Form\Admin\UtilisateurType;
 use CoreBundle\Form\User\EquipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -49,7 +50,7 @@ class EquipeController extends Controller
         }
 
         return $this->render('@Core/User/Equipe/view.html.twig', array(
-            'formView'                      => $this->createForm(EquipeType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
+            'formView'                      => $this->createForm(UtilisateurType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
             'panel'                         => 'user',
             'all'                           => $allItems,
             'is_archived'                   => 0,

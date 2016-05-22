@@ -1,5 +1,4 @@
 <?php
-
 namespace CoreBundle\Form\Admin;
 
 use Symfony\Component\Form\Extension\Core\Type\BaseType;

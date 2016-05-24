@@ -13,6 +13,20 @@ use Exception;
 class GoogleAjaxController extends Controller
 {
     /**
+     * @param $email
+     * @Route(path="/ajax/check/google/isexist/{email}",name="ajax_exist_in_google")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function isExistGmailAccount($email)
+    {
+        try {
+            return new JsonResponse($this->get('google.google_user_api_service')->getInfosFromEmail($this->get('google.google_user_api_service')->innitApi($this->getParameter('google_api')), $email, $this->getParameter('google_api')));
+        } catch (Exception $e) {
+            return new JsonResponse('nouser');
+        }
+    }
+
+    /**
      * @param $googleGroupEdit
      * @Route(path="/ajax/google_group/get/{googleGroupEdit}",name="ajax_get_google_group")
      * @return \Symfony\Component\HttpFoundation\Response

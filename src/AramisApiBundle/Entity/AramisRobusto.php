@@ -53,6 +53,7 @@ class AramisRobusto
      */
     protected $updatedAt;
 
+
     /**
      * @return mixed
      */

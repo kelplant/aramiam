@@ -128,9 +128,9 @@
                                 {% for key,value in odigoNumfinalTabSSC %}
                                     <tr id="generalBtr" data-href="">
                                         <td class="admin_cat_table_cell small_box_tr_style_left">{{ key }}</td>
-                                        <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Client.full }}</td>
-                                        <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Client.used }}</td>
-                                        <td class="admin_cat_table_cell small_box_tr_style {% if (value.Charge_de_Satisfaction_Client.last <= 2) %} text-red {% endif %}{% if (value.Charge_de_Satisfaction_Client.last > 2) %} text-green {% endif %}">{{ value.Charge_de_Satisfaction_Client.last }}</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Clients.full }}</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style">{{ value.Charge_de_Satisfaction_Clients.used }}</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style {% if (value.Charge_de_Satisfaction_Clients.last <= 2) %} text-red {% endif %}{% if (value.Charge_de_Satisfaction_Clients.last > 2) %} text-green {% endif %}">{{ value.Charge_de_Satisfaction_Clients.last }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

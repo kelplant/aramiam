@@ -7,7 +7,7 @@ use DateTime;
 /**
  * Class Utilisateur
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\UtilisateurRepository")
- * @ORM\Table(name="core_admin_utilisateurs", uniqueConstraints={@ORM\UniqueConstraint(name="utilisateur_unique", columns={"name", "surname"})})
+ * @ORM\Table(name="core_admin_utilisateurs")
  */
 class Utilisateur extends AbstractPerson
 {

@@ -29,9 +29,9 @@ class UtilisateurType extends BaseType
             ))
             ->add('civilite', ChoiceType::class, array(
                 'choices' => array(
-                    'Monsieur' => 'Monsieur',
-                    'Madame' => 'Madame',
-                    'Mademoiselle' =>'Mademoiselle',
+                    'Monsieur' => 'M',
+                    'Madame' => 'Mme',
+                    'Mademoiselle' =>'Mlle',
                 ),
                 'label' => 'Civilité',
                 'multiple' => false,

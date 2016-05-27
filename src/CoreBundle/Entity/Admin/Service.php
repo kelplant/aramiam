@@ -54,6 +54,11 @@ class Service
     /** @var string
      * @ORM\Column(type="integer")
      */
+    protected $parentService;
+
+    /** @var string
+     * @ORM\Column(type="integer")
+     */
     protected $parentAgence;
 
     /**
@@ -263,6 +268,24 @@ class Service
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentService()
+    {
+        return $this->parentService;
+    }
+
+    /**
+     * @param string $parentService
+     * @return Service
+     */
+    public function setParentService($parentService)
+    {
+        $this->parentService = $parentService;
         return $this;
     }
 }

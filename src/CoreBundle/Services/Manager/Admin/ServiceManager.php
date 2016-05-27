@@ -26,6 +26,7 @@ class ServiceManager extends AbstractManager
         $itemArray['nameInSalesforce']      = $itemToTransform->getNameInSalesforce();
         $itemArray['nameInZendesk']         = $itemToTransform->getNameInZendesk();
         $itemArray['parentAgence']          = $itemToTransform->getParentAgence();
+        $itemArray['parentService']          = $itemToTransform->getParentService();
         $itemArray['nameInActiveDirectory'] = $itemToTransform->getNameInActiveDirectory();
 
         return $itemArray;

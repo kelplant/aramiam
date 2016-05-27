@@ -17,7 +17,7 @@ class Fonction
     protected $id;
 
     /** @var string
-     * @ORM\Column(name="fonction_name", type="string", length=50, nullable=false, unique=true)
+     * @ORM\Column(name="fonction_name", type="string", length=200, nullable=false, unique=true)
      */
     protected $name;
 
@@ -27,27 +27,27 @@ class Fonction
     protected $shortName;
 
     /** @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $nameInCompany;
 
     /** @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $nameInOdigo;
 
     /** @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $nameInSalesforce;
 
     /** @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $nameInZendesk;
 
     /** @var string
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $nameInActiveDirectory;
 

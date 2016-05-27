@@ -10,13 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
 class OdigoTelListe extends AbstractNumListe
 {
     /**
-     * @var string
-     * @ORM\Column(type="integer"))
+     * @var int
+     * @ORM\Column(type="integer")
      */
     protected $fonction;
 
     /**
-     * @return string
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $type;
+
+    /**
+     * @return int
      */
     public function getFonction()
     {
@@ -24,12 +30,30 @@ class OdigoTelListe extends AbstractNumListe
     }
 
     /**
-     * @param string $fonction
+     * @param int $fonction
      * @return OdigoTelListe
      */
     public function setFonction($fonction)
     {
         $this->fonction = $fonction;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return OdigoTelListe
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 }

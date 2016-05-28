@@ -14,7 +14,7 @@
         {% for item in all %}
             <tr id="generalBtr" data-href="">
                 <td class="admin_cat_table_cell">{{ item.name }} {{ item.surname }}</td>
-                <td class="admin_cat_table_cell">{{ item.startDate.timestamp|date("m-d-Y") }}</td>
+                <td class="admin_cat_table_cell">{{ item.startDate|date("m-d-Y") }}</td>
                 <td class="admin_cat_table_cell">{{ item.agence }}</td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>

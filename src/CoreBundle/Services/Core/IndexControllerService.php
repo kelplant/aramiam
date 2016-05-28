@@ -77,14 +77,16 @@ class IndexControllerService extends AbstractControllerService
 
     /**
      * @param $entity
+     * @param $isArchived
      * @return mixed
      */
-    private function ifCandidatOUtilisateurList($entity)
+    private function ifCandidatOUtilisateurList($entity, $isArchived)
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
-            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findBy(array('isArchived' => $this->isArchived));
-        } else {
-            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll();
+            return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getlist($isArchived);
+        }
+        else {
+            return $this->getListOfItems($this->entity, $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
         }
     }
 
@@ -142,7 +144,7 @@ class IndexControllerService extends AbstractControllerService
      */
     public function getFullList($isArchived, $formAdd, $formEdit)
     {
-        $allItems = $this->getListOfItems($this->entity, $this->ifCandidatOUtilisateurList($this->entity));
+        $allItems = $this->ifCandidatOUtilisateurList($this->entity, $isArchived);
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->getGlobalAlertColor($session_messaging);

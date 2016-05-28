@@ -14,10 +14,10 @@
         {% for item in all %}
             <tr id="generalBtr" data-href="">
                 <td class="admin_cat_table_cell">{{ item.name }} {{ item.surname }}</td>
-                <td class="admin_cat_table_cell">{{ item.startDate.timestamp|date("m-d-Y") }}</td>
-                <td class="admin_cat_table_cell">{{ item.agence }}</td>
-                <td class="admin_cat_table_cell">{{ item.service }}</td>
-                <td class="admin_cat_table_cell">{{ item.fonction }}</td>
+                <td class="admin_cat_table_cell">{{ item.start_date|date("m-d-Y") }}</td>
+                <td class="admin_cat_table_cell">{{ item.agence_name }}</td>
+                <td class="admin_cat_table_cell">{{ item.service_name }}</td>
+                <td class="admin_cat_table_cell">{{ item.fonction_name }}</td>
                 <td class="admin_cat_table_cell_action">
                     {% if is_archived != "2" %}
                         <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">

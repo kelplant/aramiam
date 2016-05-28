@@ -81,4 +81,17 @@ class CandidatManager extends AbstractManager
         return $this->getRepository()
             ->findOneBy(array('id' => $itemId));
     }
+
+    /**
+     * @param $isArchived
+     * @return mixed
+     */
+    public function getlist($isArchived)
+    {
+        $sql = "SELECT a.is_archived as isArchived, a.id, a.name, a.surname, a.start_date, b.agence_name, c.service_name, d.fonction_name FROM aramiam.core_admin_candidats a LEFT JOIN aramiam.core_admin_agences b ON b.id = a.agence  LEFT JOIN aramiam.core_admin_services c ON c.id = a.service LEFT JOIN aramiam.core_admin_fonctions d ON d.id = a.fonction WHERE a.is_archived = ".$isArchived;
+
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

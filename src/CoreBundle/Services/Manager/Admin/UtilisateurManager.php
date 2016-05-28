@@ -242,4 +242,17 @@ class UtilisateurManager extends AbstractManager
 
         return $itemToSet;
     }
+
+    /**
+     * @param $isArchived
+     * @return mixed
+     */
+    public function getlist($isArchived)
+    {
+        $sql = "SELECT a.id, a.is_archived as isArchived, a.name, a.surname, a.start_date as startDate, b.agence_name as agence, c.service_name as service, d.fonction_name as fonction FROM aramiam.core_admin_utilisateurs a LEFT JOIN aramiam.core_admin_agences b ON b.id = a.agence  LEFT JOIN aramiam.core_admin_services c ON c.id = a.service LEFT JOIN aramiam.core_admin_fonctions d ON d.id = a.fonction WHERE a.is_archived =".$isArchived;
+
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

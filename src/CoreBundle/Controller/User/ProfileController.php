@@ -134,10 +134,6 @@ class ProfileController extends Controller
         $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
         $formEdit = $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()));
 
-        var_dump($myProfil->getIsCreateInWindows());
-        var_dump($this->checkAndGetActiveDirectoryInfos($myProfil->getIsCreateInWindows()));
-        die();
-
         return $this->render('CoreBundle:User/Profile:ProfileShow.html.twig', array(
             'gmailInfos'                    => $this->checkAndGetGmailInfos($myProfil),
             'salesforceInfos'               => $this->checkAndGetSalesforceInfos($myProfil),

@@ -180,7 +180,7 @@
                             {% set countApp = 0 %}
                             <div class="row" style="padding: 5px">
                                 <div class="col-sm-12 float_right no-padding" style="padding-bottom: 15px">
-                                    {% if salesforceInfos is defined and salesforceInfos != null%}
+                                    {% if salesforceInfos is defined and salesforceInfos != null %}
                                         {% set countApp = countApp + 1 %}
                                         <div class="box-primary col-sm-6" style="display: inline-block;padding: 10px">
                                             <div class="col-sm-12  block-update-card-2 no-padding">
@@ -286,7 +286,7 @@
                             <div class="row" style="padding: 5px">
                                 <div class="col-sm-12 float_right no-padding" style="padding-bottom: 15px">
                                     {% endif %}
-                                    {% if odigoInfos is defined %}
+                                    {% if odigoInfos is defined and odigoInfos != null%}
                                         {% set countApp = countApp + 1 %}
                                         <div class="box-primary col-sm-6" style="display: inline-block;padding: 10px">
                                             <div class="col-sm-12  block-update-card-2 no-padding">

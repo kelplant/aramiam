@@ -29,6 +29,12 @@ class SalesforceUserLink
     protected $salesforceProfil;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $isActive;
+
+    /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -55,6 +61,24 @@ class SalesforceUserLink
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param boolean $isActive
+     * @return SalesforceUserLink
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
         return $this;
     }
 

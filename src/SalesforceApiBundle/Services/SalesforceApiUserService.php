@@ -94,6 +94,16 @@ class SalesforceApiUserService extends AbstractSalesforceApiService
     }
 
     /**
+     * @param $profilId
+     * @param $params
+     * @return array|string
+     */
+    public function getAllInfosForAccountByProfilId($profilId, $params)
+    {
+        return $this->executeQuery('/sobjects/User/'.$profilId, $params, null, "GET");
+    }
+
+    /**
      * @param $userId
      * @return Utilisateur|null
      */

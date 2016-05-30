@@ -180,4 +180,18 @@ class ActiveDirectoryApiUserService extends AbstractActiveDirectoryApiService
         $this->activeDirectoryApiGroupService = $activeDirectoryApiGroupService;
         return $this;
     }
+
+    /**
+     * @param $activeDirectoryParams
+     * @param $user
+     * @return array
+     */
+    public function findUser($activeDirectoryParams, $user)
+    {
+        $ds = $this->connectAD($activeDirectoryParams);
+        $dn = $activeDirectoryParams['ldapBaseDN'];
+        $filter = 'samaccountname='.$user;
+        $result = ldap_search($ds, $dn, $filter);
+        return ldap_get_entries($ds, $result);
+    }
 }

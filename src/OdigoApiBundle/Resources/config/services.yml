@@ -24,6 +24,7 @@ parameters:
     odigo.factory.createwithtemplate.class: OdigoApiBundle\Factory\Actions\CreateWithTemplateStructFactory
     odigo.factory.export.class: OdigoApiBundle\Factory\Actions\ExportStructFactory
     odigo.factory.deleteuser.class: OdigoApiBundle\Factory\Actions\DeleteUserStructFactory
+    odigo.factory.finduser.class: OdigoApiBundle\Factory\Actions\FindUserStructFactory
     odigo.service.client.class: OdigoApiBundle\Services\OdigoClientService
 
 services:
@@ -73,6 +74,9 @@ services:
     odigo.factory.createagent:
         class: '%odigo.factory.createagent.class%'
         parent: app.factory.abstract
+    odigo.factory.finduser:
+        class: '%odigo.factory.finduser.class%'
+        parent: app.factory.abstract
     odigo.factory.deleteuser:
         class: '%odigo.factory.deleteuser.class%'
         parent: app.factory.abstract
@@ -86,4 +90,4 @@ services:
 
     odigo.service.client:
         class: '%odigo.service.client.class%'
-        arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , "@odigo.factory.deleteuser", "@odigo.factory.export", "@core.utilisateur_manager" ]
+        arguments: [ "@odigo.factory.userbean", "@odigo.factory.userbeanwithtemplate" , "@odigo.factory.createagent" , "@odigo.factory.createwithtemplate" , '@odigo.factory.finduser', "@odigo.factory.deleteuser", "@odigo.factory.export", "@core.utilisateur_manager" ]

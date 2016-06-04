@@ -62,6 +62,13 @@ abstract class AbstractManager
     /**
      *
      */
+    public function persist($item) {
+        $this->em->persist($item);
+    }
+
+    /**
+     *
+     */
     public function flush() {
         $this->em->flush();
     }
@@ -258,7 +265,6 @@ abstract class AbstractManager
     public function setRepository($repository)
     {
         $this->repository = $repository;
-
         return $this;
     }
 
@@ -269,7 +275,6 @@ abstract class AbstractManager
     public function setEntityName($entityName)
     {
         $this->entityName = $entityName;
-
         return $this;
     }
 
@@ -288,7 +293,6 @@ abstract class AbstractManager
     public function setEm(EntityManagerInterface $em)
     {
         $this->em = $em;
-
         return $this;
     }
 

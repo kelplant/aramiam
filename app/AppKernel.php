@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new CoreBundle\CoreBundle(),
             new LightSaml\SymfonyBridgeBundle\LightSamlSymfonyBridgeBundle(),
             new LightSaml\SpBundle\LightSamlSpBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
             new GoogleApiBundle\GoogleApiBundle(),
             new ZendeskApiBundle\ZendeskApiBundle(),
             new OdigoApiBundle\OdigoApiBundle(),
@@ -29,6 +28,7 @@ class AppKernel extends Kernel
             new MailerBundle\MailerBundle(),
             new DashboardBundle\DashboardBundle(),
             new LauncherBundle\LauncherBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

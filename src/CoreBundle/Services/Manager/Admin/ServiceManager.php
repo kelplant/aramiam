@@ -3,6 +3,9 @@ namespace CoreBundle\Services\Manager\Admin;
 
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Service;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+
 /**
  * Class ServiceManager
  * @package CoreBundle\Services\Manager
@@ -68,5 +71,43 @@ class ServiceManager extends AbstractManager
             $finalTab[] = $result['nameInActiveDirectory'];
         }
         return $finalTab;
+    }
+
+    private function getHighestLvl()
+    {
+        return $this->getRepository()
+            ->createQueryBuilder('e')
+            ->select('MAX(e.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @param $serviceId
+     * @param $lvl
+     * @param $options
+     * @return mixed
+     */
+    public function generateTree($serviceId, $lvl, $options)
+    {
+        if ($lvl == null) {
+            $lvl = $this->getHighestLvl();
+        }
+
+        $query = $this->getRepository()
+            ->createQueryBuilder('b')
+            ->select('b', 'a')
+            ->from('CoreBundle:Admin\Service', 'a')
+            ->where('a.id = :id')
+            ->andWhere('b.lft >= a.lft')
+            ->andWhere('b.rgt <= a.rgt')
+            ->andWhere('a.lvl + :lvladd >= b.lvl')
+            ->orderBy('b.lft', 'ASC')
+            ->setParameter(':id', $serviceId)
+            ->setParameter(':lvladd', $lvl)
+            ->getQuery()->getArrayResult();
+        unset($query[0]);
+
+        return $this->getRepository()->buildTree($query, $options);
     }
 }

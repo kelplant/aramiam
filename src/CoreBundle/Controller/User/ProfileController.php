@@ -45,7 +45,6 @@ class ProfileController extends Controller
     {
         if ($activeDirectoryLinkUser != null && $activeDirectoryLinkUser != '0')
         {
-            echo 'coucou';
             return $this->get('ad.active_directory_user_link_manager')->load($activeDirectoryLinkUser);
         }
     }
@@ -135,21 +134,17 @@ class ProfileController extends Controller
         $formEdit = $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()));
 
         return $this->render('CoreBundle:User/Profile:ProfileShow.html.twig', array(
+            'manager'                       => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
             'gmailInfos'                    => $this->checkAndGetGmailInfos($myProfil),
             'salesforceInfos'               => $this->checkAndGetSalesforceInfos($myProfil),
             'activeDirectoryInfos'          => $this->checkAndGetActiveDirectoryInfos($myProfil->getIsCreateInWindows()),
             'aramisInfos'                   => $this->checkAndGetRobustoInfos($myProfil->getIsCreateInRobusto()),
             'odigoInfos'                    => $this->checkAndGetOdigoInfos($myProfil->getIsCreateInOdigo()),
-            'panel'                         => $panel,
-            'entity'                        => '',
-            'nb_candidat'                   => count($candidatListe),
+            'panel'                         => $panel, 'entity'  => '', 'nb_candidat' => count($candidatListe),
             'candidat_color'                => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
-            'session_messaging'             => $session_messaging,
-            'formEdit'                      => $formEdit->createView(),
-            'currentUserInfos'              => $userInfos,
+            'session_messaging'             => $session_messaging, 'formEdit' => $formEdit->createView(), 'currentUserInfos' => $userInfos,
             'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($userInfos->getPhoto())),
-            'globalAlertColor'              => $globalAlertColor,
-            'myProfil'                      => $myProfil,
+            'globalAlertColor'              => $globalAlertColor, 'myProfil'  => $myProfil,
             'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
             'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
         ));

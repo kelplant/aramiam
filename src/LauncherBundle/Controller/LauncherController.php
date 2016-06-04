@@ -66,6 +66,7 @@ class LauncherController extends Controller
         $myProfil = $this->getUtilisateurInfos();
 
         return $this->render('LauncherBundle:Default:launcher.html.twig', array(
+            'manager'                  => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
             'appsTable'                => $this->get('core.index.controller_service')->generateAppsTable(), 'panel' => 'user', 'entity' => '', 'nb_candidat' => count($candidatListe),
             'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'formEdit'                 => $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),

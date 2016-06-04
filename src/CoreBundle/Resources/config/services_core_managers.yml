@@ -9,6 +9,11 @@ parameters:
     core.entityname.service_manager.class: 'CoreBundle\Entity\Admin\Service'
     core.argname.service_manager.class: 'Le service'
 
+    core.manager_service_link_manager.class: CoreBundle\Services\Manager\Admin\ManagerServiceLinkManager
+    core.entity.manager_service_link_manager.class: CoreBundle\Entity\Admin\ManagerServiceLink
+    core.entityname.manager_service_link_manager.class: 'CoreBundle\Entity\Admin\ManagerServiceLink'
+    core.argname.manager_service_link_manager.class: 'Ce Manager de Service'
+
     core.entite_holding_manager.class: CoreBundle\Services\Manager\Admin\EntiteHoldingManager
     core.entity.entite_holding.class: CoreBundle\Entity\Admin\EntiteHolding
     core.entityname.entite_holding.class: 'CoreBundle\Entity\Admin\EntiteHolding'
@@ -79,6 +84,14 @@ services:
         - [setEntity, ["%core.entity.service_manager.class%"]]
         - [setEntityName, ["%core.entityname.service_manager.class%"]]
         - [setArgname, ["%core.argname.service_manager.class%"]]
+
+    core.manager_service_link_manager:
+        class: '%core.manager_service_link_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.manager_service_link_manager.class%"]]
+        - [setEntityName, ["%core.entityname.manager_service_link_manager.class%"]]
+        - [setArgname, ["%core.argname.manager_service_link_manager.class%"]]
 
     core.entite_holding_manager:
         class: '%core.entite_holding_manager.class%'

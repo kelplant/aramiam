@@ -1,10 +1,13 @@
 <?php
 namespace CoreBundle\Entity\Admin;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
+use Gedmo\Tool\Wrapper\EntityWrapper;
 
 /**
+ * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="core_admin_services")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\Admin\ServiceRepository")
  */
@@ -22,7 +25,7 @@ class Service
     protected $name;
 
     /** @var string
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $shortName;
 
@@ -51,15 +54,53 @@ class Service
      */
     protected $nameInActiveDirectory;
 
-    /** @var string
-     * @ORM\Column(type="integer")
+    /** @var int
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $parentService;
 
-    /** @var string
-     * @ORM\Column(type="integer")
+    /** @var int
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $parentAgence;
+
+    /** @var int
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    protected $lft;
+
+    /** @var int
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    protected $rgt;
+
+    /** @var int
+     * @Gedmo\TreeLevel
+     * @ORM\Column(type="integer")
+     */
+    protected $lvl;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Service", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="parent_id")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
     /**
      * @var DateTime
@@ -288,4 +329,16 @@ class Service
         $this->parentService = $parentService;
         return $this;
     }
+
+
+    public function setParent(Service $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
 }

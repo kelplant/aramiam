@@ -18,10 +18,11 @@ class ScreenManagementController extends Controller
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->get('core.index.controller_service')->getGlobalAlertColor($session_messaging);
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
-
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
+        $myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
 
         return $this->render('@Launcher/Default/screenManagement.html.twig', array(
+            'manager'                       => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
             'appsTable'                     => $this->get('core.index.controller_service')->generateAppsTable(),
             'panel'                         => 'admin',
             'entity'                        => '',

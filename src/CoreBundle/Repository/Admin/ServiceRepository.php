@@ -2,18 +2,15 @@
 namespace CoreBundle\Repository\Admin;
 
 use Doctrine\ORM\EntityRepository;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Gedmo\Tool\Wrapper\EntityWrapper;
 
 /**
  * Class ServiceRepository
  * @package CoreBundle\Repository\Admin
  */
-class ServiceRepository extends EntityRepository
+class ServiceRepository extends NestedTreeRepository
 {
-    /**
-     * @return array
-     */
-    public function findAll()
-    {
-        return $this->findBy(array(), array('name' => 'ASC'));
-    }
+
 }
+

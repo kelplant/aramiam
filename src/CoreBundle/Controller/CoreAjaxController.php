@@ -80,6 +80,16 @@ class CoreAjaxController extends Controller
     }
 
     /**
+     * @param $serviceId
+     * @Route(path="/ajax/service/get/service/manager/{serviceId}",name="ajax_get_service_manager")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getServiceManagerId($serviceId)
+    {
+        return new JsonResponse($this->get('core.manager_service_link_manager')->getRepository()->findOneBy(array('serviceId' => $serviceId))->getUserId());
+    }
+
+    /**
      * @param $utilisateurEdit
      * @Route(path="/ajax/utilisateur/get/{utilisateurEdit}",name="ajax_get_utilisateur")
      * @return \Symfony\Component\HttpFoundation\Response

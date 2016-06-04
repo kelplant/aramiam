@@ -80,9 +80,6 @@ class MigrationCheck extends Controller
                     $ddiNumber = $getOdigo->return->listUsers->directAccessCode;
                     if($ddiNumber != $odigoLinkInfos->getOdigoPhoneNumber()) {
                         echo $show.' - '.$ddiNumber.' = '.$odigoLinkInfos->getOdigoPhoneNumber().' - Wrong Number<br>';
-                    } else
-                    {
-                        //echo $userInfos->getViewName().' - '.$ddiNumber.' = '.$item->getOdigoPhoneNumber().' - Good Number<br>';
                     }
                 } else
                 {
@@ -91,7 +88,6 @@ class MigrationCheck extends Controller
             }
         }
         echo '<br><br>separator<br><br>';
-
         $userInfos = $this->get('core.utilisateur_manager')->getRepository()->findBy(array('isArchived' => 1));
         foreach ($userInfos as $item) {
             if ($item->getIsCreateInOdigo() != 0 && $item->getIsCreateInOdigo() != null) {

@@ -13,20 +13,14 @@ use Doctrine\Common\Util\Inflector;
 abstract class AbstractManager
 {
     protected $em;
-
     protected $entity;
-
     protected $entityName;
-
     protected $argname;
-
     protected $repository;
-
     /**
      * @var Session
      */
     protected $session;
-
     /**
      * @var ManagerRegistry
      */
@@ -56,23 +50,29 @@ abstract class AbstractManager
      * @param $entity
      */
     public function save($entity) {
-        $this->persistAndFlush($entity);
+        $this->em->persist($entity);
+        $this->em->flush();
     }
 
-    /**
-     *
-     */
     public function persist($item) {
         $this->em->persist($item);
     }
 
-    /**
-     *
-     */
     public function flush() {
         $this->em->flush();
     }
 
+    public function truncateTable()
+    {
+        $connection = $this->managerRegistry->getConnection();
+        try {
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Vidée'));
+            $connection->executeUpdate($connection->getDatabasePlatform()->getTruncateTableSQL($this->managerRegistry->getManager()->getClassMetadata($this->entityName)->getTableName(), true));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+    }
+    
     /**
      * @param $itemId
      * @return object|null
@@ -135,7 +135,6 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
         return array('item' => $archivedItemId);
     }
 
@@ -152,7 +151,6 @@ abstract class AbstractManager
                 $itemToSet->{"set".Inflector::camelize($key)}($value);
             }
         }
-
         return $itemToSet;
     }
 
@@ -170,7 +168,6 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
         return array('item' => $itemToEditId);
     }
 
@@ -189,7 +186,6 @@ abstract class AbstractManager
         } catch (\Exception $e) {
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
-
         return array('item' => $itemToSend);
     }
 
@@ -207,22 +203,7 @@ abstract class AbstractManager
                 $finalDatas[$data->getName()] = $data->getId();
             }
         }
-
         return $finalDatas;
-    }
-
-    /**
-     *
-     */
-    public function truncateTable()
-    {
-        $connection = $this->managerRegistry->getConnection();
-        try {
-            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Vidée'));
-            $connection->executeUpdate($connection->getDatabasePlatform()->getTruncateTableSQL($this->managerRegistry->getManager()->getClassMetadata($this->entityName)->getTableName(), true));
-        } catch (\Exception $e) {
-            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
-        }
     }
 
     /**
@@ -233,17 +214,7 @@ abstract class AbstractManager
     {
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
-
         return $stmt->fetchAll();
-    }
-
-    /**
-     * @param $entity
-     */
-    protected function persistAndFlush($entity)
-    {
-        $this->em->persist($entity);
-        $this->em->flush();
     }
 
     /**
@@ -254,7 +225,6 @@ abstract class AbstractManager
     {
         $this->entity = $entity;
         $this->em = $this->managerRegistry->getManagerForClass($this->entity);
-
         return $this;
     }
 
@@ -314,7 +284,6 @@ abstract class AbstractManager
     public function setManagerRegistry($managerRegistry)
     {
         $this->managerRegistry = $managerRegistry;
-
         return $this;
     }
 }

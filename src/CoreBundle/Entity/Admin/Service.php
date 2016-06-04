@@ -92,12 +92,12 @@ class Service
     /**
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Service", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="parent", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Service", mappedBy="parent_id")
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
@@ -330,12 +330,19 @@ class Service
         return $this;
     }
 
-
+    /**
+     * @param Service|null $parent
+     * @return $this
+     */
     public function setParent(Service $parent = null)
     {
         $this->parent = $parent;
+        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getParent()
     {
         return $this->parent;

@@ -33,6 +33,7 @@ class AddControllerService extends AbstractControllerService
         $this->initBothForms();
         $this->formAdd->handleRequest($request);
         if ($this->formAdd->isSubmitted() && $this->formAdd->isValid()) {
+
             $return = $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity))));
             if ($this->entity == 'Candidat') {
                 $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));

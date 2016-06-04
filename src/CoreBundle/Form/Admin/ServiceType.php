@@ -96,7 +96,7 @@ class ServiceType extends BaseType
                 ),
                 'required' => true,
             ))
-            ->add('parent', ChoiceType::class, array(
+            ->add('parentService', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeServices"],
                 'preferred_choices' => 'Choisir un Service',
                 'multiple' => false,

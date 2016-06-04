@@ -5,6 +5,7 @@ use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Service;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Doctrine\Common\Util\Inflector;
 
 /**
  * Class ServiceManager
@@ -12,6 +13,38 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
  */
 class ServiceManager extends AbstractManager
 {
+
+    /**
+     * @param $entity
+     */
+    protected function persistAndFlush($entity)
+    {
+        $parent = $this->getRepository()->findOneById($entity->getParentService());
+        $entity->setParent($parent);
+        $this->em->persist($entity);
+        $this->em->flush();
+    }
+
+    /**
+     * @param $itemToEditId
+     * @param $ContentToAddToEditedItem
+     * @return array
+     */
+    public function edit($itemToEditId, $ContentToAddToEditedItem) {
+        try {
+            $itemToSet = $this->globalSetItem($this->getRepository()->findOneById($itemToEditId), $ContentToAddToEditedItem);
+            $itemToSet->setUpdatedAt(new \DateTime());
+            $parent = $this->getRepository()->findOneById($itemToSet->getParentService());
+            $itemToSet->setParent($parent);
+            $this->em->flush();
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Mis(e) à jour'));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+
+        return array('item' => $itemToEditId);
+    }
+
     /**
      * @param $itemLoad
      * @return mixed
@@ -29,7 +62,8 @@ class ServiceManager extends AbstractManager
         $itemArray['nameInSalesforce']      = $itemToTransform->getNameInSalesforce();
         $itemArray['nameInZendesk']         = $itemToTransform->getNameInZendesk();
         $itemArray['parentAgence']          = $itemToTransform->getParentAgence();
-        $itemArray['parentService']          = $itemToTransform->getParentService();
+        $itemArray['parentService']         = $itemToTransform->getParentService();
+        $itemArray['parent']                = $itemToTransform->getParent();
         $itemArray['nameInActiveDirectory'] = $itemToTransform->getNameInActiveDirectory();
 
         return $itemArray;
@@ -99,6 +133,7 @@ class ServiceManager extends AbstractManager
             ->select('b', 'a')
             ->from('CoreBundle:Admin\Service', 'a')
             ->where('a.id = :id')
+            ->andWhere('b.root = 1')
             ->andWhere('b.lft >= a.lft')
             ->andWhere('b.rgt <= a.rgt')
             ->andWhere('a.lvl + :lvladd >= b.lvl')

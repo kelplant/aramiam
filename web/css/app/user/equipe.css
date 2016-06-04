@@ -61,10 +61,3 @@
     padding:0px 0px 0px 0px;
     outline: 0;
 }
-
-.with-events{
-    pointer-events: all;
-}
-.no-events{
-    pointer-events: none;
-}

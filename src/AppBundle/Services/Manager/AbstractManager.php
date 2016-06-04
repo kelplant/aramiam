@@ -240,7 +240,7 @@ abstract class AbstractManager
     /**
      * @param $entity
      */
-    private function persistAndFlush($entity)
+    protected function persistAndFlush($entity)
     {
         $this->em->persist($entity);
         $this->em->flush();

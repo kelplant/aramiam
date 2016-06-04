@@ -334,3 +334,9 @@ table.display tbody td {
 .table-scrollable{
     overflow: auto;
 }
+.with-events{
+    pointer-events: all;
+}
+.no-events{
+    pointer-events: none;
+}

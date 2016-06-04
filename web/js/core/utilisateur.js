@@ -77,6 +77,7 @@ function generateWindowsBody()
         url:urlajax,success:function(result) {
             document.getElementById("createActionWindowsPart").innerHTML = '';
             $('#loading').addClass('show').removeClass('hide');
+            $('#right-navbar').addClass('no-events');
             var i;
             var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
             var prenom = localStorage.getItem("currentSurname").substring(0,3).toLowerCase();
@@ -111,6 +112,7 @@ function generateWindowsBody()
                             '</div>';
                         document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
                         $('#loading').addClass('hide').removeClass('show');
+                        $('#right-navbar').removeClass('no-events');
                         $('#createActionWindowsPart').addClass('show').removeClass('hide');
                     }
                 });
@@ -134,6 +136,7 @@ function generateWindowsBody()
                     '</div>';
                 document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
                 $('#loading').addClass('hide').removeClass('show');
+                $('#right-navbar').removeClass('no-events');
                 $('#createActionWindowsPart').addClass('show').removeClass('hide');
             }
         }
@@ -143,6 +146,7 @@ function generateWindowsBody()
 // Fonction de chargement du bloc Windows
 function ajaxGenerateWindows()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
@@ -158,6 +162,7 @@ function ajaxGenerateWindows()
     if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
         document.getElementById("createActionWindowsPart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
         $('#loading').removeClass('show').addClass('hide');
+        $('#right-navbar').removeClass('no-events');
         $('#createActionWindowsPart').addClass('show').removeClass('hide');
     } else {
         if (localStorage.getItem("isCreateInWindows") == 'null' || localStorage.getItem("isCreateInWindows") == 0) {
@@ -183,6 +188,7 @@ function ajaxGenerateWindows()
                     document.getElementById("createActionWindowsPart").innerHTML = textToAppend;
                     $('#loading').addClass('hide').removeClass('show');
                     $('#createActionWindowsPart').addClass('show').removeClass('hide');
+                    $('#right-navbar').removeClass('no-events');
                 }
             });
         }
@@ -221,6 +227,7 @@ function generateSalesforceBody(action)
                 '</div>';
             document.getElementById("createActionSalesforcePart").innerHTML = profilesListe;
             $('#loading').removeClass('show').addClass('hide');
+            $('#right-navbar').removeClass('no-events');
             $('#createActionSalesforcePartNew').addClass('show').removeClass('hide');
             $('#createActionSalesforcePart').addClass('show').removeClass('hide');
         }
@@ -231,6 +238,7 @@ function generateSalesforceBody(action)
 // Fonction de chargement du bloc salesforce
 function ajaxGenerateSalesforce()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionAramisPart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -249,8 +257,9 @@ function ajaxGenerateSalesforce()
     if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
         document.getElementById("createActionSalesforcePart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
         $('#loading').removeClass('show').addClass('hide');
+        $('#right-navbar').removeClass('no-events');
         $('#createActionSalesforcePart').addClass('show').removeClass('hide');
-    } else {
+    } else if (localStorage.getItem("isCreateInSalesforce") != 'null' && localStorage.getItem("isCreateInSalesforce") != 0) {
         urlajax ="/ajax/get/salesforce/utilisateur/full_profil/"+localStorage.getItem("email");
         $.ajax({
             url:urlajax,success:function(result) {
@@ -307,6 +316,7 @@ function ajaxGenerateSalesforce()
                                     $('#loading').removeClass('show').addClass('hide');
                                     $('#createActionSalesforcePartEdit').addClass('show').removeClass('hide');
                                     $('#createActionSalesforcePart').addClass('show').removeClass('hide');
+                                    $('#right-navbar').removeClass('no-events');
                                 }
                             });
                         }
@@ -316,12 +326,15 @@ function ajaxGenerateSalesforce()
                 }
             }
         });
+    } else {
+        generateSalesforceBody('create');
     }
 }
 
 // Fonction de chargement du bloc History
 function ajaxGenerateHistory()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -360,6 +373,7 @@ function ajaxGenerateHistory()
             document.getElementById("createActionHistoryPart").innerHTML = textToAppend;
             $('#loading').addClass('hide').removeClass('show');
             $('#createActionHistoryPart').addClass('show').removeClass('hide');
+            $('#right-navbar').removeClass('no-events');
         }
     });
 }
@@ -367,6 +381,7 @@ function ajaxGenerateHistory()
 // Fonction de chargement du bloc aramis
 function ajaxGenerateAramis()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
     $('#createActionOdigoPart').addClass('hide').removeClass('show');
@@ -379,11 +394,13 @@ function ajaxGenerateAramis()
     $('#aramisToggle').addClass('active');
     $('#salesforceToggle').removeClass('active');
     $('#createActionAramisPart').addClass('show').removeClass('hide');
+    $('#right-navbar').removeClass('no-events');
 }
 
 // Fonction de chargement du bloc de gestion gmail
 function ajaxGenerateEmail()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
@@ -414,6 +431,7 @@ function ajaxGenerateEmail()
                 document.getElementById("actionGmailList").innerHTML = textToAppend;
                 $('#loading').addClass('hide').removeClass('show');
                 $('#createActionGmailPart').addClass('show').removeClass('hide');
+                $('#right-navbar').removeClass('no-events');
             }
         });
     } else {
@@ -438,6 +456,7 @@ function ajaxGenerateEmail()
                             }
                             document.getElementById("actionGmailList").innerHTML = textToAppend;
                             $('#loading').addClass('hide').removeClass('show');
+                            $('#right-navbar').removeClass('no-events');
                             $('#createActionGmailPart').addClass('show').removeClass('hide');
                         }
                     });
@@ -460,6 +479,7 @@ function ajaxGenerateEmail()
                         '</div>';
                     document.getElementById("createActionGmailPart").innerHTML = textToAppend;
                     $('#loading').addClass('hide').removeClass('show');
+                    $('#right-navbar').removeClass('no-events');
                     $('#createActionGmailPart').addClass('show').removeClass('hide');
                 }
             }
@@ -470,6 +490,7 @@ function ajaxGenerateEmail()
 // Fonction de chargement du bloc de gestion odigo
 function ajaxGenerateOdigo()
 {
+    $('#right-navbar').addClass('no-events');
     $('#createActionGmailPart').addClass('hide').removeClass('show');
     $('#createActionWindowsPart').addClass('hide').removeClass('show');
     $('#createActionSalesforcePart').addClass('hide').removeClass('show');
@@ -488,6 +509,7 @@ function ajaxGenerateOdigo()
     if(localStorage.getItem("email") == '' || localStorage.getItem("email") == null || localStorage.getItem("email") == 'null') {
         document.getElementById("createActionOdigoPart").innerHTML = '<div class="alert-danger-2" role="alert">Veuillez d\'abord indiquer ou créer un email</div>';
         $('#loading').removeClass('show').addClass('hide');
+        $('#right-navbar').removeClass('no-events');
         $('#createActionOdigoPart').addClass('show').removeClass('hide');
     } else {
         document.getElementById("createActionOdigoPart").innerHTML = '';
@@ -495,7 +517,12 @@ function ajaxGenerateOdigo()
         $.ajax({
             url: urlajax, success: function (result) {
                 localStorage.setItem("ableToShowOdigo", result);
-                if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
+                if (localStorage.getItem("ableToShowOdigo") == 0) {
+                    document.getElementById("createActionOdigoPart").innerHTML = '<div class="alert-danger-2" role="alert">Le couple Service/Fonction ne permets pas cette fonction</div>';
+                    $('#loading').removeClass('show').addClass('hide');
+                    $('#right-navbar').removeClass('no-events');
+                    $('#createActionOdigoPart').addClass('show').removeClass('hide');
+                } else if ((localStorage.getItem("isCreateInOdigo") == 'null' || localStorage.getItem("isCreateInOdigo") == 0) && localStorage.getItem("ableToShowOdigo") == 1) {
                     var nom = localStorage.getItem("currentName").toLowerCase().replace(' ', '').replace('-', '');
                     var prenom = localStorage.getItem("currentSurname").substring(0, 3).toLowerCase();
                     var textToAppend = '<div class="form-group font_exo_2">'+
@@ -554,6 +581,7 @@ function ajaxGenerateOdigo()
                                     '</div>'
                                     document.getElementById("createActionOdigoPart").innerHTML = textToAppend;
                                     $('#loading').addClass('hide').removeClass('show');
+                                    $('#right-navbar').removeClass('no-events');
                                     $('#createActionOdigoPart').addClass('show').removeClass('hide');
                                 }
                             });
@@ -581,6 +609,7 @@ function ajaxGenerateOdigo()
                             textToAppend += '<input type="hidden" name="odigo[odigoId]" id="odigo_odigoId" value="'+result.id+'">';
                             document.getElementById("createActionOdigoPart").innerHTML = textToAppend;
                             $('#loading').addClass('hide').removeClass('show');
+                            $('#right-navbar').removeClass('no-events');
                             $('#createActionOdigoPart').addClass('show').removeClass('hide');
                         }
                     });

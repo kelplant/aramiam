@@ -72,7 +72,7 @@ abstract class AbstractManager
             $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
         }
     }
-    
+
     /**
      * @param $itemId
      * @return object|null
@@ -194,7 +194,7 @@ abstract class AbstractManager
      */
     public function createList()
     {
-        $datas = $this->getRepository()->findAll();
+        $datas      = $this->getRepository()->findAll();
         $finalDatas = [];
         foreach ($datas as $data) {
             if ($this->entity == 'CoreBundle\Entity\Admin\Utilisateur') {
@@ -273,7 +273,6 @@ abstract class AbstractManager
     public function setArgname($argname)
     {
         $this->argname = $argname;
-
         return $this;
     }
 

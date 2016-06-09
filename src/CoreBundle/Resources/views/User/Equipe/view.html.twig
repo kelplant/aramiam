@@ -24,7 +24,7 @@
                     <div class="box box-primary">
                         <div class="box-header with-border" style="margin-bottom: 30px">
                             <i class="fa fa-user"></i>
-                            <h3 class="box-title font_exo_2">Equipe {% if isArchived == 0 %} en Place {% endif %}{% if isArchived == 1 %} Archivés {% endif %}</h3>
+                            <h3 class="box-title font_exo_2">Equipe {% if isArchived == 0 %} en Place {% endif %}{% if isArchived == 1 %} Archivés {% endif %} <span id="serviceName"></span></h3>
                             <div class="box-tools pull-right">
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                     <div class="box box-primary">
                         <div class="box-header with-border" style="margin-bottom: 30px">
                             <i class="fa fa-user"></i>
-                            <h3 class="box-title font_exo_2">Equipe {% if isArchived == 0 %} en Place {% endif %}{% if isArchived == 1 %} Archivés {% endif %}</h3>
+                            <h3 class="box-title font_exo_2">Equipe {% if isArchived == 0 %} en Place {% endif %}{% if isArchived == 1 %} Archivés {% endif %} <span id="serviceName-2"></span></h3>
                             <div class="box-tools pull-right">
                             </div>
                         </div>
@@ -63,7 +63,6 @@
                                             <tr>
                                                 <th class="admin_cat_table_title">Nom Prénom</th>
                                                 <th class="admin_cat_table_title">Agence</th>
-                                                <th class="admin_cat_table_title">Service</th>
                                                 <th class="admin_cat_table_title">Fonction</th>
                                                 <th class="admin_cat_table_title">Actions</th>
                                             </tr>
@@ -73,7 +72,6 @@
                                                 <tr id="generalBtr" data-href="">
                                                     <td class="admin_cat_table_cell">{{ item.viewName }}</td>
                                                     <td class="admin_cat_table_cell">{{ item.agence }}</td>
-                                                    <td class="admin_cat_table_cell">{{ item.service }}</td>
                                                     <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                                                     <td class="admin_cat_table_cell_action">
                                                         <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir le candidat" onclick="ajaxEquipeEdit(this.name);" data-toggle="modal" data-target="#modalView" id="editForm" name="{{ item.id }}">
@@ -280,21 +278,24 @@
                     urlajax2 = "/ajax/service/get/service/manager/"+serviceId;
                     $.ajax({
                         url: urlajax2, success: function (result2) {
-                            console.dir(result2);
                             var i;
                             var textToAppend = '';
+                            var service = '';
                             for (i in result) {
                                 textToAppend +=
                                         '<tr id="generalBtr" data-href="">';
                                 textToAppend += '<td class="admin_cat_table_cell">';
                                 if (result2 == result[i].id) {
-                                    textToAppend += 'R - ';
+                                    textToAppend += '<div class="col-sm-12">';
+                                    textToAppend += '<img width="25" style="float: right" src="{{ asset('images/30x30_responsable.png') }}">';
+                                    textToAppend += result[i].name + ' ';
+                                    textToAppend +='</div>';
+                                } else {
+                                    textToAppend += result[i].name + ' ';
                                 }
-                                textToAppend += result[i].name +
-                                        '</td>';
+                                textToAppend += '</td>';
                                 textToAppend += ''+
                                             '<td class="admin_cat_table_cell">'+result[i].agence +'</td>'+
-                                            '<td class="admin_cat_table_cell">'+result[i].service +'</td>'+
                                             '<td class="admin_cat_table_cell">'+result[i].fonction +'</td>'+
                                             '<td class="admin_cat_table_cell_action">';
                                 textToAppend += '<button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir le candidat" onclick="ajaxEquipeEdit(this.name);" data-toggle="modal" data-target="#modalView" id="editForm" name="'+result[i].id +'">'+
@@ -303,8 +304,11 @@
                                         '<input type="hidden" value="" id="ref_id_bouton">'+
                                     '</td>'+
                                 '</tr>';
+                                service = ' - ' + result[i].service;
                             }
                             document.getElementById("mainTbody").innerHTML = textToAppend;
+                            document.getElementById("serviceName").innerHTML = service;
+                            document.getElementById("serviceName-2").innerHTML = service;
                             $('#bootstrap-todo').DataTable({
                                 "dom": '<".todofilter">rt<"bottom"p><"clear">',
                                 bFilter: true,

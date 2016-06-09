@@ -1,0 +1,51 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: aramiam
+    database_user: aramiam
+    database_password: n>SLy6NP
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: infos.support@aramisauto.com
+    mailer_password: n>SLy6NP
+    light_saml_entity_id: 'https://aramiam.aramisauto.com'
+    federation_metadata_file: federationmetadata-adfs02.xml
+    adfs_logout_url: 'https://adfs.aramisauto.com:1723/adfs/ls/?wa=wsignout1.0'
+    zendesk_api:
+        key: YCrSZ5HBPH0epAsDRoyiwpmPggvD2Z0HI8Zn3q7R
+        user: zendesk@aramisauto.com
+        url: 'https://aramisauto.zendesk.com'
+    secret: 79eddab5e98361d6ec1296ca52402e11ca1fc825
+    google_api:
+        user_app_account: iamapiaa@iamapiaa.iam.gserviceaccount.com
+        certificat_name: iamapiaa-1a0fba77949f.p12
+        admin_account: xavier.arroues@aramisauto.com
+    odigo:
+        url: 'https://odigo5.prosodie.com/aramis-auto/servlet/services/Administration?wsdl'
+        login: ARAMIS_WS
+        password: admin_ws
+    active_directory:
+        ldaphost: 'ldaps://92.243.28.90'
+        ldapUsername: 'CN=aramiam syncho,CN=Users,DC=aramisauto,DC=local'
+        ldapPassword: Pp8B5fygZ25mAW57
+        ldapBaseDN: 'OU=Aramis AUTO,DC=aramisauto,DC=local'
+    salesforce:
+        consumerKey: 3MVG99OxTyEMCQ3j2IJDM7fI0WHNCzZGapk9j_xp7qd.Uge5FHWpptgLzyMQoC5dUG4XgkuphCws2q.oX2Y2K
+        secret: '29481019521149316'
+        username: salesforce-admin@aramisauto.com
+        password: CrmAdminVente2015
+        urlAauth2: 'https://login.salesforce.com/services/oauth2/token'
+        loginUrl: 'https://login.salesforce.com/'
+    aramis_api:
+        ws_agency_url: 'http://ws.aramisauto.com/agencies'
+    odigo_wsdl_error_createagent_codes:
+        0: 'L''utlisateur a été crée'
+        105: 'L''utilisateur existe déjà'
+    odigo_wsdl_error_creatuserwithtemplate_codes:
+        0: 'L''utlisateur a été crée'
+        3: 'L''utilisateur existe déjà'
+    odigo_wsdl_error_export_codes:
+        - 'L''export s''est correctement exécuté'
+    odigo_wsdl_error_delete_codes:
+        - 'L''utlisateur a été supprimé'

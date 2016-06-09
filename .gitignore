@@ -1,16 +1,5 @@
 /web/bundles/
-/app/config/parameters.yml
 /vendor/
 /bin/
-/web/config.php
-/web/app.php
-/app/config/saml.crt
-/app/config/saml.pem
-/app/config/federationmetadata-9.xml
-/app/config/federationmetadata_clphoto.xml
-/app/config/federationmetadata-adfs02.xml
-/app/config/iamapiaa-1a0fba77949f.p12
-/app/config/iamapiaa-2be87e2fb6be.json
-/app/config/client_secret_113840960664817971450.json
 /.idea/
 /var/

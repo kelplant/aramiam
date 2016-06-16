@@ -51,4 +51,18 @@ class GoogleAjaxController extends Controller
         }
         return new JsonResponse($groupes);
     }
+
+    /**
+     * @Route(path="/ajax/google/groupe/reload",name="ajax_google_groupes")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reloadActiveDirectoryGroupeTable()
+    {
+        $this->get('google.google_group_manager')->truncateTable();
+        $response = $this->get('google.google_group_api_service')->getListeOfGroupes($this->getParameter('google_api'));
+        foreach ((array)$response->getGroups() as $record) {
+            $this->get('google.google_group_manager')->add(array('id' => $record->getId(), 'name' => $record->getName(), 'email' => $record->getEmail()));
+        }
+        return $this->render("GoogleApiBundle:Batch:succes.html.twig");
+    }
 }

@@ -49,7 +49,12 @@ class LauncherController extends Controller
     private function getUtilisateurInfos()
     {
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
+        $toLoad = $this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername());
+        if ($toLoad != null)
+        {
+            $userInfosNext = $toLoad->getUser();
+            return $this->get('core.utilisateur_manager')->load($userInfosNext);
+        }
     }
 
     /**
@@ -64,9 +69,14 @@ class LauncherController extends Controller
         $candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
         $myProfil = $this->getUtilisateurInfos();
+        if ($myProfil != null) {
+            $isManager = $this->get('core.manager_service_link_manager')->isManager($myProfil->getId());
+        } else {
+            $isManager = null;
+        }
 
         return $this->render('LauncherBundle:Default:launcher.html.twig', array(
-            'manager'                  => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
+            'manager'                  => $isManager,
             'appsTable'                => $this->get('core.index.controller_service')->generateAppsTable(), 'panel' => 'user', 'entity' => '', 'nb_candidat' => count($candidatListe),
             'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'formEdit'                 => $this->createForm('CoreBundle\Form\Admin\UtilisateurType', $myProfil, array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),

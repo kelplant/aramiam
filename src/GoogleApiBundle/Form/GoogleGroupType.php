@@ -25,7 +25,7 @@ class GoogleGroupType extends AbstractType
                 'label' => 'id',
             ))
             ->add('name', TextType::class, array(
-                'label' => 'Groupe Windows',
+                'label' => 'Groupe Google',
                 'label_attr' => array(
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),

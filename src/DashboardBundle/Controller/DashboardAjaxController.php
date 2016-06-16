@@ -140,7 +140,7 @@ class DashboardAjaxController extends Controller
     public function getUtilisateurGraphInfos()
     {
         $result = $this->get('core.utilisateur_manager')
-            ->executeRowQuery("SELECT weekofyear(p.start_date) as wk, year(p.start_date) as yr, count(*) as ct FROM core_admin_utilisateurs p WHERE year(p.start_date) >= year(now()) - 1 GROUP BY wk, yr ORDER BY yr ASC, wk ASC");
+            ->executeRowQuery("SELECT weekofyear(p.start_date) as wk, year(p.start_date) as yr, count(*) as ct FROM core_admin_utilisateurs p WHERE year(p.start_date) >= year(now()) AND weekofyear(p.start_date) <= weekofyear(now()) AND p.start_date <= now() OR year(p.start_date) >= year(now()) - 1 AND weekofyear(p.start_date) >= 52 - weekofyear(now()) AND p.start_date <= now() GROUP BY wk, yr ORDER BY yr ASC, wk ASC");
 
         $finalTab = [];
 

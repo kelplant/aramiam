@@ -161,17 +161,12 @@ function reloadProfilesFromSf()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadSfProfiles").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/salesforce/profile/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/salesforce/profile/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadSfProfiles").removeClass("hide").addClass("show");
-                    window.location = "/app/salesforce/profile_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadSfProfiles").removeClass("hide").addClass("show");
+            window.location = "/app/salesforce/profile_liste";
         }
     });
 }
@@ -181,17 +176,12 @@ function reloadGroupesFromSf()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadSfGroupes").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/salesforce/groupe/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/salesforce/groupe/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadSfGroupes").removeClass("hide").addClass("show");
-                    window.location = "/app/salesforce/groupe_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadSfGroupes").removeClass("hide").addClass("show");
+            window.location = "/app/salesforce/groupe_liste";
         }
     });
 }
@@ -201,17 +191,12 @@ function reloadTerritoriesFromSf()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadSfTerritories").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/salesforce/territory/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/salesforce/territory/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadSfTerritories").removeClass("hide").addClass("show");
-                    window.location = "/app/salesforce/territory_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadSfTerritories").removeClass("hide").addClass("show");
+            window.location = "/app/salesforce/territory_liste";
         }
     });
 }
@@ -221,17 +206,12 @@ function reloadGroupFromAd()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadADGroup").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/active_directory/groupe/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/active_directory/groupe/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadADGroup").removeClass("hide").addClass("show");
-                    window.location = "/app/active_directory/groupe_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadADGroup").removeClass("hide").addClass("show");
+            window.location = "/app/active_directory/groupe_liste";
         }
     });
 }
@@ -241,17 +221,12 @@ function reloadOrganisationUnitFromAd()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadADGroup").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/active_directory/organisations_units/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/active_directory/organisations_units/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadADGroup").removeClass("hide").addClass("show");
-                    window.location = "/app/active_directory/organisation_unit_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadADGroup").removeClass("hide").addClass("show");
+            window.location = "/app/active_directory/organisation_unit_liste";
         }
     });
 }
@@ -261,17 +236,12 @@ function reloadGroupFromGoogle()
 {
     $("#waiting").removeClass("hide").addClass("show");
     $("#reloadADGroup").removeClass("show").addClass("hide");
-    urlajax = "/ajax/get/credentials";
+    urlajax = "/ajax/google/groupe/reload";
     $.ajax({
         url: urlajax, success: function (result) {
-            urlajax = "/batch/google/groupe/reload/"+result['user']+"/"+result['password'];
-            $.ajax({
-                url: urlajax, success: function (result) {
-                    $("#waiting").removeClass("show").addClass("hide");
-                    $("#reloadADGroup").removeClass("hide").addClass("show");
-                    window.location = "/app/google/groupe_liste";
-                }
-            });
+            $("#waiting").removeClass("show").addClass("hide");
+            $("#reloadADGroup").removeClass("hide").addClass("show");
+            window.location = "/app/google/groupe_liste";
         }
     });
 }

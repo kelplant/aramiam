@@ -60,45 +60,36 @@ class ActiveDirectoryBatchController extends Controller
     }
 
     /**
-     * @Route(path="/batch/active_directory/groupe/reload/{login}/{password}",name="batch_active_directory_profile")
+     * @Route(path="/ajax/active_directory/groupe/reload",name="ajax_active_directory_profile")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function reloadActiveDirectoryGroupeTable($login, $password)
+    public function reloadActiveDirectoryGroupeTable()
     {
-        if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
-        {
-            $this->get('ad.active_directory_group_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
-            foreach ((array)$response as $record) {
-                if (!is_null($record['dn'])) {
-                    $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
-                }
+
+        $this->get('ad.active_directory_group_manager')->truncateTable();
+        $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=group)', array("objectGUID", "dn", "name"));
+        foreach ((array)$response as $record) {
+            if (!is_null($record['dn'])) {
+                $this->get('ad.active_directory_group_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn']));
             }
-            return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
-        } else {
-            return $this->render("ActiveDirectoryApiBundle:Batch:failed.html.twig");
         }
+        return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
     }
 
     /**
-     * @Route(path="/batch/active_directory/organisations_units/reload/{login}/{password}",name="batch_active_directory_organisations_units")
+     * @Route(path="/ajax/active_directory/organisations_units/reload",name="ajax_active_directory_organisations_units")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function reloadActiveDirectoryOrganisationUnitsTable($login, $password)
+    public function reloadActiveDirectoryOrganisationUnitsTable()
     {
-        if ($this->get('app.security.acces_service')->validateUser($login, $password) === true)
-        {
-            $this->fonctionArray = $this->get('core.fonction_manager')->customSelectNameInActiveDirectoryNotNull();
-            $this->serviceArray = $this->get('core.service_manager')->customSelectNameInActiveDirectoryNotNull();
-            $this->agenceArray = $this->get('core.agence_manager')->customSelectNameInActiveDirectoryNotNull();
-            $this->get('ad.active_directory_organisation_unit_manager')->truncateTable();
-            $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=organizationalUnit)', array("objectGUID", "dn", "name"));
-            foreach ((array)$response as $record) {
-                $this->ifRecordDnNotemptyAndUtilisateurOU($record);
-            }
-            return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
-        } else {
-            return $this->render("ActiveDirectoryApiBundle:Batch:failed.html.twig");
+        $this->fonctionArray = $this->get('core.fonction_manager')->customSelectNameInActiveDirectoryNotNull();
+        $this->serviceArray = $this->get('core.service_manager')->customSelectNameInActiveDirectoryNotNull();
+        $this->agenceArray = $this->get('core.agence_manager')->customSelectNameInActiveDirectoryNotNull();
+        $this->get('ad.active_directory_organisation_unit_manager')->truncateTable();
+        $response = $this->get('ad.active_directory_api_user_service')->executeQueryWithFilter($this->getParameter('active_directory'), '(objectCategory=organizationalUnit)', array("objectGUID", "dn", "name"));
+        foreach ((array)$response as $record) {
+            $this->ifRecordDnNotemptyAndUtilisateurOU($record);
         }
+        return $this->render("ActiveDirectoryApiBundle:Batch:succes.html.twig");
     }
 }

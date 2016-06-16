@@ -162,4 +162,46 @@ class SalesforceAjaxController extends Controller
         }
         return new JsonResponse($territories);
     }
+
+    /**
+     * @Route(path="/ajax/salesforce/profile/reload",name="ajax_salesforce_profile")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reloadSalesforceProfileTable()
+    {
+        $this->get('salesforce.salesforceprofile_manager')->truncateTable();
+        $response = json_decode($this->get('salesforce.salesforce_api_user_service')->getListOfProfiles($this->getParameter('salesforce')))->records;
+        foreach ((array)$response as $record) {
+            $this->get('salesforce.salesforceprofile_manager')->add(array('profileId' => $record->Id, 'profileName' => $record->Name, 'userLicenseId' => $record->UserLicenseId, 'userType' => $record->UserType));
+        }
+        return new JsonResponse(null);
+    }
+
+    /**
+     * @Route(path="/ajax/salesforce/territory/reload/",name="ajax_salesforce_territory")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reloadSalesforceTerritoryTable()
+    {
+        $this->get('salesforce.salesforceterritory_manager')->truncateTable();
+        $response = json_decode($this->get('salesforce.salesforce_api_territories_services')->getListOfTerritories($this->getParameter('salesforce')))->records;
+        foreach ((array)$response as $record) {
+            $this->get('salesforce.salesforceterritory_manager')->add(array('territoryId' => $record->Id, 'territoryName' => $record->Name, 'parentTerritoryId' => $record->ParentTerritoryId));
+        }
+        return new JsonResponse(null);
+    }
+
+    /**
+     * @Route(path="/ajax/salesforce/groupe/reload/",name="ajax_salesforce_groupe")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reloadSalesforceGroupeTable()
+    {
+        $this->get('salesforce.salesforcegroupe_manager')->truncateTable();
+        $response = json_decode($this->get('salesforce.salesforce_api_groupes_services')->getListOfGroupes($this->getParameter('salesforce')))->records;
+        foreach ((array)$response as $record) {
+            $this->get('salesforce.salesforcegroupe_manager')->add(array('groupeId' => $record->Id, 'groupeName' => $record->Name));
+        }
+        return new JsonResponse(null);
+    }
 }

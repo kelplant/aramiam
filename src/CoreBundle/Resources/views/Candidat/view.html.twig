@@ -19,12 +19,12 @@
                 <td class="admin_cat_table_cell">{{ item.service_name }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction_name }}</td>
                 <td class="admin_cat_table_cell_action">
-                    {% if is_archived != "2" %}
+                    {% if is_archived == "0" %}
                         <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                             <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
                         </button>
                     {% endif %}
-                    {% if is_archived == "2" %}
+                    {% if is_archived != "0" %}
                         <button type="button" class="btn btn-default btn-xs font_exo_2" aria-label="Left Align" title="Voir {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
                             <span class="glyphicon glyphicon-eye-open  btn-xs" aria-hidden="true"></span>
                         </button>
@@ -81,6 +81,30 @@
                     $('#modalEdit').modal('show');
                     ajaxCoreEdit('{{ entity }}',currentEditItem);
                 });
+            }
+        });
+    </script>
+    <script>
+        $('#form-edit .statusPoste').change(function () {
+            var selected = $('#form-edit .statusPoste option:selected').text();
+            console.log(selected);
+            if (selected == 'Création') {
+                $('#form-edit .predecesseurBlock').hide();
+            }
+            if (selected == 'Remplacement') {
+                $('#form-edit .predecesseurBlock').show();
+            }
+        });
+    </script>
+    <script>
+        $('#form-add .statusPoste').change(function () {
+            var selected = $('#form-add .statusPoste option:selected').text();
+            console.log(selected);
+            if (selected == 'Création') {
+                $('#form-add .predecesseurBlock').hide();
+            }
+            if (selected == 'Remplacement') {
+                $('#form-add .predecesseurBlock').show();
             }
         });
     </script>

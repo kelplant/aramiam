@@ -155,7 +155,7 @@ class CandidatType extends BaseType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 statusPoste',
                 )
             ))
             ->add('predecesseur', ChoiceType::class, array(

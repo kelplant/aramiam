@@ -42,6 +42,11 @@ function ajaxCoreEdit(url, editItem)
                     localStorage.setItem("email", result[i])
                 }
             }
+            if (url == 'candidat' && i == 'statusPoste') {
+                if (result[i] == 'Création') {
+                    $('#form-edit .predecesseurBlock').hide();
+                }
+            }
             if (url == 'candidat' && i == 'predecesseur') {
                 localStorage.setItem("currentPredecesseurId", result[i])
             }

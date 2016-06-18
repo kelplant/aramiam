@@ -67,7 +67,7 @@ class OrangeTelListeManager extends AbstractManager
         }
         $itemLoad['numero'] = str_replace(' ', '', $itemLoad['numero']);
         var_dump($itemLoad);
-     
+
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);

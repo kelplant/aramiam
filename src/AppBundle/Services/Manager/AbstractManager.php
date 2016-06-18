@@ -197,11 +197,7 @@ abstract class AbstractManager
         $datas      = $this->getRepository()->findAll();
         $finalDatas = [];
         foreach ($datas as $data) {
-            if ($this->entity == 'CoreBundle\Entity\Admin\Utilisateur') {
-                $finalDatas[$data->getViewName()] = $data->getId();
-            } else {
                 $finalDatas[$data->getName()] = $data->getId();
-            }
         }
         return $finalDatas;
     }

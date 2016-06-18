@@ -58,7 +58,7 @@
                             {{ form_label(formEdit.responsable) }}
                             {{ form_errors(formEdit.responsable) }}
                             <div class="col-sm-8">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
                                     {% if is_archived == "0" %}{{ form_widget(formEdit.responsable) }}{% endif %}
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.responsable, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -80,7 +80,7 @@
                             {{ form_label(formEdit.predecesseur) }}
                             {{ form_errors(formEdit.predecesseur) }}
                             <div class="col-sm-7">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
                                     {% if is_archived == "0" %}{{ form_widget(formEdit.predecesseur) }}{% endif %}
                                     {% if is_archived != "0" %}{{ form_widget(formEdit.predecesseur, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}

@@ -12,7 +12,9 @@
     {% block corps_table_cells %}
         {% for item in all %}
             <tr id="generalBtr" data-href="">
-                <td class="admin_cat_table_cell">{{ item.numero }}</td>
+                {% set splitArray = item.numero|split('', 2) %}
+                {% set numero = splitArray|join(' ') %}
+                <td class="admin_cat_table_cell">{{ numero }}</td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{{ item.fonction }}</td>
                 <td class="admin_cat_table_cell">{% if(item.inUse == '1') %}Oui{% else %}Non{% endif %}</td>
@@ -66,6 +68,18 @@
                     }
 
                 });
+            });
+        </script>
+        <script>
+            $('.odigo_tel_liste_numero').keyup(function() {
+                var val = this.value.replace(/\D/g, '');
+                var newVal = '';
+                while (val.length > 2) {
+                    newVal += val.substr(0, 2) + ' ';
+                    val = val.substr(2);
+                }
+                newVal += val;
+                this.value = newVal;
             });
         </script>
     {% endblock %}

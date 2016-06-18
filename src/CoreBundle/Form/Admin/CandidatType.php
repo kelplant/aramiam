@@ -2,6 +2,7 @@
 namespace CoreBundle\Form\Admin;
 
 use Symfony\Component\Form\Extension\Core\Type\BaseType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -83,13 +84,13 @@ class CandidatType extends BaseType
                     'multiple dir' => 'rtl',
                 ),
             ))
-            ->add('matriculeRH', TextType::class, array(
-                'label' => 'Matricule RH',
+            ->add('matriculeRH', NumberType::class, array(
+                'label' => 'Matricule',
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 checkNumber',
                 ),
                 'required' => false,
             ))
@@ -150,7 +151,7 @@ class CandidatType extends BaseType
                     'Remplacement' => 'Remplacement',
                     'Création' => 'Création',
                 ),
-                'label' => 'Status Poste',
+                'label' => 'Poste',
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-3 control-label align_right font_exo_2',

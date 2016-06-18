@@ -255,4 +255,20 @@ class UtilisateurManager extends AbstractManager
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    /**
+     * @return array
+     */
+    public function createListForSelect()
+    {
+        $sql        = "SELECT a.id, a.view_name, a.name FROM aramiam.core_admin_utilisateurs a WHERE a.is_archived = 0 AND a.view_name IS NOT NULL AND a.name IS NOT NULL AND a.surname IS NOT NULL ORDER BY a.view_name";
+        $stmt       = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $datas      = $stmt->fetchAll();
+        $finalDatas = [];
+        foreach ($datas as $data) {
+                $finalDatas[$data['view_name']] = $data['id'];
+        }
+        return $finalDatas;
+    }
 }

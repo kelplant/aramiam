@@ -106,7 +106,8 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
+                    'multiple dir' => 'rtl',
                 ),
             ))
             ->add('matriculeRH', TextType::class, array(
@@ -174,7 +175,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 statusPoste',
                 )
             ))
             ->add('predecesseur', ChoiceType::class, array(
@@ -185,7 +186,8 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
+                    'multiple dir' => 'rtl',
                 ),
                 'required' => false,
             ))

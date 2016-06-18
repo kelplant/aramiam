@@ -32,7 +32,7 @@ class OrangeTelListeType extends AbstractType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 orange_tel_liste_numero',
                 ),
             ))
             ->add('service', ChoiceType::class, array(

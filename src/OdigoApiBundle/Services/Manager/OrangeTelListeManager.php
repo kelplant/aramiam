@@ -57,6 +57,30 @@ class OrangeTelListeManager extends AbstractManager
     }
 
     /**
+     * @param $itemLoad
+     * @return array
+     */
+    public function add($itemLoad)
+    {
+        if (!isset($itemLoad['in_use']) == true) {
+            $itemLoad['in_use'] = 0;
+        }
+        $itemLoad['numero'] = str_replace(' ', '', $itemLoad['numero']);
+        var_dump($itemLoad);
+     
+        $itemToSet = $itemToSend = new $this->entity;
+        try {
+            $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
+            $itemToSet->setCreatedAt(new \DateTime());
+            $this->save($itemToSet);
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Créé(e)'));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+        return array('item' => $itemToSend);
+    }
+
+    /**
      * @param $num
      * @param $service
      * @return array

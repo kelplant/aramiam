@@ -14,6 +14,8 @@ function updateGmailMaxLicenses()
     $.ajax({
         url: urlajax, success: function (result) {
             document.getElementById("maxNumberGmailUserLicenses").innerHTML = newVal;
+            var gmailused = document.getElementById("nbgmailused").innerHTML;
+            document.getElementById("nbgmaillast").innerHTML = newVal - gmailused;
             urlajax2 = '/ajax/dashboard/licences/global/update/remaining';
             $.ajax({
                 url: urlajax2, success: function (result) {

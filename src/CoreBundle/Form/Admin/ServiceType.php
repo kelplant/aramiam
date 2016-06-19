@@ -92,7 +92,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
                 ),
                 'required' => true,
             ))
@@ -105,7 +105,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
                 ),
                 'required' => true,
             ))

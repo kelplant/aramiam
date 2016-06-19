@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+<div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ path('form_exec_add_service') }}" method="post" class="form-horizontal">
@@ -34,7 +34,7 @@
                             {{ form_label(formAdd.parentAgence) }}
                             {{ form_errors(formAdd.parentAgence) }}
                             <div class="col-sm-7">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                     {{ form_widget(formAdd.parentAgence) }}
                                 </div>
@@ -44,7 +44,7 @@
                             {{ form_label(formAdd.parentService) }}
                             {{ form_errors(formAdd.parentService) }}
                             <div class="col-sm-7">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                     {{ form_widget(formAdd.parentService) }}
                                 </div>

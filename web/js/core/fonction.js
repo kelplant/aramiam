@@ -5,11 +5,14 @@ function addSfGroupeField()
     var listeOfOptions = localStorage.getItem("listeOfOptions");
     var newIteration = parseInt(currentIteration) + parseInt('1');
     var addfield = '<div class="form-group" id="salesforceGroupes_'+newIteration+'">';
-    addfield += '<label class="col-sm-4 control-label align_right font_exo_2" for="salesforce_groupe'+newIteration+'">Groupe SF '+newIteration+'</label>';
-    addfield += '<div class="col-sm-7">';
-    addfield += '<select name="salesforce[groupe'+newIteration+']" id="salesforce_groupe'+newIteration+'" class="form-control">';
+    addfield += '<label class="col-sm-3 control-label align_right font_exo_2" for="salesforce_groupe'+newIteration+'">GRP SF '+newIteration+'</label>';
+    addfield += '<div class="form-group">' +
+        '<div class="col-sm-7">' +
+        '<div class="input-group select2-bootstrap-prepend"><span class="input-group-addon"><i class="fa fa-sellsy fa" aria-hidden="true"></i></span>';
+    addfield += '<select name="salesforce[groupe'+newIteration+']" id="salesforce_groupe'+newIteration+'" class="form-control input-md select2-single">';
     addfield += listeOfOptions;
     addfield += '</select>';
+    addfield += '</div>';
     addfield += '</div>';
     addfield += '<div class="col-sm-1" style="padding-top: 0.5%">';
     addfield += '<button type="button" class="btn btn-default btn-xs" onclick="unsetSFField('+newIteration+');" aria-label="Left Align">';
@@ -17,8 +20,14 @@ function addSfGroupeField()
     addfield += '</button>';
     addfield += '</div>';
     addfield += '</div>';
+    addfield += '</div>';
     localStorage.setItem("currentIteration", newIteration);
     $('#midSFEditForm').append(addfield)
+    $('.select2-single').select2({
+        theme: "bootstrap",
+        width: null,
+        containerCssClass: ':all:'
+    });
 }
 
 // Fonction de chargement du bloc salesforce
@@ -84,11 +93,14 @@ function addADGroupeField()
     var listeOfADOptions = localStorage.getItem("listeOfADOptions");
     var newADIteration = parseInt(currentADIteration) + parseInt('1');
     var addfield = '<div class="form-group" id="activedirectoryGroupes_'+newADIteration+'">';
-    addfield += '<label class="col-sm-4 control-label align_right font_exo_2" for="activedirectory_groupe'+newADIteration+'">Groupe AD '+newADIteration+'</label>';
-    addfield += '<div class="col-sm-7">';
-    addfield += '<select name="activedirectory[groupe'+newADIteration+']" id="activedirectory_groupe'+newADIteration+'" class="form-control">';
+    addfield += '<label class="col-sm-3 control-label align_right font_exo_2" for="activedirectory_groupe'+newADIteration+'">GRP AD '+newADIteration+'</label>';
+    addfield += '<div class="form-group">' +
+        '<div class="col-sm-7">' +
+        '<div class="input-group select2-bootstrap-prepend"><span class="input-group-addon"><i class="fa fa-windows fa" aria-hidden="true"></i></span>';
+    addfield += '<select name="activedirectory[groupe'+newADIteration+']" id="activedirectory_groupe'+newADIteration+'" class="form-control input-md select2-single">';
     addfield += listeOfADOptions;
     addfield += '</select>';
+    addfield += '</div>';
     addfield += '</div>';
     addfield += '<div class="col-sm-1" style="padding-top: 0.5%">';
     addfield += '<button type="button" class="btn btn-default btn-xs" onclick="unsetADField('+newADIteration+');" aria-label="Left Align">';
@@ -96,8 +108,14 @@ function addADGroupeField()
     addfield += '</button>';
     addfield += '</div>';
     addfield += '</div>';
+    addfield += '</div>';
     localStorage.setItem("currentADIteration", newADIteration);
     $('#midADEditForm').append(addfield);
+    $('.select2-single').select2({
+        theme: "bootstrap",
+        width: null,
+        containerCssClass: ':all:'
+    });
 }
 
 // Fonction de chargement du bloc active directory

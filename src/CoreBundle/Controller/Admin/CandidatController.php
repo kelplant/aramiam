@@ -90,6 +90,30 @@ class CandidatController extends Controller
     }
 
     /**
+     * @Route(path="/admin/candidat/add_batch", name="candidat_add_batch")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addBatchAction(Request $request)
+    {
+        $this->initData('index');
+        $action    = $request->request->get('send');
+        $toProcess = $request->request->get('transform');
+        if ($action == 'transform') {
+            foreach ($toProcess as $key => $item) {
+                $this->get('core.utilisateur_manager')->transform($this->get('core.candidat_manager')->createArray($key));
+                $this->get('core.candidat_manager')->transformUserArchiveCandidat($key);
+            }
+        }
+        if ($action == 'archive') {
+            foreach ($toProcess as $key => $item) {
+                $this->get('core.candidat_manager')->archiveOrNot($key, 0);
+            }
+        }
+        return $this->get('core.index.controller_service')->generateIndexAction($this->isArchived);
+    }
+
+
+    /**
      * @param Request $request
      * @Route(path="/admin/candidat/edit", name="form_exec_edit_candidat")
      * @return \Symfony\Component\HttpFoundation\Response

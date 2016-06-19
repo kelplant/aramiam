@@ -22,17 +22,24 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="table-responsive">
-                                        <table class="table table-striped display" id="bootstrap-todo">
-                                            <thead>
-                                            <tr>
-                                                {% block corps_table_title %}{% endblock %}
-                                                <th class="admin_cat_table_title">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% block corps_table_cells %}{% endblock %}
-                                            </tbody>
-                                        </table>
+                                        {% if entity == 'candidat' %}
+                                            <form action="{{ path('candidat_add_batch') }}" method="post" class="form-horizontal" id="batchform" name="batchform">
+                                        {% endif %}
+                                            <table class="table table-striped display" id="bootstrap-todo">
+                                                <thead>
+                                                <tr>
+                                                    {% block corps_table_title %}{% endblock %}
+                                                    <th class="admin_cat_table_title">Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% block corps_table_cells %}{% endblock %}
+                                                </tbody>
+                                            </table>
+                                        {% if entity == 'candidat' %}
+                                                <div id="typeSubmit"> </div>
+                                            </form>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </section>

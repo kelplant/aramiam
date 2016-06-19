@@ -1,68 +1,70 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
             <form action="{{ path( 'form_exec_add_utilisateur' ) }}" method="post" class="form-horizontal" name="form-add" id="form-add">
-                <div class="modal-header">
+                <div class="modal-header modal-lg">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title font_exo_2" id="myModalLabel">Ajout d'un utilisateur</h4>
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" name="formAction" value="add">
-                    {{ form_errors(formAdd) }}
-                    <div class="form-group">
-                        {{ form_label(formAdd.civilite) }}
-                        {{ form_errors(formAdd.civilite) }}
+                <div class="modal-body modal-lg">
+                    <div class="container-fluid" xmlns="http://www.w3.org/1999/html" id="mainAddForm">
                         <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formAdd.civilite) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(formAdd.name) }}
-                        {{ form_errors(formAdd.name) }}
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formAdd.name) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(formAdd.surname) }}
-                        {{ form_errors(formAdd.surname) }}
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formAdd.surname) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(formAdd.viewName) }}
-                        {{ form_errors(formAdd.viewName) }}
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                {{ form_widget(formAdd.viewName) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                            {{ form_label(formAdd.email) }}
-                            {{ form_errors(formAdd.email) }}
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    {{ form_widget(formAdd.email) }}
+                            <input type="hidden" name="formAction" value="add">
+                            {{ form_errors(formAdd) }}
+                            <div class="form-group">
+                                {{ form_label(formAdd.civilite) }}
+                                {{ form_errors(formAdd.civilite) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.civilite) }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
+                            <div class="form-group">
+                                {{ form_label(formAdd.name) }}
+                                {{ form_errors(formAdd.name) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.name) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.surname) }}
+                                {{ form_errors(formAdd.surname) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.surname) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.viewName) }}
+                                {{ form_errors(formAdd.viewName) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.viewName) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.email) }}
+                                {{ form_errors(formAdd.email) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.email) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 {{ form_label(formAdd.mainPassword) }}
                                 {{ form_errors(formAdd.mainPassword) }}
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.mainPassword) }}
@@ -82,7 +84,7 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.startDate) }}
                                 {{ form_errors(formAdd.startDate) }}
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.startDate) }}
@@ -92,18 +94,20 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.responsable) }}
                                 {{ form_errors(formAdd.responsable) }}
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.responsable) }}
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 {{ form_label(formAdd.statusPoste) }}
                                 {{ form_errors(formAdd.statusPoste) }}
-                                <div class="col-sm-6">
-                                    <div class="input-group">
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.statusPoste) }}
                                     </div>
@@ -112,7 +116,7 @@
                             <div class="form-group predecesseurBlock" id="predecesseur">
                                 {{ form_label(formAdd.predecesseur) }}
                                 {{ form_errors(formAdd.predecesseur) }}
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-user-plus fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.predecesseur) }}
@@ -122,7 +126,7 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.matriculeRH) }}
                                 {{ form_errors(formAdd.matriculeRH) }}
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.matriculeRH) }}
@@ -132,8 +136,8 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.entiteHolding) }}
                                 {{ form_errors(formAdd.entiteHolding) }}
-                                <div class="col-sm-6">
-                                    <div class="input-group">
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.entiteHolding) }}
                                     </div>
@@ -142,8 +146,8 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.agence) }}
                                 {{ form_errors(formAdd.agence) }}
-                                <div class="col-sm-6">
-                                    <div class="input-group">
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.agence) }}
                                     </div>
@@ -152,8 +156,8 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.service) }}
                                 {{ form_errors(formAdd.service) }}
-                                <div class="col-sm-6">
-                                    <div class="input-group">
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.service) }}
                                     </div>
@@ -162,36 +166,42 @@
                             <div class="form-group">
                                 {{ form_label(formAdd.fonction) }}
                                 {{ form_errors(formAdd.fonction) }}
-                                <div class="col-sm-6">
-                                    <div class="input-group">
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-support fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.fonction) }}
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(formAdd.commentaire) }}
+                                <label class="col-sm-2 control-label align_right font_exo_2" for="utilisateur_commentaire">
+                                    Commentaires
+                                </label>
                                 {{ form_errors(formAdd.commentaire) }}
-                                <div class="col-sm-6">
+                                <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-comment fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.commentaire) }}
                                     </div>
                                 </div>
                             </div>
-                            {{ form_row(formAdd.id) }}
-                            {{ form_row(formAdd.idCandidat) }}
-                            {{ form_row(formAdd.isCreateInGmail) }}
-                            {{ form_row(formAdd.isCreateInOdigo) }}
-                            {{ form_row(formAdd.isCreateInRobusto) }}
-                            {{ form_row(formAdd.isCreateInSalesforce) }}
-                            {{ form_row(formAdd.isCreateInWindows) }}
-                            {{ form_rest(formAdd) }}
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-                            <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
-                        </div>
+                    </div>
+                    {{ form_row(formAdd.id) }}
+                    {{ form_row(formAdd.idCandidat) }}
+                    {{ form_row(formAdd.isCreateInGmail) }}
+                    {{ form_row(formAdd.isCreateInOdigo) }}
+                    {{ form_row(formAdd.isCreateInRobusto) }}
+                    {{ form_row(formAdd.isCreateInSalesforce) }}
+                    {{ form_row(formAdd.isCreateInWindows) }}
+                    {{ form_rest(formAdd) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
+                </div>
             </form>
         </div>
     </div>

@@ -74,23 +74,35 @@ class UtilisateurController extends AbstractControllerService
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 
+    /**
+     * @param Request $request
+     */
     private function googleActions(Request $request)
     {
         $this->get('google.google_user_api_service')->ifGmailCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInGmail'], $request, $this->getParameter('google_api'));
     }
 
+    /**
+     * @param Request $request
+     */
     private function odigoActions(Request $request)
     {
         $this->get('odigo.odigo_api_service')->ifOdigoCreate($request->request->get('sendaction'), $request, $this->getParameter('odigo'), $this->getParameter('google_api'), $this->getParameter('salesforce'));
         $this->get('odigo.odigo_api_service')->deleteOdigoUser($request->request->get('sendaction'), $request, $request->request->get('utilisateur')['id'], $this->getParameter('odigo'), $this->getParameter('google_api'), $this->getParameter('salesforce'));
     }
 
+    /**
+     * @param Request $request
+     */
     private function actionDirectoryActions(Request $request)
     {
         $this->get('ad.active_directory_api_user_service')->ifWindowsCreate($request->request->get('sendaction'), $request->request->get('utilisateur')['isCreateInWindows'], $request, $this->getParameter('active_directory'));
         $this->get('ad.active_directory_api_user_service')->ifWindowsUpdate($request->request->get('sendaction'), $request, $this->getParameter('active_directory'));
     }
 
+    /**
+     * @param Request $request
+     */
     private function salesforceActions(Request $request)
     {
         $this->get('salesforce.salesforce_api_user_service')->ifSalesforceCreate($request->request->get('sendaction'), $request, $this->getParameter('salesforce'));

@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <div class="modal-dialog modal-lg">
         <div class="modal-content modal-lg">
             <form action="{{ path( 'form_exec_edit_candidat' ) }}" method="post" class="form-horizontal" id="form-edit">
@@ -15,7 +15,7 @@
                                 {{ form_label(formEdit.civilite) }}
                                 {{ form_errors(formEdit.civilite) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.civilite) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.civilite, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -67,18 +67,29 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                {{ form_label(formEdit.matriculeRH) }}
+                                {{ form_errors(formEdit.matriculeRH) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                        {% if is_archived == "0" %}{{ form_widget(formEdit.matriculeRH) }}{% endif %}
+                                        {% if is_archived != "0" %}{{ form_widget(formEdit.matriculeRH, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
                                 {{ form_label(formEdit.statusPoste) }}
                                 {{ form_errors(formEdit.statusPoste) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.statusPoste) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.statusPoste, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
                            <div class="form-group predecesseurBlock" id="predecesseur">
                                 {{ form_label(formEdit.predecesseur) }}
                                 {{ form_errors(formEdit.predecesseur) }}
@@ -96,21 +107,10 @@
                                     </div>
                             </div>
                             <div class="form-group">
-                                {{ form_label(formEdit.matriculeRH) }}
-                                {{ form_errors(formEdit.matriculeRH) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
-                                        {% if is_archived == "0" %}{{ form_widget(formEdit.matriculeRH) }}{% endif %}
-                                        {% if is_archived != "0" %}{{ form_widget(formEdit.matriculeRH, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 {{ form_label(formEdit.entiteHolding) }}
                                 {{ form_errors(formEdit.entiteHolding) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.entiteHolding) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.entiteHolding, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -121,7 +121,7 @@
                                 {{ form_label(formEdit.agence) }}
                                 {{ form_errors(formEdit.agence) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.agence) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.agence, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -132,7 +132,7 @@
                                 {{ form_label(formEdit.service) }}
                                 {{ form_errors(formEdit.service) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.service) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.service, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -143,7 +143,7 @@
                                 {{ form_label(formEdit.fonction) }}
                                 {{ form_errors(formEdit.fonction) }}
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-support fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.fonction) }}{% endif %}
                                         {% if is_archived != "0" %}{{ form_widget(formEdit.fonction, {'attr': {'readonly': 'is_archived' }}) }}{% endif %}
@@ -153,9 +153,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(formEdit.commentaire) }}
+                                <label class="col-sm-2 control-label align_right font_exo_2" for="utilisateur_commentaire">
+                                    Commentaires
+                                </label>
                                 {{ form_errors(formEdit.commentaire) }}
-                                <div class="col-sm-8">
+                                <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-comment fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.commentaire) }}{% endif %}

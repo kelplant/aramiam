@@ -39,5 +39,13 @@
             <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 show" id="reloadADGroup" onclick="reloadGroupFromGoogle();">
                 <i class="fa fa-plus"></i> Reload From Gmail</button>
         {% endif %}
+        {% if entity != ''  %}
+        <div class="col-sm-2 pull-right">
+            <div class="input-group ">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                  <input type="text" name="q" id="global_filter" class="font_exo_2 form-control" placeholder="Rechercher...">
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endif %}

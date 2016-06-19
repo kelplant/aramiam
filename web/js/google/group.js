@@ -11,7 +11,7 @@ function addMachingFieldField()
     var newGlobalIteration = parseInt(currentGlobalIteration) + parseInt('1');
     var addfield = '<div class="form-group" id="matchFonction_'+newGlobalIteration+'">';
     addfield += '<div class="col-sm-5">';
-    addfield += '<select name="match[fonction'+newFonctionIteration+']" id="match_fonction'+newFonctionIteration+'" class="form-control">';
+    addfield += '<select name="match[fonction'+newFonctionIteration+']" id="match_fonction'+newFonctionIteration+'" class="form-control input-md select2-single">';
     addfield += listeOfFonctionsOptions;
     addfield += '</select>';
     addfield += '</div>';
@@ -19,7 +19,7 @@ function addMachingFieldField()
     addfield += ' + ';
     addfield += '</div>';
     addfield += '<div class="col-sm-5">';
-    addfield += '<select name="match[service'+newServiceIteration+']" id="match_service'+newServiceIteration+'" class="form-control">';
+    addfield += '<select name="match[service'+newServiceIteration+']" id="match_service'+newServiceIteration+'" class="form-control input-md select2-single">';
     addfield += listeOfServicesOptions;
     addfield += '</select>';
     addfield += '</div>';
@@ -34,6 +34,11 @@ function addMachingFieldField()
     localStorage.setItem("currentServiceIteration", newServiceIteration);
     localStorage.setItem("currentGlobalIteration", newGlobalIteration);
     $('#createActionFonctionPart').append(addfield).addClass('show').removeClass('hide');
+    $('.select2-single').select2({
+        theme: "bootstrap",
+        width: null,
+        containerCssClass: ':all:'
+    });
 }
 
 // Fonction Unset territoire

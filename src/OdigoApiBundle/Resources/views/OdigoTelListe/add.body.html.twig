@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+<div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ path('form_exec_add_odigo_tel_liste') }}" method="post" class="form-horizontal">
@@ -24,7 +24,7 @@
                             {{ form_label(formAdd.service) }}
                             {{ form_errors(formAdd.service) }}
                             <div class="col-sm-8">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
                                     {{ form_widget(formAdd.service) }}
                                 </div>
@@ -34,7 +34,7 @@
                             {{ form_label(formAdd.fonction) }}
                             {{ form_errors(formAdd.fonction) }}
                             <div class="col-sm-8">
-                                <div class="input-group">
+                                <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-support fa" aria-hidden="true"></i></span>
                                     {{ form_widget(formAdd.fonction) }}
                                 </div>

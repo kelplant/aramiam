@@ -43,7 +43,7 @@ class OdigoTelListeType extends AbstractType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
                 )
             ))
             ->add('service', ChoiceType::class, array(
@@ -54,7 +54,7 @@ class OdigoTelListeType extends AbstractType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
-                    'class' => 'form-control font_exo_2',
+                    'class' => 'form-control font_exo_2 input-md select2-single',
                 )
             ))
             ->add('inUse', CheckboxType::class, array(

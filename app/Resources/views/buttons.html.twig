@@ -42,11 +42,11 @@
     {% if is_granted("ROLE_SUPER_ADMIN") %}
         {% if entity == 'candidat' %}
             <button type="button" class="btn btn-info pull-right font_exo_2 hide marginABitABitLeft" id="waiting_transform"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
-            <button type="button" class="submit_transform btn btn-info pull-right font_exo_2 marginABitABitLeft show" id="transform" onclick="executeBatchTransform();">
+            <button type="button" class="submit_transform btn btn-info pull-right font_exo_2 marginABitABitLeft" id="transform" onclick="executeBatchTransform();">
                 <i class="fa fa-plus"></i> Transform</button>
 
             <button type="button" class="btn btn-warning pull-right font_exo_2 hide marginABitABitLeft" id="waiting_archive"><span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait</button>
-            <button type="button" class="submit_transform btn btn-warning pull-right font_exo_2 marginABitABitLeft show" id="archive" onclick="executeBatchArchive();">
+            <button type="button" class="submit_transform btn btn-warning pull-right font_exo_2 marginABitABitLeft" id="archive" onclick="executeBatchArchive();">
                 <i class="fa fa-plus"></i> Archive</button>
         {% endif %}
     {% endif %}

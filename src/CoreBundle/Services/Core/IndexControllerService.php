@@ -84,8 +84,7 @@ class IndexControllerService extends AbstractControllerService
     {
         if ($entity == 'Candidat' || $entity == 'Utilisateur') {
             return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getlist($isArchived);
-        }
-        else {
+        } else {
             return $this->getListOfItems($this->entity, $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll());
         }
     }

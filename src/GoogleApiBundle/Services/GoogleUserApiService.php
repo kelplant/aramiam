@@ -100,7 +100,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     /**
      * @param $service
      * @param $params
-     * @return \Google_Service_Directory_Users
+     * @return integer
      */
     public function numberGmailUsers($service, $params)
     {
@@ -186,7 +186,7 @@ class GoogleUserApiService extends AbstractGoogleApiService
     }
 
     /**
-     * @param $service
+     * @param \Google_Service_Directory $service
      * @param $userToCreate
      * @return mixed
      */

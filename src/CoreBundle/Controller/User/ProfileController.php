@@ -1,9 +1,7 @@
 <?php
 namespace CoreBundle\Controller\User;
 
-use CoreBundle\Entity\Admin\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -21,7 +19,7 @@ class ProfileController extends Controller
     {
         if ($odigoLinkNumber != null && $odigoLinkNumber != 0)
         {
-           return $this->get('odigo.prosodie_odigo_manager')->load($odigoLinkNumber);
+            return $this->get('odigo.prosodie_odigo_manager')->load($odigoLinkNumber);
         }
     }
 

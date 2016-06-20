@@ -3,9 +3,6 @@ namespace CoreBundle\Services\Manager\Admin;
 
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Service;
-use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Doctrine\Common\Util\Inflector;
 
 /**
  * Class ServiceManager

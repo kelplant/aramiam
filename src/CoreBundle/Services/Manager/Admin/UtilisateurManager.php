@@ -4,8 +4,6 @@ namespace CoreBundle\Services\Manager\Admin;
 use AppBundle\Services\Manager\AbstractManager;
 use CoreBundle\Entity\Admin\Utilisateur;
 use DateTime;
-use Doctrine\ORM\Query\ResultSetMapping;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class UtilisateurManager
@@ -16,9 +14,9 @@ class UtilisateurManager extends AbstractManager
     private $nbMajPassword;
 
     /**
-     * @param $partOfPass
-     * @param $what
-     * @param $maxrand
+     * @param string $partOfPass
+     * @param string $what
+     * @param string $maxrand
      * @return string
      */
     private function randomPasswordTestforCap($partOfPass, $what, $maxrand)
@@ -38,7 +36,7 @@ class UtilisateurManager extends AbstractManager
     }
 
     /**
-     * @param $len
+     * @param integer $len
      * @return string
      */
     private function randomPassword($len) {
@@ -92,7 +90,7 @@ class UtilisateurManager extends AbstractManager
 
     /**
      * @param $item
-     * @param $i
+     * @param integer $i
      * @param $lastIfExist
      * @param $possibleItems
      * @return array
@@ -171,7 +169,7 @@ class UtilisateurManager extends AbstractManager
     /**
      * @param Utilisateur $itemToSet
      * @param $itemLoad
-     * @return mixed
+     * @return Utilisateur
      */
     public function globalSetItem($itemToSet, $itemLoad)
     {
@@ -231,7 +229,7 @@ class UtilisateurManager extends AbstractManager
 
     /**
      * @param $itemToSet
-     * @param $guid
+     * @param string $guid
      * @return mixed
      */
     public function setIsCreateInWindows($itemToSet, $guid)

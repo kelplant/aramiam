@@ -203,7 +203,7 @@ abstract class AbstractManager
     }
 
     /**
-     * @param $query
+     * @param string $query
      * @return mixed
      */
     public function executeRowQuery($query)

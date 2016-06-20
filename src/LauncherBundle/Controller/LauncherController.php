@@ -18,7 +18,7 @@ class LauncherController extends Controller
     public function logIntoSalesforceAction()
     {
         $myProfil = $this->getUtilisateurInfos();
-        return $this->render('LauncherBundle:Default:salesforce.html.twig',array('myProfil' => $myProfil, 'url' => $this->getParameter('salesforce')));
+        return $this->render('LauncherBundle:Default:salesforce.html.twig', array('myProfil' => $myProfil, 'url' => $this->getParameter('salesforce')));
     }
 
     /**

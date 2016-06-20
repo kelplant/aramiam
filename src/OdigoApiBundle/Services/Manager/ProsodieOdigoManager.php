@@ -39,6 +39,6 @@ class ProsodieOdigoManager extends AbstractManager
      */
     public function createArrayByUser($user)
     {
-         return $this->setArray($this->getRepository()->findOneByUser($user));
+        return $this->setArray($this->getRepository()->findOneByUser($user));
     }
 }

@@ -73,11 +73,11 @@
                                     </tr>
                                     <tr id="generalBtr" data-href="">
                                         <td class="admin_cat_table_cell small_box_tr_style_left" >Utilisées</td>
-                                        <td class="admin_cat_table_cell small_box_tr_style">{{ actualNumberGmailUserLicenses + 2 }}</td>
+                                        <td class="admin_cat_table_cell small_box_tr_style" id="nbgmailused">{{ actualNumberGmailUserLicenses + 2 }}</td>
                                     </tr>
                                     <tr id="generalBtr" data-href="">
                                         <td class="admin_cat_table_cell small_box_tr_style_left" >Disponibles</td>
-                                        <td class="{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) <= 5) %} text-red {% endif %}{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) > 5) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style">{{ maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) }}</td>
+                                        <td class="{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) <= 5) %} text-red {% endif %}{% if (maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) > 5) %} text-green {% endif %}admin_cat_table_cell small_box_tr_style" id="nbgmaillast">{{ maxNumberGmailUserLicenses - (actualNumberGmailUserLicenses + 2) }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

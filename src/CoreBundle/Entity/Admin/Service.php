@@ -4,7 +4,6 @@ namespace CoreBundle\Entity\Admin;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
-use Gedmo\Tool\Wrapper\EntityWrapper;
 
 /**
  * @Gedmo\Tree(type="nested")
@@ -142,7 +141,7 @@ class Service
 
     /**
      * @param string $name
-     * @return Agence
+     * @return Service
      */
     public function setName($name)
     {
@@ -160,7 +159,7 @@ class Service
 
     /**
      * @param string $shortName
-     * @return Agence
+     * @return Service
      */
     public function setShortName($shortName)
     {
@@ -241,7 +240,7 @@ class Service
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getParentAgence()
     {
@@ -313,7 +312,7 @@ class Service
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getParentService()
     {
@@ -341,7 +340,7 @@ class Service
     }
 
     /**
-     * @return mixed
+     * @return null|Service
      */
     public function getParent()
     {

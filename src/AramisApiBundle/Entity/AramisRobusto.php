@@ -109,7 +109,7 @@ class AramisRobusto
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
     public function getRobustoEndDate()
     {

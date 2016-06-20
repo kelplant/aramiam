@@ -118,7 +118,7 @@ class EquipeController extends Controller
         return $this->render('@Core/User/Equipe/view.html.twig', array(
             'manager'                  => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
             'formView'                 => $this->createForm(UtilisateurType::class, new Utilisateur(), array('allow_extra_fields' => $this->get('core.index.controller_service')->generateListeChoices()))->createView(),
-            'panel'                    => 'user', 'all' => $this->generateItemsList($myProfil, $isArchived),'is_archived' => 0, 'entity' => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
+            'panel'                    => 'user', 'all' => $this->generateItemsList($myProfil, $isArchived), 'is_archived' => 0, 'entity' => strtolower($this->get('core.index.controller_service')->checkFormEntity('Candidat')),
             'candidat_color'           => $this->get('core.index.controller_service')->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'session_messaging'        => $session_messaging, 'globalAlertColor' => $globalAlertColor, 'nb_candidat' => count($candidatListe),
             'currentUserInfos'         => $this->get('security.token_storage')->getToken()->getUser(),

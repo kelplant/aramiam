@@ -1,7 +1,6 @@
 <?php
 namespace OdigoApiBundle\Services\Manager;
 
-use OdigoApiBundle\Entity\OrangeTelListe;
 use AppBundle\Services\Manager\AbstractManager;
 
 /**
@@ -62,12 +61,10 @@ class OrangeTelListeManager extends AbstractManager
      */
     public function add($itemLoad)
     {
-        if (!isset($itemLoad['in_use']) == true) {
+        if (!isset($itemLoad['in_use']) === true) {
             $itemLoad['in_use'] = 0;
         }
-        $itemLoad['numero'] = str_replace(' ', '', $itemLoad['numero']);
-        var_dump($itemLoad);
-
+        $itemLoad['numero']      = str_replace(' ', '', $itemLoad['numero']);
         $itemToSet = $itemToSend = new $this->entity;
         try {
             $itemToSet = $this->globalSetItem($itemToSet, $itemLoad);
@@ -83,7 +80,7 @@ class OrangeTelListeManager extends AbstractManager
     /**
      * @param $num
      * @param $service
-     * @return array
+     * @return string
      */
     public function addFromApi($num, $service)
     {

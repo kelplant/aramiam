@@ -278,21 +278,21 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {% if is_archived != "2" %}
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        {% if is_archived == "0" %}
                         <button type="button" class="btn btn-danger" onclick="ajaxSendEmailToSalarieAndInfoRecrut();">
                             <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos aux Responsables
                         </button>
                         <button type="button" class="btn btn-info" onclick="ajaxSendEmailToSalarie();">
                             <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos au Salarié
                         </button>
+                        {% endif %}
                         <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-remove-circle"></span> Fermer
                         </button>
-                        {% if is_granted("ROLE_ADMIN") %}
-                            {% if is_archived == "1" %}
+                        {% if is_archived == "1" %}
                                 <input type="hidden" name="isArchived" value="1">
                                 <input type="submit" class="btn btn-info" name="sendAction" value="Rétablir">
-                            {% endif %}
                         {% endif %}
                         {% if is_archived == "0" %}
                             <button type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">

@@ -118,7 +118,6 @@ class UtilisateurController extends AbstractControllerService
      */
     public function form_exec_editAction(Request $request)
     {
-        var_dump($request->request);
         $this->initData('index');
         $this->formAdd = $this->generateForm();
         $this->formEdit = $this->generateForm();

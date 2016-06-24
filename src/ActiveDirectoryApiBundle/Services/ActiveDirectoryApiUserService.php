@@ -100,7 +100,7 @@ class ActiveDirectoryApiUserService extends AbstractActiveDirectoryApiService
     {
         if ($sendaction == "Créer Session Windows" && ($isCreateInWindows == null || $isCreateInWindows == 0)) {
             $dn_user = 'CN='.$request->request->get('utilisateur')['viewName'].','.$this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
-            $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].'@clphoto.local', 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
+            $ldaprecord = array('cn' => $request->request->get('utilisateur')['viewName'], 'givenName' => $request->request->get('utilisateur')['surname'], 'sn' => $request->request->get('utilisateur')['name'], 'sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].$paramsAD['ldapExtentsionName'], 'displayName' => $request->request->get('utilisateur')['viewName'], 'name' => $request->request->get('utilisateur')['name'], 'mail' => $request->request->get('utilisateur')['email'], 'UserAccountControl' => '544', 'objectclass' => array('0' => 'top', '1' => 'person', '2' => 'user'), 'unicodePwd' => $this->pwd_encryption($request->request->get('utilisateur')['mainPassword']));
             $this->createUser($paramsAD, $dn_user, $ldaprecord);
             $newUser = $this->executeQueryWithFilter($paramsAD, '(sAMAccountName='.$request->request->get('windows')['identifiant'].')', array("objectSid", "objectGUID", "dn", "name"));
             $this->utilisateurManager->setIsCreateInWindows($request->request->get('utilisateur')['id'], $this->toReadableGuid($newUser[0]['objectguid'][0]));
@@ -165,9 +165,9 @@ class ActiveDirectoryApiUserService extends AbstractActiveDirectoryApiService
             $newrdn = 'CN='.$actualUserInfos->getViewName();
             $parent = $this->activeDirectoryOrganisationUnitManager->load($request->request->get('windows')['dn'])->getDn();
             $newcn = $newrdn.','.$parent;
-            $item = array('sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant']);
+            $item = array('sAMAccountName' => $request->request->get('windows')['identifiant'], 'UserPrincipalName' => $request->request->get('windows')['identifiant'].$paramsAD['ldapExtentsionName']);
             $this->renameIfWindowsUpdate($ds, $actualWindowsLink, $newrdn, $parent, $newcn, $actualUserInfos->getViewName());
-            $this->modifyIfWindowsUpdate($ds, $newcn, $item, $actualWindowsLink, $actualUserInfos->getViewName(), $request->request->get('windows')['identifiant']);
+            $this->modifyIfWindowsUpdate($ds, $newcn, $item, $actualWindowsLink, $actualUserInfos->getViewName(), $request->request->get('windows')['identifiant'].$paramsAD['ldapExtentsionName']);
         }
     }
 

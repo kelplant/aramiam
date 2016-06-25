@@ -37,6 +37,7 @@ class AddControllerService extends AbstractControllerService
             $return = $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity))));
             if ($this->entity == 'Candidat') {
                 $this->executeCreateTicket($return['item'], $this->getParameter('zendesk_api'));
+                $this->get('core.candidat_recruteur_link_manager')->add(array('candidatId' => $return['item']->getId(), 'adminId' => $this->get('security.token_storage')->getToken()->getUser()->getId()));
             }
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);

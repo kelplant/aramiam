@@ -121,6 +121,9 @@ abstract class AbstractControllerService extends Controller
         if ($sendaction == "Sauver et Transformer") {
             $this->get('core.utilisateur_manager')->transform($this->get('core.candidat_manager')->createArray($request->request->get('candidat')["id"]));
             $this->get('core.candidat_manager')->transformUserArchiveCandidat($request->request->get(strtolower($this->entity))['id']);
+            if (!is_null($link = $this->get('core.candidat_recruteur_link_manager')->loadByCandidatId($request->request->get('candidat')["id"]))) {
+                $this->get('mailer.mailer_service')->sendRecruteurMessage($request->request->get('candidat'), $this->get('app.user_manager')->load($link->getAdminId())->getEmail(), $this->getParameter('mailer_user'));
+            }
         }
     }
 

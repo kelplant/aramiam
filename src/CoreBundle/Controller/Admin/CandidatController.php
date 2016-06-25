@@ -103,6 +103,9 @@ class CandidatController extends Controller
             foreach ($toProcess as $key => $item) {
                 $this->get('core.utilisateur_manager')->transform($this->get('core.candidat_manager')->createArray($key));
                 $this->get('core.candidat_manager')->transformUserArchiveCandidat($key);
+                if (!is_null($link = $this->get('core.candidat_recruteur_link_manager')->loadByCandidatId($key))) {
+                    $this->get('mailer.mailer_service')->sendRecruteurMessage($this->get('core.candidat_manager')->createArray($key), $this->get('app.user_manager')->load($link->getAdminId())->getEmail(), $this->getParameter('mailer_user'));
+                }
             }
         }
         if ($action == 'archive') {

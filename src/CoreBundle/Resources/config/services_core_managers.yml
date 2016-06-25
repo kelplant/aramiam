@@ -44,6 +44,11 @@ parameters:
     core.entityname.utilisateur_log_action_manager.class: 'CoreBundle\Entity\UtilisateurLogAction'
     core.argname.utilisateur_log_action_manager.class: 'Cet historique'
 
+    core.candidat_recruteur_link_manager.class: CoreBundle\Services\Manager\Admin\CandidatRecruteurLinkManager
+    core.entity.candidat_recruteur_link_manager.class: CoreBundle\Entity\Admin\CandidatRecruteurLink
+    core.entityname.candidat_recruteur_link_manager.class: 'CoreBundle\Entity\Admin\CandidatRecruteurLink'
+    core.argname.candidat_recruteur_link_manager.class: 'Le lien avec le recruteur'
+
 services:
     core.agence_manager:
         class: '%core.agence_manager.class%'
@@ -108,6 +113,14 @@ services:
         - [setEntity, ["%core.entity.candidat_manager.class%"]]
         - [setEntityName, ["%core.entityname.candidat_manager.class%"]]
         - [setArgname, ["%core.argname.candidat_manager.class%"]]
+
+    core.candidat_recruteur_link_manager:
+        class: '%core.candidat_recruteur_link_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.candidat_recruteur_link_manager.class%"]]
+        - [setEntityName, ["%core.entityname.candidat_recruteur_link_manager.class%"]]
+        - [setArgname, ["%core.argname.candidat_recruteur_link_manager.class%"]]
 
     core.utilisateur_log_action_manager:
         class: '%core.utilisateur_log_action_manager.class%'

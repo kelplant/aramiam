@@ -3,6 +3,7 @@ namespace MailerBundle\Services;
 
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\EngineInterface;
 use Swift_Mailer;
 use Swift_Message;
@@ -87,7 +88,7 @@ class Mailer
         } else {
             $to = '';
         }
-        $subject = 'Identidiants pour '.$userInfos['viewName'];
+        $subject = '[AramIAM] - Identidiants pour '.$userInfos['viewName'];
         $body    = $this->templating->render('MailerBundle:Mails:nouvelArrivantMail.html.twig', array(
             'userInfos'      => $userInfos,
             'odigoUserInfos' => $this->odigoManager->createArrayByUser($numUser),
@@ -95,6 +96,28 @@ class Mailer
 
         return $this->sendMessage($to, $subject, $body);
     }
+
+    /**
+     * @param $request
+     * @param $to
+     * @return int
+     */
+    public function sendRecruteurMessage($request, $to, $from)
+    {
+        $this->from = $from;
+
+        if ($request['matriculeRH'] == '') {
+            $subject = '[AramIAM] - Candidat Tranformé : ALERTE MATRICULE RH ABSENT - '.$request['surname'].' '.$request['name'];
+        } else {
+            $subject = '[AramIAM] - Candidat Tranformé : '.$request['surname'].' '.$request['name'];
+        }
+        $body    = $this->templating->render('MailerBundle:Mails:RecruteurAlertOnCandidatTransform.html.twig', array(
+            'templateInfos'      => $request,
+        ));
+
+        return $this->sendMessage($to, $subject, $body);
+    }
+
 
     /**
      * @param string $from

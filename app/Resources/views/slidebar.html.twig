@@ -19,10 +19,10 @@
                     </li>
                     <li class="treeview {% if panel != 'user' %} hide {% endif %} {% if 'profile' in app.request.get('_route') == true %} active {%  endif %}" id="Profile">
                         <a href="#">
-                            <i class="fa fa-user"></i> <span class="font_exo_2">Mon Profile</span> <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-user"></i> <span class="font_exo_2">Mon Profil</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="font_exo_2{% if 'user_profile_show' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('user_profile_show' , { 'panel' : 'user'}) }}"><i class="fa fa-user"></i> Voir Mon Profile</a></li>
+                            <li class="font_exo_2{% if 'user_profile_show' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('user_profile_show' , { 'panel' : 'user'}) }}"><i class="fa fa-user"></i> Voir Mon Profil</a></li>
                         </ul>
                     </li>
                     {% if manager == 1 %}

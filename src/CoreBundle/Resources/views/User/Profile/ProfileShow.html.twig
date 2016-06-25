@@ -70,6 +70,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="start_date" class="col-sm-4 control-label align_righ font_exo_2">Date d'Arrivée</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group select2-bootstrap-prepend">
+                                                            <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                                            <input type="text" value="{{ myProfil.startDate.date|localizeddate('full', 'none') }}" id="start_date" name="start_date[]" class="form-control font_exo_2 disabled" readonly disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     {{ form_label(formEdit.email) }}
                                                     {{ form_errors(formEdit.email) }}
                                                     <div class="col-sm-8">

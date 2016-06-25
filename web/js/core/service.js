@@ -181,6 +181,7 @@ function ajaxServiceEdit(editItem)
             urlajax = "/ajax/service/poste/get/" + editItem + "/Manager";
             $.ajax({url:urlajax,success:function(result){
                 for (i in result) {
+                    document.getElementById("formEdit_service_managers").selectedIndex = "-1";
                     $('#formEdit_service_managers option[value="'+i+'"]').attr('selected', 'selected');
                 }
                 $('.select2-single').select2({

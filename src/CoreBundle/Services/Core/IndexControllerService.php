@@ -155,6 +155,7 @@ class IndexControllerService extends AbstractControllerService
             'all'                           => $allItems,
             'manager'                       => $this->get('core.manager_service_link_manager')->isManager($myProfil->getId()),
             'panel'                         => 'admin',
+            'utilisateursList'              => $this->get("core.utilisateur_manager")->createListForSelect(),
             'remove_path'                   => 'remove_'.strtolower($this->entity), 
             'alert_text'                    => $this->alertText,
             'is_archived'                   => $isArchived,

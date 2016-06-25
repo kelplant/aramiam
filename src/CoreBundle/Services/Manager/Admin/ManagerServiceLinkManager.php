@@ -23,6 +23,32 @@ class ManagerServiceLinkManager extends AbstractManager
     }
 
     /**
+     * @param $serviceId
+     * @param $poste
+     * @return array
+     */
+    public function getManagerForService($serviceId, $poste)
+    {
+        $listService = $this->getRepository()->findBy(array('serviceId' => $serviceId, 'profilType' => $poste), array());
+        $finalTab = [];
+        foreach ($listService as $item) {
+            $finalTab[$item->getUserId()] = $item->getProfilType();
+        }
+        return $finalTab;
+    }
+
+    /**
+     * @param $serviceId
+     */
+    public function deleteForService($serviceId)
+    {
+        $sql = "DELETE FROM aramiam.core_admin_services_managers  WHERE service_id = ".$serviceId;
+
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+    }
+
+    /**
      * @param $userId
      * @return int
      */

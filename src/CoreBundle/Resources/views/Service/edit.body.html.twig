@@ -110,6 +110,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="service_responsable" class="col-sm-5 control-label align_righ font_exo_2">Responsable</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <select id="formEdit_service_responsable" name="service_responsable[]" class="form-control font_exo_2 input-md select2-single">
+                                            {% for key,value in utilisateursList %}
+                                                <option value="{{ value }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="service_managers" class="col-sm-5 control-label align_righ font_exo_2">Responsable</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                        <select id="formEdit_service_managers" name="service_managers[]" class="form-control font_exo_2 input-sm select2-single" multiple>
+                                            {% for key,value in utilisateursList %}
+                                                <option value="{{ value }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-6 font_exo_2">
                             <ul class="nav nav-pills">

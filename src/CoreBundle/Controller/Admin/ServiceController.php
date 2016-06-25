@@ -93,9 +93,19 @@ class ServiceController extends AbstractControllerService
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData('add');
         $this->initData('index');
-        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
+        $this->formAdd = $this->generateForm();
+        $this->formEdit = $this->generateForm();
+        $this->formAdd->handleRequest($request);
+        if ($this->formAdd->isSubmitted() && $this->formAdd->isValid()) {
+            $return = $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity))));
+            $this->get('core.manager_service_link_manager')->add(array('serviceId' => $return['item']->getId(), 'userId' => $request->request->get('service_responsable')[0], 'profilType' => 'Responsable'));
+            $managerTab = $request->request->get('service_managers');
+            foreach ($managerTab as $manager) {
+                $this->get('core.manager_service_link_manager')->add(array('serviceId' => $return['item']->getId(), 'userId' => $manager, 'profilType' => 'Manager'));
+            }
+        }
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
     }
 
     /**
@@ -115,6 +125,12 @@ class ServiceController extends AbstractControllerService
                 $this->retablirOrTransformArchivedItem($request->request->get('sendaction'), $request);
                 $this->ifSfTerritoryPresentInServiceAdd($request);
                 $this->ifADGroupPresentInFonctionAdd($request);
+                $this->get('core.manager_service_link_manager')->deleteForService($request->request->get('service')['id']);
+                $this->get('core.manager_service_link_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'userId' => $request->request->get('service_responsable')[0], 'profilType' => 'Responsable'));
+                $managerTab = $request->request->get('service_managers');
+                foreach ($managerTab as $manager) {
+                    $this->get('core.manager_service_link_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'userId' => $manager, 'profilType' => 'Manager'));
+                }
             }
         }
         return $this->get('core.index.controller_service')->getFullList(null, $this->formAdd, $this->formEdit);

@@ -38,6 +38,7 @@ parameters:
         ldaphost:      ~
         ldapUsername:  ~
         ldapPassword:  ~
+        ldapExtentsionName: '@@aramisauto.local'
 
     salesforce:
         consumerKey:   ~

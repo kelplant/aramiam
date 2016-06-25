@@ -173,8 +173,25 @@ function ajaxServiceEdit(editItem)
         for (i in result) {
             frm.find('[name="service[' + i + ']"]').val(result[i]);
         }
-        $('#loading').addClass('hide').removeClass('show');
-        $('#mainEditForm').addClass('show').removeClass('hide');
-        localStorage.setItem("currentServiceEdit", editItem);
+        urlajax = "/ajax/service/poste/get/" + editItem + "/Responsable";
+        $.ajax({url:urlajax,success:function(result){
+            for (i in result) {
+                $('#formEdit_service_responsable option[value="'+i+'"]').attr('selected', 'selected');
+            }
+            urlajax = "/ajax/service/poste/get/" + editItem + "/Manager";
+            $.ajax({url:urlajax,success:function(result){
+                for (i in result) {
+                    $('#formEdit_service_managers option[value="'+i+'"]').attr('selected', 'selected');
+                }
+                $('.select2-single').select2({
+                    theme: "bootstrap",
+                    width: null,
+                    containerCssClass: ':all:'
+                });
+                $('#loading').addClass('hide').removeClass('show');
+                $('#mainEditForm').addClass('show').removeClass('hide');
+                localStorage.setItem("currentServiceEdit", editItem);
+            }});
+        }});
     }});
 }

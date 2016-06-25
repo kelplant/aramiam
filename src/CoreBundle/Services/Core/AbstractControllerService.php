@@ -119,8 +119,8 @@ abstract class AbstractControllerService extends Controller
             $this->isArchived = '1';
         }
         if ($sendaction == "Sauver et Transformer") {
+            $this->get('core.utilisateur_manager')->transform($this->get('core.candidat_manager')->createArray($request->request->get('candidat')["id"]));
             $this->get('core.candidat_manager')->transformUserArchiveCandidat($request->request->get(strtolower($this->entity))['id']);
-            $this->get('core.utilisateur_manager')->transform($request->request->get('candidat'));
         }
     }
 

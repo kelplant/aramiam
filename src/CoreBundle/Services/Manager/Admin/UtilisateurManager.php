@@ -186,7 +186,9 @@ class UtilisateurManager extends AbstractManager
         $itemToSet->setEntiteHolding($itemLoad['entiteHolding']);
         $itemToSet->setFonction($itemLoad['fonction']);
         $itemToSet->setResponsable($itemLoad['responsable']);
-        $itemToSet->setStatusPoste($itemLoad['statusPoste']);
+        if (isset($itemLoad['statusPoste']) && $itemLoad['statusPoste'] != null) {
+            $itemToSet->setStatusPoste($itemLoad['statusPoste']);
+        }
         $itemToSet->setPredecesseur($itemLoad['predecesseur']);
         $itemToSet->setCommentaire($itemLoad['commentaire']);
         $itemToSet->setIsArchived('0');

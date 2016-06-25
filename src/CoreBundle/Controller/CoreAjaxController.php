@@ -71,6 +71,22 @@ class CoreAjaxController extends Controller
     }
 
     /**
+     * @param $serviceId
+     * @param $poste
+     * @Route(path="/ajax/service/poste/get/{serviceId}/{poste}",name="ajax_get_service_managers")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function serviceGetPosteInfosIndex($serviceId, $poste)
+    {
+        $usersList = $this->get('core.manager_service_link_manager')->getManagerForService($serviceId, $poste);
+        $finalTab = [];
+        foreach ($usersList as $key => $value) {
+            $finalTab[$key] = $this->get('core.utilisateur_manager')->load($key)->getViewName();
+        }
+        return new JsonResponse($finalTab);
+    }
+
+    /**
      * @Route(path="/ajax/service/load/full_liste",name="ajax_load_service_full_liste")
      * @return \Symfony\Component\HttpFoundation\Response
      */

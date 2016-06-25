@@ -31,6 +31,18 @@ class ManagerServiceLink
     protected $profilType;
 
     /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -99,6 +111,42 @@ class ManagerServiceLink
     public function setProfilType($profilType)
     {
         $this->profilType = $profilType;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return ManagerServiceLink
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     * @return ManagerServiceLink
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

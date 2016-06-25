@@ -86,6 +86,7 @@ class CandidatController extends Controller
     {
         $this->initData('add');
         $this->initData('index');
+
         return $this->get('core.add.controller_service')->executeRequestAddAction($request);
     }
 

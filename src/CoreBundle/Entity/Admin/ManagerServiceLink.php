@@ -2,6 +2,7 @@
 namespace CoreBundle\Entity\Admin;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Table(name="core_admin_services_managers")

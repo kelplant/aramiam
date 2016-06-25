@@ -102,7 +102,12 @@ class CoreAjaxController extends Controller
      */
     public function getServiceManagerId($serviceId)
     {
-        return new JsonResponse($this->get('core.manager_service_link_manager')->getRepository()->findOneBy(array('serviceId' => $serviceId))->getUserId());
+        $fulllist = $this->get('core.manager_service_link_manager')->getRepository()->findBy(array('serviceId' => $serviceId));
+        $finalTab = [];
+        foreach ($fulllist as $item) {
+            $finalTab[$item->getUserId()] = $item->getProfilType();
+        }
+        return new JsonResponse($finalTab);
     }
 
     /**

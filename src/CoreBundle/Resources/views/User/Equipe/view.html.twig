@@ -285,9 +285,16 @@
                                 textToAppend +=
                                         '<tr id="generalBtr" data-href="">';
                                 textToAppend += '<td class="admin_cat_table_cell">';
-                                if (result2 == result[i].id) {
+                                var tab = Object.keys(result2);
+                                var test = $.inArray(result[i].id.toString(), tab);
+                                if (test != -1) {
                                     textToAppend += '<div class="col-sm-12">';
-                                    textToAppend += '<img width="25" style="float: right" src="{{ asset('images/30x30_responsable.png') }}">';
+                                    if (result2[result[i].id] == 'Responsable') {
+                                        textToAppend += '<img width="25" style="float: right" src="{{ asset('images/30x30_responsable.png') }}">';
+                                    }
+                                    if (result2[result[i].id] == 'Manager') {
+                                        textToAppend += '<img width="25" style="float: right" src="{{ asset('images/30x30_manager.png') }}">';
+                                    }
                                     textToAppend += result[i].name + ' ';
                                     textToAppend +='</div>';
                                 } else {

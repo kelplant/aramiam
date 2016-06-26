@@ -70,9 +70,9 @@ class DashboardAjaxController extends Controller
     private function testForStatusPoste($statusPoste, $a, $b)
     {
         if ($statusPoste == 'Création') {
-            return $a;
+            return array('color' => $a, 'icon' => '/images/truck.png');
         } else {
-            return $b;
+            return array('color' => $a, 'icon' => null);
         }
     }
 
@@ -82,7 +82,7 @@ class DashboardAjaxController extends Controller
      */
     private function gimmeAColor($candidat)
     {
-        if ($candidat['agence'] == 'Siège' && $candidat['service'] != 'Satisfaction Client') {
+        if ($candidat['agence'] == 'Siège') {
             return $this->testForStatusPoste($candidat['statusPoste'], '#ff9900', '#33cc33');
         } else {
             return $this->testForStatusPoste($candidat['statusPoste'], '#ff3300', '#33ccff');
@@ -101,11 +101,11 @@ class DashboardAjaxController extends Controller
 
             $title           = $candidat['surname'].' '.$candidat['name'].' '.$candidat['service'];
             $start           = $candidat['startDate'];
-            $color           = $this->gimmeAColor($candidat);
-            $backgroundColor = $color;
-            $borderColor     = $color;
+            $colorAndIcon    = $this->gimmeAColor($candidat);
+            $backgroundColor = $colorAndIcon['color'];
+            $borderColor     = $colorAndIcon['color'];
 
-            $finalTable[]    = array('title' => $title, 'start' => $start, 'backgroundColor' => $backgroundColor, 'borderColor' => $borderColor, 'id' => $candidat['id']);
+            $finalTable[]    = array('title' => $title, 'start' => $start, 'backgroundColor' => $backgroundColor, 'borderColor' => $borderColor, 'id' => $candidat['id'], 'imageurl' => $colorAndIcon['icon']);
         }
 
         return $finalTable;

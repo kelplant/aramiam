@@ -30,6 +30,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom pour la fonction',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -39,6 +40,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom court pour la fonction',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -48,6 +50,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Company',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -58,6 +61,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Odigo',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -68,6 +72,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Salesforce',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -78,6 +83,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Zendesk',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -88,6 +94,7 @@ class FonctionType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Windows',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,

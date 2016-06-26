@@ -31,6 +31,7 @@ class EntiteHoldingType extends BaseType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom pour l\'entité',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -40,6 +41,7 @@ class EntiteHoldingType extends BaseType
                     'class' => 'col-sm-3 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom court pour l\'entité',
                     'class' => 'form-control font_exo_2',
                 ),
             ))

@@ -32,6 +32,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom de Service',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -41,6 +42,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom court de Service',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -50,6 +52,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Company',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -60,6 +63,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Odigo',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -70,6 +74,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Salesforce',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -80,6 +85,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Zendesk',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -115,6 +121,7 @@ class ServiceType extends BaseType
                     'class' => 'col-sm-5 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Windows',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,

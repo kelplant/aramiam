@@ -26,4 +26,26 @@ class EntiteHoldingManager extends AbstractManager
 
         return $itemArray;
     }
+
+    /**
+     * @param $itemId
+     * @return array
+     */
+    public function remove($itemId) {
+
+        $itemToSet = $this->getRepository()->findOneById($itemId);
+        try {
+            if ($itemToSet->getIsArchived() == '0') {
+                $itemToSet->setIsArchived('1');
+            } else {
+                $itemToSet->setIsArchived('0');
+            }
+            $this->em->flush();
+            $this->appendSessionMessaging(array('errorCode' => 0, 'message' => $this->argname.' a eté correctionement Archivé(e)'));
+        } catch (\Exception $e) {
+            $this->appendSessionMessaging(array('errorCode' => error_log($e->getMessage()), 'message' => $e->getMessage()));
+        }
+
+        return array('item' => $itemId);
+    }
 }

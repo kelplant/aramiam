@@ -57,7 +57,6 @@ $(function () {
     url: urlajaxGraph1, success: function (result) {
 
       var datas = result;
-      console.log(datas);
 
       var area = new Morris.Bar({
         element: 'revenue-chart',

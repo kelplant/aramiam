@@ -145,7 +145,7 @@ class DashboardAjaxController extends Controller
         $finalTab = [];
 
         foreach ($result as $item) {
-            $finalTab[] = (object)array('y' =>$item['yr'].' W'.$item['wk'], 'item1' => (int)$item['ct']);
+            $finalTab[] = (object)array('y' =>$item['yr'].' S'.$item['wk'], 'item1' => (int)$item['ct']);
         }
 
         return new JsonResponse($finalTab);

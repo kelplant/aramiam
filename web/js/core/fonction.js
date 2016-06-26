@@ -190,6 +190,12 @@ function ajaxFonctionEdit(editItem)
         for (i in result) {
             frm.find('[name="fonction[' + i + ']"]').val(result[i]);
         }
+        $('.select2-single').select2({
+            theme: "bootstrap",
+            width: null,
+            containerCssClass: ':all:',
+            placeholder: "Choisir une option"
+        });
         $('#loading').addClass('hide').removeClass('show');
         $('#mainEditForm').addClass('show').removeClass('hide');
         localStorage.setItem("currentFonctionEdit", editItem);

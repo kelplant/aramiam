@@ -53,6 +53,12 @@ class Service
      */
     protected $nameInActiveDirectory;
 
+    /**
+     * @var string
+     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     */
+    protected $isArchived;
+
     /** @var int
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -347,4 +353,21 @@ class Service
         return $this->parent;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIsArchived()
+    {
+        return $this->isArchived;
+    }
+
+    /**
+     * @param mixed $isArchived
+     * @return Service
+     */
+    public function setIsArchived($isArchived)
+    {
+        $this->isArchived = $isArchived;
+        return $this;
+    }
 }

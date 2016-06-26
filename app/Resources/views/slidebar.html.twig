@@ -117,22 +117,22 @@
                 {% endif %}
 
                 {% if is_granted("ROLE_ADMIN") %}
-                    <li class="treeview {% if panel != 'admin' %} hide {% endif %} {% if app.request.get('_route') in ['form_exec_add_service', 'form_exec_add_fonction', 'form_exec_add_agence', 'form_exec_add_entiteholding', 'form_exec_edit_service', 'form_exec_edit_fonction', 'form_exec_edit_agence', 'form_exec_edit_entiteholding', 'liste_des_agences', 'liste_des_services', 'liste_des_fonctions', 'liste_des_entites_holding'] == true %} active {%  endif %}" id="Divers">
+                    <li class="treeview {% if panel != 'admin' %} hide {% endif %} {% if app.request.get('_route') in ['remove_entiteholding', 'remove_fonction', 'remove_agence', 'remove_service', 'form_exec_add_service', 'form_exec_add_fonction', 'form_exec_add_agence', 'form_exec_add_entiteholding', 'form_exec_edit_service', 'form_exec_edit_fonction', 'form_exec_edit_agence', 'form_exec_edit_entiteholding', 'liste_des_agences', 'liste_des_services', 'liste_des_fonctions', 'liste_des_entites_holding'] == true %} active {%  endif %}" id="Divers">
                         <a href="#">
                             <i class="fa fa-home"></i> <span class="font_exo_2">Divers</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2 {% if 'liste_des_entites_holding' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_entites_holding') }}"><i class="fa fa-home"></i> Liste des Entités</a></li>
+                                <li class="font_exo_2 {% if 'holding' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_entites_holding') }}"><i class="fa fa-home"></i> Liste des Entités</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2 {% if 'liste_des_agences' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_agences') }}"><i class="fa fa-home"></i> Liste des Agences</a></li>
+                                <li class="font_exo_2 {% if 'agence' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_agences') }}"><i class="fa fa-home"></i> Liste des Agences</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2 {% if 'liste_des_services' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_services') }}"><i class="fa fa-life-ring"></i> Liste des Services</a></li>
+                                <li class="font_exo_2 {% if 'service' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_services') }}"><i class="fa fa-life-ring"></i> Liste des Services</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_ADMIN") %}
-                                <li class="font_exo_2 {% if 'liste_des_fonctions' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_fonctions') }}"><i class="fa fa-puzzle-piece"></i> Liste des Fonctions</a></li>
+                                <li class="font_exo_2 {% if 'fonction' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('liste_des_fonctions') }}"><i class="fa fa-puzzle-piece"></i> Liste des Fonctions</a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -145,10 +145,10 @@
                         </a>
                         <ul class="treeview-menu">
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2 {% if 'odigo_tel_liste' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('odigo_tel_liste') }}"><i class="fa fa-phone"></i> Numéros Odigo</a></li>
+                                <li class="font_exo_2 {% if 'odigo' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('odigo_tel_liste') }}"><i class="fa fa-phone"></i> Numéros Odigo</a></li>
                             {% endif %}
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <li class="font_exo_2 {% if 'orange_tel_liste' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('orange_tel_liste') }}"><i class="fa fa-phone"></i> Numéros Orange</a></li>
+                                <li class="font_exo_2 {% if 'orange' in app.request.get('_route') == true %} active {%  endif %}"><a href="{{ path('orange_tel_liste') }}"><i class="fa fa-phone"></i> Numéros Orange</a></li>
                             {% endif %}
                         </ul>
                     </li>

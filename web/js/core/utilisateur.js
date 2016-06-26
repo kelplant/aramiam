@@ -56,6 +56,12 @@ function ajaxUtilisateurEdit(editItem)
             }
             frm.find('[name="utilisateur[' + i + ']"]').val(result[i]);
         }
+        $('.select2-single').select2({
+            theme: "bootstrap",
+            width: null,
+            containerCssClass: ':all:',
+            placeholder: "Choisir une option"
+        });
         $('#mainEditForm').addClass('show').removeClass('hide');
         $('#loadingMain').addClass('hide').removeClass('show');
     }});
@@ -93,24 +99,41 @@ function generateWindowsBody()
                             '</label>' +
                             '</div>';
                         orgaUnitsListe += '<div class="form-group font_exo_2">' +
-                            '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:';
-                        orgaUnitsListe += '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                            '<label class="font_exo_2 col-sm-4">Service de l\'Utilisateur:';
+                        orgaUnitsListe += '<select name="windows[service]" id="windows_service" class="form-control input-md select2-single">';
                         for (i in result) {
-                            if (result2.dn == result[i].name) {
-                                orgaUnitsListe += '<option value="' + result[i].id + '" selected>' + result[i].name + '</option>';
-                            } else {
-                                orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
-                            }
+                            orgaUnitsListe += '<option value="' + result[i].service + '">' + result[i].service + '</option>';
                         }
                         orgaUnitsListe += '' +
                             '</select>' +
                             '</label>' +
-                            '</div>' +
-                            '</div>'+
+                            '</div>';
+
+                        orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                            '<label class="font_exo_2 col-sm-4">Fonction de l\'Utilisateur:';
+                        orgaUnitsListe += '<select name="windows[dn]" id="windows_fonction" class="form-control">';
+                        for (i in result) {
+                            orgaUnitsListe += '<option class="' + result[i].service + '" value="' + result[i].id + '">' + result[i].fonction + '</option>';
+                        }
+                        orgaUnitsListe += '' +
+                            '</select>' +
+                            '</label>' +
+                            '</div>';
+                        orgaUnitsListe += '</div>'+
                             '<div class="form-group font_exo_2 col-sm-4 align_right">'+
                             '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Mise à jour Session Windows">'+
                             '</div>';
                         document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
+                        $('#windows_service option').each(function() {
+                            $(this).prevAll('option[value="' + this.value + '"]').remove();
+                        });
+                        $('.select2-single').select2({
+                            theme: "bootstrap",
+                            width: null,
+                            containerCssClass: ':all:',
+                            placeholder: "Choisir une option"
+                        });
+                        $("#windows_fonction").chained("#windows_service");
                         $('#loading').addClass('hide').removeClass('show');
                         $('#right-navbar').removeClass('no-events');
                         $('#createActionWindowsPart').addClass('show').removeClass('hide');

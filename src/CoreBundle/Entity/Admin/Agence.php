@@ -47,6 +47,12 @@ class Agence
     protected $nameInActiveDirectory;
 
     /**
+     * @var string
+     * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
+     */
+    protected $isArchived;
+
+    /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -217,6 +223,24 @@ class Agence
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsArchived()
+    {
+        return $this->isArchived;
+    }
+
+    /**
+     * @param string $isArchived
+     * @return Agence
+     */
+    public function setIsArchived($isArchived)
+    {
+        $this->isArchived = $isArchived;
         return $this;
     }
 }

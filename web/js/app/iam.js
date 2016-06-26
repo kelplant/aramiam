@@ -58,6 +58,12 @@ function ajaxCoreEdit(url, editItem)
             else {
                 frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
             }
+            $('.select2-single').select2({
+                theme: "bootstrap",
+                width: null,
+                containerCssClass: ':all:',
+                placeholder: "Choisir une option"
+            });
         }
     }});
 }

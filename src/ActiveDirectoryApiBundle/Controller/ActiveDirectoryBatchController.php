@@ -47,15 +47,17 @@ class ActiveDirectoryBatchController extends Controller
             $this->service = null;
             $this->fonction = null;
             $explodeDn = explode(",", $record['dn']);
-            $nbCells = count($explodeDn);
-            for ($i = 0; $i < $nbCells; $i++) {
-                if (substr($explodeDn[$i], 0, 3) == "OU=") {
-                    $this->ifIsInArray($explodeDn[$i], $this->fonctionArray, 'fonction');
-                    $this->ifIsInArray($explodeDn[$i], $this->serviceArray, 'service');
-                    $this->ifIsInArray($explodeDn[$i], $this->agenceArray, 'agence');
+            if ($explodeDn[0] != 'OU=Utilisateurs') {
+                $nbCells = count($explodeDn);
+                for ($i = 0; $i < $nbCells; $i++) {
+                    if (substr($explodeDn[$i], 0, 3) == "OU=") {
+                        $this->ifIsInArray($explodeDn[$i], $this->fonctionArray, 'fonction');
+                        $this->ifIsInArray($explodeDn[$i], $this->serviceArray, 'service');
+                        $this->ifIsInArray($explodeDn[$i], $this->agenceArray, 'agence');
+                    }
                 }
+                $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
             }
-            $this->get('ad.active_directory_organisation_unit_manager')->add(array('id' => $this->get('ad.active_directory_api_user_service')->toReadableGuid($record['objectguid'][0]), 'name' => $record['name'][0], 'dn' => $record['dn'], 'agence' => $this->agence, 'service' => $this->service, 'fonction' => $this->fonction));
         }
     }
 

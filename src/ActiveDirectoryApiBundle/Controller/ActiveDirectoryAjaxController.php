@@ -36,7 +36,7 @@ class ActiveDirectoryAjaxController extends Controller
         $finalTab = array();
         $i = 0;
         foreach ($this->get('ad.active_directory_organisation_unit_manager')->getStandardProfileListe() as $item) {
-            $finalTab[$i] = array('id' => $item->getId(), 'name' => $item->getDn());
+            $finalTab[$i] = array('id' => $item->getId(), 'name' => $item->getDn(), 'service' => $item->getService(), 'fonction' => $item->getFonction());
             $i++;
         }
         return new JsonResponse($finalTab);

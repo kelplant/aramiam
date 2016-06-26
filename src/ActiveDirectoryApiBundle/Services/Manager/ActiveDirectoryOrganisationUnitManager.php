@@ -34,6 +34,6 @@ class ActiveDirectoryOrganisationUnitManager extends AbstractManager
      */
     public function getStandardProfileListe()
     {
-        return $this->getRepository()->findBy(array(), array('name' => 'ASC'));
+        return $this->getRepository()->findBy(array(), array('service' => 'ASC'));
     }
     }

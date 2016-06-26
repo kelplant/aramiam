@@ -30,6 +30,11 @@ $(function () {
           localStorage.setItem("currentCandidatToView", event.id)
           window.location = "/admin/candidat?isArchived=0";
         },
+        eventRender: function(event, eventElement) {
+          if (event.imageurl) {
+            eventElement.find("div.fc-content").prepend("<img src='" + event.imageurl +"' width='12' height='12'>");
+          }
+        },
         header: {
           left: 'prev,next today',
           center: 'title',

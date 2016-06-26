@@ -40,7 +40,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('name', TextType::class, array(
                 'label' => 'Nom',
@@ -48,6 +49,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -57,6 +59,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un prénom',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -66,6 +69,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom pour l\'affichage',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -75,6 +79,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un email',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -95,6 +100,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => ' Choisir une date',
                     'class' => 'form-control date font_exo_2 datepicker',
                 ),
             ))
@@ -108,6 +114,7 @@ class UtilisateurType extends BaseType
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
                 ),
+                'required' => false,
             ))
             ->add('matriculeRH', TextType::class, array(
                 'label' => 'Matricule RH',
@@ -115,6 +122,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un matricule',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -128,7 +136,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('agence', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeAgences"],
@@ -139,7 +148,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('service', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeServices"],
@@ -150,7 +160,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('fonction', ChoiceType::class, array(
                 'choices' => $options["allow_extra_fields"]["listeFonctions"],
@@ -161,7 +172,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('statusPoste', ChoiceType::class, array(
                 'choices' => array(
@@ -175,7 +187,8 @@ class UtilisateurType extends BaseType
                 ),
                 'attr' => array(
                     'class' => 'form-control font_exo_2 statusPoste input-md select2-single',
-                )
+                ),
+                'required' => false,
             ))
             ->add('predecesseur', ChoiceType::class, array(
                 'label' => 'Prédécesseur',
@@ -195,6 +208,7 @@ class UtilisateurType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un commentaire',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,

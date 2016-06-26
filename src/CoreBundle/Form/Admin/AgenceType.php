@@ -30,6 +30,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_righ font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir un nom pour l\'agence',
                     'class' => 'form-control font_exo_2',
                 ),
             ))
@@ -39,6 +40,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Company',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -49,6 +51,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Odigo',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -59,6 +62,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Salesforce',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -69,6 +73,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Zendesk',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,
@@ -79,6 +84,7 @@ class AgenceType extends BaseType
                     'class' => 'col-sm-4 control-label align_right font_exo_2',
                 ),
                 'attr' => array(
+                    'placeholder' => 'Saisir la correspondance Windows',
                     'class' => 'form-control font_exo_2',
                 ),
                 'required' => false,

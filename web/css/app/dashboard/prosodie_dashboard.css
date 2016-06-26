@@ -75,3 +75,53 @@ th.rotate > div {
 th.rotate > div > span {
 
 }
+
+#containerOrange {
+    overflow: hidden
+}
+
+#containerProsodie {
+    overflow: hidden
+}
+
+.pannerOrange {
+    display:block;
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:45%;
+}
+.pannerProsodie {
+    display:block;
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:45%;
+}
+.active {
+    color:red;
+}
+#panLeftOrange {
+    position: absolute;
+    top:50px;
+    left:15px;
+    color: #3e8ebd;
+}
+#panRightOrange {
+    position: absolute;
+    top:50px;
+    right:0px;
+    color: #3e8ebd;
+}
+#panLeftProsodie {
+    position: absolute;
+    top:50px;
+    left:15px;
+    color: #3e8ebd;
+}
+#panRightProsodie {
+    position: absolute;
+    top:50px;
+    right:0px;
+    color: #3e8ebd;
+}

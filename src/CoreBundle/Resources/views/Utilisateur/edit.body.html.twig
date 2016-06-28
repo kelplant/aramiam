@@ -1,12 +1,12 @@
-<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+<div class="modal fade {% if is_archived == "0" %}bs-example-modal-lg{% endif %}" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <form action="{{ path( 'form_exec_edit_utilisateur' ) }}" method="post" class="form-horizontal" id="form-edit" name="form-edit">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content modal-lg">
-                <div class="modal-header modal-lg">
+        <div class="modal-dialog {% if is_archived == "0" %}modal-lg{% endif %}">
+            <div class="modal-content {% if is_archived == "0" %}modal-lg{% endif %}">
+                <div class="modal-header {% if is_archived == "0" %}modal-lg{% endif %}">
                     <button type="button" class="close" data-dismiss="modal" onclick="resetEditItem();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title font_exo_2" id="myModalLabel">{% if is_archived != "2" %}Edition d'un utilisateur{% endif %}{% if is_archived == "2" %}Voir un Utilisateur{% endif %}</h4>
                 </div>
-                <div class="modal-body modal-lg">
+                <div class="modal-body {% if is_archived == "0" %}modal-lg{% endif %}">
                     <div class="main_container col-sm-12 text-center show" id="loadingMain">
                         <br><br><br>
                         <button type="button" class="btn btn-lg btn-warning">
@@ -17,7 +17,7 @@
                     <div class="container-fluid marginNegABitABitLeft hide" xmlns="http://www.w3.org/1999/html" id="mainEditForm">
                         <input type="hidden" name="formAction" value="edit">
                         {{ form_errors(formEdit) }}
-                        <div class="col-sm-6">
+                        <div class="{% if is_archived != "0" %}col-sm-12{% endif %}{% if is_archived == "0" %}col-sm-6{% endif %}">
                             <div class="form-group">
                                 {{ form_label(formEdit.civilite) }}
                                 {{ form_errors(formEdit.civilite) }}
@@ -73,6 +73,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if is_archived == "0" %}
                             <div class="form-group">
                                 {{ form_label(formEdit.mainPassword) }}
                                 {{ form_errors(formEdit.mainPassword) }}
@@ -94,6 +95,7 @@
                                     </button>
                                 </div>
                             </div>
+                            {% endif %}
                             <div class="form-group">
                                 {{ form_label(formEdit.startDate) }}
                                 {{ form_errors(formEdit.startDate) }}
@@ -210,8 +212,9 @@
                             {{ form_row(formEdit.isCreateInRobusto) }}
                             {{ form_row(formEdit.isCreateInSalesforce) }}
                             {{ form_row(formEdit.isCreateInWindows) }}
-                            {{ form_rest(formEdit) }}
+                            {{ form_widget(formEdit._token) }}
                         </div>
+                        {% if is_archived == "0" %}
                         <div class="col-sm-6 font_exo_2">
                             <ul class="nav nav-pills navbar-right marginNegABitLeft" id="right-navbar">
                                 <li role="presentation" id="gmailToggle" onclick="ajaxGenerateEmail();">
@@ -275,6 +278,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="modal-footer">

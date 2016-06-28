@@ -37,6 +37,7 @@ class DashboardAjaxController extends Controller
      */
     private function convertDatas($candidat)
     {
+        var_dump($candidat);
         $candidat['agence'] = $this->get('core.agence_manager')->load($candidat['agence'])->getName();
         $candidat['service'] = $this->get('core.service_manager')->load($candidat['service'])->getName();
         $candidat['fonction'] = $this->get('core.fonction_manager')->load($candidat['fonction'])->getName();

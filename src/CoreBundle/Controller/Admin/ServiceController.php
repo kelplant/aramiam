@@ -128,8 +128,10 @@ class ServiceController extends AbstractControllerService
                 $this->get('core.manager_service_link_manager')->deleteForService($request->request->get('service')['id']);
                 $this->get('core.manager_service_link_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'userId' => $request->request->get('service_responsable')[0], 'profilType' => 'Responsable'));
                 $managerTab = $request->request->get('service_managers');
-                foreach ($managerTab as $manager) {
-                    $this->get('core.manager_service_link_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'userId' => $manager, 'profilType' => 'Manager'));
+                if (!is_null($managerTab)) {
+                    foreach ($managerTab as $manager) {
+                        $this->get('core.manager_service_link_manager')->add(array('serviceId' => $request->request->get('service')['id'], 'userId' => $manager, 'profilType' => 'Manager'));
+                    }
                 }
             }
         }

@@ -141,7 +141,7 @@
                 {% if is_granted("ROLE_SUPER_ADMIN") %}
                     <li class="treeview {% if panel != 'admin' %} hide {% endif %} {% if 'orange' in app.request.get('_route') == true %} active {%  endif %} {% if 'odigo' in app.request.get('_route') == true %} active {%  endif %}" id="Odigo">
                         <a href="#">
-                            <i class="fa fa-phone"></i> <span class="font_exo_2">Odigo</span> <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-phone"></i> <span class="font_exo_2">Téléphonie</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             {% if is_granted("ROLE_SUPER_ADMIN") %}

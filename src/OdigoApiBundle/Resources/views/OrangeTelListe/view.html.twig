@@ -13,7 +13,7 @@
             <tr id="generalBtr" data-href="">
                 {% set splitArray = item.numero|split('', 2) %}
                 {% set numero = splitArray|join(' ') %}
-                <td class="admin_cat_table_cell">{{ numero }}</td>
+                <td class="admin_cat_table_cell">{{ numero }}<div class="hide">{{ numero|replace({' ': ''}) }}</div></td>
                 <td class="admin_cat_table_cell">{{ item.service }}</td>
                 <td class="admin_cat_table_cell">{% if(item.inUse == '1') %}Oui{% else %}Non{% endif %}</td>
                 <td class="admin_cat_table_cell_action">

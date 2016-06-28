@@ -16,7 +16,7 @@
                                 {{ form_errors(formAdd.civilite) }}
                                 <div class="col-sm-8">
                                     <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <span class="input-group-addon require"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.civilite) }}
                                     </div>
                                 </div>
@@ -26,7 +26,7 @@
                                 {{ form_errors(formAdd.name) }}
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <span class="input-group-addon require"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.name) }}
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                 {{ form_errors(formAdd.surname) }}
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <span class="input-group-addon require"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.surname) }}
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                 {{ form_errors(formAdd.startDate) }}
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                        <span class="input-group-addon require"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
                                         {{ form_widget(formAdd.startDate) }}
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
                 {{ form_rest(formAdd) }}
         <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
+            <input type="submit" class="btn btn-success" id="button_create" value="Créer">
         </div>
         </form>
     </div>

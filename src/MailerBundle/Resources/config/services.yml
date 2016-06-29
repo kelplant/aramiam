@@ -1,7 +1,0 @@
-parameters:
-    mailer.mailer_service.class: MailerBundle\Services\Mailer
-
-services:
-    mailer.mailer_service:
-            class: '%mailer.mailer_service.class%'
-            arguments: [ '@mailer', '@templating', '@core.utilisateur_manager', '@odigo.prosodie_odigo_manager' ]

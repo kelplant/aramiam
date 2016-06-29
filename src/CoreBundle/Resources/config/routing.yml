@@ -1,8 +1,0 @@
-core_admin_annot:
-    resource: "@CoreBundle/Controller/Admin/"
-    type:     annotation
-
-core_annot:
-    resource: "@CoreBundle/Controller/"
-    type:     annotation
-

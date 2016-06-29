@@ -1,3 +1,0 @@
-mailer_bundle_annot:
-    resource: "@MailerBundle/Controller/"
-    type:     annotation

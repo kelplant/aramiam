@@ -23,6 +23,10 @@ class UserCreator extends Controller implements UserCreatorInterface
     /** @var GoogleUserApiService */
     private $googleUserApiService;
 
+    protected $superAdminGroup;
+
+    protected $adminGroup;
+
     /**
      * @param ObjectManager           $objectManager
      * @param UsernameMapperInterface $usernameMapper
@@ -105,5 +109,25 @@ class UserCreator extends Controller implements UserCreatorInterface
         }
 
         return $this->setUser($username, $role, $email, $dn, $displayName, $googlePhotoUser);
+    }
+
+    /**
+     * @param mixed $superAdminGroup
+     * @return UserCreator
+     */
+    public function setSuperAdminGroup($superAdminGroup)
+    {
+        $this->superAdminGroup = $superAdminGroup;
+        return $this;
+    }
+
+    /**
+     * @param mixed $adminGroup
+     * @return UserCreator
+     */
+    public function setAdminGroup($adminGroup)
+    {
+        $this->adminGroup = $adminGroup;
+        return $this;
     }
 }

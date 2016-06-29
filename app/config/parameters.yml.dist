@@ -60,6 +60,9 @@ parameters:
         0:             L'export s'est correctement exécuté
     odigo_wsdl_error_delete_codes:
         0:             L'utlisateur a été supprimé
+        
+    app.auth.ad.super_admin_group: 'GRP-Aramiam-SUPER_ADMIN'
+    app.auth.ad.admin_group: 'GRP-Aramiam-ADMIN'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

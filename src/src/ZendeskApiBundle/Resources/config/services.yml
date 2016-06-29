@@ -1,0 +1,16 @@
+parameters:
+    zendesk.zendesk_ticket_link_manager.class: ZendeskApiBundle\Services\Manager\ZendeskTicketLinkManager
+    zendesk.curl_wrap.class: ZendeskApiBundle\Services\CurlWrap
+    zendesk.zendesk_service.class: ZendeskApiBundle\Services\ZendeskService
+
+services:
+    zendesk.zendesk_ticket_link_manager:
+        class: '%zendesk.zendesk_ticket_link_manager.class%'
+        arguments: ['@doctrine']
+
+    zendesk.curl_wrap:
+        class: '%zendesk.curl_wrap.class%'
+
+    zendesk.zendesk_service:
+        class: '%zendesk.zendesk_service.class%'
+        arguments: [ '@zendesk.curl_wrap', '@zendesk.zendesk_ticket_link_manager', '@app.parameters_calls' ]

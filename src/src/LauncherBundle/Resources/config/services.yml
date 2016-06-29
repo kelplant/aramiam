@@ -1,0 +1,27 @@
+parameters:
+    launcher.launcher_app_manager.class: LauncherBundle\Services\Manager\LauncherAppManager
+    launcher.entity.launcher_app_manager.class: LauncherBundle\Entity\LauncherApp
+    launcher.entityname.launcher_app_manager.class: 'LauncherBundle\Entity\LauncherApp'
+    launcher.argname.launcher_app_manager.class: 'Cette application'
+
+    launcher.launcher_app_group_manager.class: LauncherBundle\Services\Manager\LauncherAppGroupManager
+    launcher.entity.launcher_app_group_manager.class: LauncherBundle\Entity\LauncherAppGroup
+    launcher.entityname.launcher_app_group_manager.class: 'LauncherBundle\Entity\LauncherAppGroup'
+    launcher.argname.launcher_app_group_manager.class: 'Ce groupe d''application'
+
+services:
+    launcher.launcher_app_manager:
+        class: '%launcher.launcher_app_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%launcher.entity.launcher_app_manager.class%"]]
+        - [setEntityName, ["%launcher.entityname.launcher_app_manager.class%"]]
+        - [setArgname, ["%launcher.argname.launcher_app_manager.class%"]]
+
+    launcher.launcher_app_group_manager:
+        class: '%launcher.launcher_app_group_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%launcher.entity.launcher_app_group_manager.class%"]]
+        - [setEntityName, ["%launcher.entityname.launcher_app_group_manager.class%"]]
+        - [setArgname, ["%launcher.argname.launcher_app_group_manager.class%"]]

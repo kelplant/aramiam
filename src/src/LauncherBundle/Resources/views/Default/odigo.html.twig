@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="hide">
+    <form name="ident" action="https://odigo5.prosodie.com/aramis-auto/servlet/Connect" method="POST" id="odigo_form">
+        <input type="hidden" name="directURL" value="">
+        <input type="text" name="login" id="login" class="input" maxlength="32" value="{{ odigoInfos.odigoExtension }}">
+        <input type="password" name="password" id="password" class="input" value="{{ myProfil.mainPassword }}">
+        <input type="submit" style="border: 0" name="valider" class="champsbleu" value="Valider">
+    </form>
+</div>
+{% block javascripts %}{% endblock %}
+<script src="{{ asset('js/jquery/jquery-2.2.0.min.js') }}"></script>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#odigo_form").submit();
+    });
+</script>
+</html>

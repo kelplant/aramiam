@@ -1,0 +1,68 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+    # You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    light_saml_entity_id:        ~
+    federation_metadata_file:    ~
+    adfs_logout_url:             ~
+
+    zendesk_api:
+        key:           ~
+        user:          ~
+        url:           ~
+
+    odigo:
+        url:           ~
+        login:         ~
+        password:      ~
+
+    google_api:
+        user_app_account: ~
+        certificat_name:  ~
+        admin_account:    ~
+
+    active_directory:
+        ldaphost:      ~
+        ldapUsername:  ~
+        ldapPassword:  ~
+        ldapExtentsionName: '@@aramisauto.local'
+
+    salesforce:
+        consumerKey:   ~
+        secret:        ~
+        username:      ~
+        password:      ~
+        url_oauth2:    ~
+
+    aramis_api:
+        ws_agency_url: ~
+
+    odigo_wsdl_error_createagent_codes:
+        0:             L'utlisateur a été crée
+        105:           L'utilisateur existe déjà
+    odigo_wsdl_error_creatuserwithtemplate_codes:
+        0:             L'utlisateur a été crée
+        3:             L'utilisateur existe déjà
+    odigo_wsdl_error_export_codes:
+        0:             L'export s'est correctement exécuté
+    odigo_wsdl_error_delete_codes:
+        0:             L'utlisateur a été supprimé
+        
+    app.auth.ad.super_admin_group: 'GRP-Aramiam-SUPER_ADMIN'
+    app.auth.ad.admin_group: 'GRP-Aramiam-ADMIN'
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt

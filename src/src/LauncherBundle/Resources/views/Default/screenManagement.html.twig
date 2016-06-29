@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app/user/launcher.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app/launcherSM.css') }}">
+    {% endblock %}
+    {% block title %} Accueil - Lanceur d'Applications{% endblock %}
+    {% block title2 %} Accueil {% endblock %}
+    {% block title3 %} Lanceur d'Applications {% endblock %}
+    {% block breadcrumb %} Lanceur d'Applications {% endblock %}
+    {% block body %}
+        <div class="col-sm-12">
+            <div class="box box-primary">
+                <section class="content">
+                    <div class="row">
+                        <div class="box-header with-border" style="margin-bottom: 30px">
+                            <i class="fa fa-gear"></i>
+                            <h3 class="box-title font_exo_2">Organisation des Applications</h3>
+                            <div class="box-tools pull-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row grid col-sm-12">
+                            {% for group in appsTable %}
+                            <div class="well tile">
+                                <div class="groupPortlet-header">
+                                    <h4 style="margin: 0px; padding: 0px">{{ group.groupName }}</h4>
+                                    <div class="no-padding pull-right" style="margin-top: -30px; margin-right: -20px">
+                                        <div><i class="fa fa-plus-circle fa-2x pull-right" style="padding-top: 10px; margin-right: 15px; margin-top: 5px"></i></div>
+                                        <div class="tile2-disable"><h5>Nouvelle Application </h5> </div>
+                                    </div>
+                                </div>
+                                <div class="groupPortlet-content">
+                                    <div class="row grid2 col-sm-12">
+                                    {% for app in group.apps %}
+                                        <div class="well2 {{ app.tilesColor }} tile2 col-sm-{{ app.tilesLenght }} no-padding">
+                                            <div class="header">
+                                                <i class="fa fa-edit pull-right" style="padding: 2px"></i>
+                                                <i class="fa fa-remove pull-right" style="padding: 2px"></i>
+                                            </div>
+                                            <div class="content">
+                                            <div><img class="launcher_img" src="{{ asset('images/' ~ app.icon) }}" style="padding-top: 10px; margin-right: -25px; margin-top: 15px"></div>
+                                                <div class="tile2-header"><h4>{{ app.appName }} </h4> </div>
+                                                <div class="tile2-content">{{ app.appDescription }}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/user/launcher.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
+    {% endblock %}
+{% block javascriptsEndofEnd %}
+    <script>
+        $(function () {
+            $(".grid").sortable({
+                connectWith: ".grid",
+                revert: 'invalid',
+                handle: ".groupPortlet-header",
+                placeholder: 'col-sm-2 well placeholder tile',
+                forceHelperSize: true
+            });
+        });
+        $(function () {
+            $(".grid2").sortable({
+                connectWith: ".grid2",
+
+                revert: 'invalid',
+                handle: ".tile2-header",
+                placeholder: 'col-sm-2 well2 placeholder2 tile2',
+                forceHelperSize: true
+            });
+        });
+    </script>
+{% endblock %}

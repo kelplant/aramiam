@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="hide">
+    <form action="{{ url.loginUrl }}" method="get" id="salesforce_form">
+        <input type="hidden" id="un" name="un" value="{{ myProfil.email }}"/>
+        <input type="hidden" id="pw" name="pw" value="{{ myProfil.mainPassword }}"/>
+        <input type="submit" name="login" value="login"/>
+    </form>
+</div>
+{% block javascripts %}{% endblock %}
+<script src="{{ asset('js/jquery/jquery-2.2.0.min.js') }}"></script>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#salesforce_form").submit();
+    });
+</script>
+</html>

@@ -1,0 +1,3 @@
+odigo_api_annot:
+    resource: "@OdigoApiBundle/Controller/"
+    type:     annotation

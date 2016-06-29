@@ -1,0 +1,133 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "01cfd99964521d7066bf558c21243249",
+    "content-hash": "8bf2649b37b1ed78842d24130bb28d11",
+    "packages": [
+        {
+            "name": "aramisauto/aramis-ananas-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ARAMISAUTO/aramis-ananas-module.git",
+                "reference": "eb4b3643b6df36bb5ae556d42f620901989db664"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "ITeam",
+                    "email": "iteam@aramisauto.com"
+                }
+            ],
+            "time": "2016-03-01 10:16:03"
+        },
+        {
+            "name": "aramisauto/aramisflow-ananas-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ARAMISAUTO/aramisflow-ananas-module.git",
+                "reference": "52c457222929e7204d2bc7c61aa9f502fee95be2"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "ITeam",
+                    "email": "iteam@aramisauto.com"
+                }
+            ],
+            "time": "2015-02-13 15:31:01"
+        },
+        {
+            "name": "aramisauto/defaults-ananas-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ARAMISAUTO/defaults-ananas-module.git",
+                "reference": "9ce90f472806f77fef269067ba4e69024e34eb78"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "ITeam",
+                    "email": "iteam@aramisauto.com"
+                }
+            ],
+            "time": "2016-02-23 14:30:46"
+        },
+        {
+            "name": "aramisauto/github-ananas-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ARAMISAUTO/github-ananas-module.git",
+                "reference": "6f30afeb45bd7a46f748fb589486553ccd24d810"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "ITeam",
+                    "email": "iteam@aramisauto.com"
+                }
+            ],
+            "time": "2014-04-04 09:09:13"
+        },
+        {
+            "name": "aramisauto/liquibase",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ARAMISAUTO/liquibase.git",
+                "reference": "d21d5e1252e01c72a05ba24170f13c774809199e"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "Tristan Rivoallan",
+                    "email": "tristan@rivoallan.net"
+                }
+            ],
+            "time": "2016-06-29 14:10:46"
+        },
+        {
+            "name": "constructions-incongrues/ananas-build-toolkit",
+            "version": "0.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/constructions-incongrues/ananas-build-toolkit.git",
+                "reference": "0627e604cb9349037962c3520173c5f98b5dbbcb"
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "Constructions Incongrues",
+                    "email": "contact@constructions-incongrues.net"
+                }
+            ],
+            "description": "L'Ananas Build Toolkit est un framework de configuration et de déploiement de projet logiciel.",
+            "homepage": "http://constructions-incongrues.github.com/ananas-build-toolkit/",
+            "support": {
+                "issues": "https://github.com/constructions-incongrues/ananas-build-toolkit/issues",
+                "source": "https://github.com/constructions-incongrues/ananas-build-toolkit"
+            },
+            "time": "2015-03-16 10:19:42"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "aramisauto/aramis-ananas-module": 20,
+        "aramisauto/aramisflow-ananas-module": 20,
+        "aramisauto/defaults-ananas-module": 20,
+        "aramisauto/github-ananas-module": 20,
+        "aramisauto/liquibase": 20
+    },
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

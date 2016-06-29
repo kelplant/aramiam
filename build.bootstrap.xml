@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mia.bootstrap" default="bootstrap" basedir=".">
+    <target name="bootstrap">
+        <exec executable="php">
+            <arg line="composer.phar install --no-progress --prefer-source" />
+        </exec>
+    </target>
+</project>

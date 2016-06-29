@@ -1,0 +1,66 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: @database.cohiba.host@
+    database_port: @database.cohiba.port@
+    database_name: @database.cohiba.name@
+    database_user: @database.cohiba.user@
+    database_password: @database.cohiba.password@
+
+    mailer_transport: @mailer.transport.type@
+    mailer_host: @mailer.transport.host@
+    mailer_user: @mailer.transport.user@
+    mailer_password: @mailer.transport.password@
+
+    secret: 79eddab5e98361d6ec1296ca52402e11ca1fc825
+
+    light_saml_entity_id: @saml.entity.id@
+    federation_metadata_file: @saml.metadata.file@
+    adfs_logout_url: @saml.logout.url@
+
+    zendesk_api:
+        key: @zendesk.api.key@
+        user: @zendesk.api.user@
+        url: @zendesk.api.url@
+
+    google_api:
+        user_app_account: @google.api.file@
+        certificat_name: @google.api.certificat@
+        admin_account: @google.api.account@
+
+    odigo:
+        url: @odigo.api.url@
+        login: @odigo.api.login@
+        password: @odigo.api.password@
+
+    active_directory:
+        ldaphost: @odigo.api.host@
+        ldapUsername: @odigo.api.user@
+        ldapPassword: @odigo.api.password@
+        ldapBaseDN: @odigo.api.basedn@
+        ldapExtentsionName: @odigo.api.extension@
+
+    salesforce:
+        consumerKey: @odigo.api.consumerKey@
+        secret: @odigo.api.secret@
+        username: @odigo.api.user@
+        password: @odigo.api.password@
+        urlAauth2: @odigo.api.urloauth@
+        loginUrl: @odigo.api.loginurl@
+
+    aramis_api:
+        ws_agency_url: @aramis.api.url@
+
+    app.auth.ad.super_admin_group: @odigo.auth.super_admin_group@
+    app.auth.ad.admin_group: @odigo.auth.admin_group@
+
+    odigo_wsdl_error_createagent_codes:
+        0: 'L''utlisateur a été crée'
+        105: 'L''utilisateur existe déjà'
+    odigo_wsdl_error_creatuserwithtemplate_codes:
+        0: 'L''utlisateur a été crée'
+        3: 'L''utilisateur existe déjà'
+    odigo_wsdl_error_export_codes:
+        - 'L''export s''est correctement exécuté'
+    odigo_wsdl_error_delete_codes:
+        - 'L''utlisateur a été supprimé'
+

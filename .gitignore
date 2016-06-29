@@ -1,22 +1,16 @@
 /src/web/bundles/
-<<<<<<< HEAD
 /src/app/config/parameters.yml
-=======
->>>>>>> 018e38fbca85fb6d4f2f25c13ce60c9ff7048342
 /src/vendor/
 /src/bin/
 /src/web/config.php
 /src/web/app.php
-<<<<<<< HEAD
 /src/app/config/iamapiaa-1a0fba77949f.p12
 /src/app/config/iamapiaa-2be87e2fb6be.json
 /src/app/config/client_secret_113840960664817971450.json
-/.idea/
-=======
 /src/app/config/client_secret_113840960664817971450.json
 /src/app/config/iamapiaa-1a0fba77949f.p12
 /src/app/config/iamapiaa-2be87e2fb6be.json
 /src/app/config/parameters.yml
 /src/.idea/
->>>>>>> 018e38fbca85fb6d4f2f25c13ce60c9ff7048342
 /src/var/
+

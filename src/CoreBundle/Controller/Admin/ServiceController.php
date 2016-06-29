@@ -101,8 +101,10 @@ class ServiceController extends AbstractControllerService
             $return = $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->add($request->request->get(strtolower($this->checkFormEntity($this->entity))));
             $this->get('core.manager_service_link_manager')->add(array('serviceId' => $return['item']->getId(), 'userId' => $request->request->get('service_responsable')[0], 'profilType' => 'Responsable'));
             $managerTab = $request->request->get('service_managers');
-            foreach ($managerTab as $manager) {
-                $this->get('core.manager_service_link_manager')->add(array('serviceId' => $return['item']->getId(), 'userId' => $manager, 'profilType' => 'Manager'));
+            if (!is_null($managerTab)) {
+                foreach ($managerTab as $manager) {
+                    $this->get('core.manager_service_link_manager')->add(array('serviceId' => $return['item']->getId(), 'userId' => $manager, 'profilType' => 'Manager'));
+                }
             }
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);

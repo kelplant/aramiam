@@ -76,6 +76,15 @@ function ajaxSendEmailToSalarie()
         }});
 }
 
+// Fonction d'envoi d'email au salarié et responsable
+function ajaxSendEmailToSalarieAndInfoRecrut()
+{
+    urlajax ="/ajax/send/mail/to_user_and_responsable/"+localStorage.getItem("currentEditItem");
+    $.ajax({
+        url:urlajax,success:function(result) {
+        }});
+}
+
 function generateWindowsBody()
 {
     urlajax ="/ajax/get/active_directory/organisation_units";

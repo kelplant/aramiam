@@ -180,7 +180,7 @@ class UtilisateurType extends BaseType
                     'Remplacement' => 'Remplacement',
                     'Création' => 'Création',
                 ),
-                'label' => 'Status Poste',
+                'label' => 'Statut Poste',
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'col-sm-4 control-label align_right font_exo_2',

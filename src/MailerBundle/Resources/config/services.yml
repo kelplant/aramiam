@@ -4,4 +4,4 @@ parameters:
 services:
     mailer.mailer_service:
             class: '%mailer.mailer_service.class%'
-            arguments: [ '@mailer', '@templating', '@core.utilisateur_manager', '@odigo.prosodie_odigo_manager' ]
+            arguments: [ '@mailer', '@templating', '@core.utilisateur_manager', '@odigo.prosodie_odigo_manager', '@ad.active_directory_user_link_manager' ]

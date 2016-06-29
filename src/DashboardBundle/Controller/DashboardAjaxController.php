@@ -37,11 +37,10 @@ class DashboardAjaxController extends Controller
      */
     private function convertDatas($candidat)
     {
-        var_dump($candidat);
-        $candidat['agence'] = $this->get('core.agence_manager')->load($candidat['agence'])->getName();
-        $candidat['service'] = $this->get('core.service_manager')->load($candidat['service'])->getName();
-        $candidat['fonction'] = $this->get('core.fonction_manager')->load($candidat['fonction'])->getName();
-        $candidat['startDate'] = date('Y-m-d', strtotime($candidat['startDate']['date']));
+        if ($candidat['agence'] != 0) {$candidat['agence'] = $this->get('core.agence_manager')->load($candidat['agence'])->getName();}
+        if ($candidat['service'] != 0) {$candidat['service'] = $this->get('core.service_manager')->load($candidat['service'])->getName();}
+        if ($candidat['fonction'] != 0) {$candidat['fonction'] = $this->get('core.fonction_manager')->load($candidat['fonction'])->getName();}
+        if ($candidat['startDate'] != 0) {$candidat['startDate'] = date('Y-m-d', strtotime($candidat['startDate']['date']));}
 
         return $candidat;
     }
@@ -71,7 +70,7 @@ class DashboardAjaxController extends Controller
     private function testForStatusPoste($statusPoste, $a, $b)
     {
         if ($statusPoste == 'Création') {
-            return array('color' => $a, 'icon' => '/images/truck.png');
+            return array('color' => $a, 'icon' => '/images/assembly.png');
         } else {
             return array('color' => $a, 'icon' => null);
         }
@@ -118,6 +117,7 @@ class DashboardAjaxController extends Controller
      */
     public function getCandidatStartDates()
     {
+
         $finalDatas = $this->getCandidatDatas();
         $finalTable = $this->finalTable($finalDatas);
 

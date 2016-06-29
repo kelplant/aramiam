@@ -35,6 +35,7 @@ class ServiceType extends BaseType
                     'placeholder' => 'Saisir un nom de Service',
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => true,
             ))
             ->add('shortName', TextType::class, array(
                 'label' => 'Nom raccourci',
@@ -45,6 +46,7 @@ class ServiceType extends BaseType
                     'placeholder' => 'Saisir un nom court de Service',
                     'class' => 'form-control font_exo_2',
                 ),
+                'required' => true,
             ))
             ->add('nameInCompany', TextType::class, array(
                 'label' => 'Dans Company',

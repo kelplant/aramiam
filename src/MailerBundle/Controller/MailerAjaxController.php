@@ -21,4 +21,14 @@ class MailerAjaxController extends Controller
         $this->get('mailer.mailer_service')->setFrom($this->getParameter('google_api')['admin_account']);
         return new JsonResponse($this->get('mailer.mailer_service')->sendInfosMessage($userId, '1'));
     }
+
+    /**
+     * @Route(path="/ajax/send/mail/to_user_and_responsable/{userId}",name="ajax_send_mail_to_user_and_responsable")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function sendMailToUserIdAndHisResponsable($userId)
+    {
+        $this->get('mailer.mailer_service')->setFrom($this->getParameter('google_api')['admin_account']);
+        return new JsonResponse($this->get('mailer.mailer_service')->sendInfosMessage($userId, '2'));
+    }
 }

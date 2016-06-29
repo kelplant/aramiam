@@ -1,0 +1,52 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: @app_database_host@
+    database_port: @app_database_port@
+    database_name: @app_database_name@
+    database_user: @app_database_user@
+    database_password: @app_database_password@
+    mailer_transport: @app_mailer_transport@
+    mailer_host: @app_mailer_host@
+    mailer_user: @app_mailer_user@
+    mailer_password: @app_mailer_password@
+    light_saml_entity_id: @app_light_saml_entity_id@
+    federation_metadata_file: @app_federation_metadata_file@
+    adfs_logout_url: @app_adfs_logout_url@
+    secret: @app_secret@
+    zendesk_api:
+        key: @zendesk_api_key@
+        user: @zendesk_api_user@
+        url: @zendesk_api_url@
+
+    google_api:
+        user_app_account: @google_api_user_app_account@
+        certificat_name: @google_api_certificat_name@
+        admin_account: @google_api_admin_account@
+    odigo:
+        url: @odigo_url@
+        login: @odigo_login@
+        password: @odigo_password@
+    active_directory:
+        ldaphost: @active_directory_ldaphost@
+        ldapUsername: @active_directory_ldapUsername@
+        ldapPassword: @active_directory_ldapPassword@
+        ldapBaseDN: @active_directory_ldapBaseDN@
+    salesforce:
+        consumerKey: @salesforce_consumerKey@
+        secret: @salesforce_secret@
+        username: @salesforce_username@
+        password: @salesforce_password@
+        urlAauth2: @salesforce_urlAauth2@
+        loginUrl: @salesforce_loginUrl@
+    aramis_api:
+        ws_agency_url: @aramis_api_ws_agency_url@
+    odigo_wsdl_error_createagent_codes:
+        0: @odigo_wsdl_error_createagent_codes_0@
+        105: @odigo_wsdl_error_createagent_codes_105@
+    odigo_wsdl_error_creatuserwithtemplate_codes:
+        0: @odigo_wsdl_error_creatuserwithtemplate_codes_0@
+        3: @odigo_wsdl_error_creatuserwithtemplate_codes_3@
+    odigo_wsdl_error_export_codes:
+        - @odigo_wsdl_error_export_codes@
+    odigo_wsdl_error_delete_codes:
+        - @odigo_wsdl_error_export_codes@

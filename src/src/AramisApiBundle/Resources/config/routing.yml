@@ -1,0 +1,3 @@
+aramis_annot:
+    resource: "@AramisApiBundle/Controller/"
+    type:     annotation

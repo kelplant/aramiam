@@ -1,0 +1,62 @@
+<div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+    <form action="{{ path('form_exec_edit_google_groupe') }}" method="post" class="form-horizontal" id="form-edit">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modal-header modal-lg">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'un groupe Google Gmail</h4>
+                </div>
+                <div class="modal-body modal-lg">
+                    <div class="main_container col-sm-12 text-center show" id="loading">
+                        <br><br><br>
+                        <button type="button" class="btn btn-lg btn-warning">
+                            <span class="glyphicon glyphicon-refresh spinning"></span>
+                            Loading...</button>
+                        <br><br><br>
+                    </div>
+                    <div class="container-fluid marginNegABitABitLeft" xmlns="http://www.w3.org/1999/html" id="mainEditForm">
+                        <input type="hidden" name="formAction" value="edit">
+                        {{ form_row(formEdit.id) }}
+                        {{ form_widget(formEdit._token) }}
+                        {{ form_errors(formEdit) }}
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_label(formEdit.name) }}
+                                {{ form_errors(formEdit.name) }}
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-google fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.name) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formEdit.email) }}
+                                {{ form_errors(formEdit.email) }}
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-google fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formEdit.email) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 font_exo_2">
+                            <i>Pour Ajouter un matching, appuyer sur "ajouter une règle" puis selectionner un service, une fonction ou les deux à la fois.</i>
+                            <div class="container-fluid actionPartFonction">
+                                <div class="" id="createActionFonctionPart">
+                                </div>
+                                <div class="form-group text-center" id="buttonMachingAdd"><button type="button" class="btn btn-info" onclick="addMachingFieldField();">Ajouter une règle</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

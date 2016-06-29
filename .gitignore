@@ -1,13 +1,11 @@
-/web/bundles/
-/vendor/
-/bin/
-<<<<<<< HEAD
-=======
-/web/config.php
-/web/app.php
-/app/config/iamapiaa-1a0fba77949f.p12
-/app/config/iamapiaa-2be87e2fb6be.json
-/app/config/client_secret_113840960664817971450.json
->>>>>>> 6763c2e0abd80bac243a304eb7271de99a599d73
-/.idea/
-/var/
+/src/web/bundles/
+/src/vendor/
+/src/bin/
+/src/web/config.php
+/src/web/app.php
+/src/app/config/client_secret_113840960664817971450.json
+/src/app/config/iamapiaa-1a0fba77949f.p12
+/src/app/config/iamapiaa-2be87e2fb6be.json
+/src/app/config/parameters.yml
+/src/.idea/
+/src/var/

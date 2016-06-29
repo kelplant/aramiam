@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvel Arrivant AramisAuto</title>
+</head>
+<body>
+Bonjour {{ userInfos.viewName }}<br>
+<p>
+    Bienvenue chez AramisAuto!<br>
+    <br>
+    Vous trouverez ci dessous les logins d'accès à nos différents applicatifs
+</p>
+{% if odigoUserInfos.odigoPhoneNumber is defined %}
+- Votre numéro de contact client Prosodie : {{ odigoUserInfos.odigoPhoneNumber }}<br>
+{% endif %}
+{% if odigoUserInfos.redirectPhoneNumber is defined %}
+- Votre numéro de poste fixe : {{ odigoUserInfos.redirectPhoneNumber }}
+{% endif %}
+{% if userInfos.isCreateInWindows != 0 %}
+<p>
+    <b>Votre Sessions Windows (Ouverture du pc):</b><br>
+    <br>
+    - Nom d'utilisateur : ??????<br>
+    - Mot de passe : {{ userInfos.mainPassword }}<br>
+    <br>
+    <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
+</p>
+{% endif %}
+{% if userInfos.isCreateInGmail != 0 %}
+<p>
+    <b>Accès gmail :</b><br>
+    <br>
+    - Nom d'utilisateur : {{ userInfos.email }}<br>
+    - Mot de passe : {{ userInfos.mainPassword }}<br>
+    - Adresse Internet : <a href="https://gmail.com">https://gmail.com</a><br>
+    <br>
+    <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
+</p>
+{% endif %}
+{% if userInfos.isCreateInRobusto != 0 %}
+<p>
+    <b>Accès ROBUSTO :</b><br>
+    <br>
+    - Nom d'utilisateur : ???????????<br>
+    - Mot de passe : {{ userInfos.mainPassword }}<br>
+    - Adresse Internet : <a href="http://robusto.aramisauto.com">http://robusto.aramisauto.com</a><br>
+    <br>
+    <i>Nous vous recommandons de changer ce mot de passe dès votre première connexion</i>
+</p>
+{% endif %}
+{% if userInfos.isCreateInSalesforce != 0 %}
+<p>
+    <b>Accès Salesforce :</b><br>
+    <br>
+    - Nom d'utilisateur : {{ userInfos.email }}<br>
+    - Mot de passe : {{ userInfos.mainPassword }}<br>
+    - Adresse Internet : <a href="https://login.salesforce.com">https://login.salesforce.com</a><br>
+    <br>
+    <i>Ce mot de passe est le même que Robusto. Si vous changez votre mot depasse via Robusto, il sera également automatiquement changé sur Salesforce</i>
+</p>
+{% endif %}
+{% if userInfos.isCreateInOdigo != 0 %}
+<p>
+    <b>Accès Odigo :</b><br>
+    <br>
+    - Nom d'utilisateur : {{ odigoUserInfos.odigoExtension }}<br>
+    - Mot de passe : {{ userInfos.mainPassword }}<br>
+    - Adresse Internet : <a href="http://odigo5.prosodie.com/aramis-auto/">http://odigo5.prosodie.com/aramis-auto/</a><br>
+    <br>
+</p>
+{% endif %}
+<p>
+    <b>Informations Complémentaires :</b><br>
+    1) Inscription à Yammer (Il suffit de mettre votre adresse @aramisauto) : <a href ="https://www.yammer.com/aramisauto.com/?show_signup=true">Yammer</a><br>
+    2) Pour toutes questions, la Base de connaissance Aramisauto : <a href="https://support.aramisauto.com">Support AramisAuto</a><br>
+    <br>
+    Et pour nous contacter :<br>
+    <br>
+    - Questions RH la "HotLine RH" : <a href="https://www.yammer.com/aramisauto.com/#/threads/inGroup?type=in_group&feedId=453756">Hotline RH sur Yammer</a><br>
+    - Pour remonter un problème, une demande informatique (site web, application, téléphonie, matériel, imprimante ...) : Utilisez Zendesk sur <a href="https://support.aramisauto.com">Support AramisAuto</a><br>
+    <br>
+    Les Equipes RH&IT
+</p>
+</body>
+
+</html>

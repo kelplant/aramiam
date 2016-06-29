@@ -1,78 +1,66 @@
 {
-    "name": "xavier/aramis.odigo",
+    "name": "aramis/aramiam",
+    "description": "Aramis Identity Access Manager",
     "license": "proprietary",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
+    "homepage": "https://github.com/ARAMISAUTO/aramiam",
+    "authors": [
+        {
+            "name": "Aramis",
+            "homepage": "https://github.com/ARAMISAUTO/aramiam/graphs/contributors"
         }
-    },
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {},
+    "autoload-dev": {},
     "require": {
-        "php": ">=5.5.9",
-        "symfony/symfony": "3.0.*",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/monolog-bundle": "^2.8",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "lightsaml/sp-bundle": "^1.0",
-        "google/apiclient": "1.0.*@beta",
-        "guzzlehttp/guzzle": "^6.2",
-        "stof/doctrine-extensions-bundle": "dev-master",
-        "twig/extensions": "^1.3"
+        "aramisauto/aramis-ananas-module":               "dev-master",
+        "aramisauto/aramisflow-ananas-module":           "dev-master",
+        "aramisauto/defaults-ananas-module":             "dev-master",
+        "aramisauto/github-ananas-module":               "dev-master",
+        "aramisauto/liquibase":                          "dev-master",
+        "constructions-incongrues/ananas-build-toolkit": "0.22.*"
     },
-    "repositories" : [{
-        "type" : "vcs",
-        "url" : "https://github.com/ARAMISAUTO/odigo-service-bundle.git"
-    }],
-    "require-dev": {
-        "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
-    },
+    "require-dev": {},
     "scripts": {
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "bower -f update --config.interactive=false",
+            "rm -rf src/var/cache/*",
+            "ant bootstrap properties.update configure",
+            "./composer.phar --working-dir=\"src/\" install"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "bower -f update --config.interactive=false",
+            "ant bootstrap properties.update configure",
+            "ant build"
         ]
     },
-    "config": {
-        "platform": {
-            "php": "5.5.9"
+    "extra": {},
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/constructions-incongrues/ananas-build-toolkit.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ARAMISAUTO/aramis-ananas-module.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ARAMISAUTO/aramisflow-ananas-module.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ARAMISAUTO/defaults-ananas-module.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ARAMISAUTO/github-ananas-module.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ARAMISAUTO/liquibase.git"
         }
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "app",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
-    }
+    ]
 }

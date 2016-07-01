@@ -1,5 +1,7 @@
 /web/bundles/
 /app/config/parameters.yml
+/app/config/build.properties.php
+/app/config/p.yml.dist
 /vendor/
 /bin/
 /web/config.php

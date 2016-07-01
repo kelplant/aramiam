@@ -1,0 +1,23 @@
+{
+  "name": "ais",
+  "homepage": "https://github.com/ARAMISAUTO/aramiam",
+  "description": "Aramis Identify Acces Manager",
+  "main": "",
+  "authors": [
+    "xarroues"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/web/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "datatables": "^1.10.12"
+  }
+}

@@ -18,7 +18,7 @@
                                     <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                         {% if is_archived == "0" %}{{ form_widget(formEdit.civilite) }}{% endif %}
-                                        {% if is_archived != "0" %}{{ form_widget(formEdit.civilite, {'attr': {'readonly': 'is_archived','disabled':'disabled' }}) }}{% endif %}
+                                        {% if is_archived != "0" %}{{ form_widget(formEdit.civilite, {'attr': {'readonly': 'is_archived','disabled':'disabled', 'required':'required' }}) }}{% endif %}
                                     </div>
                                 </div>
                             </div>

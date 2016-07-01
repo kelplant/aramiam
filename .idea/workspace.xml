@@ -5,235 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca4b97d1-9cc1-4d0a-978c-831ef19191fd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/config/build.properties.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/config/p.yml.dist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/etc/admin/build.properties.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/config/.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/aramiam.iml" afterPath="$PROJECT_DIR$/.idea/aramiam.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/web/css/app/candidat.css" afterPath="$PROJECT_DIR$/src/web/css/app/checkbox.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/bootstrap.php.cache" afterPath="$PROJECT_DIR$/src/app/bootstrap.php.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/config.yml" afterPath="$PROJECT_DIR$/src/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/config_dev.yml" afterPath="$PROJECT_DIR$/src/app/config/config_dev.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/config_prod.yml" afterPath="$PROJECT_DIR$/src/app/config/config_prod.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/config_test.yml" afterPath="$PROJECT_DIR$/src/app/config/config_test.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/parameters.yml-dist" afterPath="$PROJECT_DIR$/src/app/config/parameters.yml-dist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/routing.yml" afterPath="$PROJECT_DIR$/src/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/routing_dev.yml" afterPath="$PROJECT_DIR$/src/app/config/routing_dev.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/config/services.yml" afterPath="$PROJECT_DIR$/src/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/console" afterPath="$PROJECT_DIR$/src/app/console" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/symfony_requirements" afterPath="$PROJECT_DIR$/src/app/symfony_requirements" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/composer.lock" afterPath="$PROJECT_DIR$/src/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/DashboardBundle/DashboardBundle.php" afterPath="$PROJECT_DIR$/src/src/DashboardBundle/DashboardBundle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/DashboardBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/src/DashboardBundle/Resources/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/DashboardBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/src/DashboardBundle/Resources/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/LauncherBundle/LauncherBundle.php" afterPath="$PROJECT_DIR$/src/src/LauncherBundle/LauncherBundle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/LauncherBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/src/LauncherBundle/Resources/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/LauncherBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/src/LauncherBundle/Resources/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/AdminLTE.css" afterPath="$PROJECT_DIR$/src/web/css/app/AdminLTE.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/AdminLTE.min.css" afterPath="$PROJECT_DIR$/src/web/css/app/AdminLTE.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/_all-skins.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/_all-skins.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-black-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-black-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-black.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-black.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-blue-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-blue-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-blue.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-blue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-green-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-green-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-green.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-green.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-purple-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-purple-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-purple.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-purple.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-red-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-red-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-red.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-red.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-yellow-light.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-yellow-light.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/app/skins/skin-yellow.css" afterPath="$PROJECT_DIR$/src/web/css/app/skins/skin-yellow.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-chosen.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-chosen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-datepicker.min.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-datepicker.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-select.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-select.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-select.min.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-select.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-treeview.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap-treeview.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap.min.css" afterPath="$PROJECT_DIR$/src/web/css/bootstrap/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/chosen/chosen.css" afterPath="$PROJECT_DIR$/src/web/css/chosen/chosen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/chosen/chosen.min.css" afterPath="$PROJECT_DIR$/src/web/css/chosen/chosen.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/datatables/dataTables.bootstrap.min.css" afterPath="$PROJECT_DIR$/src/web/css/datatables/dataTables.bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/datatables/jquery.dataTables.min.css" afterPath="$PROJECT_DIR$/src/web/css/datatables/jquery.dataTables.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/fontawesome/font-awesome.min.css" afterPath="$PROJECT_DIR$/src/web/css/fontawesome/font-awesome.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.css" afterPath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.min.css" afterPath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.print.css" afterPath="$PROJECT_DIR$/src/web/css/fullcalendar/fullcalendar.print.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/all.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/_all.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/_all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/aero.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/aero.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/blue.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/blue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/flat.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/flat.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/green.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/green.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/grey.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/grey.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/orange.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/orange.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/pink.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/pink.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/purple.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/purple.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/red.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/red.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/flat/yellow.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/flat/yellow.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/futurico/futurico.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/futurico/futurico.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/icheck.js" afterPath="$PROJECT_DIR$/src/web/css/iCheck/icheck.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/icheck.min.js" afterPath="$PROJECT_DIR$/src/web/css/iCheck/icheck.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/_all.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/_all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/aero.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/aero.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/blue.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/blue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/green.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/green.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/grey.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/grey.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/line.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/line.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/orange.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/orange.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/pink.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/pink.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/purple.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/purple.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/red.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/red.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/line/yellow.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/line/yellow.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/_all.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/_all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/aero.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/aero.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/blue.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/blue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/green.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/green.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/grey.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/grey.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/minimal.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/minimal.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/orange.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/orange.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/pink.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/pink.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/purple.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/purple.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/red.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/red.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/minimal/yellow.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/minimal/yellow.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/polaris/polaris.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/polaris/polaris.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/_all.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/_all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/aero.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/aero.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/blue.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/blue.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/green.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/green.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/grey.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/grey.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/orange.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/orange.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/pink.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/pink.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/purple.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/purple.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/red.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/red.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/square.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/square.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/iCheck/square/yellow.css" afterPath="$PROJECT_DIR$/src/web/css/iCheck/square/yellow.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/jquery-ui.min.css" afterPath="$PROJECT_DIR$/src/web/css/jquery-ui.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/jvectormap/jquery-jvectormap-1.2.2.css" afterPath="$PROJECT_DIR$/src/web/css/jvectormap/jquery-jvectormap-1.2.2.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/morris/morris.css" afterPath="$PROJECT_DIR$/src/web/css/morris/morris.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/select2/select2.css" afterPath="$PROJECT_DIR$/src/web/css/select2/select2.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/select2/select2.min.css" afterPath="$PROJECT_DIR$/src/web/css/select2/select2.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/css/selectize/selectize.bootstrap3.css" afterPath="$PROJECT_DIR$/src/web/css/selectize/selectize.bootstrap3.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/images/caisse-d-epargne-logo.svg" afterPath="$PROJECT_DIR$/src/web/images/caisse-d-epargne-logo.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/app/app.min.js" afterPath="$PROJECT_DIR$/src/web/js/app/app.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/app/demo.js" afterPath="$PROJECT_DIR$/src/web/js/app/demo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/app/iam.js" afterPath="$PROJECT_DIR$/src/web/js/app/iam.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootbox.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootbox.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-datepicker.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-datepicker.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-select.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-select.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-select.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-select.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-treeview.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap-treeview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/bootstrap.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-cs_CZ.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-cs_CZ.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-cs_CZ.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-cs_CZ.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-de_DE.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-de_DE.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-de_DE.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-de_DE.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-en_US.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-en_US.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-en_US.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-en_US.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-es_CL.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-es_CL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-es_CL.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-es_CL.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-eu.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-eu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-eu.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-eu.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-fr_FR.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-fr_FR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-fr_FR.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-fr_FR.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-it_IT.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-it_IT.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-it_IT.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-it_IT.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-nl_NL.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-nl_NL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-nl_NL.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-nl_NL.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pl_PL.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pl_PL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pl_PL.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pl_PL.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pt_BR.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pt_BR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pt_BR.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-pt_BR.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ro_RO.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ro_RO.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ro_RO.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ro_RO.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ru_RU.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ru_RU.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ru_RU.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ru_RU.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ua_UA.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ua_UA.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ua_UA.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-ua_UA.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_CN.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_CN.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_CN.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_CN.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_TW.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_TW.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_TW.min.js" afterPath="$PROJECT_DIR$/src/web/js/bootstrap/i18n/defaults-zh_TW.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/chosen/chosen.jquery.js" afterPath="$PROJECT_DIR$/src/web/js/chosen/chosen.jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/chosen/chosen.jquery.min.js" afterPath="$PROJECT_DIR$/src/web/js/chosen/chosen.jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/chosen/chosen.proto.js" afterPath="$PROJECT_DIR$/src/web/js/chosen/chosen.proto.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/chosen/chosen.proto.min.js" afterPath="$PROJECT_DIR$/src/web/js/chosen/chosen.proto.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/dashboard/dashboard.js" afterPath="$PROJECT_DIR$/src/web/js/dashboard/dashboard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/dashboard/phone_dashboard.js" afterPath="$PROJECT_DIR$/src/web/js/dashboard/phone_dashboard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/datatables/dataTables.bootstrap.js" afterPath="$PROJECT_DIR$/src/web/js/datatables/dataTables.bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/fastclick/fastclick.js" afterPath="$PROJECT_DIR$/src/web/js/fastclick/fastclick.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/fullcalendar/fullcalendar.js" afterPath="$PROJECT_DIR$/src/web/js/fullcalendar/fullcalendar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/fullcalendar/fullcalendar.min.js" afterPath="$PROJECT_DIR$/src/web/js/fullcalendar/fullcalendar.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/fullcalendar/gcal.js" afterPath="$PROJECT_DIR$/src/web/js/fullcalendar/gcal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/fullcalendar/lang-all.js" afterPath="$PROJECT_DIR$/src/web/js/fullcalendar/lang-all.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/iCheck/icheck.js" afterPath="$PROJECT_DIR$/src/web/js/iCheck/icheck.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/iCheck/icheck.min.js" afterPath="$PROJECT_DIR$/src/web/js/iCheck/icheck.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/jquery-ui/jquery-ui.min.js" afterPath="$PROJECT_DIR$/src/web/js/jquery-ui/jquery-ui.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/jquery/jquery-2.2.0.min.js" afterPath="$PROJECT_DIR$/src/web/js/jquery/jquery-2.2.0.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/jquery/jquery.chained.min.js" afterPath="$PROJECT_DIR$/src/web/js/jquery/jquery.chained.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/jquery/jquery.dataTables.min.js" afterPath="$PROJECT_DIR$/src/web/js/jquery/jquery.dataTables.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/jvectormap/jquery-jvectormap-1.2.2.min.js" afterPath="$PROJECT_DIR$/src/web/js/jvectormap/jquery-jvectormap-1.2.2.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/moment/moment.min.js" afterPath="$PROJECT_DIR$/src/web/js/moment/moment.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/morris/morris.js" afterPath="$PROJECT_DIR$/src/web/js/morris/morris.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/morris/morris.min.js" afterPath="$PROJECT_DIR$/src/web/js/morris/morris.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/raphael/raphael-min.js" afterPath="$PROJECT_DIR$/src/web/js/raphael/raphael-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ar.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/az.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/az.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/bg.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/bg.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ca.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/cs.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/cs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/da.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/da.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/de.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/de.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/el.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/el.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/en.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/en.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/es.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/es.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/et.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/et.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/eu.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/eu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/fa.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/fa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/fi.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/fi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/fr.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/fr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/gl.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/gl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/he.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/he.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/hi.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/hi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/hr.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/hr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/hu.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/hu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/id.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/id.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/is.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/is.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/it.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/it.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ja.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ja.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/km.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/km.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ko.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ko.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/lt.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/lt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/lv.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/lv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/mk.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/mk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ms.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ms.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/nb.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/nb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/nl.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/nl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/pl.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/pl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/pt-BR.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/pt-BR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/pt.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/pt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ro.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ro.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/ru.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/ru.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/sk.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/sk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/sr-Cyrl.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/sr-Cyrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/sr.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/sr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/sv.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/sv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/th.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/th.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/tr.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/tr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/uk.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/uk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/vi.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/vi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/zh-CN.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/zh-CN.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/i18n/zh-TW.js" afterPath="$PROJECT_DIR$/src/web/js/select2/i18n/zh-TW.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/select2.full.js" afterPath="$PROJECT_DIR$/src/web/js/select2/select2.full.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/select2.full.min.js" afterPath="$PROJECT_DIR$/src/web/js/select2/select2.full.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/select2.js" afterPath="$PROJECT_DIR$/src/web/js/select2/select2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/select2/select2.min.js" afterPath="$PROJECT_DIR$/src/web/js/select2/select2.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/selectize/selectize.js" afterPath="$PROJECT_DIR$/src/web/js/selectize/selectize.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/selectize/selectize.min.js" afterPath="$PROJECT_DIR$/src/web/js/selectize/selectize.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/slimScroll/jquery.slimscroll.js" afterPath="$PROJECT_DIR$/src/web/js/slimScroll/jquery.slimscroll.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/sparkline/jquery.sparkline.js" afterPath="$PROJECT_DIR$/src/web/js/sparkline/jquery.sparkline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/sparkline/jquery.sparkline.min.js" afterPath="$PROJECT_DIR$/src/web/js/sparkline/jquery.sparkline.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/AramisApiBundle/Services/Manager/AramisRobustoManager.php" afterPath="$PROJECT_DIR$/src/src/AramisApiBundle/Services/Manager/AramisRobustoManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/AbstractPerson.php" afterPath="$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/AbstractPerson.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/edit.body.html.twig" afterPath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/edit.body.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/view.html.twig" afterPath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/view.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Fonction/view.html.twig" afterPath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Fonction/view.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Utilisateur/edit.body.html.twig" afterPath="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Utilisateur/edit.body.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/MailerBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/src/MailerBundle/Resources/config/services.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/MailerBundle/Resources/views/Mails/nouvelArrivantMail.html.twig" afterPath="$PROJECT_DIR$/src/src/MailerBundle/Resources/views/Mails/nouvelArrivantMail.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/MailerBundle/Services/Mailer.php" afterPath="$PROJECT_DIR$/src/src/MailerBundle/Services/Mailer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/core/fonction.js" afterPath="$PROJECT_DIR$/src/web/js/core/fonction.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/core/utilisateur.js" afterPath="$PROJECT_DIR$/src/web/js/core/utilisateur.js" />
     </list>
     <ignored path="aramiam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -255,28 +39,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.git/config">
+      <file leaf-file-name="edit.body.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/edit.body.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+            <state vertical-scroll-proportion="-13.076923">
+              <caret line="20" column="169" selection-start-line="20" selection-start-column="169" selection-end-line="20" selection-end-column="169" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23068893">
-              <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/etc/admin/build.properties">
+      <file leaf-file-name="Candidat.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/Candidat.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -285,8 +59,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/etc/common/build.properties">
+      <file leaf-file-name="AbstractPerson.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/AbstractPerson.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-15.038462">
+              <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MailerAjaxController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/src/MailerBundle/Controller/MailerAjaxController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utilisateur.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/web/js/core/utilisateur.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7807933">
+              <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+              <folding>
+                <marker date="1467357714446" expanded="true" signature="12620:12635" placeholder="..." />
+                <marker date="1467357714446" expanded="true" signature="25871:26156" placeholder="..." />
+                <marker date="1467357714446" expanded="true" signature="25935:26121" placeholder="..." />
+                <marker date="1467357714446" expanded="true" signature="27320:27628" placeholder="..." />
+                <marker date="1467357714446" expanded="true" signature="27396:27581" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="checkbox.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/web/css/app/checkbox.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -312,17 +122,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ActiveDirectoryApiBundle/Services/Manager/ActiveDirectoryOrganisationUnitManager.php" />
-        <option value="$PROJECT_DIR$/web/js/core/fonction.js" />
-        <option value="$PROJECT_DIR$/web/js/core/service.js" />
-        <option value="$PROJECT_DIR$/web/js/app/iam.js" />
-        <option value="$PROJECT_DIR$/web/js/dashboard/dashboard.js" />
-        <option value="$PROJECT_DIR$/src/ActiveDirectoryApiBundle/Resources/views/ActiveDirectoryOrganisationUnit/view.html.twig" />
-        <option value="$PROJECT_DIR$/web/css/app/dashboard/prosodie_dashboard.css" />
-        <option value="$PROJECT_DIR$/src/DashboardBundle/Resources/views/Default/phone_dashboard.html.twig" />
-        <option value="$PROJECT_DIR$/web/js/dashboard/phone_dashboard.js" />
-        <option value="$PROJECT_DIR$/app/config/federationmetadata-adfs02.xml" />
-        <option value="$PROJECT_DIR$/var/sql.prepare" />
         <option value="$PROJECT_DIR$/vendor/lightsaml/lightsaml/src/LightSaml/Builder/Profile/AbstractProfileBuilder.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/slidebar.html.twig" />
         <option value="$PROJECT_DIR$/src/CoreBundle/Resources/views/Utilisateur/edit.body.html.twig" />
@@ -363,6 +162,17 @@
         <option value="$PROJECT_DIR$/.git/config" />
         <option value="$PROJECT_DIR$/src/app/config/parameters.yml-dist" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Utilisateur/edit.body.html.twig" />
+        <option value="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Fonction/view.html.twig" />
+        <option value="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/view.html.twig" />
+        <option value="$PROJECT_DIR$/src/web/js/core/fonction.js" />
+        <option value="$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/edit.body.html.twig" />
+        <option value="$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/AbstractPerson.php" />
+        <option value="$PROJECT_DIR$/src/src/MailerBundle/Resources/config/services.yml" />
+        <option value="$PROJECT_DIR$/src/src/MailerBundle/Services/Mailer.php" />
+        <option value="$PROJECT_DIR$/src/src/AramisApiBundle/Services/Manager/AramisRobustoManager.php" />
+        <option value="$PROJECT_DIR$/src/src/MailerBundle/Resources/views/Mails/nouvelArrivantMail.html.twig" />
+        <option value="$PROJECT_DIR$/src/web/js/core/utilisateur.js" />
       </list>
     </option>
   </component>
@@ -436,7 +246,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="etc" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -450,11 +260,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="etc" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -468,11 +278,293 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="etc" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailerBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailerBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailerBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Mails" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailerBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MailerBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AramisApiBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aramiam" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AramisApiBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Entity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -501,11 +593,11 @@
       <recent name="C:\www\aramiam\src\LauncherBundle\Controller" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\www\aramiam\src\web\css\app" />
       <recent name="C:\www\aramiam\app\config" />
       <recent name="C:\www\aramiam\web\js\dashboard" />
       <recent name="C:\www\aramiam\src\MailerBundle\Resources\views\Mails" />
       <recent name="C:\www\aramiam\src\CoreBundle\Entity\Admin" />
-      <recent name="C:\www\aramiam\web\js\bootstrap" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.DefaultControllerTest">
@@ -635,14 +727,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.git/config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/config/parameters.yml-dist">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1356994">
@@ -651,10 +735,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/etc/common/build.properties">
+    <entry file="file://$PROJECT_DIR$/src/app/Resources/views/buttons.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5622318">
+          <caret line="39" column="204" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="204" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Utilisateur/edit.body.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.423077">
+          <caret line="318" column="112" selection-start-line="318" selection-start-column="112" selection-end-line="318" selection-end-column="112" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/OdigoApiBundle/Resources/views/OdigoTelListe/view.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#50#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23068893">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.git/config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15970773">
+          <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -667,11 +785,193 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/etc/common/build.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23068893">
-          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Form/Admin/FonctionType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Utilisateur/view.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#50#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Fonction/edit.body.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/AppBundle/Resources/views/Default/items.view.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#28#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Fonction/view.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6153846">
+          <caret line="2" column="63" selection-start-line="2" selection-start-column="63" selection-end-line="2" selection-end-column="63" />
+          <folding>
+            <element signature="e#12#50#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/view.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-28.76923">
+          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="95" />
+          <folding>
+            <element signature="e#12#50#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/css/app/checkbox.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/js/core/fonction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="85" selection-start-line="53" selection-start-column="85" selection-end-line="53" selection-end-column="85" />
+          <folding>
+            <marker date="1467356693040" expanded="true" signature="1062:1079" placeholder="..." />
+            <marker date="1467356693040" expanded="true" signature="6046:6063" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/add.body.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.7145922">
+          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
+          <folding>
+            <element signature="e#230#252#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Resources/views/Candidat/edit.body.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.076923">
+          <caret line="20" column="169" selection-start-line="20" selection-start-column="169" selection-end-line="20" selection-end-column="169" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/Candidat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/CoreBundle/Entity/Admin/AbstractPerson.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.038462">
+          <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/MailerBundle/Resources/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.106471814">
+          <caret line="6" column="180" selection-start-line="6" selection-start-column="180" selection-end-line="6" selection-end-column="180" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/ActiveDirectoryApiBundle/Services/Manager/ActiveDirectoryUserLinkManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5472103">
+          <caret line="31" column="5" selection-start-line="12" selection-start-column="4" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/MailerBundle/Resources/views/Mails/nouvelArrivantMail.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.583691">
+          <caret line="44" column="42" selection-start-line="44" selection-start-column="42" selection-end-line="44" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/AramisApiBundle/Services/Manager/AramisRobustoManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43776825">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/AramisApiBundle/Entity/AramisRobusto.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7296137">
+          <caret line="41" column="29" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/MailerBundle/Services/Mailer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27038628">
+          <caret line="112" column="25" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="25" />
+          <folding>
+            <element signature="e#3233#3282#0#PHP" expanded="true" />
+            <element signature="e#4223#4287#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/MailerBundle/Controller/MailerAjaxController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/js/core/utilisateur.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7807933">
+          <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+          <folding>
+            <marker date="1467357714446" expanded="true" signature="12620:12635" placeholder="..." />
+            <marker date="1467357714446" expanded="true" signature="25871:26156" placeholder="..." />
+            <marker date="1467357714446" expanded="true" signature="25935:26121" placeholder="..." />
+            <marker date="1467357714446" expanded="true" signature="27320:27628" placeholder="..." />
+            <marker date="1467357714446" expanded="true" signature="27396:27581" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

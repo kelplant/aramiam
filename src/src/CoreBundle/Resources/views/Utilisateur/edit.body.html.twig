@@ -243,7 +243,7 @@
                                     </a>
                                 </li>
                                 <li role="presentation" id="historyToggle" onclick="ajaxGenerateHistory();">
-                                    <a href="#" class="pull-right" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
+                                    <a href="#" class="pull-right" data-toggle="dropdown"><i class="fa fa-history"></i></a>
                                 </li>
                             </ul>
                             <div class="container actionPart">
@@ -283,25 +283,49 @@
                 </div>
                 <div class="modal-footer">
                     {% if is_granted("ROLE_SUPER_ADMIN") %}
-                        {% if is_archived == "0" %}
-                        <button type="button" class="btn btn-danger" onclick="ajaxSendEmailToSalarieAndInfoRecrut();">
-                            <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos aux Responsables
-                        </button>
-                        <button type="button" class="btn btn-info" onclick="ajaxSendEmailToSalarie();">
-                            <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos au Salarié
-                        </button>
-                        {% endif %}
-                        <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Fermer
-                        </button>
                         {% if is_archived == "1" %}
+                            <div class="pull-right marginABitABitLeft">
                                 <input type="hidden" name="isArchived" value="1">
                                 <input type="submit" class="btn btn-info" name="sendAction" value="Rétablir">
+                            </div>
                         {% endif %}
                         {% if is_archived == "0" %}
-                            <button type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
-                                <span class="glyphicon glyphicon-floppy-save"></span> Sauvegarder
+                            <div class="pull-right marginABitABitLeft">
+                                <button type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                                    <span class="glyphicon glyphicon-floppy-save"></span> Sauvegarder
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="pull-right marginABitABitLeft">
+                            <button type="button" class="btn btn-warning" onclick="resetEditItem();" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Fermer
                             </button>
+                        </div>
+                        {% if is_archived == "0" %}
+                            <div class="pull-right marginABitABitLeft">
+                                <button type="button" class="btn btn-success font_exo_2 hide" id="singlemailsended" disabled>
+                                    <span class="glyphicon glyphicon-envelope"></span> Email Envoyé Corresctement
+                                </button>
+                                <button type="button" class="btn btn-warning font_exo_2 hide" id="singlemailwaiting">
+                                    <span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait
+                                </button>
+                                <button type="button" class="btn btn-info" onclick="ajaxSendEmailToSalarie();" id="sendsinglemail">
+                                    <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos au Salarié
+                                </button>
+                            </div>
+                        {% endif %}
+                        {% if is_archived == "0" %}
+                            <div class="pull-right marginABitABitLeft">
+                                <button type="button" class="btn btn-success font_exo_2 hide" id="dualmailsended" disabled>
+                                    <span class="glyphicon glyphicon-envelope"></span> Email Envoyé Corresctement
+                                </button>
+                                <button type="button" class="btn btn-warning font_exo_2 hide" id="dualmailwaiting">
+                                    <span class="glyphicon glyphicon-refresh spinning"></span> Loading... Plz Wait
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="ajaxSendEmailToSalarieAndInfoRecrut();" id="senddualmail">
+                                    <span class="glyphicon glyphicon-envelope"></span> Envoyer Infos aux Responsables
+                                </button>
+                            </div>
                         {% endif %}
                     {% endif %}
                 </div >

@@ -2,6 +2,8 @@
 namespace MailerBundle\Services;
 
 use ActiveDirectoryApiBundle\Services\Manager\ActiveDirectoryUserLinkManager;
+use AramisApiBundle\Entity\AramisRobusto;
+use AramisApiBundle\Services\Manager\AramisRobustoManager;
 use CoreBundle\Services\Manager\Admin\UtilisateurManager;
 use OdigoApiBundle\Services\Manager\ProsodieOdigoManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +48,9 @@ class Mailer
      */
     protected $activeDirectoryUserLinkManager;
 
+    /** @var  AramisRobustoManager */
+    protected $aramisRobustoManager;
+
     /**
      * Mailer constructor.
      * @param Swift_Mailer $mailer
@@ -53,8 +58,9 @@ class Mailer
      * @param UtilisateurManager $utilisateurManager
      * @param ProsodieOdigoManager $odigoManager
      * @param ActiveDirectoryUserLinkManager $activeDirectoryUserLinkManager
+     * @param AramisRobustoManager $aramisRobustoManager
      */
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, UtilisateurManager $utilisateurManager, ProsodieOdigoManager $odigoManager, ActiveDirectoryUserLinkManager $activeDirectoryUserLinkManager)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, UtilisateurManager $utilisateurManager, ProsodieOdigoManager $odigoManager, ActiveDirectoryUserLinkManager $activeDirectoryUserLinkManager, AramisRobustoManager $aramisRobustoManager)
     {
         $this->mailer                         = $mailer;
         $this->templating                     = $templating;
@@ -62,6 +68,7 @@ class Mailer
         $this->utilisateurManager             = $utilisateurManager;
         $this->odigoManager                   = $odigoManager;
         $this->activeDirectoryUserLinkManager = $activeDirectoryUserLinkManager;
+        $this->aramisRobustoManager           = $aramisRobustoManager;
     }
 
     /**
@@ -103,6 +110,7 @@ class Mailer
             'userInfos'            => $userInfos,
             'odigoUserInfos'       => $this->odigoManager->createArrayByUser($numUser),
             'activeDirectoryInfos' => $this->activeDirectoryUserLinkManager->createArray($numUser),
+            'robustoInfos'         => $this->aramisRobustoManager->createArray($numUser),
             ));
 
         return $this->sendMessage($to, $subject, $body);

@@ -50,7 +50,8 @@ function ajaxGenerateSalesforce()
     var checkBoxServiceCloud = '<div class="form-group">';
     checkBoxServiceCloud += '<label class="col-sm-4 control-label align_right font_exo_2" for="salesforce_service_cloud_acces">Service Cloud</label>';
     checkBoxServiceCloud += '<div class="col-sm-8">';
-    checkBoxServiceCloud += '<input type="checkbox" class="form-control font_exo_2" name="salesforce[service_cloud_acces]" id="salesforce_service_cloud_acces">';
+    checkBoxServiceCloud += '<input type="checkbox" class="btn btn-default btn-xs font_exo_2 checkbox_transform" name="salesforce[service_cloud_acces]" id="salesforce_service_cloud_acces">' +
+        '<label for="salesforce_service_cloud_acces"><span class="ui"></span></label>';
     checkBoxServiceCloud += '</div>';
     checkBoxServiceCloud += '</div>';
     var button = '<div class="form-group text-center" id="buttonSalesforceAdd"><button type="button" class="btn btn-info" onclick="addSfGroupeField();">Ajouter un Groupe Salesforce</button></div>';

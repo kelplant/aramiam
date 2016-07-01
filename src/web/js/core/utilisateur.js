@@ -70,18 +70,26 @@ function ajaxUtilisateurEdit(editItem)
 // Fonction d'envoi d'email au salarié
 function ajaxSendEmailToSalarie()
 {
+    $('#sendsinglemail').addClass('hide').removeClass('show');
+    $('#singlemailwaiting').addClass('show').removeClass('hide');
     urlajax ="/ajax/send/mail/to_user/"+localStorage.getItem("currentEditItem");
     $.ajax({
         url:urlajax,success:function(result) {
+            $('#singlemailwaiting').addClass('hide').removeClass('show');
+            $('#singlemailsended').addClass('show').removeClass('hide');
         }});
 }
 
 // Fonction d'envoi d'email au salarié et responsable
 function ajaxSendEmailToSalarieAndInfoRecrut()
 {
+    $('#senddualmail').addClass('hide').removeClass('show');
+    $('#dualmailwaiting').addClass('show').removeClass('hide');
     urlajax ="/ajax/send/mail/to_user_and_responsable/"+localStorage.getItem("currentEditItem");
     $.ajax({
         url:urlajax,success:function(result) {
+            $('#dualmailwaiting').addClass('hide').removeClass('show');
+            $('#dualmailsended').addClass('show').removeClass('hide');
         }});
 }
 
@@ -153,15 +161,25 @@ function generateWindowsBody()
                     '</label>' +
                     '</div>';
                 orgaUnitsListe += '<div class="form-group font_exo_2">' +
-                    '<label class="font_exo_2 col-sm-4">Dn de l\'Utilisateur:';
-                orgaUnitsListe += '<select name="windows[dn]" id="windows_dn" class="form-control">';
+                    '<label class="font_exo_2 col-sm-4">Service de l\'Utilisateur:';
+                orgaUnitsListe += '<select name="windows[service]" id="windows_service" class="form-control input-md select2-single">';
                 for (i in result) {
-                    orgaUnitsListe += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                    orgaUnitsListe += '<option value="' + result[i].service + '">' + result[i].service + '</option>';
                 }
                 orgaUnitsListe += '' +
                     '</select>' +
                     '</label>' +
-                    '</div>' +
+                    '</div>';
+
+                orgaUnitsListe += '<div class="form-group font_exo_2">' +
+                    '<label class="font_exo_2 col-sm-4">Fonction de l\'Utilisateur:';
+                orgaUnitsListe += '<select name="windows[dn]" id="windows_fonction" class="form-control">';
+                for (i in result) {
+                    orgaUnitsListe += '<option class="' + result[i].service + '" value="' + result[i].id + '">' + result[i].fonction + '</option>';
+                }
+                orgaUnitsListe += '' +
+                    '</select>' +
+                    '</label>' +
                     '</div>'+
                     '<div class="form-group font_exo_2 col-sm-4 align_right">'+
                     '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer Session Windows">'+

@@ -54,13 +54,12 @@ parameters:
     app.auth.ad.admin_group: @odigo.auth.admin_group@
 
     odigo_wsdl_error_createagent_codes:
-        0: 'L''utlisateur a été crée'
-        105: 'L''utilisateur existe déjà'
+        0: 'L''utlisateur a Ã©tÃ© crÃ©e'
+        105: 'L''utilisateur existe dÃ©jÃ '
     odigo_wsdl_error_creatuserwithtemplate_codes:
-        0: 'L''utlisateur a été crée'
-        3: 'L''utilisateur existe déjà'
+        0: 'L''utlisateur a Ã©tÃ© crÃ©e'
+        3: 'L''utilisateur existe dÃ©jÃ '
     odigo_wsdl_error_export_codes:
-        - 'L''export s''est correctement exécuté'
+        - 'L''export s''est correctement exÃ©cutÃ©'
     odigo_wsdl_error_delete_codes:
-        - 'L''utlisateur a été supprimé'
-
+        - 'L''utlisateur a Ã©tÃ© supprimÃ©'

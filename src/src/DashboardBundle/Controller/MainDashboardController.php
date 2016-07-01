@@ -61,7 +61,7 @@ class MainDashboardController extends Controller
     private function lastest_users()
     {
         $result = $this->get('core.utilisateur_manager')->getRepository()->createQueryBuilder('p')
-            ->where('p.isArchived = :isArchived')->addOrderBy('p.startDate', 'DESC')->setParameter('isArchived', 0)->setMaxResults('8')
+            ->where('p.isArchived = :isArchived')->addOrderBy('p.createdAt', 'DESC')->setParameter('isArchived', 0)->setMaxResults('8')
             ->getQuery()->getResult();
 
         $finalTab     = [];

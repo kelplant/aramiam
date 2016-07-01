@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca4b97d1-9cc1-4d0a-978c-831ef19191fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/src/DashboardBundle/Controller/MainDashboardController.php" afterPath="$PROJECT_DIR$/src/src/DashboardBundle/Controller/MainDashboardController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/web/js/core/utilisateur.js" afterPath="$PROJECT_DIR$/src/web/js/core/utilisateur.js" />
     </list>
     <ignored path="aramiam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,17 +67,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utilisateur.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="utilisateur.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/web/js/core/utilisateur.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.8517745">
+              <caret line="189" column="19" selection-start-line="189" selection-start-column="19" selection-end-line="189" selection-end-column="19" />
               <folding>
-                <marker date="1467357714446" expanded="true" signature="12620:12635" placeholder="..." />
-                <marker date="1467357714446" expanded="true" signature="25871:26156" placeholder="..." />
-                <marker date="1467357714446" expanded="true" signature="25935:26121" placeholder="..." />
-                <marker date="1467357714446" expanded="true" signature="27320:27628" placeholder="..." />
-                <marker date="1467357714446" expanded="true" signature="27396:27581" placeholder="..." />
+                <marker date="1467362703932" expanded="true" signature="13029:13044" placeholder="..." />
+                <marker date="1467362703932" expanded="true" signature="26280:26565" placeholder="..." />
+                <marker date="1467362703932" expanded="true" signature="26344:26530" placeholder="..." />
+                <marker date="1467362703932" expanded="true" signature="27729:28037" placeholder="..." />
+                <marker date="1467362703932" expanded="true" signature="27805:27990" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -105,10 +105,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainDashboardController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainDashboardController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/src/DashboardBundle/Controller/MainDashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52896994">
+            <state vertical-scroll-proportion="-18.961538">
               <caret line="63" column="74" selection-start-line="63" selection-start-column="74" selection-end-line="63" selection-end-column="74" />
               <folding />
             </state>
@@ -201,8 +201,8 @@
         <option value="$PROJECT_DIR$/src/src/MailerBundle/Services/Mailer.php" />
         <option value="$PROJECT_DIR$/src/src/AramisApiBundle/Services/Manager/AramisRobustoManager.php" />
         <option value="$PROJECT_DIR$/src/src/MailerBundle/Resources/views/Mails/nouvelArrivantMail.html.twig" />
-        <option value="$PROJECT_DIR$/src/web/js/core/utilisateur.js" />
         <option value="$PROJECT_DIR$/src/src/DashboardBundle/Controller/MainDashboardController.php" />
+        <option value="$PROJECT_DIR$/src/web/js/core/utilisateur.js" />
       </list>
     </option>
   </component>
@@ -920,11 +920,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1467357714446" expanded="true" signature="12620:12635" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="25871:26156" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="25935:26121" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="27320:27628" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="27396:27581" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="13029:13044" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="26280:26565" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="26344:26530" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="27729:28037" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="27805:27990" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -955,6 +955,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-23.423077">
           <caret line="318" column="112" selection-start-line="318" selection-start-column="112" selection-end-line="318" selection-end-column="112" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1134,20 +1135,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/web/js/core/utilisateur.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
-          <folding>
-            <marker date="1467357714446" expanded="true" signature="12620:12635" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="25871:26156" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="25935:26121" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="27320:27628" placeholder="..." />
-            <marker date="1467357714446" expanded="true" signature="27396:27581" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/src/DashboardBundle/Controller/DashboardAjaxController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="62.884617">
@@ -1176,9 +1163,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/src/DashboardBundle/Controller/MainDashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52896994">
+        <state vertical-scroll-proportion="-18.961538">
           <caret line="63" column="74" selection-start-line="63" selection-start-column="74" selection-end-line="63" selection-end-column="74" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/js/core/utilisateur.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8517745">
+          <caret line="189" column="19" selection-start-line="189" selection-start-column="19" selection-end-line="189" selection-end-column="19" />
+          <folding>
+            <marker date="1467362703932" expanded="true" signature="13029:13044" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="26280:26565" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="26344:26530" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="27729:28037" placeholder="..." />
+            <marker date="1467362703932" expanded="true" signature="27805:27990" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

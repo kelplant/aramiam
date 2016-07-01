@@ -185,6 +185,15 @@ function generateWindowsBody()
                     '<input type="submit" class="form-control font_exo_2 btn btn-danger" onclick="ajaxCreateViaAPI();" name="sendaction" id="sendaction" value="Créer Session Windows">'+
                     '</div>';
                 document.getElementById("createActionWindowsPart").innerHTML = orgaUnitsListe;
+                $('#windows_service option').each(function() {
+                    $(this).prevAll('option[value="' + this.value + '"]').remove();
+                });
+                $('.select2-single').select2({
+                    theme: "bootstrap",
+                    width: null,
+                    containerCssClass: ':all:',
+                    placeholder: "Choisir une option"
+                });
                 $('#loading').addClass('hide').removeClass('show');
                 $('#right-navbar').removeClass('no-events');
                 $('#createActionWindowsPart').addClass('show').removeClass('hide');
